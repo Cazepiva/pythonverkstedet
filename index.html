@@ -365,5 +365,83 @@ print(score)</pre>
     drawPlayer();
     placeCoin();
   </script>
+  
+<section style="max-width: 760px; margin: 30px auto; padding: 24px; background: #f0f9ff; border-radius: 16px; color: #17324d;">
+  <h2>🐍 Prøv Python!</h2>
+  <p>Skriv en liten Python-kode og se hva som skjer.</p>
+
+  <textarea id="python-code" rows="5" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 16px;">print("Hei, Pythonverkstedet!")
+print("Jeg lærer å kode.")</textarea>
+
+  <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
+
+  <h3>Resultat</h3>
+  <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;">Python starter når du trykker på knappen.</pre>
+  <p id="python-status" role="status">Laster Python-motoren …</p>
+</section>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script>
+(function () {
+  const codeBox = document.getElementById("python-code");
+  const runButton = document.getElementById("run-python");
+  const output = document.getElementById("python-output");
+  const status = document.getElementById("python-status");
+
+  let pyodide = null;
+  let starting = null;
+
+  async function startPython() {
+    if (pyodide) return pyodide;
+    if (!starting) {
+      starting = (async function () {
+        status.textContent = "Laster Python … første oppstart kan ta litt tid.";
+        const engine = await loadPyodide();
+        engine.setStdout({
+          batched: function (text) {
+            output.textContent += text + "\n";
+          }
+        });
+        pyodide = engine;
+        status.textContent = "Python er klar!";
+        return engine;
+      })().catch(function (error) {
+        starting = null;
+        throw error;
+      });
+    }
+    return starting;
+  }
+
+  runButton.addEventListener("click", async function () {
+    runButton.disabled = true;
+    output.textContent = "";
+    status.textContent = "Kjører koden …";
+
+    try {
+      const engine = await startPython();
+      engine.setStdout({
+        batched: function (text) {
+          output.textContent += text + "\n";
+        }
+      });
+      await engine.runPythonAsync(codeBox.value);
+      if (!output.textContent) output.textContent = "(Koden ga ingen utskrift.)";
+      status.textContent = "Ferdig! Prøv å endre koden.";
+    } catch (error) {
+      output.textContent = String(error);
+      status.textContent = "Noe gikk galt. Les feilmeldingen over.";
+    } finally {
+      runButton.disabled = false;
+    }
+  });
+
+  startPython().catch(function (error) {
+    status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen og last siden på nytt.";
+    output.textContent = String(error);
+  });
+})();
+</script>
+
 </body>
 </html>
