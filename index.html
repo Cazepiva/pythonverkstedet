@@ -195,235 +195,24 @@
 
     label { font-weight: bold; }
     footer { text-align: center; padding: 20px; color: #63718a; }
+    .site-nav {display:flex;flex-wrap:wrap;gap:12px;padding:12px 20px;background:#eaf0ff;border-bottom:1px solid #dce3f2;}
+    .site-nav a {color:#254a93;text-decoration:none;font-weight:bold;padding:10px 14px;border-radius:9px;background:white;}
+    .site-nav a[aria-current="page"] {background:#3657a5;color:white;}
+    .page-intro {max-width:1000px;margin:22px auto;padding:0 16px;}
   </style>
 </head>
 <body>
   <header>
     <h1>🐍 Pythonverkstedet</h1>
-    <p>Lær programmering ved å lage spill!</p>
+    <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
   </header>
 
+  <nav class="site-nav" aria-label="Hovedmeny">
+    <a aria-current="page" href="index.html">📘 Lær Python</a>
+    <a href="spillverksted.html">🎮 Spillverksted</a>
+  </nav>
+  <div class="page-intro"><h2>Lær Python</h2><p>Start med tema 1. Les forklaringen, prøv eksempelet og løs oppgavene. Python-editoren er klar når du vil teste koden.</p></div>
   <main>
-    <section class="panel">
-      <h2>🎮 Fang myntene!</h2>
-      <p>Beveg figuren bort til mynten. Hver mynt gir ett poeng.</p>
-
-      <div class="stats">
-        <div class="stat">Poeng: <span id="score">0</span></div>
-        <div class="stat">Oppgave: Samle 5 mynter</div>
-      </div>
-
-      <div id="game" aria-label="Spillområde">
-        <div id="player" aria-label="Spiller">🐱</div>
-        <div id="coin" aria-label="Mynt">🪙</div>
-      </div>
-
-      <div class="controls">
-        <button class="secondary" id="left">⬅️ Venstre</button>
-        <button class="secondary" id="right">Høyre ➡️</button>
-        <button class="secondary" id="up">⬆️ Opp</button>
-        <button class="secondary" id="down">⬇️ Ned</button>
-        <button id="restart">Start på nytt</button>
-      </div>
-
-      <p id="message" aria-live="polite">Klar? Samle din første mynt!</p>
-      <p>Du kan også bruke piltastene på tastaturet.</p>
-    </section>
-
-    <section class="panel">
-      <h2>🎨 Gjør spillet til ditt eget</h2>
-
-      <div class="customize">
-        <label for="character">Figur:</label>
-        <select id="character">
-          <option value="🐱">Katt</option>
-          <option value="🐸">Frosk</option>
-          <option value="🐰">Kanin</option>
-          <option value="👾">Romvesen</option>
-          <option value="🦊">Rev</option>
-        </select>
-
-        <label for="background">Bakgrunn:</label>
-        <select id="background">
-          <option value="forest">Grønn eng</option>
-          <option value="space">Verdensrommet</option>
-          <option value="ocean">Havet</option>
-          <option value="sunset">Solnedgang</option>
-        </select>
-      </div>
-
-      <div class="customize">
-        <label for="picture">Last opp eget bilde:</label>
-        <input id="picture" type="file" accept="image/png,image/jpeg,image/webp">
-        <button class="secondary" id="removePicture">Bruk standardfigur</button>
-      </div>
-      <p>Tips: Du kan bruke en tegning du selv har laget.</p>
-    </section>
-
-    <section class="panel">
-      <h2>📚 Din første programmeringsidé</h2>
-      <div class="hint">
-        <strong>Hva er en variabel?</strong><br>
-        En variabel er en verdi programmet husker. I dette spillet husker
-        variabelen <code>score</code> hvor mange mynter du har samlet.
-      </div>
-
-      <h3>Et lite Python-eksempel</h3>
-      <pre id="code">score = 0
-score = score + 1
-print(score)</pre>
-      <p>Hva tror du programmet skriver ut? Prøv å endre tallene i hodet før du ser svaret.</p>
-      <button class="secondary" id="showAnswer">Vis svaret</button>
-      <p id="answer" hidden>Programmet skriver ut 1. Først setter vi score til 0, og så øker vi den med 1.</p>
-    </section>
-  </main>
-
-  <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
-
-  <script>
-    const game = document.getElementById("game");
-    const player = document.getElementById("player");
-    const coin = document.getElementById("coin");
-    const scoreText = document.getElementById("score");
-    const message = document.getElementById("message");
-
-    let x = 40;
-    let y = 25;
-    let score = 0;
-    let customImage = null;
-
-    function drawPlayer() {
-      player.style.left = x + "px";
-      player.style.bottom = y + "px";
-    }
-
-    function move(dx, dy) {
-      x = Math.max(0, Math.min(game.clientWidth - player.offsetWidth, x + dx));
-      y = Math.max(0, Math.min(game.clientHeight - player.offsetHeight, y + dy));
-      drawPlayer();
-      checkCoin();
-    }
-
-    function placeCoin() {
-      const maxX = Math.max(0, game.clientWidth - coin.offsetWidth);
-      const maxY = Math.max(0, game.clientHeight - coin.offsetHeight);
-      coin.style.left = Math.floor(Math.random() * maxX) + "px";
-      coin.style.top = Math.floor(Math.random() * maxY) + "px";
-    }
-
-    function checkCoin() {
-      const a = player.getBoundingClientRect();
-      const b = coin.getBoundingClientRect();
-
-      const touching =
-        a.left < b.right && a.right > b.left &&
-        a.top < b.bottom && a.bottom > b.top;
-
-      if (touching) {
-        score++;
-        scoreText.textContent = score;
-
-        if (score >= 5) {
-          message.textContent = "🎉 Gratulerer! Du samlet fem mynter!";
-          coin.style.display = "none";
-        } else {
-          message.textContent = "Bra jobbet! Du fant en mynt!";
-          placeCoin();
-        }
-      }
-    }
-
-    function resetGame() {
-      x = 40;
-      y = 25;
-      score = 0;
-      scoreText.textContent = score;
-      coin.style.display = "grid";
-      message.textContent = "Klar? Samle din første mynt!";
-      drawPlayer();
-      placeCoin();
-    }
-
-    document.getElementById("left").onclick = () => move(-20, 0);
-    document.getElementById("right").onclick = () => move(20, 0);
-    document.getElementById("up").onclick = () => move(0, 20);
-    document.getElementById("down").onclick = () => move(0, -20);
-    document.getElementById("restart").onclick = resetGame;
-
-    document.addEventListener("keydown", event => {
-      const keys = {
-        ArrowLeft: [-20, 0],
-        ArrowRight: [20, 0],
-        ArrowUp: [0, 20],
-        ArrowDown: [0, -20]
-      };
-
-      if (keys[event.key] && !event.target.matches("input, select, textarea")) {
-        event.preventDefault();
-        move(...keys[event.key]);
-      }
-    });
-
-    document.getElementById("character").onchange = event => {
-      customImage = null;
-      player.style.backgroundImage = "";
-      player.textContent = event.target.value;
-    };
-
-    document.getElementById("background").onchange = event => {
-      const backgrounds = {
-        forest: "linear-gradient(#bde8ff 0 65%, #a7d98d 65%)",
-        space: "linear-gradient(#171638, #423878)",
-        ocean: "linear-gradient(#8ee4f5 0 45%, #197db5 45%)",
-        sunset: "linear-gradient(#ffb56b, #e97992 65%, #584d85)"
-      };
-      game.style.background = backgrounds[event.target.value];
-    };
-
-    document.getElementById("picture").onchange = event => {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      if (file.size > 2 * 1024 * 1024) {
-        message.textContent = "Bildet er for stort. Velg et bilde under 2 MB.";
-        event.target.value = "";
-        return;
-      }
-
-      if (customImage) URL.revokeObjectURL(customImage);
-      customImage = URL.createObjectURL(file);
-      player.textContent = "";
-      player.style.backgroundImage = `url("${customImage}")`;
-      player.style.backgroundSize = "contain";
-      player.style.backgroundPosition = "center";
-      player.style.backgroundRepeat = "no-repeat";
-    };
-
-    document.getElementById("removePicture").onclick = () => {
-      if (customImage) URL.revokeObjectURL(customImage);
-      customImage = null;
-      player.style.backgroundImage = "";
-      player.textContent = document.getElementById("character").value;
-      document.getElementById("picture").value = "";
-    };
-
-    document.getElementById("showAnswer").onclick = () => {
-      const answer = document.getElementById("answer");
-      answer.hidden = !answer.hidden;
-      document.getElementById("showAnswer").textContent =
-        answer.hidden ? "Vis svaret" : "Skjul svaret";
-    };
-
-    window.addEventListener("resize", () => {
-      x = Math.min(x, game.clientWidth - player.offsetWidth);
-      drawPlayer();
-    });
-
-    drawPlayer();
-    placeCoin();
-  </script>
-  
-
 <section style="max-width: 760px; margin: 30px auto; padding: 24px; background: #f0f9ff; border-radius: 16px; color: #17324d;">
   <h2>🐍 Prøv Python!</h2>
   <p>Skriv Python-kode og se hva som skjer.</p>
@@ -461,8 +250,6 @@ print("Totalpris:", total)</textarea>
   <p id="python-status" role="status">Laster Python-motoren …</p>
 
 </section>
-
-
 <section class="panel" id="oppgavebank" style="max-width:1000px;margin:24px auto;padding:20px;">
   <h2>🧭 Læringsløype: lær først, øv etterpå</h2>
   <p>Hvert tema begynner med en kort forklaring og et kodeeksempel. Les gjennom opplæringen, prøv eksempelet i editoren, og gå deretter videre til oppgavene i samme tema.</p>
@@ -479,6 +266,8 @@ print("Totalpris:", total)</textarea>
     <p id="task-load-status" role="status"></p>
   </div>
 </section>
+  </main>
+  <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
 <script>
 (function () {
   const tasks = [
@@ -623,6 +412,7 @@ print("Totalpris:", total)</textarea>
     if (!selectedTask) return;
     const editor = document.getElementById("python-code");
     editor.value = selectedTask.start.replace(/\\n/g, "\n");
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
     document.getElementById("python-output").textContent = "";
     document.getElementById("python-status").textContent = "Startkoden er lagt inn. Prøv å fullføre oppgaven!";
     editor.scrollIntoView({behavior:"smooth", block:"center"});
@@ -636,6 +426,7 @@ print("Totalpris:", total)</textarea>
   document.getElementById("toggle-solution").addEventListener("click", () => {
     solution.hidden = !solution.hidden;
     document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
+    if (!solution.hidden) solution.scrollIntoView({behavior:"smooth", block:"center"});
   });
   renderTasks();
 })();
@@ -817,6 +608,5 @@ await _run_student_code()
   });
 })();
 </script>
-
 </body>
 </html>
