@@ -470,7 +470,6 @@ print("Totalpris:", total)</textarea>
       await engine.runPythonAsync(`
 import builtins
 import asyncio
-from js import ask_input_js
 
 async def _pythonverksted_input(prompt=""):
     answer = await ask_input_js(str(prompt))
