@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="no">
 <head>
@@ -467,22 +466,51 @@ print("Totalpris:", total)</textarea>
 
      
 
-      const code = codeBox.value.replace(
-        /(^|[=,(]\s*)input\s*\(/gm,
-        "$1(await input("
-      ).replace(
-        /input\s*\(([^()\n]*)\)/g,
-        "await input($1)"
-      );
+      const code = codeBox.value;
+      engine.globals.set("student_code", code);
+      engine.globals.set("ask_input_js", askInput);
 
-   engine.setStdin({
-  stdin: function () {
-    const answer = window.prompt("Skriv inn svaret ditt:");
-    return answer === null ? "" : answer + "\n";
-  }
-});
+      await engine.runPythonAsync(`
+import ast
 
-await engine.runPythonAsync(code);
+async def _pythonverksted_input(question=""):
+    answer = await ask_input_js(str(question))
+    return str(answer)
+
+class _InputTransformer(ast.NodeTransformer):
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == "input":
+            return ast.copy_location(
+                ast.Await(
+                    value=ast.Call(
+                        func=ast.Name(id="_pythonverksted_input", ctx=ast.Load()),
+                        args=node.args,
+                        keywords=node.keywords,
+                    )
+                ),
+                node,
+            )
+        return node
+
+_tree = ast.parse(student_code)
+_tree = _InputTransformer().visit(_tree)
+ast.fix_missing_locations(_tree)
+
+_runner = ast.AsyncFunctionDef(
+    name="_run_student_code",
+    args=ast.arguments(
+        posonlyargs=[], args=[], vararg=None, kwonlyargs=[],
+        kw_defaults=[], kwarg=None, defaults=[]
+    ),
+    body=_tree.body or [ast.Pass()],
+    decorator_list=[],
+)
+_module = ast.Module(body=[_runner], type_ignores=[])
+ast.fix_missing_locations(_module)
+exec(compile(_module, "<elevkode>", "exec"))
+await _run_student_code()
+`);
 
       if (!output.textContent) {
         output.textContent = "(Koden ga ingen utskrift.)";
@@ -501,8 +529,6 @@ await engine.runPythonAsync(code);
     output.textContent = String(error);
   });
 })();
-</script>
-
 </script>
 
 </body>
