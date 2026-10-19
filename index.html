@@ -442,6 +442,12 @@ total = price * quantity
 print("Totalpris:", total)</textarea>
 </div>
 
+  <div id="task-solution" hidden style="max-width:760px;margin:12px 0 18px;padding:16px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
+    <strong>Løsningsforslag for valgt oppgave</strong>
+    <p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
+    <pre id="task-solution-code"></pre>
+  </div>
+
   <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
 
   <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
@@ -453,27 +459,14 @@ print("Totalpris:", total)</textarea>
   <h3>Resultat</h3>
   <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
   <p id="python-status" role="status">Laster Python-motoren …</p>
-  <div id="task-solution" hidden style="max-width:760px;margin:16px auto 24px;padding:16px 24px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
-    <strong>Løsningsforslag for valgt oppgave</strong>
-    <p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
-    <pre id="task-solution-code"></pre>
-  </div>
+
 </section>
 
 
 <section class="panel" id="oppgavebank" style="max-width:1000px;margin:24px auto;padding:20px;">
-  <h2>🧭 Oppgavebank</h2>
-  <p>Velg et tema og en liten oppgave. Du kan laste startkoden inn i Python-editoren, få et hint og åpne et løsningsforslag når du trenger det.</p>
-  <label for="topic-filter">Velg tema:</label>
-  <select id="topic-filter" style="margin:8px 0 16px;">
-    <option value="Alle">Alle temaer</option>
-    <option value="Variabler">Variabler og input</option>
-    <option value="Vilkår">Vilkår</option>
-    <option value="Løkker">Løkker</option>
-    <option value="Lister">Lister</option>
-    <option value="Funksjoner">Funksjoner</option>
-  </select>
-  <div id="task-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"></div>
+  <h2>🧭 Læringsløype: lær først, øv etterpå</h2>
+  <p>Hvert tema begynner med en kort forklaring og et kodeeksempel. Les gjennom opplæringen, prøv eksempelet i editoren, og gå deretter videre til oppgavene i samme tema.</p>
+  <div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
   <div id="task-detail" hidden style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
     <h3 id="task-title"></h3>
     <p id="task-description"></p>
@@ -511,8 +504,7 @@ print("Totalpris:", total)</textarea>
     {topic:"Funksjoner", title:"20. Poengfunksjonen", description:"Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.", start:'def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))', hint:"Funksjonen skal returnere summen av score og points.", solution:'def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))'}
   ];
 
-  const filter = document.getElementById("topic-filter");
-  const list = document.getElementById("task-list");
+  const topicsContainer = document.getElementById("learning-topics");
   const detail = document.getElementById("task-detail");
   const title = document.getElementById("task-title");
   const description = document.getElementById("task-description");
@@ -522,25 +514,93 @@ print("Totalpris:", total)</textarea>
   const loadStatus = document.getElementById("task-load-status");
   let selectedTask = null;
 
+  const lessons = [
+    {
+      topic: "Variabler",
+      title: "1. Variabler og input",
+      intro: "En variabel er en navngitt plass der vi lagrer en verdi. input() lar brukeren skrive noe, og print() viser tekst på skjermen.",
+      example: 'name = input("Hva heter du? ")\\nprint("Hei,", name)',
+      tryText: "Prøv å endre eksempelet slik at programmet også spør hvor gammel brukeren er."
+    },
+    {
+      topic: "Vilkår",
+      title: "2. Vilkår: if, elif og else",
+      intro: "Vilkår lar programmet velge hva det skal gjøre. Python bruker kolon etter vilkåret og innrykk på linjene som hører til.",
+      example: 'points = int(input("Hvor mange poeng? "))\\nif points >= 5:\\n    print("Du vant!")\\nelse:\\n    print("Prøv igjen!")',
+      tryText: "Prøv med 3 poeng og deretter 7 poeng. Se hvordan resultatet endrer seg."
+    },
+    {
+      topic: "Løkker",
+      title: "3. Løkker: gjenta kode",
+      intro: "En for-løkke gjentar kode et bestemt antall ganger. Linjene som skal gjentas, må stå med innrykk under løkken.",
+      example: 'for number in range(1, 6):\\n    print(number)',
+      tryText: "Prøv å skrive ut tallene fra 1 til 10."
+    },
+    {
+      topic: "Lister",
+      title: "4. Lister: samle flere verdier",
+      intro: "En liste samler flere verdier i én variabel. Hvert element har en plassering, og append() legger til et nytt element på slutten.",
+      example: 'foods = ["pizza", "taco", "sushi"]\\nfoods.append("pasta")\\nprint(foods)',
+      tryText: "Prøv å legge til en matrett du liker, og skriv ut listen."
+    },
+    {
+      topic: "Funksjoner",
+      title: "5. Funksjoner: lag egne kommandoer",
+      intro: "En funksjon samler kode som kan brukes flere ganger. def lager funksjonen, og parentesene kan inneholde verdier som sendes inn.",
+      example: 'def greet(name):\\n    print("Hei,", name)\\n\\ngreet("Ada")',
+      tryText: "Prøv å endre funksjonen slik at den skriver en annen hilsen."
+    }
+  ];
+
   function renderTasks() {
-    list.replaceChildren();
-    tasks.filter(task => filter.value === "Alle" || task.topic === filter.value).forEach(task => {
-      const card = document.createElement("div");
-      card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
+    topicsContainer.replaceChildren();
+    lessons.forEach((lesson) => {
+      const section = document.createElement("section");
+      section.style.cssText = "border:1px solid #dce3f2;border-radius:14px;padding:18px;background:#f8faff;";
       const heading = document.createElement("h3");
-      heading.textContent = task.title;
+      heading.textContent = lesson.title;
       heading.style.marginTop = "0";
-      const topic = document.createElement("p");
-      topic.textContent = task.topic;
-      topic.style.cssText = "color:#63718a;font-size:14px;";
-      const text = document.createElement("p");
-      text.textContent = task.description;
-      const button = document.createElement("button");
-      button.type = "button";
-      button.textContent = "Åpne oppgave";
-      button.addEventListener("click", () => openTask(task));
-      card.append(heading, topic, text, button);
-      list.append(card);
+      const intro = document.createElement("p");
+      intro.textContent = lesson.intro;
+      const exampleLabel = document.createElement("strong");
+      exampleLabel.textContent = "Kodeeksempel";
+      const example = document.createElement("pre");
+      example.textContent = lesson.example.replace(/\\n/g, "\n");
+      example.style.cssText = "white-space:pre;overflow-x:auto;background:#182235;color:#dce8ff;padding:14px;border-radius:8px;font:15px/1.6 monospace;tab-size:4;";
+      const tryText = document.createElement("p");
+      tryText.textContent = lesson.tryText;
+      const lessonButton = document.createElement("button");
+      lessonButton.type = "button";
+      lessonButton.textContent = "Prøv eksempelet i Python-editoren";
+      lessonButton.addEventListener("click", () => {
+        const codeBox = document.getElementById("python-code");
+        codeBox.value = lesson.example.replace(/\\n/g, "\n");
+        codeBox.dispatchEvent(new Event("input", {bubbles:true}));
+        codeBox.scrollIntoView({behavior:"smooth", block:"center"});
+        codeBox.focus();
+      });
+      const tasksHeading = document.createElement("h4");
+      tasksHeading.textContent = "Oppgaver i temaet";
+      tasksHeading.style.margin = "22px 0 10px";
+      const cards = document.createElement("div");
+      cards.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;";
+      tasks.filter(task => task.topic === lesson.topic).forEach(task => {
+        const card = document.createElement("div");
+        card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
+        const taskHeading = document.createElement("h4");
+        taskHeading.textContent = task.title;
+        taskHeading.style.marginTop = "0";
+        const text = document.createElement("p");
+        text.textContent = task.description;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Åpne oppgave";
+        button.addEventListener("click", () => openTask(task));
+        card.append(taskHeading, text, button);
+        cards.append(card);
+      });
+      section.append(heading, intro, exampleLabel, example, tryText, lessonButton, tasksHeading, cards);
+      topicsContainer.append(section);
     });
   }
 
@@ -577,7 +637,6 @@ print("Totalpris:", total)</textarea>
     solution.hidden = !solution.hidden;
     document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
   });
-  filter.addEventListener("change", renderTasks);
   renderTasks();
 })();
 </script>
