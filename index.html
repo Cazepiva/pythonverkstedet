@@ -366,17 +366,28 @@ print(score)</pre>
     placeCoin();
   </script>
   
+
 <section style="max-width: 760px; margin: 30px auto; padding: 24px; background: #f0f9ff; border-radius: 16px; color: #17324d;">
   <h2>🐍 Prøv Python!</h2>
-  <p>Skriv en liten Python-kode og se hva som skjer.</p>
+  <p>Skriv Python-kode og se hva som skjer.</p>
 
-  <textarea id="python-code" rows="5" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 16px;">print("Hei, Pythonverkstedet!")
-print("Jeg lærer å kode.")</textarea>
+  <textarea id="python-code" rows="9" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 16px;">price = float(input("Pris per vare: "))
+quantity = int(input("Hvor mange varer? "))
+
+total = price * quantity
+
+print("Totalpris:", total)</textarea>
 
   <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
 
+  <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
+    <label id="input-question" for="python-answer">Skriv svaret ditt:</label>
+    <input id="python-answer" type="text" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;">
+    <button id="send-answer" style="margin-top: 8px; padding: 10px;">Send svar</button>
+  </div>
+
   <h3>Resultat</h3>
-  <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;">Python starter når du trykker på knappen.</pre>
+  <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
   <p id="python-status" role="status">Laster Python-motoren …</p>
 </section>
 
@@ -387,17 +398,43 @@ print("Jeg lærer å kode.")</textarea>
   const runButton = document.getElementById("run-python");
   const output = document.getElementById("python-output");
   const status = document.getElementById("python-status");
+  const inputArea = document.getElementById("input-area");
+  const inputQuestion = document.getElementById("input-question");
+  const answerBox = document.getElementById("python-answer");
+  const sendAnswer = document.getElementById("send-answer");
 
   let pyodide = null;
   let starting = null;
+  let answerResolver = null;
+
+  function askInput(question) {
+    return new Promise(function (resolve) {
+      answerResolver = resolve;
+      inputQuestion.textContent = question || "Skriv svaret ditt:";
+      answerBox.value = "";
+      inputArea.hidden = false;
+      answerBox.focus();
+      status.textContent = "Python venter på svaret ditt.";
+    });
+  }
+
+  function finishInput() {
+    if (!answerResolver) return;
+    const resolve = answerResolver;
+    answerResolver = null;
+    inputArea.hidden = true;
+    resolve(answerBox.value.trim());
+  }
+
+  sendAnswer.addEventListener("click", finishInput);
+  answerBox.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") finishInput();
+  });
 
   async function startPython() {
     if (pyodide) return pyodide;
     if (!starting) {
-      starting = (async function () {
-        status.textContent = "Laster Python … første oppstart kan ta litt tid.";
-        const engine = await loadPyodide();
-        
+      starting = loadPyodide().then(function (engine) {
         engine.setStdout({
           batched: function (text) {
             output.textContent += text + "\n";
@@ -406,7 +443,7 @@ print("Jeg lærer å kode.")</textarea>
         pyodide = engine;
         status.textContent = "Python er klar!";
         return engine;
-      })().catch(function (error) {
+      }).catch(function (error) {
         starting = null;
         throw error;
       });
@@ -417,6 +454,7 @@ print("Jeg lærer å kode.")</textarea>
   runButton.addEventListener("click", async function () {
     runButton.disabled = true;
     output.textContent = "";
+    inputArea.hidden = true;
     status.textContent = "Kjører koden …";
 
     try {
@@ -426,22 +464,55 @@ print("Jeg lærer å kode.")</textarea>
           output.textContent += text + "\n";
         }
       });
-      await engine.runPythonAsync(codeBox.value);
-      if (!output.textContent) output.textContent = "(Koden ga ingen utskrift.)";
+
+      engine.globals.set("ask_input_js", askInput);
+
+      await engine.runPythonAsync(`
+import builtins
+import asyncio
+from js import ask_input_js
+
+async def _pythonverksted_input(prompt=""):
+    answer = await ask_input_js(str(prompt))
+    return str(answer).replace(",", ".")
+
+builtins.input = _pythonverksted_input
+`);
+
+      const code = codeBox.value.replace(
+        /(^|[=,(]\s*)input\s*\(/gm,
+        "$1(await input("
+      ).replace(
+        /input\s*\(([^()\n]*)\)/g,
+        "await input($1)"
+      );
+
+      await engine.runPythonAsync(
+        "import builtins\n" +
+        "async def input(prompt=''):\n" +
+        "    return await _pythonverksted_input(prompt)\n" +
+        "exec(" + JSON.stringify(code) + ")"
+      );
+
+      if (!output.textContent) {
+        output.textContent = "(Koden ga ingen utskrift.)";
+      }
       status.textContent = "Ferdig! Prøv å endre koden.";
     } catch (error) {
       output.textContent = String(error);
-      status.textContent = "Noe gikk galt. Les feilmeldingen over.";
+      status.textContent = "Noe gikk galt. Les feilmeldingen.";
     } finally {
       runButton.disabled = false;
     }
   });
 
   startPython().catch(function (error) {
-    status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen og last siden på nytt.";
+    status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen.";
     output.textContent = String(error);
   });
 })();
+</script>
+
 </script>
 
 </body>
