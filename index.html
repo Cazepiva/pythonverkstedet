@@ -390,6 +390,132 @@ print("Totalpris:", total)</textarea>
   <p id="python-status" role="status">Laster Python-motoren …</p>
 </section>
 
+
+<section class="panel" id="oppgavebank" style="max-width:1000px;margin:24px auto;padding:20px;">
+  <h2>🧭 Oppgavebank</h2>
+  <p>Velg et tema og en liten oppgave. Du kan laste startkoden inn i Python-editoren, få et hint og åpne et løsningsforslag når du trenger det.</p>
+  <label for="topic-filter">Velg tema:</label>
+  <select id="topic-filter" style="margin:8px 0 16px;">
+    <option value="Alle">Alle temaer</option>
+    <option value="Variabler">Variabler og input</option>
+    <option value="Vilkår">Vilkår</option>
+    <option value="Løkker">Løkker</option>
+    <option value="Lister">Lister</option>
+    <option value="Funksjoner">Funksjoner</option>
+  </select>
+  <div id="task-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"></div>
+  <div id="task-detail" hidden style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
+    <h3 id="task-title"></h3>
+    <p id="task-description"></p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+      <button type="button" id="load-task">Bruk startkode i editoren</button>
+      <button type="button" class="secondary" id="toggle-hint">Vis hint</button>
+      <button type="button" class="secondary" id="toggle-solution">Vis løsningsforslag</button>
+    </div>
+    <div id="task-hint" hidden style="background:#fff7df;padding:12px;border-radius:8px;margin:8px 0;"></div>
+    <div id="task-solution" hidden style="background:white;padding:12px;border-radius:8px;margin:8px 0;">
+      <strong>Løsningsforslag</strong>
+      <pre id="task-solution-code" style="white-space:pre-wrap;overflow-x:auto;"></pre>
+    </div>
+    <p id="task-load-status" role="status"></p>
+  </div>
+</section>
+<script>
+(function () {
+  const tasks = [
+    {topic:"Variabler", title:"1. Si hei!", description:"Spør brukeren om navnet og skriv en personlig hilsen.", start:'name = input("Hva heter du? ")\\nprint("Hei,", name)', hint:"Lagre svaret fra input() i en variabel. Bruk print() til å skrive ut navnet.", solution:'name = input("Hva heter du? ")\\nprint("Hei,", name)'},
+    {topic:"Variabler", title:"2. Alder neste år", description:"Spør hvor gammel brukeren er, og skriv ut alderen neste år.", start:'age = int(input("Hvor gammel er du? "))\\n# Skriv koden din under', hint:"Gjør svaret om til et heltall med int(), og legg til 1.", solution:'age = int(input("Hvor gammel er du? "))\\nnext_age = age + 1\\nprint("Neste år er du", next_age)'},
+    {topic:"Variabler", title:"3. Butikkalkulator", description:"Regn ut totalprisen når brukeren skriver inn pris og antall.", start:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\n# Regn ut og skriv ut totalprisen', hint:"Totalpris er pris per vare ganget med antall varer.", solution:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\ntotal = price * quantity\\nprint("Totalpris:", total)'},
+    {topic:"Variabler", title:"4. Poengtavle", description:"Spør hvor mange poeng spilleren har, og skriv ut poengsummen.", start:'score = int(input("Hvor mange poeng har du? "))\\n# Skriv ut en melding med poengsummen', hint:"Variabelen score inneholder tallet brukeren skrev inn.", solution:'score = int(input("Hvor mange poeng har du? "))\\nprint("Du har", score, "poeng!")'},
+    {topic:"Vilkår", title:"5. Er du gammel nok?", description:"Hvis brukeren er 13 år eller eldre, skriv «Du kan bli med!». Ellers skriv «Du må vente litt til».", start:'age = int(input("Hvor gammel er du? "))\\n\\n# Skriv if og else her', hint:"Sammenlign age med 13. Husk kolon og innrykk under if og else.", solution:'age = int(input("Hvor gammel er du? "))\\nif age >= 13:\\n    print("Du kan bli med!")\\nelse:\\n    print("Du må vente litt til")'},
+    {topic:"Vilkår", title:"6. Positivt eller negativt?", description:"Spør etter et tall, og fortell om det er positivt, negativt eller null.", start:'number = int(input("Skriv et tall: "))\\n# Sjekk tallet', hint:"Bruk if number > 0, elif number < 0 og else.", solution:'number = int(input("Skriv et tall: "))\\nif number > 0:\\n    print("Positivt")\\nelif number < 0:\\n    print("Negativt")\\nelse:\\n    print("Null")'},
+    {topic:"Vilkår", title:"7. Poeng og premie", description:"Hvis spilleren har minst 10 poeng, gi en premie. Ellers oppmuntre spilleren til å prøve igjen.", start:'score = int(input("Poeng: "))\\n# Lag en if/else-test', hint:"Sjekk om score er større enn eller lik 10.", solution:'score = int(input("Poeng: "))\\nif score >= 10:\\n    print("Du får en premie!")\\nelse:\\n    print("Prøv igjen!")'},
+    {topic:"Vilkår", title:"8. Par eller oddetall", description:"Finn ut om et heltall er partall eller oddetall.", start:'number = int(input("Skriv et heltall: "))\\n# Bruk modulo (%)', hint:"Et partall gir resten 0 når du deler på 2: number % 2 == 0.", solution:'number = int(input("Skriv et heltall: "))\\nif number % 2 == 0:\\n    print("Partall")\\nelse:\\n    print("Oddetall")'},
+    {topic:"Løkker", title:"9. Tell til ti", description:"Skriv ut tallene fra 1 til og med 10 ved hjelp av en for-løkke.", start:'# Skriv en for-løkke som teller til 10', hint:"range(1, 11) gir tallene 1 til 10.", solution:'for number in range(1, 11):\\n    print(number)'},
+    {topic:"Løkker", title:"10. Gangetabellen", description:"Spør etter et tall og skriv ut gangetabellen fra 1 til 10.", start:'number = int(input("Hvilken gangetabell? "))\\n# Bruk en løkke', hint:"Gå gjennom tallene 1 til 10 og skriv ut number * i.", solution:'number = int(input("Hvilken gangetabell? "))\\nfor i in range(1, 11):\\n    print(number, "x", i, "=", number * i)'},
+    {topic:"Løkker", title:"11. Samle fem mynter", description:"Bruk en løkke til å skrive «Mynt samlet!» fem ganger.", start:'# Gjenta en melding fem ganger', hint:"En for-løkke med range(5) kjører fem ganger.", solution:'for i in range(5):\\n    print("Mynt samlet!")'},
+    {topic:"Løkker", title:"12. Gjett passordet", description:"Fortsett å spørre til brukeren skriver riktig passord: python123.", start:'password = ""\\n# Bruk while til passordet er riktig', hint:"while password != 'python123': gjentar så lenge passordet er feil.", solution:'password = input("Passord: ")\\nwhile password != "python123":\\n    print("Feil passord, prøv igjen.")\\n    password = input("Passord: ")\\nprint("Riktig passord!")'},
+    {topic:"Lister", title:"13. Favorittmat", description:"Lag en liste med tre matretter og skriv ut hele listen.", start:'# Lag en liste med tre favorittretter', hint:"Lister skrives med hakeparenteser, og tekstverdier må stå i anførselstegn.", solution:'foods = ["pizza", "taco", "sushi"]\\nprint(foods)'},
+    {topic:"Lister", title:"14. Handlelisten", description:"Lag en handleliste og legg til en ny vare med append().", start:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\n# Legg varen til i listen', hint:"Bruk shopping.append(new_item).", solution:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\nshopping.append(new_item)\\nprint(shopping)'},
+    {topic:"Lister", title:"15. Høyeste poengsum", description:"Finn den høyeste poengsummen i listen.", start:'scores = [4, 12, 7, 9, 15]\\n# Finn og skriv ut høyeste poengsum', hint:"Python har en innebygd funksjon som heter max().", solution:'scores = [4, 12, 7, 9, 15]\\nprint("Høyeste poengsum:", max(scores))'},
+    {topic:"Lister", title:"16. Tilfeldig premie", description:"Trekk en tilfeldig premie fra en liste.", start:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\n# Trekk en premie', hint:"Bruk random.choice(prizes).", solution:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\nprize = random.choice(prizes)\\nprint("Du vant:", prize)'},
+    {topic:"Funksjoner", title:"17. Min egen hilsen", description:"Lag en funksjon som skriver en hilsen, og kall funksjonen.", start:'# Lag funksjonen greet og kall den', hint:"Start med def greet(): og skriv funksjonskroppen med innrykk.", solution:'def greet():\\n    print("Hei og velkommen!")\\n\\ngreet()'},
+    {topic:"Funksjoner", title:"18. Dobbelt så mye", description:"Lag en funksjon som tar imot et tall og returnerer det dobbelte.", start:'def double(number):\\n    # Returner det dobbelte av number\\n    pass\\n\\nprint(double(6))', hint:"Bruk return number * 2.", solution:'def double(number):\\n    return number * 2\\n\\nprint(double(6))'},
+    {topic:"Funksjoner", title:"19. Lag en terning", description:"Lag en funksjon som returnerer et tilfeldig tall fra 1 til 6.", start:'import random\\n\\ndef roll_dice():\\n    # Returner et tilfeldig tall fra 1 til 6\\n    pass\\n\\nprint(roll_dice())', hint:"Bruk random.randint(1, 6).", solution:'import random\\n\\ndef roll_dice():\\n    return random.randint(1, 6)\\n\\nprint(roll_dice())'},
+    {topic:"Funksjoner", title:"20. Poengfunksjonen", description:"Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.", start:'def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))', hint:"Funksjonen skal returnere summen av score og points.", solution:'def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))'}
+  ];
+
+  const filter = document.getElementById("topic-filter");
+  const list = document.getElementById("task-list");
+  const detail = document.getElementById("task-detail");
+  const title = document.getElementById("task-title");
+  const description = document.getElementById("task-description");
+  const hint = document.getElementById("task-hint");
+  const solution = document.getElementById("task-solution");
+  const solutionCode = document.getElementById("task-solution-code");
+  const loadStatus = document.getElementById("task-load-status");
+  let selectedTask = null;
+
+  function renderTasks() {
+    list.replaceChildren();
+    tasks.filter(task => filter.value === "Alle" || task.topic === filter.value).forEach(task => {
+      const card = document.createElement("div");
+      card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
+      const heading = document.createElement("h3");
+      heading.textContent = task.title;
+      heading.style.marginTop = "0";
+      const topic = document.createElement("p");
+      topic.textContent = task.topic;
+      topic.style.cssText = "color:#63718a;font-size:14px;";
+      const text = document.createElement("p");
+      text.textContent = task.description;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Åpne oppgave";
+      button.addEventListener("click", () => openTask(task));
+      card.append(heading, topic, text, button);
+      list.append(card);
+    });
+  }
+
+  function openTask(task) {
+    selectedTask = task;
+    title.textContent = task.title;
+    description.textContent = task.description;
+    hint.textContent = "Hint: " + task.hint;
+    solutionCode.textContent = task.solution;
+    hint.hidden = true;
+    solution.hidden = true;
+    document.getElementById("toggle-hint").textContent = "Vis hint";
+    document.getElementById("toggle-solution").textContent = "Vis løsningsforslag";
+    detail.hidden = false;
+    loadStatus.textContent = "";
+    detail.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  document.getElementById("load-task").addEventListener("click", () => {
+    if (!selectedTask) return;
+    const editor = document.getElementById("python-code");
+    editor.value = selectedTask.start.replace(/\\n/g, "\n");
+    document.getElementById("python-output").textContent = "";
+    document.getElementById("python-status").textContent = "Startkoden er lagt inn. Prøv å fullføre oppgaven!";
+    editor.scrollIntoView({behavior:"smooth", block:"center"});
+    loadStatus.textContent = "Startkoden er lagt inn i Python-editoren.";
+  });
+
+  document.getElementById("toggle-hint").addEventListener("click", () => {
+    hint.hidden = !hint.hidden;
+    document.getElementById("toggle-hint").textContent = hint.hidden ? "Vis hint" : "Skjul hint";
+  });
+  document.getElementById("toggle-solution").addEventListener("click", () => {
+    solution.hidden = !solution.hidden;
+    document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
+  });
+  filter.addEventListener("change", renderTasks);
+  renderTasks();
+})();
+</script>
+
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
 <script>
 (function () {
