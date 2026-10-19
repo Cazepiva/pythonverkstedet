@@ -135,6 +135,64 @@
       white-space: pre-wrap;
     }
 
+
+    .python-editor-wrap {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      border: 1px solid #cbd5e5;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      margin-top: 12px;
+    }
+    .line-numbers {
+      margin: 0;
+      padding: 12px 8px 12px 0;
+      text-align: right;
+      color: #78859b;
+      background: #edf2f8;
+      border-right: 1px solid #d7dfeb;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      user-select: none;
+      overflow: hidden;
+    }
+    #python-code {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 230px;
+      resize: vertical;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 12px;
+      outline: none;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      overflow: auto;
+      tab-size: 4;
+    }
+    #task-solution {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #dce3f2;
+      border-radius: 10px;
+      background: #f8faff;
+    }
+    #task-solution-code {
+      display: block;
+      margin: 10px 0 0;
+      padding: 14px;
+      background: #182235;
+      color: #dce8ff;
+      border-radius: 8px;
+      font: 15px/1.6 monospace;
+      white-space: pre;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+
     label { font-weight: bold; }
     footer { text-align: center; padding: 20px; color: #63718a; }
   </style>
@@ -370,12 +428,19 @@ print(score)</pre>
   <h2>🐍 Prøv Python!</h2>
   <p>Skriv Python-kode og se hva som skjer.</p>
 
-  <textarea id="python-code" rows="9" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 16px;">price = float(input("Pris per vare: "))
+  <div class="python-editor-wrap">
+  <pre id="line-numbers" class="line-numbers" aria-hidden="true">1
+2
+3
+4
+5</pre>
+  <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode">price = float(input("Pris per vare: "))
 quantity = int(input("Hvor mange varer? "))
 
 total = price * quantity
 
 print("Totalpris:", total)</textarea>
+</div>
 
   <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
 
@@ -388,6 +453,11 @@ print("Totalpris:", total)</textarea>
   <h3>Resultat</h3>
   <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
   <p id="python-status" role="status">Laster Python-motoren …</p>
+  <div id="task-solution" hidden style="max-width:760px;margin:16px auto 24px;padding:16px 24px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
+    <strong>Løsningsforslag for valgt oppgave</strong>
+    <p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
+    <pre id="task-solution-code"></pre>
+  </div>
 </section>
 
 
@@ -413,10 +483,6 @@ print("Totalpris:", total)</textarea>
       <button type="button" class="secondary" id="toggle-solution">Vis løsningsforslag</button>
     </div>
     <div id="task-hint" hidden style="background:#fff7df;padding:12px;border-radius:8px;margin:8px 0;"></div>
-    <div id="task-solution" hidden style="background:white;padding:12px;border-radius:8px;margin:8px 0;">
-      <strong>Løsningsforslag</strong>
-      <pre id="task-solution-code" style="white-space:pre-wrap;overflow-x:auto;"></pre>
-    </div>
     <p id="task-load-status" role="status"></p>
   </div>
 </section>
@@ -483,7 +549,7 @@ print("Totalpris:", total)</textarea>
     title.textContent = task.title;
     description.textContent = task.description;
     hint.textContent = "Hint: " + task.hint;
-    solutionCode.textContent = task.solution;
+    solutionCode.textContent = task.solution.replace(/\\n/g, "\n");
     hint.hidden = true;
     solution.hidden = true;
     document.getElementById("toggle-hint").textContent = "Vis hint";
@@ -520,6 +586,42 @@ print("Totalpris:", total)</textarea>
 <script>
 (function () {
   const codeBox = document.getElementById("python-code");
+  const lineNumbers = document.getElementById("line-numbers");
+
+  function updateLineNumbers() {
+    const count = Math.max(1, codeBox.value.split("\n").length);
+    lineNumbers.textContent = Array.from({length: count}, (_, i) => i + 1).join("\n");
+    lineNumbers.scrollTop = codeBox.scrollTop;
+  }
+
+  codeBox.addEventListener("input", updateLineNumbers);
+  codeBox.addEventListener("scroll", () => { lineNumbers.scrollTop = codeBox.scrollTop; });
+
+  // Tab inserts four spaces; Enter repeats the current line's indentation.
+  codeBox.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      const start = codeBox.selectionStart;
+      const end = codeBox.selectionEnd;
+      codeBox.setRangeText("    ", start, end, "end");
+      updateLineNumbers();
+      return;
+    }
+
+    if (event.key === "Enter") {
+      const start = codeBox.selectionStart;
+      const beforeCursor = codeBox.value.slice(0, start);
+      const currentLine = beforeCursor.split("\n").pop();
+      const indent = (currentLine.match(/^\s*/) || [""])[0];
+      const trimmed = currentLine.trimEnd();
+      const extraIndent = /(:|\bdef\b.*|\belse\s*:|\belif\b.*:|\bfor\b.*:|\bwhile\b.*|\bif\b.*:)$/.test(trimmed) ? "    " : "";
+      event.preventDefault();
+      codeBox.setRangeText("\n" + indent + extraIndent, start, codeBox.selectionEnd, "end");
+      updateLineNumbers();
+    }
+  });
+
+  updateLineNumbers();
   const runButton = document.getElementById("run-python");
   const output = document.getElementById("python-output");
   const status = document.getElementById("python-status");
