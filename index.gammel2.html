@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonverkstedet</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6ff;
+      color: #24324a;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      border-bottom: 1px solid #dce3f2;
+    }
+
+    header h1 { margin: 0 0 6px; color: #3657a5; }
+    header p { margin: 0; }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px #24324a12;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #edf2ff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    #game {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      border: 3px solid #b8d5a1;
+      border-radius: 14px;
+      background: linear-gradient(#bde8ff 0 65%, #a7d98d 65%);
+      touch-action: manipulation;
+    }
+
+    #player, #coin {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      user-select: none;
+    }
+
+    #player {
+      left: 40px;
+      bottom: 25px;
+      width: 54px;
+      height: 54px;
+      font-size: 42px;
+    }
+
+    #coin {
+      left: 70%;
+      top: 45%;
+      width: 38px;
+      height: 38px;
+      font-size: 32px;
+    }
+
+    .controls, .customize {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button, select, input {
+      font: inherit;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e5;
+    }
+
+    button {
+      cursor: pointer;
+      background: #3657a5;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+
+    button:hover { background: #274582; }
+
+    .secondary {
+      background: #e9efff;
+      color: #24324a;
+    }
+
+    .secondary:hover { background: #d7e2ff; }
+
+    .hint {
+      background: #fff7df;
+      padding: 14px;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
+
+    #message { min-height: 24px; font-weight: bold; }
+
+    #code {
+      background: #182235;
+      color: #dce8ff;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    label { font-weight: bold; }
+    footer { text-align: center; padding: 20px; color: #63718a; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐍 Pythonverkstedet</h1>
+    <p>Lær programmering ved å lage spill!</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>🎮 Fang myntene!</h2>
+      <p>Beveg figuren bort til mynten. Hver mynt gir ett poeng.</p>
+
+      <div class="stats">
+        <div class="stat">Poeng: <span id="score">0</span></div>
+        <div class="stat">Oppgave: Samle 5 mynter</div>
+      </div>
+
+      <div id="game" aria-label="Spillområde">
+        <div id="player" aria-label="Spiller">🐱</div>
+        <div id="coin" aria-label="Mynt">🪙</div>
+      </div>
+
+      <div class="controls">
+        <button class="secondary" id="left">⬅️ Venstre</button>
+        <button class="secondary" id="right">Høyre ➡️</button>
+        <button class="secondary" id="up">⬆️ Opp</button>
+        <button class="secondary" id="down">⬇️ Ned</button>
+        <button id="restart">Start på nytt</button>
+      </div>
+
+      <p id="message" aria-live="polite">Klar? Samle din første mynt!</p>
+      <p>Du kan også bruke piltastene på tastaturet.</p>
+    </section>
+
+    <section class="panel">
+      <h2>🎨 Gjør spillet til ditt eget</h2>
+
+      <div class="customize">
+        <label for="character">Figur:</label>
+        <select id="character">
+          <option value="🐱">Katt</option>
+          <option value="🐸">Frosk</option>
+          <option value="🐰">Kanin</option>
+          <option value="👾">Romvesen</option>
+          <option value="🦊">Rev</option>
+        </select>
+
+        <label for="background">Bakgrunn:</label>
+        <select id="background">
+          <option value="forest">Grønn eng</option>
+          <option value="space">Verdensrommet</option>
+          <option value="ocean">Havet</option>
+          <option value="sunset">Solnedgang</option>
+        </select>
+      </div>
+
+      <div class="customize">
+        <label for="picture">Last opp eget bilde:</label>
+        <input id="picture" type="file" accept="image/png,image/jpeg,image/webp">
+        <button class="secondary" id="removePicture">Bruk standardfigur</button>
+      </div>
+      <p>Tips: Du kan bruke en tegning du selv har laget.</p>
+    </section>
+
+    <section class="panel">
+      <h2>📚 Din første programmeringsidé</h2>
+      <div class="hint">
+        <strong>Hva er en variabel?</strong><br>
+        En variabel er en verdi programmet husker. I dette spillet husker
+        variabelen <code>score</code> hvor mange mynter du har samlet.
+      </div>
+
+      <h3>Et lite Python-eksempel</h3>
+      <pre id="code">score = 0
+score = score + 1
+print(score)</pre>
+      <p>Hva tror du programmet skriver ut? Prøv å endre tallene i hodet før du ser svaret.</p>
+      <button class="secondary" id="showAnswer">Vis svaret</button>
+      <p id="answer" hidden>Programmet skriver ut 1. Først setter vi score til 0, og så øker vi den med 1.</p>
+    </section>
+  </main>
+
+  <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
+
+  <script>
+    const game = document.getElementById("game");
+    const player = document.getElementById("player");
+    const coin = document.getElementById("coin");
+    const scoreText = document.getElementById("score");
+    const message = document.getElementById("message");
+
+    let x = 40;
+    let y = 25;
+    let score = 0;
+    let customImage = null;
+
+    function drawPlayer() {
+      player.style.left = x + "px";
+      player.style.bottom = y + "px";
+    }
+
+    function move(dx, dy) {
+      x = Math.max(0, Math.min(game.clientWidth - player.offsetWidth, x + dx));
+      y = Math.max(0, Math.min(game.clientHeight - player.offsetHeight, y + dy));
+      drawPlayer();
+      checkCoin();
+    }
+
+    function placeCoin() {
+      const maxX = Math.max(0, game.clientWidth - coin.offsetWidth);
+      const maxY = Math.max(0, game.clientHeight - coin.offsetHeight);
+      coin.style.left = Math.floor(Math.random() * maxX) + "px";
+      coin.style.top = Math.floor(Math.random() * maxY) + "px";
+    }
+
+    function checkCoin() {
+      const a = player.getBoundingClientRect();
+      const b = coin.getBoundingClientRect();
+
+      const touching =
+        a.left < b.right && a.right > b.left &&
+        a.top < b.bottom && a.bottom > b.top;
+
+      if (touching) {
+        score++;
+        scoreText.textContent = score;
+
+        if (score >= 5) {
+          message.textContent = "🎉 Gratulerer! Du samlet fem mynter!";
+          coin.style.display = "none";
+        } else {
+          message.textContent = "Bra jobbet! Du fant en mynt!";
+          placeCoin();
+        }
+      }
+    }
+
+    function resetGame() {
+      x = 40;
+      y = 25;
+      score = 0;
+      scoreText.textContent = score;
+      coin.style.display = "grid";
+      message.textContent = "Klar? Samle din første mynt!";
+      drawPlayer();
+      placeCoin();
+    }
+
+    document.getElementById("left").onclick = () => move(-20, 0);
+    document.getElementById("right").onclick = () => move(20, 0);
+    document.getElementById("up").onclick = () => move(0, 20);
+    document.getElementById("down").onclick = () => move(0, -20);
+    document.getElementById("restart").onclick = resetGame;
+
+    document.addEventListener("keydown", event => {
+      const keys = {
+        ArrowLeft: [-20, 0],
+        ArrowRight: [20, 0],
+        ArrowUp: [0, 20],
+        ArrowDown: [0, -20]
+      };
+
+      if (keys[event.key] && !event.target.matches("input, select, textarea")) {
+        event.preventDefault();
+        move(...keys[event.key]);
+      }
+    });
+
+    document.getElementById("character").onchange = event => {
+      customImage = null;
+      player.style.backgroundImage = "";
+      player.textContent = event.target.value;
+    };
+
+    document.getElementById("background").onchange = event => {
+      const backgrounds = {
+        forest: "linear-gradient(#bde8ff 0 65%, #a7d98d 65%)",
+        space: "linear-gradient(#171638, #423878)",
+        ocean: "linear-gradient(#8ee4f5 0 45%, #197db5 45%)",
+        sunset: "linear-gradient(#ffb56b, #e97992 65%, #584d85)"
+      };
+      game.style.background = backgrounds[event.target.value];
+    };
+
+    document.getElementById("picture").onchange = event => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        message.textContent = "Bildet er for stort. Velg et bilde under 2 MB.";
+        event.target.value = "";
+        return;
+      }
+
+      if (customImage) URL.revokeObjectURL(customImage);
+      customImage = URL.createObjectURL(file);
+      player.textContent = "";
+      player.style.backgroundImage = `url("${customImage}")`;
+      player.style.backgroundSize = "contain";
+      player.style.backgroundPosition = "center";
+      player.style.backgroundRepeat = "no-repeat";
+    };
+
+    document.getElementById("removePicture").onclick = () => {
+      if (customImage) URL.revokeObjectURL(customImage);
+      customImage = null;
+      player.style.backgroundImage = "";
+      player.textContent = document.getElementById("character").value;
+      document.getElementById("picture").value = "";
+    };
+
+    document.getElementById("showAnswer").onclick = () => {
+      const answer = document.getElementById("answer");
+      answer.hidden = !answer.hidden;
+      document.getElementById("showAnswer").textContent =
+        answer.hidden ? "Vis svaret" : "Skjul svaret";
+    };
+
+    window.addEventListener("resize", () => {
+      x = Math.min(x, game.clientWidth - player.offsetWidth);
+      drawPlayer();
+    });
+
+    drawPlayer();
+    placeCoin();
+  </script>
+  
+
+<section style="max-width: 760px; margin: 30px auto; padding: 24px; background: #f0f9ff; border-radius: 16px; color: #17324d;">
+  <h2>🐍 Prøv Python!</h2>
+  <p>Skriv Python-kode og se hva som skjer.</p>
+
+  <textarea id="python-code" rows="9" style="width: 100%; box-sizing: border-box; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 16px;">price = float(input("Pris per vare: "))
+quantity = int(input("Hvor mange varer? "))
+
+total = price * quantity
+
+print("Totalpris:", total)</textarea>
+
+  <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
+
+  <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
+    <label id="input-question" for="python-answer">Skriv svaret ditt:</label>
+    <input id="python-answer" type="text" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;">
+    <button id="send-answer" style="margin-top: 8px; padding: 10px;">Send svar</button>
+  </div>
+
+  <h3>Resultat</h3>
+  <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
+  <p id="python-status" role="status">Laster Python-motoren …</p>
+</section>
+
+
+<section class="panel" id="oppgavebank" style="max-width:1000px;margin:24px auto;padding:20px;">
+  <h2>🧭 Oppgavebank</h2>
+  <p>Velg et tema og en liten oppgave. Du kan laste startkoden inn i Python-editoren, få et hint og åpne et løsningsforslag når du trenger det.</p>
+  <label for="topic-filter">Velg tema:</label>
+  <select id="topic-filter" style="margin:8px 0 16px;">
+    <option value="Alle">Alle temaer</option>
+    <option value="Variabler">Variabler og input</option>
+    <option value="Vilkår">Vilkår</option>
+    <option value="Løkker">Løkker</option>
+    <option value="Lister">Lister</option>
+    <option value="Funksjoner">Funksjoner</option>
+  </select>
+  <div id="task-list" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"></div>
+  <div id="task-detail" hidden style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
+    <h3 id="task-title"></h3>
+    <p id="task-description"></p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
+      <button type="button" id="load-task">Bruk startkode i editoren</button>
+      <button type="button" class="secondary" id="toggle-hint">Vis hint</button>
+      <button type="button" class="secondary" id="toggle-solution">Vis løsningsforslag</button>
+    </div>
+    <div id="task-hint" hidden style="background:#fff7df;padding:12px;border-radius:8px;margin:8px 0;"></div>
+    <div id="task-solution" hidden style="background:white;padding:12px;border-radius:8px;margin:8px 0;">
+      <strong>Løsningsforslag</strong>
+      <pre id="task-solution-code" style="white-space:pre-wrap;overflow-x:auto;"></pre>
+    </div>
+    <p id="task-load-status" role="status"></p>
+  </div>
+</section>
+<script>
+(function () {
+  const tasks = [
+    {topic:"Variabler", title:"1. Si hei!", description:"Spør brukeren om navnet og skriv en personlig hilsen.", start:'name = input("Hva heter du? ")\\nprint("Hei,", name)', hint:"Lagre svaret fra input() i en variabel. Bruk print() til å skrive ut navnet.", solution:'name = input("Hva heter du? ")\\nprint("Hei,", name)'},
+    {topic:"Variabler", title:"2. Alder neste år", description:"Spør hvor gammel brukeren er, og skriv ut alderen neste år.", start:'age = int(input("Hvor gammel er du? "))\\n# Skriv koden din under', hint:"Gjør svaret om til et heltall med int(), og legg til 1.", solution:'age = int(input("Hvor gammel er du? "))\\nnext_age = age + 1\\nprint("Neste år er du", next_age)'},
+    {topic:"Variabler", title:"3. Butikkalkulator", description:"Regn ut totalprisen når brukeren skriver inn pris og antall.", start:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\n# Regn ut og skriv ut totalprisen', hint:"Totalpris er pris per vare ganget med antall varer.", solution:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\ntotal = price * quantity\\nprint("Totalpris:", total)'},
+    {topic:"Variabler", title:"4. Poengtavle", description:"Spør hvor mange poeng spilleren har, og skriv ut poengsummen.", start:'score = int(input("Hvor mange poeng har du? "))\\n# Skriv ut en melding med poengsummen', hint:"Variabelen score inneholder tallet brukeren skrev inn.", solution:'score = int(input("Hvor mange poeng har du? "))\\nprint("Du har", score, "poeng!")'},
+    {topic:"Vilkår", title:"5. Er du gammel nok?", description:"Hvis brukeren er 13 år eller eldre, skriv «Du kan bli med!». Ellers skriv «Du må vente litt til».", start:'age = int(input("Hvor gammel er du? "))\\n\\n# Skriv if og else her', hint:"Sammenlign age med 13. Husk kolon og innrykk under if og else.", solution:'age = int(input("Hvor gammel er du? "))\\nif age >= 13:\\n    print("Du kan bli med!")\\nelse:\\n    print("Du må vente litt til")'},
+    {topic:"Vilkår", title:"6. Positivt eller negativt?", description:"Spør etter et tall, og fortell om det er positivt, negativt eller null.", start:'number = int(input("Skriv et tall: "))\\n# Sjekk tallet', hint:"Bruk if number > 0, elif number < 0 og else.", solution:'number = int(input("Skriv et tall: "))\\nif number > 0:\\n    print("Positivt")\\nelif number < 0:\\n    print("Negativt")\\nelse:\\n    print("Null")'},
+    {topic:"Vilkår", title:"7. Poeng og premie", description:"Hvis spilleren har minst 10 poeng, gi en premie. Ellers oppmuntre spilleren til å prøve igjen.", start:'score = int(input("Poeng: "))\\n# Lag en if/else-test', hint:"Sjekk om score er større enn eller lik 10.", solution:'score = int(input("Poeng: "))\\nif score >= 10:\\n    print("Du får en premie!")\\nelse:\\n    print("Prøv igjen!")'},
+    {topic:"Vilkår", title:"8. Par eller oddetall", description:"Finn ut om et heltall er partall eller oddetall.", start:'number = int(input("Skriv et heltall: "))\\n# Bruk modulo (%)', hint:"Et partall gir resten 0 når du deler på 2: number % 2 == 0.", solution:'number = int(input("Skriv et heltall: "))\\nif number % 2 == 0:\\n    print("Partall")\\nelse:\\n    print("Oddetall")'},
+    {topic:"Løkker", title:"9. Tell til ti", description:"Skriv ut tallene fra 1 til og med 10 ved hjelp av en for-løkke.", start:'# Skriv en for-løkke som teller til 10', hint:"range(1, 11) gir tallene 1 til 10.", solution:'for number in range(1, 11):\\n    print(number)'},
+    {topic:"Løkker", title:"10. Gangetabellen", description:"Spør etter et tall og skriv ut gangetabellen fra 1 til 10.", start:'number = int(input("Hvilken gangetabell? "))\\n# Bruk en løkke', hint:"Gå gjennom tallene 1 til 10 og skriv ut number * i.", solution:'number = int(input("Hvilken gangetabell? "))\\nfor i in range(1, 11):\\n    print(number, "x", i, "=", number * i)'},
+    {topic:"Løkker", title:"11. Samle fem mynter", description:"Bruk en løkke til å skrive «Mynt samlet!» fem ganger.", start:'# Gjenta en melding fem ganger', hint:"En for-løkke med range(5) kjører fem ganger.", solution:'for i in range(5):\\n    print("Mynt samlet!")'},
+    {topic:"Løkker", title:"12. Gjett passordet", description:"Fortsett å spørre til brukeren skriver riktig passord: python123.", start:'password = ""\\n# Bruk while til passordet er riktig', hint:"while password != 'python123': gjentar så lenge passordet er feil.", solution:'password = input("Passord: ")\\nwhile password != "python123":\\n    print("Feil passord, prøv igjen.")\\n    password = input("Passord: ")\\nprint("Riktig passord!")'},
+    {topic:"Lister", title:"13. Favorittmat", description:"Lag en liste med tre matretter og skriv ut hele listen.", start:'# Lag en liste med tre favorittretter', hint:"Lister skrives med hakeparenteser, og tekstverdier må stå i anførselstegn.", solution:'foods = ["pizza", "taco", "sushi"]\\nprint(foods)'},
+    {topic:"Lister", title:"14. Handlelisten", description:"Lag en handleliste og legg til en ny vare med append().", start:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\n# Legg varen til i listen', hint:"Bruk shopping.append(new_item).", solution:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\nshopping.append(new_item)\\nprint(shopping)'},
+    {topic:"Lister", title:"15. Høyeste poengsum", description:"Finn den høyeste poengsummen i listen.", start:'scores = [4, 12, 7, 9, 15]\\n# Finn og skriv ut høyeste poengsum', hint:"Python har en innebygd funksjon som heter max().", solution:'scores = [4, 12, 7, 9, 15]\\nprint("Høyeste poengsum:", max(scores))'},
+    {topic:"Lister", title:"16. Tilfeldig premie", description:"Trekk en tilfeldig premie fra en liste.", start:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\n# Trekk en premie', hint:"Bruk random.choice(prizes).", solution:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\nprize = random.choice(prizes)\\nprint("Du vant:", prize)'},
+    {topic:"Funksjoner", title:"17. Min egen hilsen", description:"Lag en funksjon som skriver en hilsen, og kall funksjonen.", start:'# Lag funksjonen greet og kall den', hint:"Start med def greet(): og skriv funksjonskroppen med innrykk.", solution:'def greet():\\n    print("Hei og velkommen!")\\n\\ngreet()'},
+    {topic:"Funksjoner", title:"18. Dobbelt så mye", description:"Lag en funksjon som tar imot et tall og returnerer det dobbelte.", start:'def double(number):\\n    # Returner det dobbelte av number\\n    pass\\n\\nprint(double(6))', hint:"Bruk return number * 2.", solution:'def double(number):\\n    return number * 2\\n\\nprint(double(6))'},
+    {topic:"Funksjoner", title:"19. Lag en terning", description:"Lag en funksjon som returnerer et tilfeldig tall fra 1 til 6.", start:'import random\\n\\ndef roll_dice():\\n    # Returner et tilfeldig tall fra 1 til 6\\n    pass\\n\\nprint(roll_dice())', hint:"Bruk random.randint(1, 6).", solution:'import random\\n\\ndef roll_dice():\\n    return random.randint(1, 6)\\n\\nprint(roll_dice())'},
+    {topic:"Funksjoner", title:"20. Poengfunksjonen", description:"Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.", start:'def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))', hint:"Funksjonen skal returnere summen av score og points.", solution:'def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))'}
+  ];
+
+  const filter = document.getElementById("topic-filter");
+  const list = document.getElementById("task-list");
+  const detail = document.getElementById("task-detail");
+  const title = document.getElementById("task-title");
+  const description = document.getElementById("task-description");
+  const hint = document.getElementById("task-hint");
+  const solution = document.getElementById("task-solution");
+  const solutionCode = document.getElementById("task-solution-code");
+  const loadStatus = document.getElementById("task-load-status");
+  let selectedTask = null;
+
+  function renderTasks() {
+    list.replaceChildren();
+    tasks.filter(task => filter.value === "Alle" || task.topic === filter.value).forEach(task => {
+      const card = document.createElement("div");
+      card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
+      const heading = document.createElement("h3");
+      heading.textContent = task.title;
+      heading.style.marginTop = "0";
+      const topic = document.createElement("p");
+      topic.textContent = task.topic;
+      topic.style.cssText = "color:#63718a;font-size:14px;";
+      const text = document.createElement("p");
+      text.textContent = task.description;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = "Åpne oppgave";
+      button.addEventListener("click", () => openTask(task));
+      card.append(heading, topic, text, button);
+      list.append(card);
+    });
+  }
+
+  function openTask(task) {
+    selectedTask = task;
+    title.textContent = task.title;
+    description.textContent = task.description;
+    hint.textContent = "Hint: " + task.hint;
+    solutionCode.textContent = task.solution;
+    hint.hidden = true;
+    solution.hidden = true;
+    document.getElementById("toggle-hint").textContent = "Vis hint";
+    document.getElementById("toggle-solution").textContent = "Vis løsningsforslag";
+    detail.hidden = false;
+    loadStatus.textContent = "";
+    detail.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  document.getElementById("load-task").addEventListener("click", () => {
+    if (!selectedTask) return;
+    const editor = document.getElementById("python-code");
+    editor.value = selectedTask.start.replace(/\\n/g, "\n");
+    document.getElementById("python-output").textContent = "";
+    document.getElementById("python-status").textContent = "Startkoden er lagt inn. Prøv å fullføre oppgaven!";
+    editor.scrollIntoView({behavior:"smooth", block:"center"});
+    loadStatus.textContent = "Startkoden er lagt inn i Python-editoren.";
+  });
+
+  document.getElementById("toggle-hint").addEventListener("click", () => {
+    hint.hidden = !hint.hidden;
+    document.getElementById("toggle-hint").textContent = hint.hidden ? "Vis hint" : "Skjul hint";
+  });
+  document.getElementById("toggle-solution").addEventListener("click", () => {
+    solution.hidden = !solution.hidden;
+    document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
+  });
+  filter.addEventListener("change", renderTasks);
+  renderTasks();
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script>
+(function () {
+  const codeBox = document.getElementById("python-code");
+  const runButton = document.getElementById("run-python");
+  const output = document.getElementById("python-output");
+  const status = document.getElementById("python-status");
+  const inputArea = document.getElementById("input-area");
+  const inputQuestion = document.getElementById("input-question");
+  const answerBox = document.getElementById("python-answer");
+  const sendAnswer = document.getElementById("send-answer");
+
+  let pyodide = null;
+  let starting = null;
+  let answerResolver = null;
+
+  function askInput(question) {
+    return new Promise(function (resolve) {
+      answerResolver = resolve;
+      inputQuestion.textContent = question || "Skriv svaret ditt:";
+      answerBox.value = "";
+      inputArea.hidden = false;
+      answerBox.focus();
+      status.textContent = "Python venter på svaret ditt.";
+    });
+  }
+
+  function finishInput() {
+    if (!answerResolver) return;
+    const resolve = answerResolver;
+    answerResolver = null;
+    inputArea.hidden = true;
+    resolve(answerBox.value.trim());
+  }
+
+  sendAnswer.addEventListener("click", finishInput);
+  answerBox.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") finishInput();
+  });
+
+  async function startPython() {
+    if (pyodide) return pyodide;
+    if (!starting) {
+      starting = loadPyodide().then(function (engine) {
+        engine.setStdout({
+          batched: function (text) {
+            output.textContent += text + "\n";
+          }
+        });
+        pyodide = engine;
+        status.textContent = "Python er klar!";
+        return engine;
+      }).catch(function (error) {
+        starting = null;
+        throw error;
+      });
+    }
+    return starting;
+  }
+
+  runButton.addEventListener("click", async function () {
+    runButton.disabled = true;
+    output.textContent = "";
+    inputArea.hidden = true;
+    status.textContent = "Kjører koden …";
+
+    try {
+      const engine = await startPython();
+      engine.setStdout({
+        batched: function (text) {
+          output.textContent += text + "\n";
+        }
+      });
+
+     
+
+      const code = codeBox.value;
+      engine.globals.set("student_code", code);
+      engine.globals.set("ask_input_js", askInput);
+
+      await engine.runPythonAsync(`
+import ast
+
+async def _pythonverksted_input(question=""):
+    answer = await ask_input_js(str(question))
+    return str(answer)
+
+class _InputTransformer(ast.NodeTransformer):
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == "input":
+            return ast.copy_location(
+                ast.Await(
+                    value=ast.Call(
+                        func=ast.Name(id="_pythonverksted_input", ctx=ast.Load()),
+                        args=node.args,
+                        keywords=node.keywords,
+                    )
+                ),
+                node,
+            )
+        return node
+
+_tree = ast.parse(student_code)
+_tree = _InputTransformer().visit(_tree)
+ast.fix_missing_locations(_tree)
+
+_runner = ast.AsyncFunctionDef(
+    name="_run_student_code",
+    args=ast.arguments(
+        posonlyargs=[], args=[], vararg=None, kwonlyargs=[],
+        kw_defaults=[], kwarg=None, defaults=[]
+    ),
+    body=_tree.body or [ast.Pass()],
+    decorator_list=[],
+)
+_module = ast.Module(body=[_runner], type_ignores=[])
+ast.fix_missing_locations(_module)
+exec(compile(_module, "<elevkode>", "exec"))
+await _run_student_code()
+`);
+
+      if (!output.textContent) {
+        output.textContent = "(Koden ga ingen utskrift.)";
+      }
+      status.textContent = "Ferdig! Prøv å endre koden.";
+    } catch (error) {
+      output.textContent = String(error);
+      status.textContent = "Noe gikk galt. Les feilmeldingen.";
+    } finally {
+      runButton.disabled = false;
+    }
+  });
+
+  startPython().catch(function (error) {
+    status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen.";
+    output.textContent = String(error);
+  });
+})();
+</script>
+
+</body>
+</html>
