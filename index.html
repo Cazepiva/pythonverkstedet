@@ -465,18 +465,7 @@ print("Totalpris:", total)</textarea>
         }
       });
 
-      engine.globals.set("ask_input_js", askInput);
-
-      await engine.runPythonAsync(`
-import builtins
-import asyncio
-
-async def _pythonverksted_input(prompt=""):
-    answer = await ask_input_js(str(prompt))
-    return str(answer).replace(",", ".")
-
-builtins.input = _pythonverksted_input
-`);
+     
 
       const code = codeBox.value.replace(
         /(^|[=,(]\s*)input\s*\(/gm,
@@ -486,12 +475,14 @@ builtins.input = _pythonverksted_input
         "await input($1)"
       );
 
-      await engine.runPythonAsync(
-        "import builtins\n" +
-        "async def input(prompt=''):\n" +
-        "    return await _pythonverksted_input(prompt)\n" +
-        "exec(" + JSON.stringify(code) + ")"
-      );
+   engine.setStdin({
+  stdin: function () {
+    const answer = window.prompt("Skriv inn svaret ditt:");
+    return answer === null ? "" : answer + "\n";
+  }
+});
+
+await engine.runPythonAsync(code);
 
       if (!output.textContent) {
         output.textContent = "(Koden ga ingen utskrift.)";
