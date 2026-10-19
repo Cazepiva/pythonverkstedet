@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonverkstedet</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6ff;
+      color: #24324a;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      border-bottom: 1px solid #dce3f2;
+    }
+
+    header h1 { margin: 0 0 6px; color: #3657a5; }
+    header p { margin: 0; }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px #24324a12;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #edf2ff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    #game {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      border: 3px solid #b8d5a1;
+      border-radius: 14px;
+      background: linear-gradient(#bde8ff 0 65%, #a7d98d 65%);
+      touch-action: manipulation;
+    }
+
+    #player, #coin {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      user-select: none;
+    }
+
+    #player {
+      left: 40px;
+      bottom: 25px;
+      width: 54px;
+      height: 54px;
+      font-size: 42px;
+    }
+
+    #coin {
+      left: 70%;
+      top: 45%;
+      width: 38px;
+      height: 38px;
+      font-size: 32px;
+    }
+
+    .controls, .customize {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button, select, input {
+      font: inherit;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e5;
+    }
+
+    button {
+      cursor: pointer;
+      background: #3657a5;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+
+    button:hover { background: #274582; }
+
+    .secondary {
+      background: #e9efff;
+      color: #24324a;
+    }
+
+    .secondary:hover { background: #d7e2ff; }
+
+    .hint {
+      background: #fff7df;
+      padding: 14px;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
+
+    #message { min-height: 24px; font-weight: bold; }
+
+    #code {
+      background: #182235;
+      color: #dce8ff;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+
+    .python-editor-wrap {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      border: 1px solid #cbd5e5;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      margin-top: 12px;
+    }
+    .line-numbers {
+      margin: 0;
+      padding: 12px 8px 12px 0;
+      text-align: right;
+      color: #78859b;
+      background: #edf2f8;
+      border-right: 1px solid #d7dfeb;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      user-select: none;
+      overflow: hidden;
+    }
+    #python-code {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 230px;
+      resize: vertical;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 12px;
+      outline: none;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      overflow: auto;
+      tab-size: 4;
+    }
+    #task-solution {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #dce3f2;
+      border-radius: 10px;
+      background: #f8faff;
+    }
+    #task-solution-code {
+      display: block;
+      margin: 10px 0 0;
+      padding: 14px;
+      background: #182235;
+      color: #dce8ff;
+      border-radius: 8px;
+      font: 15px/1.6 monospace;
+      white-space: pre;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+
+    label { font-weight: bold; }
+    footer { text-align: center; padding: 20px; color: #63718a; }
+    .site-nav {display:flex;flex-wrap:wrap;gap:12px;padding:12px 20px;background:#eaf0ff;border-bottom:1px solid #dce3f2;}
+    .site-nav a {color:#254a93;text-decoration:none;font-weight:bold;padding:10px 14px;border-radius:9px;background:white;}
+    .site-nav a[aria-current="page"] {background:#3657a5;color:white;}
+    .page-intro {max-width:1000px;margin:22px auto;padding:0 16px;}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐍 Pythonverkstedet</h1>
+    <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Hovedmeny">
+    <a href="index.html">📘 Lær Python</a>
+    <a aria-current="page" href="spillverksted.html">🎮 Spillverksted</a>
+  </nav>
+  <div class="page-intro"><h2>Spillverksted</h2><p>Prøv kattespillet som inspirasjon. Etter hvert bygger vi et større prosjekt der du programmerer ditt eget spill.</p><p><strong>Merk:</strong> Spillet er foreløpig en demonstrasjon og styres ikke av Python-editoren på læringssiden.</p></div>
+  <main>
+    <section class="panel">
+      <h2>🎮 Fang myntene!</h2>
+      <p>Beveg figuren bort til mynten. Hver mynt gir ett poeng.</p>
+
+      <div class="stats">
+        <div class="stat">Poeng: <span id="score">0</span></div>
+        <div class="stat">Oppgave: Samle 5 mynter</div>
+      </div>
+
+      <div id="game" aria-label="Spillområde">
+        <div id="player" aria-label="Spiller">🐱</div>
+        <div id="coin" aria-label="Mynt">🪙</div>
+      </div>
+
+      <div class="controls">
+        <button class="secondary" id="left">⬅️ Venstre</button>
+        <button class="secondary" id="right">Høyre ➡️</button>
+        <button class="secondary" id="up">⬆️ Opp</button>
+        <button class="secondary" id="down">⬇️ Ned</button>
+        <button id="restart">Start på nytt</button>
+      </div>
+
+      <p id="message" aria-live="polite">Klar? Samle din første mynt!</p>
+      <p>Du kan også bruke piltastene på tastaturet.</p>
+    </section>
+
+    <section class="panel">
+      <h2>🎨 Gjør spillet til ditt eget</h2>
+
+      <div class="customize">
+        <label for="character">Figur:</label>
+        <select id="character">
+          <option value="🐱">Katt</option>
+          <option value="🐸">Frosk</option>
+          <option value="🐰">Kanin</option>
+          <option value="👾">Romvesen</option>
+          <option value="🦊">Rev</option>
+        </select>
+
+        <label for="background">Bakgrunn:</label>
+        <select id="background">
+          <option value="forest">Grønn eng</option>
+          <option value="space">Verdensrommet</option>
+          <option value="ocean">Havet</option>
+          <option value="sunset">Solnedgang</option>
+        </select>
+      </div>
+
+      <div class="customize">
+        <label for="picture">Last opp eget bilde:</label>
+        <input id="picture" type="file" accept="image/png,image/jpeg,image/webp">
+        <button class="secondary" id="removePicture">Bruk standardfigur</button>
+      </div>
+      <p>Tips: Du kan bruke en tegning du selv har laget.</p>
+    </section>
+
+    <section class="panel">
+      <h2>📚 Din første programmeringsidé</h2>
+      <div class="hint">
+        <strong>Hva er en variabel?</strong><br>
+        En variabel er en verdi programmet husker. I dette spillet husker
+        variabelen <code>score</code> hvor mange mynter du har samlet.
+      </div>
+
+      <h3>Et lite Python-eksempel</h3>
+      <pre id="code">score = 0
+score = score + 1
+print(score)</pre>
+      <p>Hva tror du programmet skriver ut? Prøv å endre tallene i hodet før du ser svaret.</p>
+      <button class="secondary" id="showAnswer">Vis svaret</button>
+      <p id="answer" hidden>Programmet skriver ut 1. Først setter vi score til 0, og så øker vi den med 1.</p>
+    </section>
+  </main>
+  <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
+  <script>
+    const game = document.getElementById("game");
+    const player = document.getElementById("player");
+    const coin = document.getElementById("coin");
+    const scoreText = document.getElementById("score");
+    const message = document.getElementById("message");
+
+    let x = 40;
+    let y = 25;
+    let score = 0;
+    let customImage = null;
+
+    function drawPlayer() {
+      player.style.left = x + "px";
+      player.style.bottom = y + "px";
+    }
+
+    function move(dx, dy) {
+      x = Math.max(0, Math.min(game.clientWidth - player.offsetWidth, x + dx));
+      y = Math.max(0, Math.min(game.clientHeight - player.offsetHeight, y + dy));
+      drawPlayer();
+      checkCoin();
+    }
+
+    function placeCoin() {
+      const maxX = Math.max(0, game.clientWidth - coin.offsetWidth);
+      const maxY = Math.max(0, game.clientHeight - coin.offsetHeight);
+      coin.style.left = Math.floor(Math.random() * maxX) + "px";
+      coin.style.top = Math.floor(Math.random() * maxY) + "px";
+    }
+
+    function checkCoin() {
+      const a = player.getBoundingClientRect();
+      const b = coin.getBoundingClientRect();
+
+      const touching =
+        a.left < b.right && a.right > b.left &&
+        a.top < b.bottom && a.bottom > b.top;
+
+      if (touching) {
+        score++;
+        scoreText.textContent = score;
+
+        if (score >= 5) {
+          message.textContent = "🎉 Gratulerer! Du samlet fem mynter!";
+          coin.style.display = "none";
+        } else {
+          message.textContent = "Bra jobbet! Du fant en mynt!";
+          placeCoin();
+        }
+      }
+    }
+
+    function resetGame() {
+      x = 40;
+      y = 25;
+      score = 0;
+      scoreText.textContent = score;
+      coin.style.display = "grid";
+      message.textContent = "Klar? Samle din første mynt!";
+      drawPlayer();
+      placeCoin();
+    }
+
+    document.getElementById("left").onclick = () => move(-20, 0);
+    document.getElementById("right").onclick = () => move(20, 0);
+    document.getElementById("up").onclick = () => move(0, 20);
+    document.getElementById("down").onclick = () => move(0, -20);
+    document.getElementById("restart").onclick = resetGame;
+
+    document.addEventListener("keydown", event => {
+      const keys = {
+        ArrowLeft: [-20, 0],
+        ArrowRight: [20, 0],
+        ArrowUp: [0, 20],
+        ArrowDown: [0, -20]
+      };
+
+      if (keys[event.key] && !event.target.matches("input, select, textarea")) {
+        event.preventDefault();
+        move(...keys[event.key]);
+      }
+    });
+
+    document.getElementById("character").onchange = event => {
+      customImage = null;
+      player.style.backgroundImage = "";
+      player.textContent = event.target.value;
+    };
+
+    document.getElementById("background").onchange = event => {
+      const backgrounds = {
+        forest: "linear-gradient(#bde8ff 0 65%, #a7d98d 65%)",
+        space: "linear-gradient(#171638, #423878)",
+        ocean: "linear-gradient(#8ee4f5 0 45%, #197db5 45%)",
+        sunset: "linear-gradient(#ffb56b, #e97992 65%, #584d85)"
+      };
+      game.style.background = backgrounds[event.target.value];
+    };
+
+    document.getElementById("picture").onchange = event => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      if (file.size > 2 * 1024 * 1024) {
+        message.textContent = "Bildet er for stort. Velg et bilde under 2 MB.";
+        event.target.value = "";
+        return;
+      }
+
+      if (customImage) URL.revokeObjectURL(customImage);
+      customImage = URL.createObjectURL(file);
+      player.textContent = "";
+      player.style.backgroundImage = `url("${customImage}")`;
+      player.style.backgroundSize = "contain";
+      player.style.backgroundPosition = "center";
+      player.style.backgroundRepeat = "no-repeat";
+    };
+
+    document.getElementById("removePicture").onclick = () => {
+      if (customImage) URL.revokeObjectURL(customImage);
+      customImage = null;
+      player.style.backgroundImage = "";
+      player.textContent = document.getElementById("character").value;
+      document.getElementById("picture").value = "";
+    };
+
+    document.getElementById("showAnswer").onclick = () => {
+      const answer = document.getElementById("answer");
+      answer.hidden = !answer.hidden;
+      document.getElementById("showAnswer").textContent =
+        answer.hidden ? "Vis svaret" : "Skjul svaret";
+    };
+
+    window.addEventListener("resize", () => {
+      x = Math.min(x, game.clientWidth - player.offsetWidth);
+      drawPlayer();
+    });
+
+    drawPlayer();
+    placeCoin();
+  </script>
+</body>
+</html>
