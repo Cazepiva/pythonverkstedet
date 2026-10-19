@@ -397,11 +397,7 @@ print("Jeg lærer å kode.")</textarea>
       starting = (async function () {
         status.textContent = "Laster Python … første oppstart kan ta litt tid.";
         const engine = await loadPyodide();
-        await engine.runPythonAsync(`
-import builtins
-from js import window
-builtins.input = lambda message='': str(window.prompt(message) or '')
-`);
+        
         engine.setStdout({
           batched: function (text) {
             output.textContent += text + "\n";
