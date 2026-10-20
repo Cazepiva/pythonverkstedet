@@ -29,10 +29,4 @@ jobs:
       - name: Bygg kattespillet
         run: python -m pygbag --build kattespill
 
-      - name: Publiser spillfilene
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./kattespill/build/web
-          destination_dir: kattespill
-          keep_files: true
+      -
