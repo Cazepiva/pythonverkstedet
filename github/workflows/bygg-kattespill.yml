@@ -1,0 +1,38 @@
+name: Bygg kattespill
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "kattespill/**"
+      - ".github/workflows/bygg-kattespill.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  bygg:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Hent filene
+        uses: actions/checkout@v4
+
+      - name: Installer Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer Pygbag
+        run: python -m pip install pygbag
+
+      - name: Bygg kattespillet
+        run: python -m pygbag --build kattespill
+
+      - name: Publiser spillfilene
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./kattespill/build/web
+          destination_dir: kattespill
+          keep_files: true
