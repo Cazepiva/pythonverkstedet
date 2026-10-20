@@ -28,5 +28,11 @@ jobs:
 
       - name: Bygg kattespillet
         run: python -m pygbag --build kattespill
-
+      - 
+        name: Lagre spillfilene
+        uses: actions/upload-artifact@v4
+        with:
+          name: kattespill-nettside
+          path: kattespill/build/web/
+          if-no-files-found: error
   
