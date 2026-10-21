@@ -433,6 +433,40 @@ frameborder="1"
     }
 
     </script>
+<div style="background:#f4f7ff; padding:24px; text-align:center;">
+  <h2>🐱 Hvordan er kattespillet laget?</h2>
+  <p>Dette spillet er programmert i Python med Pygame.</p>
 
+  <details>
+    <summary style="cursor:pointer; font-size:18px; font-weight:bold;">
+      💻 Vis Python-koden
+    </summary>
+
+    <pre id="python-source"
+         style="text-align:left; background:#172033; color:white;
+                padding:20px; overflow:auto; max-height:500px;
+                border-radius:10px;">
+      Laster Python-koden...
+    </pre>
+  </details>
+</div>
+
+<script>
+  fetch("./main.py")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Kunne ikke hente Python-koden");
+      }
+      return response.text();
+    })
+    .then(code => {
+      document.getElementById("python-source").textContent = code;
+    })
+    .catch(() => {
+      document.getElementById("python-source").textContent =
+        "Kunne ikke laste Python-koden.";
+    });
+</script>
+    
 </body>
 </html>
