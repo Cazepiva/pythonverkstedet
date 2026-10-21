@@ -172,4 +172,16 @@
       updateButtons();
 
       status.textContent = savedCode !== null
-        ? "Tid
+              ? "Tidligere arbeid er hentet fra nettleseren."
+        : "Python-koden er klar!";
+    } catch (error) {
+      status.textContent =
+        "Kunne ikke hente Python-koden. Oppdater siden og prøv igjen.";
+      editor.disabled = true;
+    }
+  }
+
+  loadCode();
+</script>
+</body>
+</html>
