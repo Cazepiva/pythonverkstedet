@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kattespillet – Pythonverkstedet</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f3f6fc;
+      color: #1d2b42;
+      font-family: Arial, sans-serif;
+    }
+
+    header {
+      background: #244a91;
+      color: white;
+      padding: 22px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 950px;
+      margin: 25px auto;
+      padding: 0 16px;
+    }
+
+    section {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 3px 12px #00000012;
+    }
+
+    .game-frame {
+      width: 100%;
+      height: 650px;
+      border: 2px solid #d7e0ef;
+      border-radius: 10px;
+      background: #222;
+    }
+
+    summary {
+      cursor: pointer;
+      background: #244a91;
+      color: white;
+      padding: 14px;
+      border-radius: 9px;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    pre {
+      background: #172033;
+      color: #e8f0ff;
+      padding: 20px;
+      border-radius: 10px;
+      overflow: auto;
+      max-height: 500px;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    a {
+      color: #244a91;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🐱 Kattespillet</h1>
+  <p>Spill, utforsk og lær Python!</p>
+</header>
+
+<main>
+
+  <section>
+    <h2>🎮 Prøv spillet</h2>
+    <p>Bruk piltastene for å samle mynter og få poeng.</p>
+
+    <iframe
+      class="game-frame"
+      src="./spilltest/"
+      title="Kattespillet i Pygame">
+    </iframe>
+  </section>
+
+  <section>
+    <h2>💻 Hvordan er spillet laget?</h2>
+
+    <p>
+      Kattespillet er programmert i Python med Pygame.
+      Åpne koden for å se hvordan spillet fungerer.
+    </p>
+
+    <details id="code-details">
+      <summary>👀 Vis Python-koden</summary>
+
+      <p>Her ser du den ekte Python-koden til spillet:</p>
+
+      <pre><code id="python-code">Laster Python-koden...</code></pre>
+    </details>
+  </section>
+
+  <section>
+    <h2>🧩 Utforsk koden</h2>
+
+    <p>Prøv å finne svar på disse spørsmålene:</p>
+
+    <ol>
+      <li>Hvor i koden bestemmes spillerens hastighet?</li>
+      <li>Hvordan oppdager spillet at katten treffer en mynt?</li>
+      <li>Hvilken variabel holder styr på poengene?</li>
+    </ol>
+  </section>
+
+</main>
+
+<script>
+  fetch("./spilltest/main.py")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Kunne ikke hente Python-koden");
+      }
+      return response.text();
+    })
+    .then(code => {
+      document.getElementById("python-code").textContent = code;
+    })
+    .catch(error => {
+      document.getElementById("python-code").textContent =
+        "Kunne ikke laste Python-koden. Prøv å oppdatere siden.";
+      console.error(error);
+    });
+</script>
+
+</body>
+</html>
