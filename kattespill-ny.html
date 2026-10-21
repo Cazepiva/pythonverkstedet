@@ -242,10 +242,66 @@ bakgrunn_farge = "lightblue"</textarea>
     ctx.fillStyle = settings.bakgrunn_farge;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = settings.spiller_farge;
-    ctx.fillRect(
-      player.x, player.y, player.size, player.size
-    );
+   
+// Kattens hode og ører
+const x = player.x;
+const y = player.y;
+const s = player.size;
+
+ctx.fillStyle = settings.spiller_farge;
+
+// Venstre øre
+ctx.beginPath();
+ctx.moveTo(x + 5, y + 15);
+ctx.lineTo(x + 5, y);
+ctx.lineTo(x + 19, y + 10);
+ctx.fill();
+
+// Høyre øre
+ctx.beginPath();
+ctx.moveTo(x + s - 5, y + 15);
+ctx.lineTo(x + s - 5, y);
+ctx.lineTo(x + s - 19, y + 10);
+ctx.fill();
+
+// Hodet
+ctx.beginPath();
+ctx.arc(x + s / 2, y + 23, 17, 0, Math.PI * 2);
+ctx.fill();
+
+// Øyne
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.arc(x + 14, y + 20, 4, 0, Math.PI * 2);
+ctx.arc(x + 26, y + 20, 4, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.fillStyle = "black";
+ctx.beginPath();
+ctx.arc(x + 14, y + 20, 2, 0, Math.PI * 2);
+ctx.arc(x + 26, y + 20, 2, 0, Math.PI * 2);
+ctx.fill();
+
+// Nese
+ctx.fillStyle = "pink";
+ctx.beginPath();
+ctx.arc(x + 20, y + 29, 3, 0, Math.PI * 2);
+ctx.fill();
+
+// Værhår
+ctx.strokeStyle = "black";
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.moveTo(x + 15, y + 30);
+ctx.lineTo(x, y + 27);
+ctx.moveTo(x + 15, y + 33);
+ctx.lineTo(x, y + 36);
+ctx.moveTo(x + 25, y + 30);
+ctx.lineTo(x + 40, y + 27);
+ctx.moveTo(x + 25, y + 33);
+ctx.lineTo(x + 40, y + 36);
+ctx.stroke();
+
 
     ctx.fillStyle = "gold";
     ctx.beginPath();
