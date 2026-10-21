@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mitt kattespill – Pythonverkstedet</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fc;
+      color: #1d2b42;
+    }
+    header {
+      background: #244a91;
+      color: white;
+      text-align: center;
+      padding: 22px;
+    }
+    main {
+      max-width: 1000px;
+      margin: 25px auto;
+      padding: 0 16px;
+    }
+    section {
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      min-height: 450px;
+      padding: 16px;
+      font-family: monospace;
+      font-size: 15px;
+      line-height: 1.5;
+      background: #172033;
+      color: #f0f4ff;
+      border: 2px solid #d7e0ef;
+      border-radius: 10px;
+      resize: vertical;
+      tab-size: 4;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    button {
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 9px;
+      background: #244a91;
+      color: white;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    #status {
+      color: #526078;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🐱 Mitt kattespill</h1>
+  <p>Endre Python-koden og utforsk hvordan spillet fungerer!</p>
+</header>
+
+<main>
+  <section>
+    <h2>💻 Min Python-kode</h2>
+    <p>Prøv å endre for eksempel <code>speed = 5</code>.</p>
+
+    <div class="buttons">
+      <button id="undo" type="button">↶ Angre</button>
+      <button id="redo" type="button">↷ Gjør om</button>
+      <button id="reset" type="button">↺ Tilbakestill</button>
+    </div>
+
+    <textarea id="editor" spellcheck="false"
+      aria-label="Python-kode"></textarea>
+
+    <p id="status">Laster Python-koden ...</p>
+  </section>
+</main>
+
+<script>
+  const editor = document.getElementById("editor");
+  const status = document.getElementById("status");
+  const storageKey = "pythonverkstedet-kattespill-editor-v1";
+
+  let originalCode = "";
+  let history = [];
+  let historyIndex = -1;
+
+  function saveCode() {
+    try {
+      localStorage.setItem(storageKey, editor.value);
+      status.textContent = "Endringene er lagret i denne nettleseren.";
+    } catch (error) {
+      status.textContent = "Kunne ikke lagre automatisk.";
+    }
+  }
+
+  function updateButtons() {
+    document.getElementById("undo").disabled =
+      historyIndex <= 0;
+    document.getElementById("redo").disabled =
+      historyIndex >= history.length - 1;
+  }
+
+  function showHistory(index) {
+    if (index < 0 || index >= history.length) return;
+    historyIndex = index;
+    editor.value = history[historyIndex];
+    saveCode();
+    updateButtons();
+  }
+
+  editor.addEventListener("input", () => {
+    const value = editor.value;
+
+    if (history[historyIndex] === value) return;
+
+    history = history.slice(0, historyIndex + 1);
+    history.push(value);
+    historyIndex = history.length - 1;
+
+    saveCode();
+    updateButtons();
+  });
+
+  document.getElementById("undo").addEventListener("click", () => {
+    showHistory(historyIndex - 1);
+  });
+
+  document.getElementById("redo").addEventListener("click", () => {
+    showHistory(historyIndex + 1);
+  });
+
+  document.getElementById("reset").addEventListener("click", () => {
+    if (!confirm("Vil du tilbakestille hele koden?")) return;
+
+    editor.value = originalCode;
+    history = [originalCode];
+    historyIndex = 0;
+    saveCode();
+    updateButtons();
+  });
+
+  async function loadCode() {
+    try {
+      const response = await fetch("./spilltest/main.py");
+      if (!response.ok) throw new Error("Kunne ikke hente filen");
+
+      originalCode = await response.text();
+
+      const savedCode = localStorage.getItem(storageKey);
+      editor.value = savedCode !== null ? savedCode : originalCode;
+
+      history = [editor.value];
+      historyIndex = 0;
+      updateButtons();
+
+      status.textContent = savedCode !== null
+        ? "Tid
