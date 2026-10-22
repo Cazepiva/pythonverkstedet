@@ -127,9 +127,9 @@ bakgrunn_farge = "lightblue"</textarea>
   let timeLeft=60; 
   let gameTimer; 
   let obstacles = [
-  { x: 180, y: 150, size: 40 },
-  { x: 350, y: 300, size: 40 },
-  { x: 500, y: 180, size: 40 }
+ { x: 180, y: 150, size: 40, dx: 2, dy: 0 },
+{ x: 350, y: 300, size: 40, dx: 0, dy: 2 },
+{ x: 500, y: 180, size: 40, dx: -3, dy: 0 }
 ];
   let touchingObstacle = false;
 
@@ -308,6 +308,20 @@ function showVictory() {
   }
 }
   function update() {
+   // Beveg hindringene
+obstacles.forEach(obstacle => {
+  obstacle.x += obstacle.dx;
+  obstacle.y += obstacle.dy;
+
+  // Snu ved kantene
+  if (obstacle.x <= 0 || obstacle.x + obstacle.size >= canvas.width) {
+    obstacle.dx *= -1;
+  }
+
+  if (obstacle.y <= 0 || obstacle.y + obstacle.size >= canvas.height) {
+    obstacle.dy *= -1;
+  }
+});
     if (keys.has("ArrowLeft")) player.x -= settings.speed;
     if (keys.has("ArrowRight")) player.x += settings.speed;
     if (keys.has("ArrowUp")) player.y -= settings.speed;
