@@ -303,12 +303,37 @@ ctx.lineTo(x + 40, y + 36);
 ctx.stroke();
 
 
-    ctx.fillStyle = "gold";
-    ctx.beginPath();
-    ctx.arc(
-      coin.x, coin.y, coin.radius, 0, Math.PI * 2
-    );
-    ctx.fill();
+   // Gullmynt med mørk kant
+ctx.fillStyle = "#FFD700";
+ctx.strokeStyle = "#B8860B";
+ctx.lineWidth = 3;
+ctx.beginPath();
+ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+ctx.fill();
+ctx.stroke();
+
+// Lys glans på mynten
+ctx.fillStyle = "#FFF4A3";
+ctx.beginPath();
+ctx.arc(
+  coin.x - coin.radius * 0.3,
+  coin.y - coin.radius * 0.3,
+  coin.radius * 0.25,
+  0,
+  Math.PI * 2
+);
+ctx.fill();
+
+// Kronetegn i midten
+ctx.fillStyle = "#8B6508";
+ctx.font = "bold 13px Arial";
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.fillText("kr", coin.x, coin.y + 2);
+
+// Tilbakestill tekstjusteringen
+ctx.textAlign = "left";
+ctx.textBaseline = "alphabetic";
 
     ctx.fillStyle = "#243047";
     ctx.font = "bold 30px Arial";
