@@ -212,7 +212,50 @@ bakgrunn_farge = "lightblue"</textarea>
       status.textContent = "⚠️ " + error.message;
     }
   }
-function playCoinSound() {
+function showVictory() {
+  const overlay = document.createElement("div");
+
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  `;
+
+  const victoryBox = document.createElement("div");
+
+  victoryBox.style.cssText = `
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  `;
+
+  victoryBox.innerHTML = `
+    <div style="font-size:70px;">🏆</div>
+    <h1 style="color:#16803c;">Gratulerer!</h1>
+    <p>Du samlet 10 poeng!</p>
+    <button id="playAgainButton"
+      style="padding:15px 30px; font-size:20px;
+      background:#16803c; color:white;
+      border:0; border-radius:12px; cursor:pointer;">
+      🎮 Spill igjen
+    </button>
+  `;
+
+  overlay.appendChild(victoryBox);
+  document.body.appendChild(overlay);
+
+  document.getElementById("playAgainButton").onclick = () => {
+    overlay.remove();
+  };
+}
+  function playCoinSound() {
   const AudioContextClass =
     window.AudioContext || window.webkitAudioContext;
 
@@ -267,8 +310,8 @@ function playCoinSound() {
       score += settings.poeng_per_mynt;
       playCoinSound();
       if (score >= 10) {
-  alert("🎉 Gratulerer! Du vant!");
-  score = 0;
+          showVictory();
+          score = 0;
 }
       randomCoin();
     }
