@@ -111,6 +111,7 @@ bakgrunn_farge = "lightblue"</textarea>
       <button id="undo">↶ Angre</button>
       <button id="redo">↷ Gjør om</button>
       <button id="reset">↺ Tilbakestill</button>
+      <button id="check">✅ Sjekk oppgaven</button>
     </div>
   </section>
 </main>
@@ -512,7 +513,16 @@ ctx.textBaseline = "alphabetic";
     saveHistory();
     startGame();
   };
+document.getElementById("check").onclick = () => {
+  const code = editor.value;
+  const match = code.match(/^\s*speed\s*=\s*(\d+)\s*$/m);
 
+  if (match && Number(match[1]) === 10) {
+    alert("✅ Gratulerer! Du klarte fartsutfordringen!");
+  } else {
+    alert("🐱 Ikke helt ennå! Prøv å endre speed til 10.");
+  }
+};
   startGame();
   gameLoop();
 </script>
