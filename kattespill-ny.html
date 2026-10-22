@@ -266,6 +266,10 @@ function playCoinSound() {
     ) {
       score += settings.poeng_per_mynt;
       playCoinSound();
+      if (score >= 10) {
+  alert("🎉 Gratulerer! Du vant!");
+  score = 0;
+}
       randomCoin();
     }
   }
