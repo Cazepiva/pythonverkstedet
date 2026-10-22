@@ -125,6 +125,8 @@ bakgrunn_farge = "lightblue"</textarea>
   let player = { x: 100, y: 100, size: 40 };
   let coin = { x: 400, y: 250, radius: 13 };
   let score = 0;
+  let timeLeft=60; 
+  let gameTimer; 
 
   function randomCoin() {
     coin.x = 20 + Math.random() * (canvas.width - 40);
@@ -202,8 +204,21 @@ bakgrunn_farge = "lightblue"</textarea>
       settings = newSettings;
       player = { x: 100, y: 100, size: 40 };
       score = 0;
+      clearInterval(gameTimer);
+      timeLeft=60; 
       keys.clear();
       randomCoin();
+      gameTimer = setInterval(() => {
+  timeLeft--;
+
+  if (timeLeft <= 0) {
+    clearInterval(gameTimer);
+    timeLeft = 0;
+    if (confirm("⏰ Tiden er ute!\n\nVil du spille igjen?")) {
+  startGame();
+}
+  }
+}, 1000);
 
       status.textContent =
         "Spillet kjører! Fart: " + settings.speed +
@@ -417,9 +432,11 @@ ctx.textBaseline = "alphabetic";
     ctx.fillStyle = "#243047";
     ctx.font = "bold 30px Arial";
     ctx.fillText("Poeng: " + score, 20, 40);
+    ctx.fillText("Tid: " + timeLeft + " s", canvas.width - 180, 40);
   }
 
   function gameLoop() {
+    if (timeLeft <= 0) return;
     update();
     draw();
     requestAnimationFrame(gameLoop);
