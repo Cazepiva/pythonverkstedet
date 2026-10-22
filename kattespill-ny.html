@@ -113,6 +113,13 @@ bakgrunn_farge = "lightblue"</textarea>
       <button id="reset">↺ Tilbakestill</button>
       <button id="check">✅ Sjekk oppgaven</button>
     </div>
+    <div id="progress-box" style="margin-top:20px; padding:16px; background:#f0fdf4; border-radius:12px;">
+  <strong>🏆 Mine kodeoppgaver</strong>
+  <p id="progress-text">0 av 3 fullført</p>
+  <div style="background:#ddd; border-radius:10px; height:14px;">
+    <div id="progress-bar" style="background:#22a06b; width:0%; height:14px; border-radius:10px;"></div>
+  </div>
+</div>
   </section>
 </main>
 
@@ -547,7 +554,13 @@ document.getElementById("check").onclick = () => {
   } else {
     melding += "\nPrøv igjen på oppgavene med ❌.";
   }
+const antallFullfort = Number(fart) + Number(farger) + Number(mynter);
 
+document.getElementById("progress-text").textContent =
+  antallFullfort + " av 3 fullført";
+
+document.getElementById("progress-bar").style.width =
+  (antallFullfort / 3 * 100) + "%";
   alert(melding);
 };
   startGame();
