@@ -515,13 +515,40 @@ ctx.textBaseline = "alphabetic";
   };
 document.getElementById("check").onclick = () => {
   const code = editor.value;
-  const match = code.match(/^\s*speed\s*=\s*(\d+)\s*$/m);
 
-  if (match && Number(match[1]) === 10) {
-    alert("✅ Gratulerer! Du klarte fartsutfordringen!");
-  } else {
-    alert("🐱 Ikke helt ennå! Prøv å endre speed til 10.");
+  function checkValue(name, expected) {
+    const regex = new RegExp(
+      "^\\s*" + name + "\\s*=\\s*([^\\n#]+)",
+      "m"
+    );
+    const match = code.match(regex);
+    if (!match) return false;
+
+    const value = match[1].trim()
+      .replace(/^["']|["']$/g, "")
+      .toLowerCase();
+
+    return value === expected;
   }
+
+  const fart = checkValue("speed", "10");
+  const farger =
+    checkValue("spiller_farge", "green") &&
+    checkValue("bakgrunn_farge", "yellow");
+  const mynter = checkValue("poeng_per_mynt", "3");
+
+  let melding = "🐱 Resultat av kodeoppgavene:\n\n";
+  melding += (fart ? "✅" : "❌") + " Fartsutfordringen\n";
+  melding += (farger ? "✅" : "❌") + " Fargeutfordringen\n";
+  melding += (mynter ? "✅" : "❌") + " Myntutfordringen\n";
+
+  if (fart && farger && mynter) {
+    melding += "\n🎉 Gratulerer! Alle tre er løst!";
+  } else {
+    melding += "\nPrøv igjen på oppgavene med ❌.";
+  }
+
+  alert(melding);
 };
   startGame();
   gameLoop();
