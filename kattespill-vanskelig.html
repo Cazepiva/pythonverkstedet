@@ -126,6 +126,12 @@ bakgrunn_farge = "lightblue"</textarea>
   let score = 0;
   let timeLeft=60; 
   let gameTimer; 
+  let obstacles = [
+  { x: 180, y: 150, size: 40 },
+  { x: 350, y: 300, size: 40 },
+  { x: 500, y: 180, size: 40 }
+];
+  let touchingObstacle = false;
 
   function randomCoin() {
     coin.x = 20 + Math.random() * (canvas.width - 40);
@@ -313,7 +319,20 @@ function showVictory() {
     player.y = Math.max(
       0, Math.min(canvas.height - player.size, player.y)
     );
+// Sjekk om katten treffer en hindring
+const hitObstacle = obstacles.some(obstacle =>
+  player.x < obstacle.x + obstacle.size &&
+  player.x + player.size > obstacle.x &&
+  player.y < obstacle.y + obstacle.size &&
+  player.y + player.size > obstacle.y
+);
 
+if (hitObstacle && !touchingObstacle) {
+  score = Math.max(0, score - 1);
+}
+
+touchingObstacle = hitObstacle;
+    
     const centerX = player.x + player.size / 2;
     const centerY = player.y + player.size / 2;
 
@@ -335,7 +354,18 @@ function showVictory() {
     ctx.fillStyle = settings.bakgrunn_farge;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-   
+   // Tegn røde hindringer
+ctx.fillStyle = "red";
+
+obstacles.forEach(obstacle => {
+  ctx.fillRect(
+    obstacle.x,
+    obstacle.y,
+    obstacle.size,
+    obstacle.size
+  );
+});
+    
 // Kattens hode og ører
 const x = player.x;
 const y = player.y;
