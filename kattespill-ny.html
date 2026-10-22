@@ -212,7 +212,38 @@ bakgrunn_farge = "lightblue"</textarea>
       status.textContent = "⚠️ " + error.message;
     }
   }
+function playCoinSound() {
+  const AudioContextClass =
+    window.AudioContext || window.webkitAudioContext;
 
+  if (!AudioContextClass) return;
+
+  try {
+    const audio = new AudioContextClass();
+    const oscillator = audio.createOscillator();
+    const volume = audio.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(700, audio.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(
+      1100, audio.currentTime + 0.12
+    );
+
+    volume.gain.setValueAtTime(0.15, audio.currentTime);
+    volume.gain.exponentialRampToValueAtTime(
+      0.001, audio.currentTime + 0.18
+    );
+
+    oscillator.connect(volume);
+    volume.connect(audio.destination);
+
+    oscillator.start();
+    oscillator.stop(audio.currentTime + 0.18);
+    oscillator.onended = () => audio.close();
+  } catch (error) {
+    console.log("Kunne ikke spille lyd:", error);
+  }
+}
   function update() {
     if (keys.has("ArrowLeft")) player.x -= settings.speed;
     if (keys.has("ArrowRight")) player.x += settings.speed;
@@ -234,6 +265,7 @@ bakgrunn_farge = "lightblue"</textarea>
       player.size / 2 + coin.radius
     ) {
       score += settings.poeng_per_mynt;
+      playCoinSound();
       randomCoin();
     }
   }
