@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mitt kattespill – Pythonverkstedet</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6fc;
+      color: #243047;
+    }
+    header {
+      background: #244a91;
+      color: white;
+      text-align: center;
+      padding: 18px;
+    }
+    main {
+      max-width: 950px;
+      margin: 24px auto;
+      padding: 0 15px;
+    }
+    section {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      border: 2px solid #244a91;
+      border-radius: 10px;
+      margin: auto;
+      background: lightblue;
+    }
+    textarea {
+      box-sizing: border-box;
+      width: 100%;
+      height: 210px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 16px;
+      line-height: 1.6;
+      color: white;
+      background: #172033;
+      border-radius: 10px;
+      resize: vertical;
+    }
+    button {
+      background: #244a91;
+      color: white;
+      border: 0;
+      border-radius: 9px;
+      padding: 12px 17px;
+      margin: 8px 6px 8px 0;
+      font-size: 15px;
+      cursor: pointer;
+    }
+    button:hover { background: #16336b; }
+    #status { font-weight: bold; }
+    .hint { color: #526078; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🐱 Mitt kattespill</h1>
+  <p>Endre koden og lag din egen spillvariant!</p>
+</header>
+
+<main>
+  <section>
+    <h2>🎮 Spill</h2>
+    <p>Bruk piltastene for å samle mynter.</p>
+    <canvas id="game" width="800" height="500"></canvas>
+    <p id="status">Spillet er klart!</p>
+  </section>
+
+  <section>
+    <h2>💻 Min Python-kode</h2>
+    <p class="hint">
+      Prøv å endre speed fra 5 til 10.
+      Trykk deretter «Kjør mitt spill».
+    </p>
+
+    <textarea id="editor" spellcheck="false">speed = 5
+poeng_per_mynt = 1
+spiller_farge = "orange"
+bakgrunn_farge = "lightblue"</textarea>
+
+    <div>
+      <button id="run">▶ Kjør mitt spill</button>
+      <button id="undo">↶ Angre</button>
+      <button id="redo">↷ Gjør om</button>
+      <button id="reset">↺ Tilbakestill</button>
+    </div>
+  </section>
+</main>
+
+<script>
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  const editor = document.getElementById("editor");
+  const status = document.getElementById("status");
+
+  const originalCode = editor.value;
+  const keys = new Set();
+
+  let history = [originalCode];
+  let historyIndex = 0;
+  let saveTimer;
+
+  let settings = {
+    speed: 5,
+    poeng_per_mynt: 1,
+    spiller_farge: "orange",
+    bakgrunn_farge: "lightblue"
+  };
+
+  let player = { x: 100, y: 100, size: 40 };
+  let coin = { x: 400, y: 250, radius: 13 };
+  let score = 0;
+  let timeLeft=60; 
+  let gameTimer; 
+
+  function randomCoin() {
+    coin.x = 20 + Math.random() * (canvas.width - 40);
+    coin.y = 20 + Math.random() * (canvas.height - 40);
+  }
+
+  function readSettings(code) {
+    const result = { ...settings };
+
+    const allowed = new Set([
+      "speed",
+      "poeng_per_mynt",
+      "spiller_farge",
+      "bakgrunn_farge"
+    ]);
+
+    for (const line of code.split("\n")) {
+      const trimmed = line.trim();
+
+      if (!trimmed || trimmed.startsWith("#")) continue;
+
+      const match = trimmed.match(
+        /^([a-z_]+)\s*=\s*(.+)$/
+      );
+
+      if (!match || !allowed.has(match[1])) {
+        throw new Error(
+          "Bruk bare de fire innstillingene som vises i koden."
+        );
+      }
+
+      const name = match[1];
+      const value = match[2].trim();
+
+      if (name === "speed" || name === "poeng_per_mynt") {
+        if (!/^\d+$/.test(value)) {
+          throw new Error(name + " må være et heltall.");
+        }
+
+        const number = Number(value);
+
+        if (number < 1 || number > 50) {
+          throw new Error(name + " må være mellom 1 og 50.");
+        }
+
+        result[name] = number;
+      } else {
+        const textMatch = value.match(/^["']([^"']+)["']$/);
+
+        if (!textMatch) {
+          throw new Error(
+            name + " må være en farge i anførselstegn."
+          );
+        }
+
+        const color = textMatch[1];
+
+        if (!CSS.supports("color", color)) {
+          throw new Error(
+            "Ukjent farge: " + color
+          );
+        }
+
+        result[name] = color;
+      }
+    }
+
+    return result;
+  }
+
+  function startGame() {
+    try {
+      const newSettings = readSettings(editor.value);
+
+      settings = newSettings;
+      player = { x: 100, y: 100, size: 40 };
+      score = 0;
+      clearInterval(gameTimer);
+      timeLeft=60; 
+      keys.clear();
+      randomCoin();
+      gameTimer = setInterval(() => {
+  timeLeft--;
+
+  if (timeLeft <= 0) {
+    clearInterval(gameTimer);
+    timeLeft = 0;
+    if (confirm("⏰ Tiden er ute!\n\nVil du spille igjen?")) {
+  startGame();
+}
+  }
+}, 1000);
+
+      status.textContent =
+        "Spillet kjører! Fart: " + settings.speed +
+        " | Poeng per mynt: " + settings.poeng_per_mynt;
+    } catch (error) {
+      status.textContent = "⚠️ " + error.message;
+    }
+  }
+function showVictory() {
+  const overlay = document.createElement("div");
+
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  `;
+
+  const victoryBox = document.createElement("div");
+
+  victoryBox.style.cssText = `
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  `;
+
+  victoryBox.innerHTML = `
+    <div style="font-size:70px;">🏆</div>
+    <h1 style="color:#16803c;">Gratulerer!</h1>
+    <p>Du samlet 10 poeng!</p>
+    <button id="playAgainButton"
+      style="padding:15px 30px; font-size:20px;
+      background:#16803c; color:white;
+      border:0; border-radius:12px; cursor:pointer;">
+      🎮 Spill igjen
+    </button>
+  `;
+
+  overlay.appendChild(victoryBox);
+  document.body.appendChild(overlay);
+
+  document.getElementById("playAgainButton").onclick = () => {
+    overlay.remove();
+  };
+}
+  function playCoinSound() {
+  const AudioContextClass =
+    window.AudioContext || window.webkitAudioContext;
+
+  if (!AudioContextClass) return;
+
+  try {
+    const audio = new AudioContextClass();
+    const oscillator = audio.createOscillator();
+    const volume = audio.createGain();
+
+    oscillator.type = "sine";
+    oscillator.frequency.setValueAtTime(700, audio.currentTime);
+    oscillator.frequency.exponentialRampToValueAtTime(
+      1100, audio.currentTime + 0.12
+    );
+
+    volume.gain.setValueAtTime(0.15, audio.currentTime);
+    volume.gain.exponentialRampToValueAtTime(
+      0.001, audio.currentTime + 0.18
+    );
+
+    oscillator.connect(volume);
+    volume.connect(audio.destination);
+
+    oscillator.start();
+    oscillator.stop(audio.currentTime + 0.18);
+    oscillator.onended = () => audio.close();
+  } catch (error) {
+    console.log("Kunne ikke spille lyd:", error);
+  }
+}
+  function update() {
+    if (keys.has("ArrowLeft")) player.x -= settings.speed;
+    if (keys.has("ArrowRight")) player.x += settings.speed;
+    if (keys.has("ArrowUp")) player.y -= settings.speed;
+    if (keys.has("ArrowDown")) player.y += settings.speed;
+
+    player.x = Math.max(
+      0, Math.min(canvas.width - player.size, player.x)
+    );
+    player.y = Math.max(
+      0, Math.min(canvas.height - player.size, player.y)
+    );
+
+    const centerX = player.x + player.size / 2;
+    const centerY = player.y + player.size / 2;
+
+    if (
+      Math.hypot(centerX - coin.x, centerY - coin.y) <
+      player.size / 2 + coin.radius
+    ) {
+      score += settings.poeng_per_mynt;
+      playCoinSound();
+      if (score >= 10) {
+          showVictory();
+          score = 0;
+}
+      randomCoin();
+    }
+  }
+
+  function draw() {
+    ctx.fillStyle = settings.bakgrunn_farge;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+   
+// Kattens hode og ører
+const x = player.x;
+const y = player.y;
+const s = player.size;
+
+ctx.fillStyle = settings.spiller_farge;
+
+// Venstre øre
+ctx.beginPath();
+ctx.moveTo(x + 5, y + 15);
+ctx.lineTo(x + 5, y);
+ctx.lineTo(x + 19, y + 10);
+ctx.fill();
+
+// Høyre øre
+ctx.beginPath();
+ctx.moveTo(x + s - 5, y + 15);
+ctx.lineTo(x + s - 5, y);
+ctx.lineTo(x + s - 19, y + 10);
+ctx.fill();
+
+// Hodet
+ctx.beginPath();
+ctx.arc(x + s / 2, y + 23, 17, 0, Math.PI * 2);
+ctx.fill();
+
+// Øyne
+ctx.fillStyle = "white";
+ctx.beginPath();
+ctx.arc(x + 14, y + 20, 4, 0, Math.PI * 2);
+ctx.arc(x + 26, y + 20, 4, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.fillStyle = "black";
+ctx.beginPath();
+ctx.arc(x + 14, y + 20, 2, 0, Math.PI * 2);
+ctx.arc(x + 26, y + 20, 2, 0, Math.PI * 2);
+ctx.fill();
+
+// Nese
+ctx.fillStyle = "pink";
+ctx.beginPath();
+ctx.arc(x + 20, y + 29, 3, 0, Math.PI * 2);
+ctx.fill();
+
+// Værhår
+ctx.strokeStyle = "black";
+ctx.lineWidth = 1;
+ctx.beginPath();
+ctx.moveTo(x + 15, y + 30);
+ctx.lineTo(x, y + 27);
+ctx.moveTo(x + 15, y + 33);
+ctx.lineTo(x, y + 36);
+ctx.moveTo(x + 25, y + 30);
+ctx.lineTo(x + 40, y + 27);
+ctx.moveTo(x + 25, y + 33);
+ctx.lineTo(x + 40, y + 36);
+ctx.stroke();
+
+
+   // Gullmynt med mørk kant
+ctx.fillStyle = "#FFD700";
+ctx.strokeStyle = "#B8860B";
+ctx.lineWidth = 3;
+ctx.beginPath();
+ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+ctx.fill();
+ctx.stroke();
+
+// Lys glans på mynten
+ctx.fillStyle = "#FFF4A3";
+ctx.beginPath();
+ctx.arc(
+  coin.x - coin.radius * 0.3,
+  coin.y - coin.radius * 0.3,
+  coin.radius * 0.25,
+  0,
+  Math.PI * 2
+);
+ctx.fill();
+
+// Kronetegn i midten
+ctx.fillStyle = "#8B6508";
+ctx.font = "bold 13px Arial";
+ctx.textAlign = "center";
+ctx.textBaseline = "middle";
+ctx.fillText("kr", coin.x, coin.y + 2);
+
+// Tilbakestill tekstjusteringen
+ctx.textAlign = "left";
+ctx.textBaseline = "alphabetic";
+
+    ctx.fillStyle = "#243047";
+    ctx.font = "bold 30px Arial";
+    ctx.fillText("Poeng: " + score, 20, 40);
+    ctx.fillText("Tid: " + timeLeft + " s", canvas.width - 180, 40);
+  }
+
+  function gameLoop() {
+    if (timeLeft <= 0) return;
+    update();
+    draw();
+    requestAnimationFrame(gameLoop);
+  }
+
+  document.addEventListener("keydown", event => {
+    if (event.key.startsWith("Arrow") &&
+        document.activeElement !== editor) {
+      keys.add(event.key);
+      event.preventDefault();
+    }
+  });
+
+  document.addEventListener("keyup", event => {
+    keys.delete(event.key);
+  });
+
+  window.addEventListener("blur", () => keys.clear());
+
+  function saveHistory() {
+    if (editor.value === history[historyIndex]) return;
+
+    history = history.slice(0, historyIndex + 1);
+    history.push(editor.value);
+    historyIndex++;
+  }
+
+  editor.addEventListener("input", () => {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(saveHistory, 350);
+  });
+
+  document.getElementById("run").onclick = () => {
+    clearTimeout(saveTimer);
+    saveHistory();
+    startGame();
+  };
+
+  document.getElementById("undo").onclick = () => {
+    clearTimeout(saveTimer);
+    saveHistory();
+
+    if (historyIndex > 0) {
+      historyIndex--;
+      editor.value = history[historyIndex];
+    }
+  };
+
+  document.getElementById("redo").onclick = () => {
+    if (historyIndex < history.length - 1) {
+      historyIndex++;
+      editor.value = history[historyIndex];
+    }
+  };
+
+  document.getElementById("reset").onclick = () => {
+    clearTimeout(saveTimer);
+    saveHistory();
+    editor.value = originalCode;
+    saveHistory();
+    startGame();
+  };
+
+  startGame();
+  gameLoop();
+</script>
+
+</body>
+</html>
