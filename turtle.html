@@ -29,6 +29,13 @@
   .challenge button { margin-right:8px; margin-top:4px; }
   .hint { padding:10px 12px; background:#fff; border-left:4px solid #3657a5; border-radius:5px; }
   .hint[hidden] { display:none; }
+  details.fold { margin:12px 0 18px; border:1px solid #d7e6fb; border-radius:12px; background:#f8fbff; }
+  details.fold > summary { padding:15px 17px; font-weight:bold; cursor:pointer; color:#254a93; }
+  details.fold > .fold-content { padding:0 16px 16px; }
+  details.fold:focus-within { border-color:#3657a5; }
+  .grid-control { display:flex; align-items:center; gap:9px; margin:0 0 14px; font-weight:bold; }
+  .grid-control input { width:19px; height:19px; }
+  .grid-control input:focus-visible { outline:2px solid #3657a5; outline-offset:3px; }
 </style>
 </head>
 <body>
@@ -37,6 +44,9 @@
   <p>Lær Python ved å tegne med en skilpadde! Se hvordan figurene blir til, og eksperimenter med farger og koordinater.</p>
   <section class="panel">
     <h2>💻 Min Turtle-kode</h2>
+    <details class="fold" id="examples-and-tasks">
+      <summary>📚 Vis eksempler og oppdrag</summary>
+      <div class="fold-content">
     <div class="examples">
       <label for="example-choice"><strong>📚 Velg et kodeeksempel:</strong></label>
       <select id="example-choice">
@@ -58,6 +68,8 @@
       <p id="hint-text" class="hint" aria-live="polite" hidden></p>
       <p class="small">Prøv selv først! Hintene viser deg hvor du kan lete i koden, uten å gi deg hele løsningen.</p>
     </section>
+      </div>
+    </details>
     <textarea id="turtle-code" spellcheck="false">from turtle import *
 
 bgcolor("lightblue")
@@ -88,12 +100,15 @@ for i in range(3):
   </section>
   <section class="panel">
     <h2>🎨 Tegnefelt</h2>
+    <label class="grid-control" for="show-grid"><input type="checkbox" id="show-grid"> 📍 Vis koordinatsystem</label>
     <canvas id="turtle-canvas" width="800" height="600" aria-label="Tegnefelt for Turtle"></canvas>
     <p id="turtle-status" role="status">Klar til å tegne!</p>
     <p class="small">Koordinater: (0, 0) er midt i tegnefeltet. Positive x-verdier går mot høyre, og positive y-verdier går oppover.</p>
   </section>
   <section class="panel">
-    <h2>📚 Kommandoer du kan prøve</h2>
+    <details class="fold">
+      <summary>📚 Vis kommandoer du kan prøve</summary>
+      <div class="fold-content">
     <div class="help">
       <code>forward(100)</code> – gå fremover · <code>backward(50)</code> – gå bakover<br>
       <code>right(90)</code> – sving høyre · <code>left(90)</code> – sving venstre<br>
@@ -102,6 +117,8 @@ for i in range(3):
       <code>goto(100, 50)</code> – flytt til koordinater · <code>setx(-100)</code> / <code>sety(80)</code> – endre én koordinat<br>
       <code>for i in range(5):</code> – gjenta innrykkede kommandoer fem ganger
     </div>
+      </div>
+    </details>
   </section>
   <p><a href="index.html">← Tilbake til Pythonverkstedet</a></p>
 </main>
@@ -110,6 +127,8 @@ for i in range(3):
   'use strict';
   const canvas = document.getElementById('turtle-canvas');
   const ctx = canvas.getContext('2d');
+  const showGrid = document.getElementById('show-grid');
+  showGrid.addEventListener('change', () => render());
   const codeBox = document.getElementById('turtle-code');
   const examples = {
     square: `from turtle import *
@@ -295,9 +314,48 @@ for i in range(3):
   drawing.height = canvas.height;
   const ink = drawing.getContext('2d');
 
+  function drawGrid() {
+    const spacing = 50;
+    const midX = canvas.width / 2;
+    const midY = canvas.height / 2;
+    ctx.save();
+    ctx.font = '12px Arial, sans-serif';
+    ctx.textBaseline = 'top';
+    for (let x = 0; x <= canvas.width; x += spacing) {
+      ctx.beginPath();
+      ctx.strokeStyle = x === midX ? 'rgba(38,78,137,.75)' : 'rgba(38,78,137,.22)';
+      ctx.lineWidth = x === midX ? 1.5 : 1;
+      ctx.moveTo(x + .5, 0);
+      ctx.lineTo(x + .5, canvas.height);
+      ctx.stroke();
+      if (x !== midX && x > 18 && x < canvas.width - 18) {
+        ctx.fillStyle = '#365780';
+        ctx.fillText(String(x - midX), x + 3, midY + 6);
+      }
+    }
+    for (let y = 0; y <= canvas.height; y += spacing) {
+      ctx.beginPath();
+      ctx.strokeStyle = y === midY ? 'rgba(38,78,137,.75)' : 'rgba(38,78,137,.22)';
+      ctx.lineWidth = y === midY ? 1.5 : 1;
+      ctx.moveTo(0, y + .5);
+      ctx.lineTo(canvas.width, y + .5);
+      ctx.stroke();
+      if (y !== midY && y > 14 && y < canvas.height - 18) {
+        ctx.fillStyle = '#365780';
+        ctx.fillText(String(midY - y), midX + 6, y + 3);
+      }
+    }
+    ctx.fillStyle = '#24324a';
+    ctx.fillText('0', midX + 5, midY + 6);
+    ctx.fillText('x', canvas.width - 17, midY + 7);
+    ctx.fillText('y', midX + 8, 7);
+    ctx.restore();
+  }
+
   function render() {
     ctx.fillStyle = turtle.background;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (showGrid.checked) drawGrid();
     ctx.drawImage(drawing, 0, 0);
     // En liten grønn pil viser skilpaddens posisjon og retning.
     const px = canvas.width / 2 + turtle.x;
@@ -489,3 +547,4 @@ for i in range(3):
 </script>
 </body>
 </html>
+     
