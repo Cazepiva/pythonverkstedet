@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐢 Turtle-verkstedet</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f7ff;
+      color: #24324a;
+      margin: 0;
+      padding: 20px;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+    }
+    .panel {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      margin: 20px 0;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+      box-sizing: border-box;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 16px;
+    }
+    canvas {
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border: 2px solid #3657a5;
+      border-radius: 10px;
+    }
+    button {
+      background: #27834a;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>🐢 Turtle-verkstedet</h1>
+    <p>Lær Python ved å tegne med en skilpadde!</p>
+
+    <section class="panel">
+      <h2>💻 Min Turtle-kode</h2>
+      <p>Snart kan du skrive Python-kode her og tegne figurer.</p>
+
+      <textarea id="turtle-code" spellcheck="false">from turtle import *
+
+for i in range(4):
+    forward(100)
+    right(90)</textarea>
+
+      <p><button id="run-turtle">▶ Tegn med Turtle</button></p>
+    </section>
+
+    <section class="panel">
+      <h2>🎨 Tegnefelt</h2>
+      <canvas id="turtle-canvas" width="600" height="400"></canvas>
+      <p id="turtle-status">Klar til å tegne!</p>
+    </section>
+
+    <p><a href="index.html">← Tilbake til Pythonverkstedet</a></p>
+  </main>
+</body>
+</html>
