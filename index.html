@@ -199,6 +199,36 @@
     .site-nav a {color:#254a93;text-decoration:none;font-weight:bold;padding:10px 14px;border-radius:9px;background:white;}
     .site-nav a[aria-current="page"] {background:#3657a5;color:white;}
     .page-intro {max-width:1000px;margin:22px auto;padding:0 16px;}
+
+    /* Ny arbeidsflate: editor i midten og navigasjon til venstre */
+    body { padding:0; background:#f3f6ff; }
+    header { padding:19px max(20px, calc((100vw - 1380px)/2)); background:white; border-bottom:1px solid #dce3f2; }
+    header h1 { margin:0 0 5px; color:#3657a5; }
+    header p { margin:0; color:#53627b; }
+    main.workspace { max-width:1380px; margin:0 auto; padding:22px 18px; display:grid; grid-template-columns:245px minmax(0,1fr); gap:22px; align-items:start; }
+    .sidebar { position:sticky; top:18px; background:white; border:1px solid #e0e7f3; border-radius:16px; padding:15px; box-shadow:0 4px 16px #24324a0c; }
+    .sidebar-heading { font-size:.88rem; color:#63718a; font-weight:bold; padding:8px 10px 11px; }
+    .side-link { display:block; padding:13px 12px; margin-bottom:5px; text-decoration:none; color:#254a93; font-weight:600; border-radius:10px; background:#f5f8ff; }
+    .side-link:hover, .side-link:focus-visible { background:#e2ebff; outline-offset:2px; }
+    .side-link.active { background:#3657a5; color:white; }
+    .projects-title { margin-top:17px; border-top:1px solid #e2e7f1; padding-top:18px; }
+    .future-feature { padding:12px; border-radius:10px; background:#f5f7fa; color:#53627b; font-size:.85rem; line-height:1.5; }
+    .future-feature p { margin:7px 0 10px; }
+    .future-tag { display:inline-block; padding:5px 7px; border-radius:6px; background:#e9edf3; font-size:.77rem; }
+    .workspace-main { min-width:0; }
+    .editor-panel { background:white; padding:24px; border-radius:16px; border:1px solid #dce3f2; box-shadow:0 4px 16px #24324a12; color:#17324d; }
+    .editor-panel h2 { margin-top:0; color:#254a93; }
+    .editor-panel #python-code { min-height:310px; }
+    #oppgavebank { scroll-margin-top:18px; }
+    #editor { scroll-margin-top:18px; }
+    @media (max-width:850px) {
+      main.workspace { grid-template-columns:1fr; padding:14px; gap:14px; }
+      .sidebar { position:static; }
+      .sidebar .side-link { display:inline-block; margin:3px; padding:10px; }
+      .sidebar-heading { padding:6px; }
+      .projects-title { margin-top:10px; }
+      .editor-panel { padding:16px; }
+    }
   </style>
 </head>
 <body>
@@ -207,28 +237,26 @@
     <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
   </header>
 
-  <nav class="site-nav" aria-label="Hovedmeny">
-    <a aria-current="page" href="index.html">📘 Lær Python</a>
-    <a href="spillverksted.html">🎮 Spillverksted</a>
-  </nav>
-  <div class="page-intro"><h2>Lær Python</h2><p>Start med tema 1. Les forklaringen, prøv eksempelet og løs oppgavene. Python-editoren er klar når du vil teste koden.</p></div>
-  <main>
-    <section class="panel">
-  <h2>🐱 Kattespillet</h2>
-  <p>Samle gullmynter og velg mellom lett og vanskelig nivå!</p>
-  <a href="kattespill.html" style="display:inline-block; padding:14px 24px; background:#27834a; color:white; border-radius:12px; text-decoration:none; font-weight:bold;">
-    🐱 Spill kattespillet
-  </a>
-</section>
-<section class="panel" aria-labelledby="turtle-challenge-heading" style="border:2px solid #d4e7fa;">
-  <h2 id="turtle-challenge-heading">🐢 Turtle-utfordringen – 6 oppgaver</h2>
-  <p>Prøv seks morsomme tegneoppgaver! Begynn med en firkant, utforsk farger og koordinater, og lag ditt eget Turtle-kunstverk. Du kan få hint underveis.</p>
-  <a href="turtle-oppgaver.html" style="display:inline-block;padding:14px 24px;background:#27834a;color:white;border-radius:12px;text-decoration:none;font-weight:bold;">🐢 Start Turtle-utfordringen →</a>
-  <p style="margin-bottom:0;color:#43536b;font-size:.94rem;">Vil du bare tegne? <a href="turtle.html">Åpne Turtle-verkstedet</a>.</p>
-</section>
-<section style="max-width: 760px; margin: 30px auto; padding: 24px; background: #f0f9ff; border-radius: 16px; color: #17324d;">
-  <h2>🐍 Prøv Python!</h2>
-  <p>Skriv Python-kode og se hva som skjer.</p>
+  <main class="workspace">
+    <aside class="sidebar" aria-label="Verkstedmeny">
+      <div class="sidebar-heading">🧭 Utforsk</div>
+      <a class="side-link active" href="#editor">💻 Python-editor</a>
+      <a class="side-link" href="#oppgavebank">📘 Lær Python</a>
+      <a class="side-link" href="turtle.html">🐢 Turtle-verkstedet</a>
+      <a class="side-link" href="turtle-oppgaver.html">🎯 Turtle-utfordringen</a>
+      <a class="side-link" href="spillverksted.html">🎮 Spillverksted</a>
+      <a class="side-link" href="kattespill.html">🐱 Kattespillet</a>
+      <div class="sidebar-heading projects-title">📁 Mine prosjekter</div>
+      <div class="future-feature">
+        <strong>Kommer senere</strong>
+        <p>Her skal elevene kunne se egne mapper og lagret kode når vi har laget en trygg innloggingsløsning.</p>
+        <span class="future-tag">🔒 Krever innlogging</span>
+      </div>
+    </aside>
+    <div class="workspace-main">
+<section class="editor-panel" id="editor">
+  <h2>💻 Min Python-kode</h2>
+  <p>Skriv, test og utforsk Python. Velg en oppgave fra læringsløypen når du vil øve.</p>
 
   <div class="python-editor-wrap">
   <pre id="line-numbers" class="line-numbers" aria-hidden="true">1
@@ -263,7 +291,7 @@ print("Totalpris:", total)</textarea>
   <p id="python-status" role="status">Laster Python-motoren …</p>
 
 </section>
-<section class="panel" id="oppgavebank" style="max-width:1000px;margin:24px auto;padding:20px;">
+<section class="panel" id="oppgavebank">
   <h2>🧭 Læringsløype: lær først, øv etterpå</h2>
   <p>Hvert tema begynner med en kort forklaring og et kodeeksempel. Les gjennom opplæringen, prøv eksempelet i editoren, og gå deretter videre til oppgavene i samme tema.</p>
   <div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
@@ -279,6 +307,7 @@ print("Totalpris:", total)</textarea>
     <p id="task-load-status" role="status"></p>
   </div>
 </section>
+    </div>
   </main>
   <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
 <script>
