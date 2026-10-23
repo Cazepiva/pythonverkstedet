@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐢 Turtle-verkstedet</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background:#f0f7ff; color:#24324a; margin:0; padding:20px; }
+  main { max-width:950px; margin:auto; }
+  .panel { background:white; padding:20px; border-radius:14px; margin:20px 0; box-shadow:0 2px 8px #16375c10; }
+  textarea { width:100%; min-height:245px; padding:14px; font:16px/1.5 monospace; border:1px solid #9caec8; border-radius:8px; tab-size:4; }
+  canvas { display:block; width:100%; max-width:800px; height:auto; background:white; border:2px solid #3657a5; border-radius:10px; }
+  button { background:#27834a; color:white; border:0; padding:12px 18px; border-radius:8px; cursor:pointer; font-weight:bold; }
+  button.secondary { background:#3657a5; }
+  button:disabled { opacity:.6; cursor:not-allowed; }
+  .examples { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:12px 0; }
+  .examples select { padding:11px; border:1px solid #9caec8; border-radius:8px; font-size:16px; max-width:100%; }
+  .controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin:12px 0; }
+  .controls label { display:flex; align-items:center; gap:9px; }
+  input[type=range] { width:170px; }
+  #turtle-status { min-height:1.4em; font-weight:600; }
+  .help { line-height:1.7; background:#f4f8ff; padding:12px 16px; border-radius:8px; }
+  code { background:#e9effb; padding:2px 4px; border-radius:3px; }
+  .small { font-size:.92rem; color:#43536b; }
+</style>
+</head>
+<body>
+<main>
+  <h1>🐢 Turtle-verkstedet</h1>
+  <p>Lær Python ved å tegne med en skilpadde! Se hvordan figurene blir til, og eksperimenter med farger og koordinater.</p>
+  <section class="panel">
+    <h2>💻 Min Turtle-kode</h2>
+    <div class="examples">
+      <label for="example-choice"><strong>📚 Velg et kodeeksempel:</strong></label>
+      <select id="example-choice">
+        <option value="square">⬜ Firkant</option>
+        <option value="triangle">🔺 Trekant</option>
+        <option value="star">⭐ Stjerne</option>
+        <option value="house">🏠 Hus</option>
+        <option value="flower">🌸 Blomst</option>
+        <option value="two" selected>🎨 To figurer og koordinater</option>
+      </select>
+      <button id="load-example" class="secondary" type="button">Vis koden</button>
+    </div>
+    <p class="small">Velg et eksempel og trykk «Vis koden». Endre gjerne tall og farger før du tegner. Dette erstatter teksten i kodefeltet.</p>
+    <textarea id="turtle-code" spellcheck="false">from turtle import *
+
+bgcolor("lightblue")
+pencolor("red")
+
+penup()
+goto(-100, 60)
+pendown()
+
+for i in range(4):
+    forward(100)
+    right(90)
+
+penup()
+goto(100, -50)
+pendown()
+pencolor("blue")
+
+for i in range(3):
+    forward(90)
+    right(120)</textarea>
+    <div class="controls">
+      <button id="run-turtle">▶ Tegn med Turtle</button>
+      <button id="stop-turtle" class="secondary" disabled>■ Stopp</button>
+      <label for="speed">Tegnehastighet <input id="speed" type="range" min="1" max="10" value="5"> <strong id="speed-label">5/10</strong></label>
+    </div>
+    <p class="small">Tips: Lav hastighet gjør det lettere å se hvordan hver strek tegnes. Trykk «Stopp» for å avbryte.</p>
+  </section>
+  <section class="panel">
+    <h2>🎨 Tegnefelt</h2>
+    <canvas id="turtle-canvas" width="800" height="600" aria-label="Tegnefelt for Turtle"></canvas>
+    <p id="turtle-status" role="status">Klar til å tegne!</p>
+    <p class="small">Koordinater: (0, 0) er midt i tegnefeltet. Positive x-verdier går mot høyre, og positive y-verdier går oppover.</p>
+  </section>
+  <section class="panel">
+    <h2>📚 Kommandoer du kan prøve</h2>
+    <div class="help">
+      <code>forward(100)</code> – gå fremover · <code>backward(50)</code> – gå bakover<br>
+      <code>right(90)</code> – sving høyre · <code>left(90)</code> – sving venstre<br>
+      <code>pencolor("red")</code> – strekfarge · <code>bgcolor("lightblue")</code> – bakgrunn<br>
+      <code>pensize(4)</code> – tykkere strek · <code>penup()</code> – løft pennen · <code>pendown()</code> – sett ned pennen<br>
+      <code>goto(100, 50)</code> – flytt til koordinater · <code>setx(-100)</code> / <code>sety(80)</code> – endre én koordinat<br>
+      <code>for i in range(5):</code> – gjenta innrykkede kommandoer fem ganger
+    </div>
+  </section>
+  <p><a href="index.html">← Tilbake til Pythonverkstedet</a></p>
+</main>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('turtle-canvas');
+  const ctx = canvas.getContext('2d');
+  const codeBox = document.getElementById('turtle-code');
+  const examples = {
+    square: `from turtle import *
+
+pencolor("blue")
+for i in range(4):
+    forward(120)
+    right(90)`,
+    triangle: `from turtle import *
+
+pencolor("green")
+for i in range(3):
+    forward(140)
+    right(120)`,
+    star: `from turtle import *
+
+bgcolor("lightyellow")
+pencolor("purple")
+pensize(4)
+for i in range(5):
+    forward(160)
+    right(144)`,
+    house: `from turtle import *
+
+bgcolor("lightblue")
+penup()
+goto(-80, -100)
+pendown()
+pencolor("darkred")
+for i in range(4):
+    forward(160)
+    left(90)
+penup()
+goto(-80, 60)
+pendown()
+pencolor("orange")
+left(45)
+forward(113)
+right(90)
+forward(113)`,
+    flower: `from turtle import *
+
+bgcolor("honeydew")
+pencolor("deeppink")
+pensize(3)
+for i in range(8):
+    for j in range(4):
+        forward(60)
+        right(90)
+    right(45)`,
+    two: `from turtle import *
+
+bgcolor("lightblue")
+penup()
+goto(-180, 80)
+pendown()
+pencolor("red")
+for i in range(4):
+    forward(100)
+    right(90)
+penup()
+goto(100, -50)
+pendown()
+pencolor("blue")
+for i in range(3):
+    forward(100)
+    right(120)`
+  };
+  const exampleChoice = document.getElementById('example-choice');
+  document.getElementById('load-example').addEventListener('click', () => {
+    codeBox.value = examples[exampleChoice.value];
+    codeBox.focus();
+    status.textContent = '📚 Eksemplet er klart. Endre koden eller klikk «Tegn med Turtle».';
+  });
+
+  const runButton = document.getElementById('run-turtle');
+  const stopButton = document.getElementById('stop-turtle');
+  const status = document.getElementById('turtle-status');
+  const speed = document.getElementById('speed');
+  const speedLabel = document.getElementById('speed-label');
+  let runId = 0;
+  let turtle;
+
+  codeBox.addEventListener('keydown', event => {
+    if (event.key !== 'Enter') return;
+    const start = codeBox.selectionStart;
+    const end = codeBox.selectionEnd;
+    const text = codeBox.value;
+    const lineStart = text.lastIndexOf('\n', start - 1) + 1;
+    const currentLine = text.slice(lineStart, start);
+    const spaces = currentLine.match(/^\s*/)[0];
+    const indent = spaces + (currentLine.trimEnd().endsWith(':') ? '    ' : '');
+    event.preventDefault();
+    const insertion = '\n' + indent;
+    codeBox.value = text.slice(0, start) + insertion + text.slice(end);
+    codeBox.selectionStart = codeBox.selectionEnd = start + insertion.length;
+  });
+
+  speed.addEventListener('input', () => { speedLabel.textContent = speed.value + '/10'; });
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const cancelled = id => id !== runId;
+  const pause = () => sleep(Math.round(600 * Math.pow((11 - Number(speed.value)) / 10, 1.65)));
+
+  function resetTurtle() {
+    turtle = { x:0, y:0, angle:0, penDown:true, color:'black', width:2, background:'white' };
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    render();
+  }
+
+  // Tegning lagres på et eget lerret, slik at markøren kan flyttes uten å viske ut strekene.
+  const drawing = document.createElement('canvas');
+  drawing.width = canvas.width;
+  drawing.height = canvas.height;
+  const ink = drawing.getContext('2d');
+
+  function render() {
+    ctx.fillStyle = turtle.background;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(drawing, 0, 0);
+    // En liten grønn pil viser skilpaddens posisjon og retning.
+    const px = canvas.width / 2 + turtle.x;
+    const py = canvas.height / 2 - turtle.y;
+    const a = -turtle.angle * Math.PI / 180;
+    ctx.save();
+    ctx.translate(px, py);
+    ctx.rotate(a);
+    ctx.fillStyle = '#27834a';
+    ctx.strokeStyle = '#12542c';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(13, 0);
+    ctx.lineTo(-9, -8);
+    ctx.lineTo(-5, 0);
+    ctx.lineTo(-9, 8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function resetDrawing() {
+    ink.clearRect(0, 0, drawing.width, drawing.height);
+    resetTurtle();
+  }
+
+  async function moveTo(nx, ny, id) {
+    const startX = turtle.x;
+    const startY = turtle.y;
+    const dx = nx - startX;
+    const dy = ny - startY;
+    const distance = Math.hypot(dx, dy);
+    const segments = Math.max(1, Math.ceil(distance / 4));
+    for (let i = 1; i <= segments; i++) {
+      if (cancelled(id)) return;
+      const nextX = startX + dx * i / segments;
+      const nextY = startY + dy * i / segments;
+      if (turtle.penDown) {
+        ink.strokeStyle = turtle.color;
+        ink.lineWidth = turtle.width;
+        ink.lineCap = 'round';
+        ink.beginPath();
+        ink.moveTo(canvas.width / 2 + turtle.x, canvas.height / 2 - turtle.y);
+        ink.lineTo(canvas.width / 2 + nextX, canvas.height / 2 - nextY);
+        ink.stroke();
+      }
+      turtle.x = nextX;
+      turtle.y = nextY;
+      render();
+      await sleep(Math.max(4, Math.round((650 - Number(speed.value) * 60) / segments)));
+    }
+  }
+
+  function parse(source) {
+    const lines = source.replace(/\r/g, '').split('\n');
+    let index = 0;
+    function block(indent) {
+      const result = [];
+      while (index < lines.length) {
+        const raw = lines[index];
+        const number = index + 1;
+        if (!raw.trim() || raw.trim().startsWith('#')) { index++; continue; }
+        if (/\t/.test(raw.match(/^\s*/)[0])) throw Error('Linje ' + number + ': Bruk mellomrom, ikke tabulator, til innrykk.');
+        const leading = raw.match(/^ */)[0].length;
+        if (leading < indent) break;
+        if (leading > indent) throw Error('Linje ' + number + ': Kontroller innrykket.');
+        const command = raw.trim();
+        index++;
+        const loop = command.match(/^for\s+[a-zA-Z_]\w*\s+in\s+range\(\s*(\d+)\s*\)\s*:\s*$/);
+        if (loop) {
+          const count = Number(loop[1]);
+          if (count > 1000) throw Error('Linje ' + number + ': Maks 1000 gjentakelser.');
+          let next = index;
+          while (next < lines.length && (!lines[next].trim() || lines[next].trim().startsWith('#'))) next++;
+          if (next === lines.length || lines[next].match(/^ */)[0].length <= indent) throw Error('Linje ' + number + ': Løkken trenger innrykkede kommandoer.');
+          const childIndent = lines[next].match(/^ */)[0].length;
+          result.push({ type:'loop', count, body:block(childIndent), number });
+        } else {
+          result.push({ type:'command', command, number });
+        }
+      }
+      return result;
+    }
+    return block(0);
+  }
+
+  function argsFor(command, name, count) {
+    const pattern = new RegExp('^' + name + '\\s*\\((.*)\\)$');
+    const match = command.match(pattern);
+    if (!match) return null;
+    const args = match[1].trim() ? match[1].split(',').map(v => v.trim()) : [];
+    if (args.length !== count) throw Error(name + '() trenger ' + count + ' argument(er).');
+    return args;
+  }
+  function numberArg(value) {
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value)) throw Error('Bruk et tall, for eksempel 100 eller -50.');
+    return Number(value);
+  }
+  function colorArg(value) {
+    if (!/^(['"])(.*?)\1$/.test(value)) throw Error('Skriv fargen i anførselstegn, for eksempel "red".');
+    const color = value.slice(1, -1);
+    if (!CSS.supports('color', color)) throw Error('Ukjent farge: ' + color);
+    return color;
+  }
+
+  async function executeCommand(command, id) {
+    if (command === 'from turtle import *' || command === 'import turtle') return;
+    let a;
+    if ((a = argsFor(command, 'forward', 1)) || (a = argsFor(command, 'fd', 1))) {
+      const d = numberArg(a[0]);
+      const r = turtle.angle * Math.PI / 180;
+      await moveTo(turtle.x + Math.cos(r) * d, turtle.y + Math.sin(r) * d, id);
+    } else if ((a = argsFor(command, 'backward', 1)) || (a = argsFor(command, 'bk', 1))) {
+      const d = numberArg(a[0]);
+      const r = turtle.angle * Math.PI / 180;
+      await moveTo(turtle.x - Math.cos(r) * d, turtle.y - Math.sin(r) * d, id);
+    } else if ((a = argsFor(command, 'right', 1)) || (a = argsFor(command, 'rt', 1))) {
+      turtle.angle -= numberArg(a[0]); render(); await pause();
+    } else if ((a = argsFor(command, 'left', 1)) || (a = argsFor(command, 'lt', 1))) {
+      turtle.angle += numberArg(a[0]); render(); await pause();
+    } else if ((a = argsFor(command, 'goto', 2)) || (a = argsFor(command, 'setpos', 2))) {
+      await moveTo(numberArg(a[0]), numberArg(a[1]), id);
+    } else if ((a = argsFor(command, 'setx', 1))) {
+      await moveTo(numberArg(a[0]), turtle.y, id);
+    } else if ((a = argsFor(command, 'sety', 1))) {
+      await moveTo(turtle.x, numberArg(a[0]), id);
+    } else if ((a = argsFor(command, 'pencolor', 1)) || (a = argsFor(command, 'color', 1))) {
+      turtle.color = colorArg(a[0]); await pause();
+    } else if ((a = argsFor(command, 'bgcolor', 1))) {
+      turtle.background = colorArg(a[0]); render(); await pause();
+    } else if ((a = argsFor(command, 'pensize', 1)) || (a = argsFor(command, 'width', 1))) {
+      turtle.width = numberArg(a[0]);
+      if (turtle.width <= 0 || turtle.width > 50) throw Error('Strektykkelsen må være mellom 0 og 50.');
+      await pause();
+    } else if (argsFor(command, 'penup', 0) || argsFor(command, 'pu', 0)) {
+      turtle.penDown = false; await pause();
+    } else if (argsFor(command, 'pendown', 0) || argsFor(command, 'pd', 0)) {
+      turtle.penDown = true; await pause();
+    } else if (argsFor(command, 'home', 0)) {
+      await moveTo(0, 0, id); turtle.angle = 0; render();
+    } else {
+      throw Error('Ukjent kommando: ' + command);
+    }
+  }
+
+  async function execute(nodes, id, counter) {
+    for (const node of nodes) {
+      if (cancelled(id)) return;
+      if (node.type === 'loop') {
+        for (let i = 0; i < node.count; i++) {
+          if (cancelled(id)) return;
+          await execute(node.body, id, counter);
+        }
+      } else {
+        if (++counter.value > 10000) throw Error('For mange kommandoer (maks 10 000).');
+        try { await executeCommand(node.command, id); }
+        catch (error) { throw Error('Linje ' + node.number + ': ' + error.message); }
+      }
+    }
+  }
+
+  runButton.addEventListener('click', async () => {
+    const id = ++runId;
+    let program;
+    try { program = parse(codeBox.value); }
+    catch (error) { status.textContent = '⚠️ ' + error.message; return; }
+    resetDrawing();
+    runButton.disabled = true;
+    stopButton.disabled = false;
+    status.textContent = '🐢 Tegner ...';
+    try {
+      await execute(program, id, { value:0 });
+      if (!cancelled(id)) status.textContent = '✅ Ferdig! Tegningen er klar.';
+    } catch (error) {
+      if (!cancelled(id)) status.textContent = '⚠️ ' + error.message;
+    } finally {
+      if (!cancelled(id)) { runButton.disabled = false; stopButton.disabled = true; }
+    }
+  });
+  stopButton.addEventListener('click', () => {
+    runId++;
+    runButton.disabled = false;
+    stopButton.disabled = true;
+    status.textContent = '⏹ Tegningen ble stoppet.';
+  });
+  resetDrawing();
+})();
+</script>
+</body>
+</html>
