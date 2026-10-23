@@ -10,7 +10,7 @@
   main { max-width:950px; margin:auto; }
   .panel { background:white; padding:20px; border-radius:14px; margin:20px 0; box-shadow:0 2px 8px #16375c10; }
   textarea { width:100%; min-height:245px; padding:14px; font:16px/1.5 monospace; border:1px solid #9caec8; border-radius:8px; tab-size:4; }
-  canvas { display:block; width:100%; max-width:600px; height:auto; background:white; border:2px solid #3657a5; border-radius:10px; }
+  canvas { display:block; width:100%; max-width:800px; height:auto; background:white; border:2px solid #3657a5; border-radius:10px; }
   button { background:#27834a; color:white; border:0; padding:12px 18px; border-radius:8px; cursor:pointer; font-weight:bold; }
   button.secondary { background:#3657a5; }
   button:disabled { opacity:.6; cursor:not-allowed; }
@@ -59,7 +59,7 @@ for i in range(3):
   </section>
   <section class="panel">
     <h2>🎨 Tegnefelt</h2>
-    <canvas id="turtle-canvas" width="600" height="400" aria-label="Tegnefelt for Turtle"></canvas>
+    <canvas id="turtle-canvas" width="800" height="600" aria-label="Tegnefelt for Turtle"></canvas>
     <p id="turtle-status" role="status">Klar til å tegne!</p>
     <p class="small">Koordinater: (0, 0) er midt i tegnefeltet. Positive x-verdier går mot høyre, og positive y-verdier går oppover.</p>
   </section>
@@ -154,14 +154,16 @@ for i in range(3):
   }
 
   async function moveTo(nx, ny, id) {
-    const dx = nx - turtle.x;
-    const dy = ny - turtle.y;
+    const startX = turtle.x;
+    const startY = turtle.y;
+    const dx = nx - startX;
+    const dy = ny - startY;
     const distance = Math.hypot(dx, dy);
     const segments = Math.max(1, Math.ceil(distance / 4));
     for (let i = 1; i <= segments; i++) {
       if (cancelled(id)) return;
-      const nextX = turtle.x + dx / (segments - i + 1);
-      const nextY = turtle.y + dy / (segments - i + 1);
+      const nextX = startX + dx * i / segments;
+      const nextY = startY + dy * i / segments;
       if (turtle.penDown) {
         ink.strokeStyle = turtle.color;
         ink.lineWidth = turtle.width;
