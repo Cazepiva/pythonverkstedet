@@ -122,22 +122,36 @@ function left(degrees) {
 
   const pythonCode = codeBox.value;
     const lines = pythonCode.split("\n");
+    const loopPattern = /^for\s+\w+\s+in\s+range\((\d+)\):$/;
+    let repeatCount = 1;
 for (const line of lines) {
   const command = line.trim();
+  const isIndented = line.startsWith("    ");
+  const loopMatch = command.match(loopPattern);
+  if (loopMatch) {
+  repeatCount = Number(loopMatch[1]);
+  continue;
+}
   const match = command.match(/^forward\((\d+)\)$/);
 
 if (match) {
+ for (let i = 0; i < (isIndented ? repeatCount : 1); i++) {
   forward(Number(match[1]));
+}
 }
   const rightMatch = command.match(/^right\((\d+)\)$/);
 
 if (rightMatch) {
+  for (let i = 0; i < (isIndented ? repeatCount : 1); i++) {
   right(Number(rightMatch[1]));
+}
 }
   const leftMatch = command.match(/^left\((\d+)\)$/);
 
 if (leftMatch) {
+  for (let i = 0; i < (isIndented ? repeatCount : 1); i++) {
   left(Number(leftMatch[1]));
+}
 }
 }
   status.textContent = "Ferdig! Tegningen er klar.";
