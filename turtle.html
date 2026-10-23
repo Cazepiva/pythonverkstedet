@@ -156,24 +156,18 @@ for (const line of lines) {
 }
   const match = command.match(/^forward\((\d+)\)$/);
 
-if (match) {
- for (let i = 0; i < (isIndented ? repeatCount : 1); i++) {
+if (match && !isIndented) {
   forward(Number(match[1]));
-}
 }
   const rightMatch = command.match(/^right\((\d+)\)$/);
 
-if (rightMatch) {
-  for (let i = 0; i < (isIndented ? repeatCount : 1); i++) {
+if (rightMatch && !isIndented) {
   right(Number(rightMatch[1]));
-}
 }
   const leftMatch = command.match(/^left\((\d+)\)$/);
 
-if (leftMatch) {
-  for (let i = 0; i < (isIndented ? repeatCount : 1); i++) {
+if (leftMatch && !isIndented) {
   left(Number(leftMatch[1]));
-}
 }
 }
  for (let i = 0; i < repeatCount; i++) {
