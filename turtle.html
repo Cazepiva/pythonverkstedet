@@ -23,6 +23,12 @@
   .help { line-height:1.7; background:#f4f8ff; padding:12px 16px; border-radius:8px; }
   code { background:#e9effb; padding:2px 4px; border-radius:3px; }
   .small { font-size:.92rem; color:#43536b; }
+  .challenge { margin:16px 0; padding:16px; border:2px solid #d7e6fb; background:#f5f9ff; border-radius:12px; }
+  .challenge h3 { margin:0 0 8px; }
+  .challenge p { line-height:1.5; }
+  .challenge button { margin-right:8px; margin-top:4px; }
+  .hint { padding:10px 12px; background:#fff; border-left:4px solid #3657a5; border-radius:5px; }
+  .hint[hidden] { display:none; }
 </style>
 </head>
 <body>
@@ -44,6 +50,14 @@
       <button id="load-example" class="secondary" type="button">Vis koden</button>
     </div>
     <p class="small">Velg et eksempel og trykk «Vis koden». Endre gjerne tall og farger før du tegner. Dette erstatter teksten i kodefeltet.</p>
+    <section class="challenge" aria-labelledby="challenge-title">
+      <h3 id="challenge-title">🎯 Dagens oppdrag</h3>
+      <p id="challenge-description">Velg et eksempel for å se oppdraget.</p>
+      <button id="show-hint" class="secondary" type="button">💡 Vis hint</button>
+      <button id="reset-challenge" class="secondary" type="button">↺ Start oppdraget på nytt</button>
+      <p id="hint-text" class="hint" aria-live="polite" hidden></p>
+      <p class="small">Prøv selv først! Hintene viser deg hvor du kan lete i koden, uten å gi deg hele løsningen.</p>
+    </section>
     <textarea id="turtle-code" spellcheck="false">from turtle import *
 
 bgcolor("lightblue")
@@ -165,11 +179,80 @@ for i in range(3):
     right(120)`
   };
   const exampleChoice = document.getElementById('example-choice');
+  const challenges = {
+    square: {
+      title:'⬜ Gjør firkanten større',
+      task:'Kan du gjøre hver side dobbelt så lang? Se hva som skjer når du tegner på nytt.',
+      hints:['Se etter tallet inne i forward(...). Det bestemmer lengden på hver side.', 'Prøv å gange sidelengden med 2. Du trenger ikke endre right(90).']
+    },
+    triangle: {
+      title:'🔺 En grønn eller lilla trekant?',
+      task:'Bytt fargen på trekanten til lilla. Kan du deretter gjøre trekanten mindre?',
+      hints:['Finn pencolor(...). Fargen skrives med anførselstegn.', 'Du kan prøve pencolor("purple"). Endre så tallet i forward(...).']
+    },
+    star: {
+      title:'⭐ Lag en større stjerne',
+      task:'Gjør stjernen større, og prøv en annen bakgrunnsfarge.',
+      hints:['Størrelsen styres av forward(...). Bakgrunnen styres av bgcolor(...).', 'Øk tallet i forward(...), for eksempel litt om gangen. Prøv bgcolor("lightblue").']
+    },
+    house: {
+      title:'🏠 Tegn en dør på huset',
+      task:'Kan du legge til en dør? Bruk penup(), goto(x, y) og pendown() for å velge hvor døren begynner.',
+      hints:['Legg til kommandoer nederst i programmet. Løft pennen før du flytter skilpadden.', 'Flytt til et punkt langs husets nederste kant. Sett ned pennen og bruk forward(...) og right(90) eller left(90) for å tegne døren.']
+    },
+    flower: {
+      title:'🌸 Flere kronblader',
+      task:'Kan du endre antall kronblader? Prøv å lage en blomst med fire kronblader.',
+      hints:['Den ytterste for-løkken bestemmer hvor mange ganger kronbladet tegnes.', 'Hvis du bruker range(4), kan du prøve right(90) mellom kronbladene slik at de fordeles jevnt.']
+    },
+    two: {
+      title:'📍 Flytt figurene',
+      task:'Kan du flytte den røde firkanten lenger til venstre og den blå trekanten høyere opp?',
+      hints:['Se etter de to goto(x, y)-kommandoene. x flytter mot høyre/venstre og y flytter opp/ned.', 'Gjør den første x-verdien mer negativ. Øk y-verdien i den andre goto(...).']
+    }
+  };
+  const challengeTitle = document.getElementById('challenge-title');
+  const challengeDescription = document.getElementById('challenge-description');
+  const hintText = document.getElementById('hint-text');
+  const hintButton = document.getElementById('show-hint');
+  let hintIndex = 0;
+  function updateChallenge() {
+    const item = challenges[exampleChoice.value];
+    challengeTitle.textContent = '🎯 ' + item.title;
+    challengeDescription.textContent = item.task;
+    hintIndex = 0;
+    hintText.hidden = true;
+    hintText.textContent = '';
+    hintButton.textContent = '💡 Vis hint';
+    hintButton.disabled = false;
+  }
+  hintButton.addEventListener('click', () => {
+    const hints = challenges[exampleChoice.value].hints;
+    hintText.textContent = 'Hint ' + (hintIndex + 1) + ': ' + hints[hintIndex];
+    hintText.hidden = false;
+    hintIndex++;
+    if (hintIndex >= hints.length) {
+      hintButton.textContent = 'Alle hint vist';
+      hintButton.disabled = true;
+    } else {
+      hintButton.textContent = '💡 Vis neste hint';
+    }
+  });
+  document.getElementById('reset-challenge').addEventListener('click', () => {
+    codeBox.value = examples[exampleChoice.value];
+    updateChallenge();
+    status.textContent = '↺ Oppdraget er nullstilt. Du kan prøve på nytt!';
+  });
+
   document.getElementById('load-example').addEventListener('click', () => {
     codeBox.value = examples[exampleChoice.value];
+    updateChallenge();
     codeBox.focus();
     status.textContent = '📚 Eksemplet er klart. Endre koden eller klikk «Tegn med Turtle».';
   });
+
+  exampleChoice.addEventListener('change', updateChallenge);
+  updateChallenge();
 
   const runButton = document.getElementById('run-turtle');
   const stopButton = document.getElementById('stop-turtle');
