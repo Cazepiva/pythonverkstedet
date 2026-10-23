@@ -79,6 +79,23 @@ for i in range(4):
   const ctx = canvas.getContext("2d");
   const status = document.getElementById("turtle-status");
   const codeBox = document.getElementById("turtle-code");
+  codeBox.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+
+  const start = codeBox.selectionStart;
+  const end = codeBox.selectionEnd;
+  const text = codeBox.value;
+  const lineStart = text.lastIndexOf("\n", start - 1) + 1;
+  const currentLine = text.slice(lineStart, start);
+  const spaces = currentLine.match(/^\s*/)[0];
+  const indent = spaces + (currentLine.trimEnd().endsWith(":") ? "    " : "");
+
+  event.preventDefault();
+
+  const insertion = "\n" + indent;
+  codeBox.value = text.slice(0, start) + insertion + text.slice(end);
+  codeBox.selectionStart = codeBox.selectionEnd = start + insertion.length;
+});
   const runButton = document.getElementById("run-turtle");
   let x = canvas.width / 2;
 let y = canvas.height / 2;
