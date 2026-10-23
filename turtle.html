@@ -74,5 +74,59 @@ for i in range(4):
 
     <p><a href="index.html">← Tilbake til Pythonverkstedet</a></p>
   </main>
+<script>
+  const canvas = document.getElementById("turtle-canvas");
+  const ctx = canvas.getContext("2d");
+  const status = document.getElementById("turtle-status");
+  const codeBox = document.getElementById("turtle-code");
+  const runButton = document.getElementById("run-turtle");
+  let x = canvas.width / 2;
+let y = canvas.height / 2;
+let angle = 0;
+let penDown = true;
+
+function forward(distance) {
+  const radians = angle * Math.PI / 180;
+  const newX = x + Math.cos(radians) * distance;
+  const newY = y - Math.sin(radians) * distance;
+
+  if (penDown) {
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(newX, newY);
+    ctx.stroke();
+  }
+
+  x = newX;
+  y = newY;
+}
+
+function right(degrees) {
+  angle -= degrees;
+}
+
+function left(degrees) {
+  angle += degrees;
+}
+  function resetTurtle() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  x = canvas.width / 2;
+  y = canvas.height / 2;
+  angle = 0;
+  penDown = true;
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 2;
+}
+  runButton.onclick = () => {
+  resetTurtle();
+
+  for (let i = 0; i < 4; i++) {
+    forward(100);
+    right(90);
+  }
+
+  status.textContent = "Ferdig! Du tegnet en firkant.";
+};
+</script>
 </body>
 </html>
