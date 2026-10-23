@@ -14,6 +14,8 @@
   button { background:#27834a; color:white; border:0; padding:12px 18px; border-radius:8px; cursor:pointer; font-weight:bold; }
   button.secondary { background:#3657a5; }
   button:disabled { opacity:.6; cursor:not-allowed; }
+  .examples { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:12px 0; }
+  .examples select { padding:11px; border:1px solid #9caec8; border-radius:8px; font-size:16px; max-width:100%; }
   .controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin:12px 0; }
   .controls label { display:flex; align-items:center; gap:9px; }
   input[type=range] { width:170px; }
@@ -29,6 +31,19 @@
   <p>Lær Python ved å tegne med en skilpadde! Se hvordan figurene blir til, og eksperimenter med farger og koordinater.</p>
   <section class="panel">
     <h2>💻 Min Turtle-kode</h2>
+    <div class="examples">
+      <label for="example-choice"><strong>📚 Velg et kodeeksempel:</strong></label>
+      <select id="example-choice">
+        <option value="square">⬜ Firkant</option>
+        <option value="triangle">🔺 Trekant</option>
+        <option value="star">⭐ Stjerne</option>
+        <option value="house">🏠 Hus</option>
+        <option value="flower">🌸 Blomst</option>
+        <option value="two" selected>🎨 To figurer og koordinater</option>
+      </select>
+      <button id="load-example" class="secondary" type="button">Vis koden</button>
+    </div>
+    <p class="small">Velg et eksempel og trykk «Vis koden». Endre gjerne tall og farger før du tegner. Dette erstatter teksten i kodefeltet.</p>
     <textarea id="turtle-code" spellcheck="false">from turtle import *
 
 bgcolor("lightblue")
@@ -82,6 +97,80 @@ for i in range(3):
   const canvas = document.getElementById('turtle-canvas');
   const ctx = canvas.getContext('2d');
   const codeBox = document.getElementById('turtle-code');
+  const examples = {
+    square: `from turtle import *
+
+pencolor("blue")
+for i in range(4):
+    forward(120)
+    right(90)`,
+    triangle: `from turtle import *
+
+pencolor("green")
+for i in range(3):
+    forward(140)
+    right(120)`,
+    star: `from turtle import *
+
+bgcolor("lightyellow")
+pencolor("purple")
+pensize(4)
+for i in range(5):
+    forward(160)
+    right(144)`,
+    house: `from turtle import *
+
+bgcolor("lightblue")
+penup()
+goto(-80, -100)
+pendown()
+pencolor("darkred")
+for i in range(4):
+    forward(160)
+    left(90)
+penup()
+goto(-80, 60)
+pendown()
+pencolor("orange")
+left(45)
+forward(113)
+right(90)
+forward(113)`,
+    flower: `from turtle import *
+
+bgcolor("honeydew")
+pencolor("deeppink")
+pensize(3)
+for i in range(8):
+    for j in range(4):
+        forward(60)
+        right(90)
+    right(45)`,
+    two: `from turtle import *
+
+bgcolor("lightblue")
+penup()
+goto(-180, 80)
+pendown()
+pencolor("red")
+for i in range(4):
+    forward(100)
+    right(90)
+penup()
+goto(100, -50)
+pendown()
+pencolor("blue")
+for i in range(3):
+    forward(100)
+    right(120)`
+  };
+  const exampleChoice = document.getElementById('example-choice');
+  document.getElementById('load-example').addEventListener('click', () => {
+    codeBox.value = examples[exampleChoice.value];
+    codeBox.focus();
+    status.textContent = '📚 Eksemplet er klart. Endre koden eller klikk «Tegn med Turtle».';
+  });
+
   const runButton = document.getElementById('run-turtle');
   const stopButton = document.getElementById('stop-turtle');
   const status = document.getElementById('turtle-status');
