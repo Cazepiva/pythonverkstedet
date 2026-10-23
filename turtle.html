@@ -124,12 +124,17 @@ function left(degrees) {
     const lines = pythonCode.split("\n");
     const loopPattern = /^for\s+\w+\s+in\s+range\((\d+)\):$/;
     let repeatCount = 1;
+    let loopCommands = [];
 for (const line of lines) {
   const command = line.trim();
   const isIndented = line.startsWith("    ");
   const loopMatch = command.match(loopPattern);
   if (loopMatch) {
   repeatCount = Number(loopMatch[1]);
+  continue;
+}
+  if (isIndented && repeatCount > 1) {
+  loopCommands.push(command);
   continue;
 }
   const match = command.match(/^forward\((\d+)\)$/);
@@ -154,6 +159,17 @@ if (leftMatch) {
 }
 }
 }
+ for (let i = 0; i < repeatCount; i++) {
+  for (const command of loopCommands) {
+    const forwardMatch = command.match(/^forward\((\d+)\)$/);
+    const rightMatch = command.match(/^right\((\d+)\)$/);
+    const leftMatch = command.match(/^left\((\d+)\)$/);
+
+    if (forwardMatch) forward(Number(forwardMatch[1]));
+    if (rightMatch) right(Number(rightMatch[1]));
+    if (leftMatch) left(Number(leftMatch[1]));
+  }
+}   
   status.textContent = "Ferdig! Tegningen er klar.";
 };
 </script>
