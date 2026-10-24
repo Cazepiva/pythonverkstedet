@@ -215,6 +215,14 @@
     .future-feature { padding:12px; border-radius:10px; background:#f5f7fa; color:#53627b; font-size:.85rem; line-height:1.5; }
     .future-feature p { margin:7px 0 10px; }
     .future-tag { display:inline-block; padding:5px 7px; border-radius:6px; background:#e9edf3; font-size:.77rem; }
+    .project-actions { display:flex; gap:6px; flex-wrap:wrap; margin:9px 0; }
+    .project-actions button, .project-actions label { font:inherit; font-size:.82rem; padding:8px; border-radius:8px; border:1px solid #cbd5e5; cursor:pointer; background:#edf2ff; color:#254a93; font-weight:bold; }
+    .project-actions button:hover, .project-actions label:hover { background:#dce7ff; }
+    #folder-list { width:100%; padding:8px; border:1px solid #cbd5e5; border-radius:8px; }
+    .project-item { display:block; width:100%; text-align:left; border:0; border-radius:8px; padding:9px; margin:4px 0; background:#f5f8ff; color:#24324a; cursor:pointer; overflow-wrap:anywhere; }
+    .project-item.active { background:#dce9ff; outline:2px solid #3657a5; }
+    #project-notice { font-size:.78rem; color:#53627b; line-height:1.4; }
+    #save-status { font-size:.85rem; color:#43536b; margin:8px 0 0; }
     .workspace-main { min-width:0; }
     .editor-panel { background:white; padding:24px; border-radius:16px; border:1px solid #dce3f2; box-shadow:0 4px 16px #24324a12; color:#17324d; }
     .editor-panel h2 { margin-top:0; color:#254a93; }
@@ -247,10 +255,24 @@
       <a class="side-link" href="spillverksted.html">🎮 Spillverksted</a>
       <a class="side-link" href="kattespill.html">🐱 Kattespillet</a>
       <div class="sidebar-heading projects-title">📁 Mine prosjekter</div>
-      <div class="future-feature">
-        <strong>Kommer senere</strong>
-        <p>Her skal elevene kunne se egne mapper og lagret kode når vi har laget en trygg innloggingsløsning.</p>
-        <span class="future-tag">🔒 Krever innlogging</span>
+      <div class="future-feature" id="projects-panel">
+        <label for="folder-list"><strong>Velg mappe</strong></label>
+        <select id="folder-list" aria-label="Velg prosjektmappe"></select>
+        <div class="project-actions">
+          <button type="button" id="new-folder">+ Mappe</button>
+          <button type="button" id="new-project">+ Prosjekt</button>
+        </div>
+        <div id="project-list" aria-label="Lagrede prosjekter"></div>
+        <div class="project-actions">
+          <button type="button" id="rename-project">Gi nytt navn</button>
+          <button type="button" id="delete-project">Slett</button>
+        </div>
+        <div class="project-actions">
+          <button type="button" id="export-projects">⬇ Sikkerhetskopi</button>
+          <label for="import-projects">⬆ Hent kopi</label>
+          <input id="import-projects" type="file" accept=".json,application/json" hidden>
+        </div>
+        <p id="project-notice" role="status">Prosjektene lagres bare i denne nettleseren. De følger ikke med til andre Chromebooker ennå. Bruk sikkerhetskopi for å ta vare på arbeidet.</p>
       </div>
     </aside>
     <div class="workspace-main">
@@ -271,6 +293,14 @@ total = price * quantity
 
 print("Totalpris:", total)</textarea>
 </div>
+<div class="project-actions" style="margin-top:12px;">
+  <button id="save-project" type="button" style="background:#3657a5;color:white;padding:12px 16px;">💾 Lagre prosjekt</button>
+  <button id="download-python" type="button">⬇ Last ned .py</button>
+  <label for="upload-python" style="display:inline-flex;align-items:center;">⬆ Åpne .py</label>
+  <input id="upload-python" type="file" accept=".py,text/x-python,text/plain" hidden>
+  <span id="current-project" aria-live="polite" style="align-self:center;font-weight:bold;">Ikke lagret prosjekt</span>
+</div>
+<p id="save-status" role="status"></p>
 <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
 
   <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
@@ -461,6 +491,235 @@ await _run_student_code()
     status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen.";
     output.textContent = String(error);
   });
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  const KEY = "pythonverkstedet-prosjekter-v1";
+  const editor = document.getElementById("python-code");
+  const folders = document.getElementById("folder-list");
+  const list = document.getElementById("project-list");
+  const currentLabel = document.getElementById("current-project");
+  const saveStatus = document.getElementById("save-status");
+  let state = { folders:[{id:"standard",name:"Mine Python-prosjekter"}], projects:[] };
+  let selectedId = null;
+  let savedCode = editor.value;
+  let storageReady = true;
+
+  function uid() { return "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,9); }
+  function persist() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (error) {
+      storageReady = false;
+      saveStatus.textContent = "⚠️ Kunne ikke lagre i nettleseren. Last ned en sikkerhetskopi.";
+      return false;
+    }
+  }
+  function init() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (valid(data)) state = data;
+      }
+    } catch (_) { storageReady = false; }
+    render();
+  }
+  function valid(data) {
+    return data && Array.isArray(data.folders) && Array.isArray(data.projects) &&
+      data.folders.length > 0 && data.folders.length <= 100 &&
+      data.projects.length <= 1000 &&
+      data.folders.every(f => f && typeof f.id === "string" && typeof f.name === "string" && f.name.length <= 100) &&
+      data.projects.every(p => p && typeof p.id === "string" && typeof p.folderId === "string" &&
+        typeof p.name === "string" && p.name.length <= 100 && typeof p.code === "string" && p.code.length <= 200000);
+  }
+  function dirty() {
+    const p = state.projects.find(p => p.id === selectedId);
+    return p ? editor.value !== p.code : editor.value !== savedCode;
+  }
+  function allowSwitch() {
+    return !dirty() || confirm("Du har endringer som ikke er lagret. Vil du fortsette uten å lagre?");
+  }
+  function render() {
+    const keep = folders.value;
+    folders.replaceChildren();
+    for (const folder of state.folders) {
+      const opt = document.createElement("option");
+      opt.value = folder.id;
+      opt.textContent = folder.name;
+      folders.append(opt);
+    }
+    folders.value = state.folders.some(f => f.id === keep) ? keep : state.folders[0].id;
+    renderList();
+  }
+  function renderList() {
+    list.replaceChildren();
+    const shown = state.projects.filter(p => p.folderId === folders.value);
+    if (!shown.length) {
+      const msg = document.createElement("p");
+      msg.textContent = "Ingen prosjekter i denne mappen.";
+      list.append(msg);
+    }
+    for (const p of shown) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "project-item" + (p.id === selectedId ? " active" : "");
+      b.textContent = "📄 " + p.name;
+      b.addEventListener("click", () => openProject(p.id));
+      list.append(b);
+    }
+    const active = state.projects.find(p => p.id === selectedId);
+    currentLabel.textContent = active ? "📄 " + active.name : "Ikke lagret prosjekt";
+  }
+  function openProject(id) {
+    if (id === selectedId || !allowSwitch()) return;
+    const p = state.projects.find(p => p.id === id);
+    if (!p) return;
+    selectedId = p.id;
+    folders.value = p.folderId;
+    editor.value = p.code;
+    savedCode = p.code;
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+    saveStatus.textContent = "Åpnet «" + p.name + "».";
+    renderList();
+    editor.focus();
+  }
+  document.getElementById("new-folder").addEventListener("click", () => {
+    const name = prompt("Navn på ny mappe:");
+    if (!name || !name.trim()) return;
+    if (name.trim().length > 100) return alert("Mappenavnet er for langt.");
+    const f = {id:uid(),name:name.trim()};
+    state.folders.push(f);
+    if (!persist()) { state.folders.pop(); return; }
+    render(); folders.value = f.id; renderList();
+  });
+  document.getElementById("new-project").addEventListener("click", () => {
+    if (!allowSwitch()) return;
+    const name = prompt("Navn på prosjektet:");
+    if (!name || !name.trim()) return;
+    if (name.trim().length > 100) return alert("Prosjektnavnet er for langt.");
+    const p = {id:uid(),folderId:folders.value,name:name.trim(),code:"",updated:new Date().toISOString()};
+    state.projects.push(p);
+    if (!persist()) { state.projects.pop(); return; }
+    selectedId = p.id;
+    editor.value = "# " + p.name + "\n";
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+    saveStatus.textContent = "Nytt prosjekt opprettet. Husk å lagre koden.";
+    renderList(); editor.focus();
+  });
+  document.getElementById("save-project").addEventListener("click", () => {
+    let p = state.projects.find(p => p.id === selectedId);
+    if (!p) {
+      const name = prompt("Hva vil du kalle prosjektet?");
+      if (!name || !name.trim()) return;
+      if (name.trim().length > 100) return alert("Prosjektnavnet er for langt.");
+      p = {id:uid(),folderId:folders.value,name:name.trim(),code:"",updated:""};
+      state.projects.push(p);
+    }
+    const oldCode = p.code;
+    p.code = editor.value;
+    p.updated = new Date().toISOString();
+    if (persist()) {
+      selectedId = p.id; savedCode = p.code;
+      saveStatus.textContent = "✅ Lagret lokalt: " + p.name;
+    } else {
+      p.code = oldCode;
+    }
+    renderList();
+  });
+  document.getElementById("rename-project").addEventListener("click", () => {
+    const p = state.projects.find(p => p.id === selectedId);
+    if (!p) return alert("Åpne et prosjekt først.");
+    const name = prompt("Nytt prosjektnavn:", p.name);
+    if (!name || !name.trim()) return;
+    if (name.trim().length > 100) return alert("Navnet er for langt.");
+    const old = p.name; p.name = name.trim();
+    if (!persist()) p.name = old;
+    renderList();
+  });
+  document.getElementById("delete-project").addEventListener("click", () => {
+    const p = state.projects.find(p => p.id === selectedId);
+    if (!p) return alert("Åpne prosjektet du vil slette.");
+    if (!confirm("Slette «" + p.name + "» permanent fra denne nettleseren?")) return;
+    state.projects = state.projects.filter(x => x.id !== p.id);
+    if (!persist()) { state.projects.push(p); return; }
+    selectedId = null; savedCode = editor.value;
+    saveStatus.textContent = "Prosjektet er slettet. Koden står fortsatt i editoren.";
+    renderList();
+  });
+  folders.addEventListener("change", renderList);
+  editor.addEventListener("input", () => {
+    const p = state.projects.find(p => p.id === selectedId);
+    if (p) saveStatus.textContent = dirty() ? "● Endringer er ikke lagret." : "Alle endringer er lagret.";
+  });
+  window.addEventListener("beforeunload", e => {
+    if (dirty()) { e.preventDefault(); e.returnValue = ""; }
+  });
+  // Last ned aktiv kode som en vanlig Python-fil på Chromebooken.
+  document.getElementById("download-python").addEventListener("click", () => {
+    const active = state.projects.find(p => p.id === selectedId);
+    const base = (active ? active.name : "mitt-pythonprosjekt")
+      .replace(/[^a-zA-Z0-9æøåÆØÅ_-]+/g, "-").replace(/^-+|-+$/g, "") || "pythonprosjekt";
+    const blob = new Blob([editor.value], {type:"text/x-python;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = base + ".py";
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    saveStatus.textContent = "⬇ Python-filen er lastet ned. Se i Nedlastinger på Chromebooken.";
+  });
+  // Åpne en .py-fil fra Chromebooken i editoren (uten automatisk overskriving).
+  document.getElementById("upload-python").addEventListener("change", async e => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith(".py")) return alert("Velg en Python-fil som slutter på .py.");
+    if (file.size > 200000) return alert("Python-filen er for stor (maks 200 KB).");
+    if (!allowSwitch()) return;
+    try {
+      const code = await file.text();
+      selectedId = null;
+      editor.value = code;
+      savedCode = code;
+      editor.dispatchEvent(new Event("input", {bubbles:true}));
+      saveStatus.textContent = "📂 Åpnet " + file.name + ". Trykk «Lagre prosjekt» for å lagre i Mine prosjekter.";
+      renderList();
+      editor.focus();
+    } catch (_) {
+      alert("Kunne ikke åpne Python-filen.");
+    }
+  });
+  document.getElementById("export-projects").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify({format:"pythonverkstedet-v1",...state},null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "pythonverkstedet-sikkerhetskopi.json";
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  document.getElementById("import-projects").addEventListener("change", async e => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file || !allowSwitch()) return;
+    if (file.size > 5000000) return alert("Filen er for stor.");
+    try {
+      const data = JSON.parse(await file.text());
+      if (data.format !== "pythonverkstedet-v1" || !valid(data)) throw Error("Ugyldig fil");
+      if (!confirm("Dette erstatter alle mapper og prosjekter som er lagret i denne nettleseren. Fortsette?")) return;
+      const previous = state;
+      state = {folders:data.folders,projects:data.projects};
+      if (!persist()) { state = previous; return; }
+      selectedId = null; savedCode = editor.value;
+      render();
+      saveStatus.textContent = "✅ Sikkerhetskopien er hentet inn.";
+    } catch (_) { alert("Kunne ikke lese sikkerhetskopien."); }
+  });
+  init();
 })();
 </script>
 </body>
