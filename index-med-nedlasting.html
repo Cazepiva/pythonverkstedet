@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pythonverkstedet</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6ff;
+      color: #24324a;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      border-bottom: 1px solid #dce3f2;
+    }
+
+    header h1 { margin: 0 0 6px; color: #3657a5; }
+    header p { margin: 0; }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px #24324a12;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #edf2ff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    #game {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      border: 3px solid #b8d5a1;
+      border-radius: 14px;
+      background: linear-gradient(#bde8ff 0 65%, #a7d98d 65%);
+      touch-action: manipulation;
+    }
+
+    #player, #coin {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      user-select: none;
+    }
+
+    #player {
+      left: 40px;
+      bottom: 25px;
+      width: 54px;
+      height: 54px;
+      font-size: 42px;
+    }
+
+    #coin {
+      left: 70%;
+      top: 45%;
+      width: 38px;
+      height: 38px;
+      font-size: 32px;
+    }
+
+    .controls, .customize {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button, select, input {
+      font: inherit;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e5;
+    }
+
+    button {
+      cursor: pointer;
+      background: #3657a5;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+
+    button:hover { background: #274582; }
+
+    .secondary {
+      background: #e9efff;
+      color: #24324a;
+    }
+
+    .secondary:hover { background: #d7e2ff; }
+
+    .hint {
+      background: #fff7df;
+      padding: 14px;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
+
+    #message { min-height: 24px; font-weight: bold; }
+
+    #code {
+      background: #182235;
+      color: #dce8ff;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+
+    .python-editor-wrap {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      border: 1px solid #cbd5e5;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      margin-top: 12px;
+    }
+    .line-numbers {
+      margin: 0;
+      padding: 12px 8px 12px 0;
+      text-align: right;
+      color: #78859b;
+      background: #edf2f8;
+      border-right: 1px solid #d7dfeb;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      user-select: none;
+      overflow: hidden;
+    }
+    #python-code {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 230px;
+      resize: vertical;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 12px;
+      outline: none;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      overflow: auto;
+      tab-size: 4;
+    }
+    #task-solution {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #dce3f2;
+      border-radius: 10px;
+      background: #f8faff;
+    }
+    #task-solution-code {
+      display: block;
+      margin: 10px 0 0;
+      padding: 14px;
+      background: #182235;
+      color: #dce8ff;
+      border-radius: 8px;
+      font: 15px/1.6 monospace;
+      white-space: pre;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+
+    label { font-weight: bold; }
+    footer { text-align: center; padding: 20px; color: #63718a; }
+    .site-nav {display:flex;flex-wrap:wrap;gap:12px;padding:12px 20px;background:#eaf0ff;border-bottom:1px solid #dce3f2;}
+    .site-nav a {color:#254a93;text-decoration:none;font-weight:bold;padding:10px 14px;border-radius:9px;background:white;}
+    .site-nav a[aria-current="page"] {background:#3657a5;color:white;}
+    .page-intro {max-width:1000px;margin:22px auto;padding:0 16px;}
+
+    /* Ny arbeidsflate: editor i midten og navigasjon til venstre */
+    body { padding:0; background:#f3f6ff; }
+    header { padding:19px max(20px, calc((100vw - 1380px)/2)); background:white; border-bottom:1px solid #dce3f2; }
+    header h1 { margin:0 0 5px; color:#3657a5; }
+    header p { margin:0; color:#53627b; }
+    main.workspace { max-width:1380px; margin:0 auto; padding:22px 18px; display:grid; grid-template-columns:245px minmax(0,1fr); gap:22px; align-items:start; }
+    .sidebar { position:sticky; top:18px; background:white; border:1px solid #e0e7f3; border-radius:16px; padding:15px; box-shadow:0 4px 16px #24324a0c; }
+    .sidebar-heading { font-size:.88rem; color:#63718a; font-weight:bold; padding:8px 10px 11px; }
+    .side-link { display:block; padding:13px 12px; margin-bottom:5px; text-decoration:none; color:#254a93; font-weight:600; border-radius:10px; background:#f5f8ff; }
+    .side-link:hover, .side-link:focus-visible { background:#e2ebff; outline-offset:2px; }
+    .side-link.active { background:#3657a5; color:white; }
+    .projects-title { margin-top:17px; border-top:1px solid #e2e7f1; padding-top:18px; }
+    .future-feature { padding:12px; border-radius:10px; background:#f5f7fa; color:#53627b; font-size:.85rem; line-height:1.5; }
+    .future-feature p { margin:7px 0 10px; }
+    .future-tag { display:inline-block; padding:5px 7px; border-radius:6px; background:#e9edf3; font-size:.77rem; }
+    .project-actions { display:flex; gap:6px; flex-wrap:wrap; margin:9px 0; }
+    .project-actions button, .project-actions label { font:inherit; font-size:.82rem; padding:8px; border-radius:8px; border:1px solid #cbd5e5; cursor:pointer; background:#edf2ff; color:#254a93; font-weight:bold; }
+    .project-actions button:hover, .project-actions label:hover { background:#dce7ff; }
+    #folder-list { width:100%; padding:8px; border:1px solid #cbd5e5; border-radius:8px; }
+    .project-item { display:block; width:100%; text-align:left; border:0; border-radius:8px; padding:9px; margin:4px 0; background:#f5f8ff; color:#24324a; cursor:pointer; overflow-wrap:anywhere; }
+    .project-item.active { background:#dce9ff; outline:2px solid #3657a5; }
+    #project-notice { font-size:.78rem; color:#53627b; line-height:1.4; }
+    #save-status { font-size:.85rem; color:#43536b; margin:8px 0 0; }
+    .workspace-main { min-width:0; }
+    .editor-panel { background:white; padding:24px; border-radius:16px; border:1px solid #dce3f2; box-shadow:0 4px 16px #24324a12; color:#17324d; }
+    .editor-panel h2 { margin-top:0; color:#254a93; }
+    .editor-panel #python-code { min-height:310px; }
+    #oppgavebank { scroll-margin-top:18px; }
+    #editor { scroll-margin-top:18px; }
+    @media (max-width:850px) {
+      main.workspace { grid-template-columns:1fr; padding:14px; gap:14px; }
+      .sidebar { position:static; }
+      .sidebar .side-link { display:inline-block; margin:3px; padding:10px; }
+      .sidebar-heading { padding:6px; }
+      .projects-title { margin-top:10px; }
+      .editor-panel { padding:16px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🐍 Pythonverkstedet</h1>
+    <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar" aria-label="Verkstedmeny">
+      <div class="sidebar-heading">🧭 Utforsk</div>
+      <a class="side-link active" href="#editor">💻 Python-editor</a>
+      <a class="side-link" href="laer-python.html">📘 Lær Python</a>
+      <a class="side-link" href="turtle.html">🐢 Turtle-verkstedet</a>
+      <a class="side-link" href="turtle-oppgaver.html">🎯 Turtle-utfordringen</a>
+      <a class="side-link" href="spillverksted.html">🎮 Spillverksted</a>
+      <a class="side-link" href="kattespill.html">🐱 Kattespillet</a>
+      <div class="sidebar-heading projects-title">📁 Mine prosjekter</div>
+      <div class="future-feature" id="projects-panel">
+        <label for="folder-list"><strong>Velg mappe</strong></label>
+        <select id="folder-list" aria-label="Velg prosjektmappe"></select>
+        <div class="project-actions">
+          <button type="button" id="new-folder">+ Mappe</button>
+          <button type="button" id="new-project">+ Prosjekt</button>
+        </div>
+        <div id="project-list" aria-label="Lagrede prosjekter"></div>
+        <div class="project-actions">
+          <button type="button" id="rename-project">Gi nytt navn</button>
+          <button type="button" id="delete-project">Slett</button>
+        </div>
+        <div class="project-actions">
+          <button type="button" id="export-projects">⬇ Sikkerhetskopi</button>
+          <label for="import-projects">⬆ Hent kopi</label>
+          <input id="import-projects" type="file" accept=".json,application/json" hidden>
+        </div>
+        <p id="project-notice" role="status">Prosjektene lagres bare i denne nettleseren. De følger ikke med til andre Chromebooker ennå. Bruk sikkerhetskopi for å ta vare på arbeidet.</p>
+      </div>
+    </aside>
+    <div class="workspace-main">
+<section class="editor-panel" id="editor">
+  <h2>💻 Min Python-kode</h2>
+  <p>Skriv, test og utforsk Python. Åpne «Lær Python» i menyen når du vil øve på oppgaver.</p>
+
+  <div class="python-editor-wrap">
+  <pre id="line-numbers" class="line-numbers" aria-hidden="true">1
+2
+3
+4
+5</pre>
+  <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode">price = float(input("Pris per vare: "))
+quantity = int(input("Hvor mange varer? "))
+
+total = price * quantity
+
+print("Totalpris:", total)</textarea>
+</div>
+<div class="project-actions" style="margin-top:12px;">
+  <button id="save-project" type="button" style="background:#3657a5;color:white;padding:12px 16px;">💾 Lagre prosjekt</button>
+  <button id="download-python" type="button">⬇ Last ned .py</button>
+  <label for="upload-python" style="display:inline-flex;align-items:center;">⬆ Åpne .py</label>
+  <input id="upload-python" type="file" accept=".py,text/x-python,text/plain" hidden>
+  <span id="current-project" aria-live="polite" style="align-self:center;font-weight:bold;">Ikke lagret prosjekt</span>
+</div>
+<p id="save-status" role="status"></p>
+<button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
+
+  <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
+    <label id="input-question" for="python-answer">Skriv svaret ditt:</label>
+    <input id="python-answer" type="text" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;">
+    <button id="send-answer" style="margin-top: 8px; padding: 10px;">Send svar</button>
+  </div>
+
+  <h3>Resultat</h3>
+  <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
+  <p id="python-status" role="status">Laster Python-motoren …</p>
+
+</section>
+</div>
+  </main>
+  <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script>
+(function () {
+  const codeBox = document.getElementById("python-code");
+  const lineNumbers = document.getElementById("line-numbers");
+
+  function updateLineNumbers() {
+    const count = Math.max(1, codeBox.value.split("\n").length);
+    lineNumbers.textContent = Array.from({length: count}, (_, i) => i + 1).join("\n");
+    lineNumbers.scrollTop = codeBox.scrollTop;
+  }
+
+  codeBox.addEventListener("input", updateLineNumbers);
+  codeBox.addEventListener("scroll", () => { lineNumbers.scrollTop = codeBox.scrollTop; });
+
+  // Tab inserts four spaces; Enter repeats the current line's indentation.
+  codeBox.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") {
+      event.preventDefault();
+      const start = codeBox.selectionStart;
+      const end = codeBox.selectionEnd;
+      codeBox.setRangeText("    ", start, end, "end");
+      updateLineNumbers();
+      return;
+    }
+
+    if (event.key === "Enter") {
+      const start = codeBox.selectionStart;
+      const beforeCursor = codeBox.value.slice(0, start);
+      const currentLine = beforeCursor.split("\n").pop();
+      const indent = (currentLine.match(/^\s*/) || [""])[0];
+      const trimmed = currentLine.trimEnd();
+      const extraIndent = /(:|\bdef\b.*|\belse\s*:|\belif\b.*:|\bfor\b.*:|\bwhile\b.*|\bif\b.*:)$/.test(trimmed) ? "    " : "";
+      event.preventDefault();
+      codeBox.setRangeText("\n" + indent + extraIndent, start, codeBox.selectionEnd, "end");
+      updateLineNumbers();
+    }
+  });
+
+  updateLineNumbers();
+  const runButton = document.getElementById("run-python");
+  const output = document.getElementById("python-output");
+  const status = document.getElementById("python-status");
+  const inputArea = document.getElementById("input-area");
+  const inputQuestion = document.getElementById("input-question");
+  const answerBox = document.getElementById("python-answer");
+  const sendAnswer = document.getElementById("send-answer");
+
+  let pyodide = null;
+  let starting = null;
+  let answerResolver = null;
+
+  function askInput(question) {
+    return new Promise(function (resolve) {
+      answerResolver = resolve;
+      inputQuestion.textContent = question || "Skriv svaret ditt:";
+      answerBox.value = "";
+      inputArea.hidden = false;
+      answerBox.focus();
+      status.textContent = "Python venter på svaret ditt.";
+    });
+  }
+
+  function finishInput() {
+    if (!answerResolver) return;
+    const resolve = answerResolver;
+    answerResolver = null;
+    inputArea.hidden = true;
+    resolve(answerBox.value.trim());
+  }
+
+  sendAnswer.addEventListener("click", finishInput);
+  answerBox.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") finishInput();
+  });
+
+  async function startPython() {
+    if (pyodide) return pyodide;
+    if (!starting) {
+      starting = loadPyodide().then(function (engine) {
+        engine.setStdout({
+          batched: function (text) {
+            output.textContent += text + "\n";
+          }
+        });
+        pyodide = engine;
+        status.textContent = "Python er klar!";
+        return engine;
+      }).catch(function (error) {
+        starting = null;
+        throw error;
+      });
+    }
+    return starting;
+  }
+
+  runButton.addEventListener("click", async function () {
+    runButton.disabled = true;
+    output.textContent = "";
+    inputArea.hidden = true;
+    status.textContent = "Kjører koden …";
+
+    try {
+      const engine = await startPython();
+      engine.setStdout({
+        batched: function (text) {
+          output.textContent += text + "\n";
+        }
+      });
+
+     
+
+      const code = codeBox.value;
+      engine.globals.set("student_code", code);
+      engine.globals.set("ask_input_js", askInput);
+
+      await engine.runPythonAsync(`
+import ast
+
+async def _pythonverksted_input(question=""):
+    answer = await ask_input_js(str(question))
+    return str(answer)
+
+class _InputTransformer(ast.NodeTransformer):
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == "input":
+            return ast.copy_location(
+                ast.Await(
+                    value=ast.Call(
+                        func=ast.Name(id="_pythonverksted_input", ctx=ast.Load()),
+                        args=node.args,
+                        keywords=node.keywords,
+                    )
+                ),
+                node,
+            )
+        return node
+
+_tree = ast.parse(student_code)
+_tree = _InputTransformer().visit(_tree)
+ast.fix_missing_locations(_tree)
+
+_runner = ast.AsyncFunctionDef(
+    name="_run_student_code",
+    args=ast.arguments(
+        posonlyargs=[], args=[], vararg=None, kwonlyargs=[],
+        kw_defaults=[], kwarg=None, defaults=[]
+    ),
+    body=_tree.body or [ast.Pass()],
+    decorator_list=[],
+)
+_module = ast.Module(body=[_runner], type_ignores=[])
+ast.fix_missing_locations(_module)
+exec(compile(_module, "<elevkode>", "exec"))
+await _run_student_code()
+`);
+
+      if (!output.textContent) {
+        output.textContent = "(Koden ga ingen utskrift.)";
+      }
+      status.textContent = "Ferdig! Prøv å endre koden.";
+    } catch (error) {
+      output.textContent = String(error);
+      status.textContent = "Noe gikk galt. Les feilmeldingen.";
+    } finally {
+      runButton.disabled = false;
+    }
+  });
+
+  startPython().catch(function (error) {
+    status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen.";
+    output.textContent = String(error);
+  });
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+  const KEY = "pythonverkstedet-prosjekter-v1";
+  const editor = document.getElementById("python-code");
+  const folders = document.getElementById("folder-list");
+  const list = document.getElementById("project-list");
+  const currentLabel = document.getElementById("current-project");
+  const saveStatus = document.getElementById("save-status");
+  let state = { folders:[{id:"standard",name:"Mine Python-prosjekter"}], projects:[] };
+  let selectedId = null;
+  let savedCode = editor.value;
+  let storageReady = true;
+
+  function uid() { return "p" + Date.now().toString(36) + Math.random().toString(36).slice(2,9); }
+  function persist() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); return true; }
+    catch (error) {
+      storageReady = false;
+      saveStatus.textContent = "⚠️ Kunne ikke lagre i nettleseren. Last ned en sikkerhetskopi.";
+      return false;
+    }
+  }
+  function init() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (valid(data)) state = data;
+      }
+    } catch (_) { storageReady = false; }
+    render();
+  }
+  function valid(data) {
+    return data && Array.isArray(data.folders) && Array.isArray(data.projects) &&
+      data.folders.length > 0 && data.folders.length <= 100 &&
+      data.projects.length <= 1000 &&
+      data.folders.every(f => f && typeof f.id === "string" && typeof f.name === "string" && f.name.length <= 100) &&
+      data.projects.every(p => p && typeof p.id === "string" && typeof p.folderId === "string" &&
+        typeof p.name === "string" && p.name.length <= 100 && typeof p.code === "string" && p.code.length <= 200000);
+  }
+  function dirty() {
+    const p = state.projects.find(p => p.id === selectedId);
+    return p ? editor.value !== p.code : editor.value !== savedCode;
+  }
+  function allowSwitch() {
+    return !dirty() || confirm("Du har endringer som ikke er lagret. Vil du fortsette uten å lagre?");
+  }
+  function render() {
+    const keep = folders.value;
+    folders.replaceChildren();
+    for (const folder of state.folders) {
+      const opt = document.createElement("option");
+      opt.value = folder.id;
+      opt.textContent = folder.name;
+      folders.append(opt);
+    }
+    folders.value = state.folders.some(f => f.id === keep) ? keep : state.folders[0].id;
+    renderList();
+  }
+  function renderList() {
+    list.replaceChildren();
+    const shown = state.projects.filter(p => p.folderId === folders.value);
+    if (!shown.length) {
+      const msg = document.createElement("p");
+      msg.textContent = "Ingen prosjekter i denne mappen.";
+      list.append(msg);
+    }
+    for (const p of shown) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "project-item" + (p.id === selectedId ? " active" : "");
+      b.textContent = "📄 " + p.name;
+      b.addEventListener("click", () => openProject(p.id));
+      list.append(b);
+    }
+    const active = state.projects.find(p => p.id === selectedId);
+    currentLabel.textContent = active ? "📄 " + active.name : "Ikke lagret prosjekt";
+  }
+  function openProject(id) {
+    if (id === selectedId || !allowSwitch()) return;
+    const p = state.projects.find(p => p.id === id);
+    if (!p) return;
+    selectedId = p.id;
+    folders.value = p.folderId;
+    editor.value = p.code;
+    savedCode = p.code;
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+    saveStatus.textContent = "Åpnet «" + p.name + "».";
+    renderList();
+    editor.focus();
+  }
+  document.getElementById("new-folder").addEventListener("click", () => {
+    const name = prompt("Navn på ny mappe:");
+    if (!name || !name.trim()) return;
+    if (name.trim().length > 100) return alert("Mappenavnet er for langt.");
+    const f = {id:uid(),name:name.trim()};
+    state.folders.push(f);
+    if (!persist()) { state.folders.pop(); return; }
+    render(); folders.value = f.id; renderList();
+  });
+  document.getElementById("new-project").addEventListener("click", () => {
+    if (!allowSwitch()) return;
+    const name = prompt("Navn på prosjektet:");
+    if (!name || !name.trim()) return;
+    if (name.trim().length > 100) return alert("Prosjektnavnet er for langt.");
+    const p = {id:uid(),folderId:folders.value,name:name.trim(),code:"",updated:new Date().toISOString()};
+    state.projects.push(p);
+    if (!persist()) { state.projects.pop(); return; }
+    selectedId = p.id;
+    editor.value = "# " + p.name + "\n";
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+    saveStatus.textContent = "Nytt prosjekt opprettet. Husk å lagre koden.";
+    renderList(); editor.focus();
+  });
+  document.getElementById("save-project").addEventListener("click", () => {
+    let p = state.projects.find(p => p.id === selectedId);
+    if (!p) {
+      const name = prompt("Hva vil du kalle prosjektet?");
+      if (!name || !name.trim()) return;
+      if (name.trim().length > 100) return alert("Prosjektnavnet er for langt.");
+      p = {id:uid(),folderId:folders.value,name:name.trim(),code:"",updated:""};
+      state.projects.push(p);
+    }
+    const oldCode = p.code;
+    p.code = editor.value;
+    p.updated = new Date().toISOString();
+    if (persist()) {
+      selectedId = p.id; savedCode = p.code;
+      saveStatus.textContent = "✅ Lagret lokalt: " + p.name;
+    } else {
+      p.code = oldCode;
+    }
+    renderList();
+  });
+  document.getElementById("rename-project").addEventListener("click", () => {
+    const p = state.projects.find(p => p.id === selectedId);
+    if (!p) return alert("Åpne et prosjekt først.");
+    const name = prompt("Nytt prosjektnavn:", p.name);
+    if (!name || !name.trim()) return;
+    if (name.trim().length > 100) return alert("Navnet er for langt.");
+    const old = p.name; p.name = name.trim();
+    if (!persist()) p.name = old;
+    renderList();
+  });
+  document.getElementById("delete-project").addEventListener("click", () => {
+    const p = state.projects.find(p => p.id === selectedId);
+    if (!p) return alert("Åpne prosjektet du vil slette.");
+    if (!confirm("Slette «" + p.name + "» permanent fra denne nettleseren?")) return;
+    state.projects = state.projects.filter(x => x.id !== p.id);
+    if (!persist()) { state.projects.push(p); return; }
+    selectedId = null; savedCode = editor.value;
+    saveStatus.textContent = "Prosjektet er slettet. Koden står fortsatt i editoren.";
+    renderList();
+  });
+  folders.addEventListener("change", renderList);
+  editor.addEventListener("input", () => {
+    const p = state.projects.find(p => p.id === selectedId);
+    if (p) saveStatus.textContent = dirty() ? "● Endringer er ikke lagret." : "Alle endringer er lagret.";
+  });
+  window.addEventListener("beforeunload", e => {
+    if (dirty()) { e.preventDefault(); e.returnValue = ""; }
+  });
+  // Last ned aktiv kode som en vanlig Python-fil på Chromebooken.
+  document.getElementById("download-python").addEventListener("click", () => {
+    const active = state.projects.find(p => p.id === selectedId);
+    const base = (active ? active.name : "mitt-pythonprosjekt")
+      .replace(/[^a-zA-Z0-9æøåÆØÅ_-]+/g, "-").replace(/^-+|-+$/g, "") || "pythonprosjekt";
+    const blob = new Blob([editor.value], {type:"text/x-python;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = base + ".py";
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    saveStatus.textContent = "⬇ Python-filen er lastet ned. Se i Nedlastinger på Chromebooken.";
+  });
+  // Åpne en .py-fil fra Chromebooken i editoren (uten automatisk overskriving).
+  document.getElementById("upload-python").addEventListener("change", async e => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file) return;
+    if (!file.name.toLowerCase().endsWith(".py")) return alert("Velg en Python-fil som slutter på .py.");
+    if (file.size > 200000) return alert("Python-filen er for stor (maks 200 KB).");
+    if (!allowSwitch()) return;
+    try {
+      const code = await file.text();
+      selectedId = null;
+      editor.value = code;
+      savedCode = code;
+      editor.dispatchEvent(new Event("input", {bubbles:true}));
+      saveStatus.textContent = "📂 Åpnet " + file.name + ". Trykk «Lagre prosjekt» for å lagre i Mine prosjekter.";
+      renderList();
+      editor.focus();
+    } catch (_) {
+      alert("Kunne ikke åpne Python-filen.");
+    }
+  });
+  document.getElementById("export-projects").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify({format:"pythonverkstedet-v1",...state},null,2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "pythonverkstedet-sikkerhetskopi.json";
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+  document.getElementById("import-projects").addEventListener("change", async e => {
+    const file = e.target.files[0];
+    e.target.value = "";
+    if (!file || !allowSwitch()) return;
+    if (file.size > 5000000) return alert("Filen er for stor.");
+    try {
+      const data = JSON.parse(await file.text());
+      if (data.format !== "pythonverkstedet-v1" || !valid(data)) throw Error("Ugyldig fil");
+      if (!confirm("Dette erstatter alle mapper og prosjekter som er lagret i denne nettleseren. Fortsette?")) return;
+      const previous = state;
+      state = {folders:data.folders,projects:data.projects};
+      if (!persist()) { state = previous; return; }
+      selectedId = null; savedCode = editor.value;
+      render();
+      saveStatus.textContent = "✅ Sikkerhetskopien er hentet inn.";
+    } catch (_) { alert("Kunne ikke lese sikkerhetskopien."); }
+  });
+  init();
+})();
+</script>
+</body>
+</html>
