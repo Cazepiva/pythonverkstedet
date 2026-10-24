@@ -295,6 +295,9 @@ print("Totalpris:", total)</textarea>
 </div>
 <div class="project-actions" style="margin-top:12px;">
   <button id="save-project" type="button" style="background:#3657a5;color:white;padding:12px 16px;">💾 Lagre prosjekt</button>
+  <label for="download-filename" style="align-self:center;font-weight:bold;">Filnavn:</label>
+  <input id="download-filename" type="text" value="mitt-pythonprosjekt" maxlength="100" aria-label="Navn på Python-filen" style="min-width:160px;max-width:240px;padding:9px;border:1px solid #aab7ca;border-radius:8px;font:inherit;" />
+  <span style="align-self:center;">.py</span>
   <button id="download-python" type="button">⬇ Last ned .py</button>
   <label for="upload-python" style="display:inline-flex;align-items:center;">⬆ Åpne .py</label>
   <input id="upload-python" type="file" accept=".py,text/x-python,text/plain" hidden>
@@ -579,6 +582,7 @@ await _run_student_code()
     if (!p) return;
     selectedId = p.id;
     folders.value = p.folderId;
+    document.getElementById("download-filename").value = p.name;
     editor.value = p.code;
     savedCode = p.code;
     editor.dispatchEvent(new Event("input", {bubbles:true}));
@@ -604,6 +608,7 @@ await _run_student_code()
     state.projects.push(p);
     if (!persist()) { state.projects.pop(); return; }
     selectedId = p.id;
+    document.getElementById("download-filename").value = p.name;
     editor.value = "# " + p.name + "\n";
     editor.dispatchEvent(new Event("input", {bubbles:true}));
     saveStatus.textContent = "Nytt prosjekt opprettet. Husk å lagre koden.";
@@ -623,6 +628,7 @@ await _run_student_code()
     p.updated = new Date().toISOString();
     if (persist()) {
       selectedId = p.id; savedCode = p.code;
+      document.getElementById("download-filename").value = p.name;
       saveStatus.textContent = "✅ Lagret lokalt: " + p.name;
     } else {
       p.code = oldCode;
@@ -660,8 +666,13 @@ await _run_student_code()
   // Last ned aktiv kode som en vanlig Python-fil på Chromebooken.
   document.getElementById("download-python").addEventListener("click", () => {
     const active = state.projects.find(p => p.id === selectedId);
-    const base = (active ? active.name : "mitt-pythonprosjekt")
-      .replace(/[^a-zA-Z0-9æøåÆØÅ_-]+/g, "-").replace(/^-+|-+$/g, "") || "pythonprosjekt";
+    const entered = document.getElementById("download-filename").value;
+    const base = entered.trim().replace(/\.py$/i, "")
+      .replace(/[^a-zA-Z0-9æøåÆØÅ_-]+/g, "-").replace(/^-+|-+$/g, "");
+    if (!base) {
+      alert("Skriv inn et filnavn før du laster ned.");
+      return;
+    }
     const blob = new Blob([editor.value], {type:"text/x-python;charset=utf-8"});
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
