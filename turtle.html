@@ -70,27 +70,7 @@
     </section>
       </div>
     </details>
-    <textarea id="turtle-code" spellcheck="false">from turtle import *
-
-bgcolor("lightblue")
-pencolor("red")
-
-penup()
-goto(-100, 60)
-pendown()
-
-for i in range(4):
-    forward(100)
-    right(90)
-
-penup()
-goto(100, -50)
-pendown()
-pencolor("blue")
-
-for i in range(3):
-    forward(90)
-    right(120)</textarea>
+    <textarea id="turtle-code" spellcheck="false"></textarea>
     <div class="controls">
       <button id="run-turtle">▶ Tegn med Turtle</button>
       <button id="stop-turtle" class="secondary" disabled>■ Stopp</button>
@@ -258,9 +238,9 @@ for i in range(3):
     }
   });
   document.getElementById('reset-challenge').addEventListener('click', () => {
-    codeBox.value = examples[exampleChoice.value];
+    codeBox.value = '';
     updateChallenge();
-    status.textContent = '↺ Oppdraget er nullstilt. Du kan prøve på nytt!';
+    status.textContent = '↺ Kodefeltet er tømt. Du kan prøve på nytt!';
   });
 
   document.getElementById('load-example').addEventListener('click', () => {
@@ -547,4 +527,3 @@ for i in range(3):
 </script>
 </body>
 </html>
-     
