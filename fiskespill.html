@@ -24,8 +24,7 @@ const bridge={
 window.fishBridge=bridge;
 function draw(){const w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle=game.background;ctx.fillRect(0,0,w,h);const scale=Math.min(w/440,h/440);function X(x){return w/2+x*scale}function Y(y){return h/2-y*scale}
  for(const t of game.items){if(t.visible){ctx.save();ctx.translate(X(t.x),Y(t.y));ctx.rotate(-t.heading*Math.PI/180);ctx.fillStyle=t.color;ctx.strokeStyle=t.color;if(t.shape==='circle'){ctx.beginPath();ctx.arc(0,0,10*scale,0,Math.PI*2);ctx.fill();if(t.color==='yellow'||t.color==='orange'){ctx.beginPath();ctx.moveTo(-7*scale,0);ctx.lineTo(-18*scale,-8*scale);ctx.lineTo(-18*scale,8*scale);ctx.closePath();ctx.fill();ctx.fillStyle='#222';ctx.beginPath();ctx.arc(4*scale,-3*scale,1.7*scale,0,Math.PI*2);ctx.fill()}}else{ctx.beginPath();ctx.moveTo(13*scale,0);ctx.lineTo(-9*scale,-8*scale);ctx.lineTo(-9*scale,8*scale);ctx.closePath();ctx.fill()}ctx.restore()}for(const wri of t.writes){ctx.fillStyle=wri.color;ctx.font=`bold ${Math.max(12,wri.size*scale)}px Arial`;ctx.fillText(wri.value,X(wri.x),Y(wri.y))}}}
-function showError(err){$('errors').hidden=false;$('errors').className='error';$('errors').textContent='Python-feil:
-'+String(err);$('status').textContent='Se feilmeldingen og prøv å rette koden.'}
+function showError(err){$('errors').hidden=false;$('errors').className='error';$('errors').textContent='Python-feil:\n'+String(err);$('status').textContent='Se feilmeldingen og prøv å rette koden.'}
 const PY_SHIM=String.raw`
 import sys, types, math
 from js import fishBridge as B
@@ -75,5 +74,5 @@ $('download').addEventListener('click',()=>{const blob=new Blob([$('code').value
 function keyPress(key){if(!game.active||game.ended)return;const fn=game.keys[key];if(fn){try{fn();draw()}catch(e){showError(e);game.active=false}}}
 document.addEventListener('keydown',e=>{const map={ArrowUp:'Up',ArrowDown:'Down',ArrowLeft:'Left',ArrowRight:'Right'};if(map[e.key]&&document.activeElement===canvas){e.preventDefault();keyPress(map[e.key])}});
 document.querySelectorAll('[data-key]').forEach(b=>b.addEventListener('click',()=>keyPress(b.dataset.key)));
-step=0;$('code').value=STEPS[0].code;chooseStep(0);loadPython();draw();
+step=0;$('code').value=localStorage.getItem('pv-fish-step-0')??STEPS[0].code;chooseStep(0);loadPython();draw();
 </script></body></html>
