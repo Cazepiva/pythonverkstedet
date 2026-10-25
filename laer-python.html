@@ -295,10 +295,10 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 <pre id="task-solution-code"></pre>
 </div></div>
 <h2>📘 Velg tema og oppgave</h2>
-<p>Velg et tema. Da ser du bare forklaringen og oppgavene som hører til temaet.</p>
+<p>Velg et tema og et nivå. Oppgavene går fra enkle øvelser til større utfordringer. Temaene om bevegelse og figurer øves her med tekst og koordinater; grafiske figurer lager du i Turtle- og Fiskespillverkstedet.</p>
 <label for="topic-select" style="display:block;font-weight:700;margin:12px 0 7px">Tema</label>
 <select id="topic-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"></select>
-<div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
+<label for="level-select" style="display:block;font-weight:700;margin:12px 0 7px">Vanskelighetsgrad</label><select id="level-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"><option value="alle">Alle nivåer</option><option value="1">Nivå 1 – Kom i gang</option><option value="2">Nivå 2 – Øv videre</option><option value="3">Nivå 3 – Utfordring</option></select><div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
 
 </section>
 </div>
@@ -327,6 +327,31 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
     {topic:"Funksjoner", title:"18. Dobbelt så mye", description:"Lag en funksjon som tar imot et tall og returnerer det dobbelte.", start:'def double(number):\\n    # Returner det dobbelte av number\\n    pass\\n\\nprint(double(6))', hint:"Bruk return number * 2.", solution:'def double(number):\\n    return number * 2\\n\\nprint(double(6))'},
     {topic:"Funksjoner", title:"19. Lag en terning", description:"Lag en funksjon som returnerer et tilfeldig tall fra 1 til 6.", start:'import random\\n\\ndef roll_dice():\\n    # Returner et tilfeldig tall fra 1 til 6\\n    pass\\n\\nprint(roll_dice())', hint:"Bruk random.randint(1, 6).", solution:'import random\\n\\ndef roll_dice():\\n    return random.randint(1, 6)\\n\\nprint(roll_dice())'},
     {topic:"Funksjoner", title:"20. Poengfunksjonen", description:"Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.", start:'def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))', hint:"Funksjonen skal returnere summen av score og points.", solution:'def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))'}
+,
+    {"topic": "Tilfeldighet", "title": "21. Kast en terning", "description": "Skriv ut et tilfeldig tall mellom 1 og 6.", "start": "import random\n# Kast terningen", "hint": "Bruk random.randint(1, 6).", "solution": "import random\nprint(random.randint(1, 6))"},
+    {"topic": "Tilfeldighet", "title": "22. Trekk en premie", "description": "Velg tilfeldig en premie fra en liste.", "start": "import random\npremier = ['stjerne', 'mynt', 'hjerte']", "hint": "Bruk random.choice().", "solution": "import random\npremier = ['stjerne', 'mynt', 'hjerte']\nprint(random.choice(premier))"},
+    {"topic": "Tilfeldighet", "title": "23. Tilfeldig bobleplassering", "description": "Lag fem tilfeldige x-posisjoner for bobler.", "start": "import random\n# Bruk en for-løkke", "hint": "Bruk randint(-100, 100) inni range(5).", "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    print('Boble', i + 1, 'x=', x)"},
+    {"topic": "Tilfeldighet", "title": "24. Unngå en tilfeldig hindring", "description": "Trekk en tilfeldig posisjon og sjekk om den er nær spilleren.", "start": "import random\nspiller_x = 0", "hint": "Bruk abs(spiller_x - hinder_x) < 20.", "solution": "import random\nspiller_x = 0\nhinder_x = random.randint(-50, 50)\nprint('Hinder:', hinder_x)\nif abs(spiller_x - hinder_x) < 20:\n    print('Pass opp!')\nelse:\n    print('Trygt!')"},
+    {"topic": "Koordinater", "title": "25. Flytt til høyre", "description": "Start med x=0 og flytt figuren 15 plasser mot høyre.", "start": "x = 0", "hint": "Legg 15 til x.", "solution": "x = 0\nx += 15\nprint(x)"},
+    {"topic": "Koordinater", "title": "26. Finn posisjonen", "description": "Start på (10, 20), flytt 5 til venstre og 10 opp.", "start": "x, y = 10, 20", "hint": "Venstre betyr minus på x; opp betyr pluss på y.", "solution": "x, y = 10, 20\nx -= 5\ny += 10\nprint(x, y)"},
+    {"topic": "Koordinater", "title": "27. Hold figuren innenfor banen", "description": "Begrens x slik at den alltid er mellom -100 og 100.", "start": "x = 135", "hint": "Bruk if og sett x=100 når den er for stor.", "solution": "x = 135\nif x > 100:\n    x = 100\nif x < -100:\n    x = -100\nprint(x)"},
+    {"topic": "Koordinater", "title": "28. Tilfeldige koordinater", "description": "Lag fem tilfeldige (x,y)-posisjoner.", "start": "import random", "hint": "Trekk x og y hver for seg i en løkke.", "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    y = random.randint(-100, 100)\n    print(x, y)"},
+    {"topic": "Bevegelse", "title": "29. Svøm oppover", "description": "Øk y-posisjonen med 10 tre ganger.", "start": "y = 0", "hint": "Bruk for-løkke og y += 10.", "solution": "y = 0\nfor i in range(3):\n    y += 10\n    print(y)"},
+    {"topic": "Bevegelse", "title": "30. Fire retninger", "description": "Bruk if/elif til å endre x eller y ut fra retningen.", "start": "x, y = 0, 0\nretning = 'venstre'", "hint": "Venstre: x -= 10; høyre: x += 10; opp: y += 10; ned: y -= 10.", "solution": "x, y = 0, 0\nretning = 'venstre'\nif retning == 'opp':\n    y += 10\nelif retning == 'ned':\n    y -= 10\nelif retning == 'venstre':\n    x -= 10\nelif retning == 'høyre':\n    x += 10\nprint(x, y)"},
+    {"topic": "Bevegelse", "title": "31. Bevegelse som funksjon", "description": "Lag en funksjon flytt(x,y,retning) som returnerer ny posisjon.", "start": "# def flytt(x, y, retning):", "hint": "Bruk return x, y etter if/elif.", "solution": "def flytt(x, y, retning):\n    if retning == 'opp':\n        y += 10\n    elif retning == 'ned':\n        y -= 10\n    elif retning == 'venstre':\n        x -= 10\n    elif retning == 'høyre':\n        x += 10\n    return x, y\nprint(flytt(0, 0, 'opp'))"},
+    {"topic": "Bevegelse", "title": "32. Tilfeldig svømmetur", "description": "La figuren ta ti tilfeldige steg og skriv ut sluttposisjonen.", "start": "import random\nx, y = 0, 0", "hint": "Velg retning med random.choice(['opp','ned','venstre','høyre']).", "solution": "import random\nx, y = 0, 0\nfor i in range(10):\n    retning = random.choice(['opp', 'ned', 'venstre', 'høyre'])\n    if retning == 'opp': y += 1\n    elif retning == 'ned': y -= 1\n    elif retning == 'venstre': x -= 1\n    else: x += 1\nprint('Sluttposisjon:', x, y)"},
+    {"topic": "Figurer", "title": "33. Lag en strek", "description": "Skriv ut en strek av åtte stjerner.", "start": "# Skriv ut åtte stjerner", "hint": "Du kan gange en tekst med et tall.", "solution": "print('*' * 8)"},
+    {"topic": "Figurer", "title": "34. Lag en firkant", "description": "Skriv ut en firkant med fire rader og seks stjerner på hver rad.", "start": "# Bruk en for-løkke", "hint": "Skriv ut '*' * 6 fire ganger.", "solution": "for rad in range(4):\n    print('*' * 6)"},
+    {"topic": "Figurer", "title": "35. Lag en trekant", "description": "Lag en trekant med én, to, tre, fire og fem stjerner.", "start": "# Bruk range(1, 6)", "hint": "Antall stjerner er radnummeret.", "solution": "for rad in range(1, 6):\n    print('*' * rad)"},
+    {"topic": "Figurer", "title": "36. Lag en egen figur", "description": "Lag en diamant av stjerner med to løkker.", "start": "# Lag øvre og nedre halvdel", "hint": "Bruk mellomrom og stjerner for å sentrere.", "solution": "for i in range(1, 5):\n    print(' ' * (4-i) + '*' * (2*i-1))\nfor i in range(3, 0, -1):\n    print(' ' * (4-i) + '*' * (2*i-1))"},
+    {"topic": "Kollisjon", "title": "37. Er det treff?", "description": "Sjekk om to x-posisjoner er nærmere enn 10.", "start": "fisk_x = 20\nboble_x = 26", "hint": "Bruk abs() til å finne avstanden.", "solution": "fisk_x = 20\nboble_x = 26\nif abs(fisk_x - boble_x) < 10:\n    print('Treff!')"},
+    {"topic": "Kollisjon", "title": "38. Hvite gir poeng", "description": "Legg til ett poeng hvis fisken er nær den hvite boblen.", "start": "score = 0\nfisk_x, boble_x = 5, 8", "hint": "Øk score når avstanden er under 5.", "solution": "score = 0\nfisk_x, boble_x = 5, 8\nif abs(fisk_x - boble_x) < 5:\n    score += 1\nprint('Poeng:', score)"},
+    {"topic": "Kollisjon", "title": "39. Røde trekker fra", "description": "Trekk fra ett poeng ved treff på en rød ball. Poeng skal aldri bli negativt.", "start": "score = 2\nfisk_x, rod_x = 5, 8", "hint": "Bruk max(0, score - 1).", "solution": "score = 2\nfisk_x, rod_x = 5, 8\nif abs(fisk_x - rod_x) < 5:\n    score = max(0, score - 1)\nprint('Poeng:', score)"},
+    {"topic": "Kollisjon", "title": "40. Kollisjon i to dimensjoner", "description": "Finn ut om fisken er nær en boble ved å sjekke både x og y.", "start": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14", "hint": "Bruk avstand: ((dx**2 + dy**2)**0.5) < 10.", "solution": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14\ndx = fisk_x - boble_x\ndy = fisk_y - boble_y\nif (dx**2 + dy**2)**0.5 < 10:\n    print('Boble fanget!')"},
+    {"topic": "Spilløkker", "title": "41. Tre runder", "description": "Lag en løkke som teller tre runder og skriver ut poeng.", "start": "poeng = 0", "hint": "Bruk range(3) og øk poeng.", "solution": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde+1, 'poeng:', poeng)"},
+    {"topic": "Spilløkker", "title": "42. Spill til fem poeng", "description": "Bruk while for å spille til poengsummen er fem.", "start": "poeng = 0", "hint": "while poeng < 5: og øk poeng.", "solution": "poeng = 0\nwhile poeng < 5:\n    poeng += 1\n    print('Poeng:', poeng)\nprint('Du vant!')"},
+    {"topic": "Spilløkker", "title": "43. Fang eller unngå", "description": "Lag fem tilfeldige hendelser der hvit gir +1 og rød gir -1.", "start": "import random\npoeng = 0", "hint": "Bruk random.choice og max(0, poeng-1).", "solution": "import random\npoeng = 0\nfor runde in range(5):\n    ball = random.choice(['hvit', 'rød'])\n    if ball == 'hvit':\n        poeng += 1\n    else:\n        poeng = max(0, poeng - 1)\n    print(ball, 'poeng:', poeng)"},
+    {"topic": "Spilløkker", "title": "44. Lag et lite tekstspill", "description": "La brukeren velge mellom å fange boble eller unngå hindring i tre runder.", "start": "poeng = 0\n# Tre runder med input()", "hint": "Bruk for, input og if/else. Gi poeng for 'fang'.", "solution": "poeng = 0\nfor runde in range(3):\n    valg = input('Skriv fang eller unngå: ').lower()\n    if valg == 'fang':\n        poeng += 1\n        print('Boble fanget!')\n    elif valg == 'unngå':\n        print('Du unngikk hindringen!')\n    else:\n        print('Ukjent valg')\nprint('Poeng:', poeng)"}
   ];
 
   const topicsContainer = document.getElementById("learning-topics");
@@ -375,7 +400,17 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
       example: 'def greet(name):\\n    print("Hei,", name)\\n\\ngreet("Ada")',
       tryText: "Prøv å endre funksjonen slik at den skriver en annen hilsen."
     }
+,
+    {"topic": "Tilfeldighet", "title": "6. Tilfeldighet og random", "intro": "Spill bruker tilfeldige tall for å plassere premier, bobler og hindringer. import random må stå øverst.", "example": "import random\nprint(random.randint(1, 6))", "tryText": "Endre intervallet og kjør flere ganger."},
+    {"topic": "Koordinater", "title": "7. Koordinater og posisjon", "intro": "En figur i et spill har en x-posisjon (sideveis) og en y-posisjon (oppover/nedover). Vi kan regne med koordinater før vi tegner figuren.", "example": "x = 0\ny = 0\nx = x + 10\nprint('Posisjon:', x, y)", "tryText": "Flytt figuren både vannrett og loddrett."},
+    {"topic": "Bevegelse", "title": "8. Bevegelse og retning", "intro": "I spill flytter vi en figur ved å endre x og y. Retningen kan representeres med tekst eller vinkler: 0=høyre, 90=opp, 180=venstre, 270=ned.", "example": "x = 0\ny = 0\nretning = 'opp'\nif retning == 'opp':\n    y += 10\nprint(x, y)", "tryText": "Prøv andre retninger."},
+    {"topic": "Figurer", "title": "9. Lag figurer med kode", "intro": "Vi kan lage enkle figurer med teksttegn og løkker. I Turtle- og Fiskespillverkstedet tegnes figurene grafisk. Her øver vi på Python-logikken.", "example": "for rad in range(3):\n    print('*' * 5)", "tryText": "Endre antall rader og bredden."},
+    {"topic": "Kollisjon", "title": "10. Kollisjon og poeng", "intro": "En kollisjon oppstår når to figurer er nær hverandre. Vi kan bruke koordinater og avstand til å bestemme om spilleren får eller mister poeng.", "example": "fisk_x = 10\nboble_x = 13\nif abs(fisk_x - boble_x) < 5:\n    print('Treff!')", "tryText": "Endre koordinatene slik at det ikke blir treff."},
+    {"topic": "Spilløkker", "title": "11. Spilløkker og små spill", "intro": "Et spill gjentar handlinger, oppdaterer posisjoner og sjekker regler. Her lager vi tekstbaserte minispill med løkker og funksjoner.", "example": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde + 1, 'poeng', poeng)", "tryText": "Endre hva som gir poeng."}
   ];
+
+  tasks.forEach((task, i) => { const topicIndex = tasks.filter(t => t.topic === task.topic).indexOf(task); task.level = topicIndex === 0 ? 1 : topicIndex === 1 ? 2 : 3; });
+  document.getElementById("level-select").addEventListener("change", renderTasks);
 
   function renderTasks() {
     topicsContainer.replaceChildren();
@@ -409,11 +444,11 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
       tasksHeading.style.margin = "22px 0 10px";
       const cards = document.createElement("div");
       cards.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;";
-      tasks.filter(task => task.topic === lesson.topic).forEach(task => {
+      tasks.filter(task => task.topic === lesson.topic && (document.getElementById("level-select").value === "alle" || String(task.level) === document.getElementById("level-select").value)).forEach(task => {
         const card = document.createElement("div");
         card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
         const taskHeading = document.createElement("h4");
-        taskHeading.textContent = task.title;
+        taskHeading.textContent = task.title + " · Nivå " + task.level;
         taskHeading.style.marginTop = "0";
         const text = document.createElement("p");
         text.textContent = task.description;
