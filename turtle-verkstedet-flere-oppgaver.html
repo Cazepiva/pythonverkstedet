@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+
+<html lang="no">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>🐢 Turtle-verkstedet</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; background:#f0f7ff; color:#24324a; margin:0; padding:20px; }
+  main { max-width:950px; margin:auto; }
+  .panel { background:white; padding:20px; border-radius:14px; margin:20px 0; box-shadow:0 2px 8px #16375c10; }
+  textarea { width:100%; min-height:245px; padding:14px; font:16px/1.5 monospace; border:1px solid #9caec8; border-radius:8px; tab-size:4; }
+  canvas { display:block; width:100%; max-width:800px; height:auto; background:white; border:2px solid #3657a5; border-radius:10px; }
+  button { background:#27834a; color:white; border:0; padding:12px 18px; border-radius:8px; cursor:pointer; font-weight:bold; }
+  button.secondary { background:#3657a5; }
+  button:disabled { opacity:.6; cursor:not-allowed; }
+  .examples { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:12px 0; }
+  .examples select { padding:11px; border:1px solid #9caec8; border-radius:8px; font-size:16px; max-width:100%; }
+  .controls { display:flex; align-items:center; flex-wrap:wrap; gap:12px; margin:12px 0; }
+  .controls label { display:flex; align-items:center; gap:9px; }
+  input[type=range] { width:170px; }
+  #turtle-status { min-height:1.4em; font-weight:600; }
+  .help { line-height:1.7; background:#f4f8ff; padding:12px 16px; border-radius:8px; }
+  code { background:#e9effb; padding:2px 4px; border-radius:3px; }
+  .small { font-size:.92rem; color:#43536b; }
+  .challenge { margin:16px 0; padding:16px; border:2px solid #d7e6fb; background:#f5f9ff; border-radius:12px; }
+  .challenge h3 { margin:0 0 8px; }
+  .challenge p { line-height:1.5; }
+  .challenge button { margin-right:8px; margin-top:4px; }
+  .hint { padding:10px 12px; background:#fff; border-left:4px solid #3657a5; border-radius:5px; }
+  .hint[hidden] { display:none; }
+  details.fold { margin:12px 0 18px; border:1px solid #d7e6fb; border-radius:12px; background:#f8fbff; }
+  details.fold > summary { padding:15px 17px; font-weight:bold; cursor:pointer; color:#254a93; }
+  details.fold > .fold-content { padding:0 16px 16px; }
+  details.fold:focus-within { border-color:#3657a5; }
+  .grid-control { display:flex; align-items:center; gap:9px; margin:0 0 14px; font-weight:bold; }
+  .grid-control input { width:19px; height:19px; }
+  .grid-control input:focus-visible { outline:2px solid #3657a5; outline-offset:3px; }
+</style>
+<style id="pv-shared-nav-style">
+#pv-shared-nav{position:fixed;top:0;left:0;bottom:0;width:232px;overflow-y:auto;z-index:9999;background:#fff;border-right:1px solid #dbe5f3;box-shadow:2px 0 15px #24324a12;padding:18px 12px;font:15px/1.4 Arial,sans-serif;color:#26374a;text-align:left}
+#pv-shared-nav .pv-brand{font-size:18px;font-weight:800;margin:4px 7px 17px}#pv-shared-nav a{display:block;color:#254a76;text-decoration:none;padding:11px 9px;border-radius:9px;margin:3px 0;font-size:14px;font-weight:650;background:transparent;border:0;box-shadow:none}#pv-shared-nav a:hover{background:#edf4ff}#pv-shared-nav a[aria-current=page]{background:#dceafd;color:#163c79}#pv-shared-nav summary{display:none}
+body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
+@media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
+</style><script>if(new URLSearchParams(location.search).has("embed")){document.documentElement.classList.add("pv-embedded")}</script><style>.pv-embedded #pv-shared-nav{display:none!important}.pv-embedded body{padding-left:0!important}.pv-embedded main{max-width:100%!important}.pv-embedded #turtle-laering{display:none!important}</style><style>
+.turtle-workspace{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(310px,.85fr);gap:16px;align-items:start}
+.turtle-work-area{min-width:0}.turtle-task-panel{min-width:0;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.turtle-task-panel label{display:block;font-weight:700;margin:14px 0 6px}
+.turtle-task-panel select{display:block;width:100%;padding:12px;border:1px solid #a9bddc;border-radius:9px;background:#fff;color:#1d3760;font-size:15px}
+.turtle-task{display:none;margin-top:16px;background:#f2f6ff;border:1px solid #d7e3f8;border-radius:12px;padding:16px;line-height:1.55}
+.turtle-task.active{display:block}.turtle-task h3{margin:0 0 12px}.turtle-task details{background:#fff;border:1px solid #dae4f2;border-radius:8px;margin:10px 0;padding:10px}.turtle-task details summary{cursor:pointer;font-weight:600}
+.turtle-work-area canvas{max-width:100%;height:auto}.turtle-work-area textarea{min-height:215px}
+@media(max-width:1050px){.turtle-workspace{grid-template-columns:1fr}.turtle-task-panel{position:static;max-height:none}}
+</style><style>.task-solution{white-space:pre;overflow-x:auto;padding:12px;border-radius:8px;background:#142238;color:#f3f8ff;font-size:14px;line-height:1.55}.turtle-task details{margin-top:10px}.turtle-task summary{cursor:pointer;font-weight:600}</style></head>
+<body><nav aria-label="Felles meny for Pythonverkstedet" id="pv-shared-nav"><div class="pv-brand">🐍 Pythonverkstedet</div><details open=""><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a aria-current="page" href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html">🐱 Spill kattespillet</a></div></details></nav>
+<main>
+<h1>🐢 Turtle-verkstedet</h1>
+<p>Lær Python ved å tegne med en skilpadde! Se hvordan figurene blir til, og eksperimenter med farger og koordinater.</p>
+
+
+
+
+<div class="turtle-workspace"><div class="turtle-work-area"><section class="panel">
+<h2>💻 Min Turtle-kode</h2>
+<details class="fold" id="examples-and-tasks">
+<summary>📚 Vis eksempler og oppdrag</summary>
+<div class="fold-content">
+<div class="examples">
+<label for="example-choice"><strong>📚 Velg et kodeeksempel:</strong></label>
+<select id="example-choice">
+<option value="square">⬜ Firkant</option>
+<option value="triangle">🔺 Trekant</option>
+<option value="star">⭐ Stjerne</option>
+<option value="house">🏠 Hus</option>
+<option value="flower">🌸 Blomst</option>
+<option selected="" value="two">🎨 To figurer og koordinater</option>
+</select>
+<button class="secondary" id="load-example" type="button">Vis koden</button>
+</div>
+<p class="small">Velg et eksempel og trykk «Vis koden». Endre gjerne tall og farger før du tegner. Dette erstatter teksten i kodefeltet.</p>
+<section aria-labelledby="challenge-title" class="challenge">
+<h3 id="challenge-title">🎯 Dagens oppdrag</h3>
+<p id="challenge-description">Velg et eksempel for å se oppdraget.</p>
+<button class="secondary" id="show-hint" type="button">💡 Vis hint</button>
+<button class="secondary" id="reset-challenge" type="button">↺ Start oppdraget på nytt</button>
+<p aria-live="polite" class="hint" hidden="" id="hint-text"></p>
+<p class="small">Prøv selv først! Hintene viser deg hvor du kan lete i koden, uten å gi deg hele løsningen.</p>
+</section>
+</div>
+</details>
+<textarea id="turtle-code" spellcheck="false"></textarea>
+<div class="controls">
+<button id="run-turtle">▶ Tegn med Turtle</button>
+<button class="secondary" disabled="" id="stop-turtle">■ Stopp</button>
+<label for="speed">Tegnehastighet <input id="speed" max="10" min="1" type="range" value="5"/> <strong id="speed-label">5/10</strong></label>
+</div>
+
+</section><section class="panel">
+<h2>🎨 Tegnefelt</h2>
+<label class="grid-control" for="show-grid"><input id="show-grid" type="checkbox"/> 📍 Vis koordinatsystem</label>
+<canvas aria-label="Tegnefelt for Turtle" height="600" id="turtle-canvas" width="800"></canvas>
+<p id="turtle-status" role="status">Klar til å tegne!</p>
+<p class="small">Koordinater: (0, 0) er midt i tegnefeltet. Positive x-verdier går mot høyre, og positive y-verdier går oppover.</p>
+</section><section class="panel">
+<details class="fold">
+<summary>📚 Vis kommandoer du kan prøve</summary>
+<div class="fold-content">
+<div class="help">
+<code>forward(100)</code> – gå fremover · <code>backward(50)</code> – gå bakover<br/>
+<code>right(90)</code> – sving høyre · <code>left(90)</code> – sving venstre<br/>
+<code>pencolor("red")</code> – strekfarge · <code>bgcolor("lightblue")</code> – bakgrunn<br/>
+<code>pensize(4)</code> – tykkere strek · <code>penup()</code> – løft pennen · <code>pendown()</code> – sett ned pennen<br/>
+<code>goto(100, 50)</code> – flytt til koordinater · <code>setx(-100)</code> / <code>sety(80)</code> – endre én koordinat<br/>
+<code>for i in range(5):</code> – gjenta innrykkede kommandoer fem ganger
+    </div>
+</div>
+</details>
+</section></div><section class="panel turtle-task-panel" id="turtle-oppgaver"><h2>📚 Oppgaver og utfordringer</h2><p>Velg et tema og en oppgave. Øv på nivå 1, 2 og 3. Prøv selv, og åpne hint eller løsningsforslag ved behov. Her støttes tegnekommandoer og for-løkker; tastaturstyring, tilfeldighet og animasjon øves i Fiskespillet.</p><label for="turtle-topic">Velg tema</label><select aria-label="Velg tema" id="turtle-topic"><option value="start">Lær Turtle – grunnleggende</option><option value="challenge">Turtle-utfordringer</option><option value="figurer">🎨 Lage figurer</option><option value="bevegelse">➡️ Bevegelse og retning</option><option value="koordinater">📍 Koordinater</option><option value="farger">🌈 Farger og mønstre</option><option value="spill">🐟 Fra Turtle til fiskespill</option></select><label for="turtle-task">Velg oppgave</label><select aria-label="Velg oppgave" id="turtle-task"></select><div aria-live="polite" id="turtle-task-content"><article class="turtle-task" data-group="start" data-index="0" data-title="1. Styr skilpadden"><h3>1. Styr skilpadden</h3><p>Få skilpadden til å gå fremover og svinge.</p><ol><li>Tegn en strek.</li><li>Tegn bokstaven L.</li><li>Tegn en firkant.</li></ol><p>Tips: Undersøk <code>forward()</code>, <code>right()</code> og <code>left()</code>.</p></article><article class="turtle-task" data-group="start" data-index="1" data-title="2. Tegn et hus"><h3>2. Tegn et hus</h3><p>Lær å flytte skilpadden uten å tegne.</p><ol><li>Tegn to streker med mellomrom.</li><li>Tegn to firkanter som ikke henger sammen.</li><li>Tegn et hus med tak.</li></ol><p>Tips: Prøv <code>penup()</code> og <code>pendown()</code>.</p></article><article class="turtle-task" data-group="start" data-index="2" data-title="3. Magiske mønstre"><h3>3. Magiske mønstre</h3><p>Bruk en <code>for</code>-løkke til å gjenta bevegelser.</p><ol><li>Tegn en firkant med løkke.</li><li>Endre antall gjentakelser og vinkler.</li><li>Lag ditt eget mønster.</li></ol></article><article class="turtle-task" data-group="start" data-index="3" data-title="4. Turtle på eventyr"><h3>4. Turtle på eventyr</h3><p>Bruk det du har lært til å løse utfordringer. Begynn på nivå 1.</p><p><a href="turtle-eventyr.html">🗺️ Gå til Turtle på eventyr</a></p></article><article class="turtle-task" data-group="challenge" data-index="0" data-title="Firkant"><h3>Firkant</h3><p>Tegn en firkant med fire like lange sider. Gjør den deretter dobbelt så stor.</p><p class="concept"><strong>Du øver på:</strong> forward(), right(), for-løkke</p><details><summary>💡 Vis hint 1</summary><p>Se på tallet i forward(...). Det bestemmer lengden på sidene.</p></details><details><summary>💡 Vis hint 2</summary><p>Prøv både 60 og 120 som sidelengde.</p></details><details><summary>🌟 Ekstra utfordring</summary><p>Kan du lage en firkant med tykkere, blå strek?</p></details></article><article class="turtle-task" data-group="challenge" data-index="1" data-title="Fargerik trekant"><h3>Fargerik trekant</h3><p>Tegn en grønn trekant på gul bakgrunn. Bytt deretter til dine egne farger.</p><p class="concept"><strong>Du øver på:</strong> pencolor(), bgcolor(), vinkler</p><details><summary>💡 Vis hint 1</summary><p>En trekant har tre sider. Hvor mange grader må du svinge etter hver side?</p></details><details><summary>💡 Vis hint 2</summary><p>Prøv right(120) i en løkke som gjentas tre ganger.</p></details><details><summary>🌟 Ekstra utfordring</summary><p>Lag en mindre trekant med en annen strektykkelse.</p></details></article><article class="turtle-task" data-group="challenge" data-index="2" data-title="Stjernekunst"><h3>Stjernekunst</h3><p>Tegn en stjerne med fem spisser. Endre størrelsen og tykkelsen på strekene.</p><p class="concept"><strong>Du øver på:</strong> right(144), pensize(), løkker</p><details><summary>💡 Vis hint 1</summary><p>En femtagget stjerne kan tegnes ved å gjenta den samme bevegelsen fem ganger.</p></details><details><summary>💡 Vis hint 2</summary><p>Prøv right(144) etter hver forward(...).</p></details><details><summary>🌟 Ekstra utfordring</summary><p>Lag to stjerner med forskjellige farger og størrelser.</p></details></article><article class="turtle-task" data-group="challenge" data-index="3" data-title="Koordinatdetektiven"><h3>Koordinatdetektiven</h3><p>Tegn en firkant til venstre og en trekant til høyre. Bruk koordinatsystemet.</p><p class="concept"><strong>Du øver på:</strong> goto(x, y), penup(), pendown()</p><details><summary>💡 Vis hint 1</summary><p>Løft pennen før du flytter skilpadden til en ny startposisjon.</p></details><details><summary>💡 Vis hint 2</summary><p>Negative x-verdier flytter til venstre, positive til høyre.</p></details><details><summary>🌟 Ekstra utfordring</summary><p>Plasser tre figurer i tre forskjellige deler av tegnefeltet.</p></details></article><article class="turtle-task" data-group="challenge" data-index="4" data-title="Mønsterverksted"><h3>Mønsterverksted</h3><p>Lag en blomst eller et mønster ved å gjenta en figur flere ganger.</p><p class="concept"><strong>Du øver på:</strong> løkker inni løkker, rotasjon</p><details><summary>💡 Vis hint 1</summary><p>Start med en liten firkant. Tegn den flere ganger fra samme punkt.</p></details><details><summary>💡 Vis hint 2</summary><p>Bruk en ytre løkke og sving litt mellom hver firkant.</p></details><details><summary>🌟 Ekstra utfordring</summary><p>Prøv å endre antall gjentakelser og vinkelen. Hva skjer?</p></details></article><article class="turtle-task" data-group="challenge" data-index="5" data-title="Min egen Turtle-kunst"><h3>Min egen Turtle-kunst</h3><p>Lag ditt eget bilde med minst tre figurer, to farger og én løkke. Gi bildet et navn.</p><p class="concept"><strong>Du øver på:</strong> planlegging, kreativitet, feilsøking</p><details><summary>💡 Vis hint 1</summary><p>Planlegg hvor figurene skal stå før du skriver koden.</p></details><details><summary>💡 Vis hint 2</summary><p>Bruk penup(), goto(...), pendown() mellom figurene.</p></details><details><summary>🌟 Ekstra utfordring</summary><p>Lag et landskap eller et mønster og forklar hvordan du laget det.</p></details></article><article class="turtle-task" data-group="figurer" data-index="0" data-title="Nivå 1 · Tegn en trekant"><h3>Nivå 1 · Tegn en trekant</h3><p>Tegn en trekant med tre like lange sider.</p><details><summary>💡 Hint 1</summary><p>Bruk forward(90) og right(120).</p></details><details><summary>💡 Hint 2</summary><p>Prøv en for-løkke med tre gjentakelser.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>for i in range(3):
+    forward(90)
+    right(120)</code></pre></details></article><article class="turtle-task" data-group="figurer" data-index="1" data-title="Nivå 1 · Tegn en firkant"><h3>Nivå 1 · Tegn en firkant</h3><p>Tegn en firkant med fire like sider.</p><details><summary>💡 Hint 1</summary><p>Bruk forward(80) og right(90).</p></details><details><summary>💡 Hint 2</summary><p>En for-løkke gjør koden kortere.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>for i in range(4):
+    forward(80)
+    right(90)</code></pre></details></article><article class="turtle-task" data-group="figurer" data-index="2" data-title="Nivå 2 · Lag en stjerne"><h3>Nivå 2 · Lag en stjerne</h3><p>Tegn en stjerne med fem spisser.</p><details><summary>💡 Hint 1</summary><p>Snu 144 grader etter hver strek.</p></details><details><summary>💡 Hint 2</summary><p>Gjenta fem ganger.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>for i in range(5):
+    forward(120)
+    right(144)</code></pre></details></article><article class="turtle-task" data-group="figurer" data-index="3" data-title="Nivå 3 · Lag en blomst"><h3>Nivå 3 · Lag en blomst</h3><p>Tegn åtte firkanter som er dreid i forhold til hverandre.</p><details><summary>💡 Hint 1</summary><p>Bruk to løkker inni hverandre.</p></details><details><summary>💡 Hint 2</summary><p>Snu 45 grader mellom firkantene.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>for blomst in range(8):
+    for side in range(4):
+        forward(70)
+        right(90)
+    right(45)</code></pre></details></article><article class="turtle-task" data-group="bevegelse" data-index="0" data-title="Nivå 1 · Gå og snu"><h3>Nivå 1 · Gå og snu</h3><p>Tegn en L ved å gå fremover og svinge.</p><details><summary>💡 Hint 1</summary><p>Prøv forward(), left() og right().</p></details><details><summary>💡 Hint 2</summary><p>Start med forward(100).</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>forward(100)
+left(90)
+forward(70)</code></pre></details></article><article class="turtle-task" data-group="bevegelse" data-index="1" data-title="Nivå 2 · Tilbake til start"><h3>Nivå 2 · Tilbake til start</h3><p>Gå fremover, bakover og tilbake til midten.</p><details><summary>💡 Hint 1</summary><p>Bruk backward() og home().</p></details><details><summary>💡 Hint 2</summary><p>home() flytter skilpadden til startpunktet.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>forward(100)
+backward(50)
+home()</code></pre></details></article><article class="turtle-task" data-group="bevegelse" data-index="2" data-title="Nivå 2 · Fire retninger"><h3>Nivå 2 · Fire retninger</h3><p>Tegn en strek mot høyre, opp, venstre og ned.</p><details><summary>💡 Hint 1</summary><p>Bruk right(90) mellom strekene.</p></details><details><summary>💡 Hint 2</summary><p>En løkke kan gjenta fremover og sving.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>for i in range(4):
+    forward(80)
+    left(90)</code></pre></details></article><article class="turtle-task" data-group="bevegelse" data-index="3" data-title="Nivå 3 · Egen rute"><h3>Nivå 3 · Egen rute</h3><p>Tegn en rute med minst seks bevegelser og minst tre svinger.</p><details><summary>💡 Hint 1</summary><p>Planlegg ruten på papir først.</p></details><details><summary>💡 Hint 2</summary><p>Kombiner forward(), backward(), left() og right().</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>forward(70)
+left(90)
+forward(40)
+right(90)
+forward(80)
+right(90)
+forward(90)
+left(90)
+forward(40)</code></pre></details></article><article class="turtle-task" data-group="koordinater" data-index="0" data-title="Nivå 1 · Finn et punkt"><h3>Nivå 1 · Finn et punkt</h3><p>Flytt skilpadden til (100, 50) uten å tegne en strek.</p><details><summary>💡 Hint 1</summary><p>Bruk penup(), goto() og pendown().</p></details><details><summary>💡 Hint 2</summary><p>Husk å løfte pennen først.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>penup()
+goto(100, 50)
+pendown()</code></pre></details></article><article class="turtle-task" data-group="koordinater" data-index="1" data-title="Nivå 2 · To figurer"><h3>Nivå 2 · To figurer</h3><p>Tegn to firkanter med god avstand.</p><details><summary>💡 Hint 1</summary><p>Flytt til nytt startpunkt med penup() og goto().</p></details><details><summary>💡 Hint 2</summary><p>Sett pennen ned igjen før du tegner.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>penup()
+goto(-130, 0)
+pendown()
+for i in range(4):
+    forward(60)
+    right(90)
+penup()
+goto(70, 0)
+pendown()
+for i in range(4):
+    forward(60)
+    right(90)</code></pre></details></article><article class="turtle-task" data-group="koordinater" data-index="2" data-title="Nivå 3 · Koordinatkunst"><h3>Nivå 3 · Koordinatkunst</h3><p>Lag et bilde med minst fire punkter og ulike farger.</p><details><summary>💡 Hint 1</summary><p>Bruk goto(x, y) for å tegne mellom punktene.</p></details><details><summary>💡 Hint 2</summary><p>Prøv negative og positive koordinater.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>pencolor(&quot;blue&quot;)
+goto(80, 90)
+goto(130, -20)
+pencolor(&quot;red&quot;)
+goto(-80, -90)
+goto(-130, 20)
+goto(0, 0)</code></pre></details></article><article class="turtle-task" data-group="farger" data-index="0" data-title="Nivå 1 · Farg en strek"><h3>Nivå 1 · Farg en strek</h3><p>Tegn en tykk blå strek.</p><details><summary>💡 Hint 1</summary><p>Bruk pencolor() og pensize().</p></details><details><summary>💡 Hint 2</summary><p>Fargen skrives i anførselstegn.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>pencolor(&quot;blue&quot;)
+pensize(5)
+forward(120)</code></pre></details></article><article class="turtle-task" data-group="farger" data-index="1" data-title="Nivå 2 · Fargerike firkanter"><h3>Nivå 2 · Fargerike firkanter</h3><p>Tegn to firkanter i ulike farger.</p><details><summary>💡 Hint 1</summary><p>Bruk penup() når du bytter plass.</p></details><details><summary>💡 Hint 2</summary><p>Prøv red og green.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>pencolor(&quot;red&quot;)
+for i in range(4):
+    forward(70)
+    right(90)
+penup()
+goto(120, 0)
+pendown()
+pencolor(&quot;green&quot;)
+for i in range(4):
+    forward(70)
+    right(90)</code></pre></details></article><article class="turtle-task" data-group="farger" data-index="2" data-title="Nivå 3 · Stjernemønster"><h3>Nivå 3 · Stjernemønster</h3><p>Lag et mønster av seks stjerner som dreies.</p><details><summary>💡 Hint 1</summary><p>Bruk løkker inni løkker.</p></details><details><summary>💡 Hint 2</summary><p>Snu 60 grader mellom stjernene.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>bgcolor(&quot;lightyellow&quot;)
+pencolor(&quot;purple&quot;)
+for figur in range(6):
+    for side in range(5):
+        forward(80)
+        right(144)
+    right(60)</code></pre></details></article><article class="turtle-task" data-group="spill" data-index="0" data-title="Nivå 1 · Flytt fisken"><h3>Nivå 1 · Flytt fisken</h3><p>Se for deg at skilpadden er en fisk. Flytt den til tre ulike steder.</p><details><summary>💡 Hint 1</summary><p>Bruk penup() og goto().</p></details><details><summary>💡 Hint 2</summary><p>Tegn gjerne spor ved å bruke pendown().</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>penup()
+goto(-100, -60)
+goto(0, 40)
+goto(100, 80)
+pendown()</code></pre></details></article><article class="turtle-task" data-group="spill" data-index="1" data-title="Nivå 2 · Lag en spillbane"><h3>Nivå 2 · Lag en spillbane</h3><p>Tegn en firkant som kan være kanten på et hav.</p><details><summary>💡 Hint 1</summary><p>Bruk en løkke og goto() for startpunkt.</p></details><details><summary>💡 Hint 2</summary><p>Tegn fra (-120, -120).</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>penup()
+goto(-120, -120)
+pendown()
+for i in range(4):
+    forward(240)
+    left(90)</code></pre></details></article><article class="turtle-task" data-group="spill" data-index="2" data-title="Nivå 3 · Lag et kart"><h3>Nivå 3 · Lag et kart</h3><p>Lag en spillbane og minst tre figurer på ulike steder.</p><details><summary>💡 Hint 1</summary><p>Tegn figurene med løkker, penup() og goto().</p></details><details><summary>💡 Hint 2</summary><p>Bytt farge mellom figurene.</p></details><details><summary>👀 Se løsningsforslag</summary><p>Prøv selv før du åpner løsningen. Kopier koden til kodefeltet hvis du vil teste den.</p><pre class="task-solution"><code>pencolor(&quot;blue&quot;)
+for i in range(4):
+    forward(160)
+    left(90)
+penup()
+goto(-80, 50)
+pendown()
+pencolor(&quot;red&quot;)
+for i in range(3):
+    forward(50)
+    right(120)</code></pre></details></article></div></section></div></main>
+<script>
+(() => {
+  'use strict';
+  const canvas = document.getElementById('turtle-canvas');
+  const ctx = canvas.getContext('2d');
+  const showGrid = document.getElementById('show-grid');
+  showGrid.addEventListener('change', () => render());
+  const codeBox = document.getElementById('turtle-code');
+  const examples = {
+    square: `from turtle import *
+
+pencolor("blue")
+for i in range(4):
+    forward(120)
+    right(90)`,
+    triangle: `from turtle import *
+
+pencolor("green")
+for i in range(3):
+    forward(140)
+    right(120)`,
+    star: `from turtle import *
+
+bgcolor("lightyellow")
+pencolor("purple")
+pensize(4)
+for i in range(5):
+    forward(160)
+    right(144)`,
+    house: `from turtle import *
+
+bgcolor("lightblue")
+penup()
+goto(-80, -100)
+pendown()
+pencolor("darkred")
+for i in range(4):
+    forward(160)
+    left(90)
+penup()
+goto(-80, 60)
+pendown()
+pencolor("orange")
+left(45)
+forward(113)
+right(90)
+forward(113)`,
+    flower: `from turtle import *
+
+bgcolor("honeydew")
+pencolor("deeppink")
+pensize(3)
+for i in range(8):
+    for j in range(4):
+        forward(60)
+        right(90)
+    right(45)`,
+    two: `from turtle import *
+
+bgcolor("lightblue")
+penup()
+goto(-180, 80)
+pendown()
+pencolor("red")
+for i in range(4):
+    forward(100)
+    right(90)
+penup()
+goto(100, -50)
+pendown()
+pencolor("blue")
+for i in range(3):
+    forward(100)
+    right(120)`
+  };
+  const exampleChoice = document.getElementById('example-choice');
+  const challenges = {
+    square: {
+      title:'⬜ Gjør firkanten større',
+      task:'Kan du gjøre hver side dobbelt så lang? Se hva som skjer når du tegner på nytt.',
+      hints:['Se etter tallet inne i forward(...). Det bestemmer lengden på hver side.', 'Prøv å gange sidelengden med 2. Du trenger ikke endre right(90).']
+    },
+    triangle: {
+      title:'🔺 En grønn eller lilla trekant?',
+      task:'Bytt fargen på trekanten til lilla. Kan du deretter gjøre trekanten mindre?',
+      hints:['Finn pencolor(...). Fargen skrives med anførselstegn.', 'Du kan prøve pencolor("purple"). Endre så tallet i forward(...).']
+    },
+    star: {
+      title:'⭐ Lag en større stjerne',
+      task:'Gjør stjernen større, og prøv en annen bakgrunnsfarge.',
+      hints:['Størrelsen styres av forward(...). Bakgrunnen styres av bgcolor(...).', 'Øk tallet i forward(...), for eksempel litt om gangen. Prøv bgcolor("lightblue").']
+    },
+    house: {
+      title:'🏠 Tegn en dør på huset',
+      task:'Kan du legge til en dør? Bruk penup(), goto(x, y) og pendown() for å velge hvor døren begynner.',
+      hints:['Legg til kommandoer nederst i programmet. Løft pennen før du flytter skilpadden.', 'Flytt til et punkt langs husets nederste kant. Sett ned pennen og bruk forward(...) og right(90) eller left(90) for å tegne døren.']
+    },
+    flower: {
+      title:'🌸 Flere kronblader',
+      task:'Kan du endre antall kronblader? Prøv å lage en blomst med fire kronblader.',
+      hints:['Den ytterste for-løkken bestemmer hvor mange ganger kronbladet tegnes.', 'Hvis du bruker range(4), kan du prøve right(90) mellom kronbladene slik at de fordeles jevnt.']
+    },
+    two: {
+      title:'📍 Flytt figurene',
+      task:'Kan du flytte den røde firkanten lenger til venstre og den blå trekanten høyere opp?',
+      hints:['Se etter de to goto(x, y)-kommandoene. x flytter mot høyre/venstre og y flytter opp/ned.', 'Gjør den første x-verdien mer negativ. Øk y-verdien i den andre goto(...).']
+    }
+  };
+  const challengeTitle = document.getElementById('challenge-title');
+  const challengeDescription = document.getElementById('challenge-description');
+  const hintText = document.getElementById('hint-text');
+  const hintButton = document.getElementById('show-hint');
+  let hintIndex = 0;
+  function updateChallenge() {
+    const item = challenges[exampleChoice.value];
+    challengeTitle.textContent = '🎯 ' + item.title;
+    challengeDescription.textContent = item.task;
+    hintIndex = 0;
+    hintText.hidden = true;
+    hintText.textContent = '';
+    hintButton.textContent = '💡 Vis hint';
+    hintButton.disabled = false;
+  }
+  hintButton.addEventListener('click', () => {
+    const hints = challenges[exampleChoice.value].hints;
+    hintText.textContent = 'Hint ' + (hintIndex + 1) + ': ' + hints[hintIndex];
+    hintText.hidden = false;
+    hintIndex++;
+    if (hintIndex >= hints.length) {
+      hintButton.textContent = 'Alle hint vist';
+      hintButton.disabled = true;
+    } else {
+      hintButton.textContent = '💡 Vis neste hint';
+    }
+  });
+  document.getElementById('reset-challenge').addEventListener('click', () => {
+    codeBox.value = '';
+    updateChallenge();
+    status.textContent = '↺ Kodefeltet er tømt. Du kan prøve på nytt!';
+  });
+
+  document.getElementById('load-example').addEventListener('click', () => {
+    codeBox.value = examples[exampleChoice.value];
+    updateChallenge();
+    codeBox.focus();
+    status.textContent = '📚 Eksemplet er klart. Endre koden eller klikk «Tegn med Turtle».';
+  });
+
+  exampleChoice.addEventListener('change', updateChallenge);
+  updateChallenge();
+
+  const runButton = document.getElementById('run-turtle');
+  const stopButton = document.getElementById('stop-turtle');
+  const status = document.getElementById('turtle-status');
+  const speed = document.getElementById('speed');
+  const speedLabel = document.getElementById('speed-label');
+  let runId = 0;
+  let turtle;
+
+  codeBox.addEventListener('keydown', event => {
+    if (event.key !== 'Enter') return;
+    const start = codeBox.selectionStart;
+    const end = codeBox.selectionEnd;
+    const text = codeBox.value;
+    const lineStart = text.lastIndexOf('\n', start - 1) + 1;
+    const currentLine = text.slice(lineStart, start);
+    const spaces = currentLine.match(/^\s*/)[0];
+    const indent = spaces + (currentLine.trimEnd().endsWith(':') ? '    ' : '');
+    event.preventDefault();
+    const insertion = '\n' + indent;
+    codeBox.value = text.slice(0, start) + insertion + text.slice(end);
+    codeBox.selectionStart = codeBox.selectionEnd = start + insertion.length;
+  });
+
+  speed.addEventListener('input', () => { speedLabel.textContent = speed.value + '/10'; });
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  const cancelled = id => id !== runId;
+  const pause = () => sleep(Math.round(600 * Math.pow((11 - Number(speed.value)) / 10, 1.65)));
+
+  function resetTurtle() {
+    turtle = { x:0, y:0, angle:0, penDown:true, color:'black', width:2, background:'white' };
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    render();
+  }
+
+  // Tegning lagres på et eget lerret, slik at markøren kan flyttes uten å viske ut strekene.
+  const drawing = document.createElement('canvas');
+  drawing.width = canvas.width;
+  drawing.height = canvas.height;
+  const ink = drawing.getContext('2d');
+
+  function drawGrid() {
+    const spacing = 50;
+    const midX = canvas.width / 2;
+    const midY = canvas.height / 2;
+    ctx.save();
+    ctx.font = '12px Arial, sans-serif';
+    ctx.textBaseline = 'top';
+    for (let x = 0; x <= canvas.width; x += spacing) {
+      ctx.beginPath();
+      ctx.strokeStyle = x === midX ? 'rgba(38,78,137,.75)' : 'rgba(38,78,137,.22)';
+      ctx.lineWidth = x === midX ? 1.5 : 1;
+      ctx.moveTo(x + .5, 0);
+      ctx.lineTo(x + .5, canvas.height);
+      ctx.stroke();
+      if (x !== midX && x > 18 && x < canvas.width - 18) {
+        ctx.fillStyle = '#365780';
+        ctx.fillText(String(x - midX), x + 3, midY + 6);
+      }
+    }
+    for (let y = 0; y <= canvas.height; y += spacing) {
+      ctx.beginPath();
+      ctx.strokeStyle = y === midY ? 'rgba(38,78,137,.75)' : 'rgba(38,78,137,.22)';
+      ctx.lineWidth = y === midY ? 1.5 : 1;
+      ctx.moveTo(0, y + .5);
+      ctx.lineTo(canvas.width, y + .5);
+      ctx.stroke();
+      if (y !== midY && y > 14 && y < canvas.height - 18) {
+        ctx.fillStyle = '#365780';
+        ctx.fillText(String(midY - y), midX + 6, y + 3);
+      }
+    }
+    ctx.fillStyle = '#24324a';
+    ctx.fillText('0', midX + 5, midY + 6);
+    ctx.fillText('x', canvas.width - 17, midY + 7);
+    ctx.fillText('y', midX + 8, 7);
+    ctx.restore();
+  }
+
+  function render() {
+    ctx.fillStyle = turtle.background;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    if (showGrid.checked) drawGrid();
+    ctx.drawImage(drawing, 0, 0);
+    // En liten grønn pil viser skilpaddens posisjon og retning.
+    const px = canvas.width / 2 + turtle.x;
+    const py = canvas.height / 2 - turtle.y;
+    const a = -turtle.angle * Math.PI / 180;
+    ctx.save();
+    ctx.translate(px, py);
+    ctx.rotate(a);
+    ctx.fillStyle = '#27834a';
+    ctx.strokeStyle = '#12542c';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(13, 0);
+    ctx.lineTo(-9, -8);
+    ctx.lineTo(-5, 0);
+    ctx.lineTo(-9, 8);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function resetDrawing() {
+    ink.clearRect(0, 0, drawing.width, drawing.height);
+    resetTurtle();
+  }
+
+  async function moveTo(nx, ny, id) {
+    const startX = turtle.x;
+    const startY = turtle.y;
+    const dx = nx - startX;
+    const dy = ny - startY;
+    const distance = Math.hypot(dx, dy);
+    const segments = Math.max(1, Math.ceil(distance / 4));
+    for (let i = 1; i <= segments; i++) {
+      if (cancelled(id)) return;
+      const nextX = startX + dx * i / segments;
+      const nextY = startY + dy * i / segments;
+      if (turtle.penDown) {
+        ink.strokeStyle = turtle.color;
+        ink.lineWidth = turtle.width;
+        ink.lineCap = 'round';
+        ink.beginPath();
+        ink.moveTo(canvas.width / 2 + turtle.x, canvas.height / 2 - turtle.y);
+        ink.lineTo(canvas.width / 2 + nextX, canvas.height / 2 - nextY);
+        ink.stroke();
+      }
+      turtle.x = nextX;
+      turtle.y = nextY;
+      render();
+      await sleep(Math.max(4, Math.round((650 - Number(speed.value) * 60) / segments)));
+    }
+  }
+
+  function parse(source) {
+    const lines = source.replace(/\r/g, '').split('\n');
+    let index = 0;
+    function block(indent) {
+      const result = [];
+      while (index < lines.length) {
+        const raw = lines[index];
+        const number = index + 1;
+        if (!raw.trim() || raw.trim().startsWith('#')) { index++; continue; }
+        if (/\t/.test(raw.match(/^\s*/)[0])) throw Error('Linje ' + number + ': Bruk mellomrom, ikke tabulator, til innrykk.');
+        const leading = raw.match(/^ */)[0].length;
+        if (leading < indent) break;
+        if (leading > indent) throw Error('Linje ' + number + ': Kontroller innrykket.');
+        const command = raw.trim();
+        index++;
+        const loop = command.match(/^for\s+[a-zA-Z_]\w*\s+in\s+range\(\s*(\d+)\s*\)\s*:\s*$/);
+        if (loop) {
+          const count = Number(loop[1]);
+          if (count > 1000) throw Error('Linje ' + number + ': Maks 1000 gjentakelser.');
+          let next = index;
+          while (next < lines.length && (!lines[next].trim() || lines[next].trim().startsWith('#'))) next++;
+          if (next === lines.length || lines[next].match(/^ */)[0].length <= indent) throw Error('Linje ' + number + ': Løkken trenger innrykkede kommandoer.');
+          const childIndent = lines[next].match(/^ */)[0].length;
+          result.push({ type:'loop', count, body:block(childIndent), number });
+        } else {
+          result.push({ type:'command', command, number });
+        }
+      }
+      return result;
+    }
+    return block(0);
+  }
+
+  function argsFor(command, name, count) {
+    const pattern = new RegExp('^' + name + '\\s*\\((.*)\\)$');
+    const match = command.match(pattern);
+    if (!match) return null;
+    const args = match[1].trim() ? match[1].split(',').map(v => v.trim()) : [];
+    if (args.length !== count) throw Error(name + '() trenger ' + count + ' argument(er).');
+    return args;
+  }
+  function numberArg(value) {
+    if (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value)) throw Error('Bruk et tall, for eksempel 100 eller -50.');
+    return Number(value);
+  }
+  function colorArg(value) {
+    if (!/^(['"])(.*?)\1$/.test(value)) throw Error('Skriv fargen i anførselstegn, for eksempel "red".');
+    const color = value.slice(1, -1);
+    if (!CSS.supports('color', color)) throw Error('Ukjent farge: ' + color);
+    return color;
+  }
+
+  async function executeCommand(command, id) {
+    if (command === 'from turtle import *' || command === 'import turtle') return;
+    let a;
+    if ((a = argsFor(command, 'forward', 1)) || (a = argsFor(command, 'fd', 1))) {
+      const d = numberArg(a[0]);
+      const r = turtle.angle * Math.PI / 180;
+      await moveTo(turtle.x + Math.cos(r) * d, turtle.y + Math.sin(r) * d, id);
+    } else if ((a = argsFor(command, 'backward', 1)) || (a = argsFor(command, 'bk', 1))) {
+      const d = numberArg(a[0]);
+      const r = turtle.angle * Math.PI / 180;
+      await moveTo(turtle.x - Math.cos(r) * d, turtle.y - Math.sin(r) * d, id);
+    } else if ((a = argsFor(command, 'right', 1)) || (a = argsFor(command, 'rt', 1))) {
+      turtle.angle -= numberArg(a[0]); render(); await pause();
+    } else if ((a = argsFor(command, 'left', 1)) || (a = argsFor(command, 'lt', 1))) {
+      turtle.angle += numberArg(a[0]); render(); await pause();
+    } else if ((a = argsFor(command, 'goto', 2)) || (a = argsFor(command, 'setpos', 2))) {
+      await moveTo(numberArg(a[0]), numberArg(a[1]), id);
+    } else if ((a = argsFor(command, 'setx', 1))) {
+      await moveTo(numberArg(a[0]), turtle.y, id);
+    } else if ((a = argsFor(command, 'sety', 1))) {
+      await moveTo(turtle.x, numberArg(a[0]), id);
+    } else if ((a = argsFor(command, 'pencolor', 1)) || (a = argsFor(command, 'color', 1))) {
+      turtle.color = colorArg(a[0]); await pause();
+    } else if ((a = argsFor(command, 'bgcolor', 1))) {
+      turtle.background = colorArg(a[0]); render(); await pause();
+    } else if ((a = argsFor(command, 'pensize', 1)) || (a = argsFor(command, 'width', 1))) {
+      turtle.width = numberArg(a[0]);
+      if (turtle.width <= 0 || turtle.width > 50) throw Error('Strektykkelsen må være mellom 0 og 50.');
+      await pause();
+    } else if (argsFor(command, 'penup', 0) || argsFor(command, 'pu', 0)) {
+      turtle.penDown = false; await pause();
+    } else if (argsFor(command, 'pendown', 0) || argsFor(command, 'pd', 0)) {
+      turtle.penDown = true; await pause();
+    } else if (argsFor(command, 'home', 0)) {
+      await moveTo(0, 0, id); turtle.angle = 0; render();
+    } else {
+      throw Error('Ukjent kommando: ' + command);
+    }
+  }
+
+  async function execute(nodes, id, counter) {
+    for (const node of nodes) {
+      if (cancelled(id)) return;
+      if (node.type === 'loop') {
+        for (let i = 0; i < node.count; i++) {
+          if (cancelled(id)) return;
+          await execute(node.body, id, counter);
+        }
+      } else {
+        if (++counter.value > 10000) throw Error('For mange kommandoer (maks 10 000).');
+        try { await executeCommand(node.command, id); }
+        catch (error) { throw Error('Linje ' + node.number + ': ' + error.message); }
+      }
+    }
+  }
+
+  runButton.addEventListener('click', async () => {
+    const id = ++runId;
+    let program;
+    try { program = parse(codeBox.value); }
+    catch (error) { status.textContent = '⚠️ ' + error.message; return; }
+    resetDrawing();
+    runButton.disabled = true;
+    stopButton.disabled = false;
+    status.textContent = '🐢 Tegner ...';
+    try {
+      await execute(program, id, { value:0 });
+      if (!cancelled(id)) status.textContent = '✅ Ferdig! Tegningen er klar.';
+    } catch (error) {
+      if (!cancelled(id)) status.textContent = '⚠️ ' + error.message;
+    } finally {
+      if (!cancelled(id)) { runButton.disabled = false; stopButton.disabled = true; }
+    }
+  });
+  stopButton.addEventListener('click', () => {
+    runId++;
+    runButton.disabled = false;
+    stopButton.disabled = true;
+    status.textContent = '⏹ Tegningen ble stoppet.';
+  });
+  resetDrawing();
+})();
+</script>
+<script>
+(()=>{const topic=document.getElementById('turtle-topic'),task=document.getElementById('turtle-task'),items=[...document.querySelectorAll('.turtle-task')];
+function show(){const group=topic.value;const chosen=task.value;items.forEach(el=>{const visible=el.dataset.group===group&&el.dataset.index===chosen;el.classList.toggle('active',visible);if(!visible)el.querySelectorAll('details[open]').forEach(d=>d.open=false);});}
+function fill(){const group=topic.value;task.replaceChildren();items.filter(el=>el.dataset.group===group).forEach(el=>{const option=document.createElement('option');option.value=el.dataset.index;option.textContent=el.dataset.title;task.appendChild(option)});show()}
+topic.addEventListener('change',fill);task.addEventListener('change',show);fill();
+})();
+</script></body>
+</html>
