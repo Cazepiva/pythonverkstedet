@@ -243,15 +243,16 @@
 #pv-shared-nav .pv-brand{font-size:18px;font-weight:800;margin:4px 7px 17px}#pv-shared-nav a{display:block;color:#254a76;text-decoration:none;padding:11px 9px;border-radius:9px;margin:3px 0;font-size:14px;font-weight:650;background:transparent;border:0;box-shadow:none}#pv-shared-nav a:hover{background:#edf4ff}#pv-shared-nav a[aria-current=page]{background:#dceafd;color:#163c79}#pv-shared-nav summary{display:none}
 body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
 @media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
+main.workspace{grid-template-columns:minmax(0,1fr)!important;max-width:1050px!important}
 </style></head>
-<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html" aria-current="page">🏠 Forside</a><a href="start-her.html">🚀 Start her – Ny i Python</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-oppgaver.html">🎯 Turtle-utfordringer</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html">🐱 Spill kattespillet</a></div></details></nav>
+<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html" aria-current="page">🏠 Forside</a><a href="start-her.html">🚀 Start her – Ny i Python</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-oppgaver.html">🎯 Turtle-utfordringer</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Spillverkstedet</a><a href="kattespill.html">🐱 Kattespill – spill og kode</a></div></details></nav>
   <header>
     <h1>🐍 Pythonverkstedet</h1>
     <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
   </header>
 
   <main class="workspace">
-    <aside class="sidebar" aria-label="Verkstedmeny">
+    <aside class="sidebar" aria-label="Intern prosjektlagring" hidden style="display:none!important">
       <div class="sidebar-heading projects-title">📁 Mine prosjekter</div>
       <div class="future-feature" id="projects-panel">
         <label for="folder-list"><strong>Velg mappe</strong></label>
@@ -287,16 +288,16 @@ body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
   <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode"></textarea>
 </div>
 <div class="project-actions" style="margin-top:12px;">
-  <button id="save-project" type="button" style="background:#3657a5;color:white;padding:12px 16px;">💾 Lagre prosjekt</button>
+  <button id="save-project" type="button" hidden style="display:none">Lagre prosjekt</button>
   <label for="download-filename" style="align-self:center;font-weight:bold;">Filnavn:</label>
   <input id="download-filename" type="text" value="mitt-pythonprosjekt" maxlength="100" aria-label="Navn på Python-filen" style="min-width:160px;max-width:240px;padding:9px;border:1px solid #aab7ca;border-radius:8px;font:inherit;" />
   <span style="align-self:center;">.py</span>
   <button id="download-python" type="button">⬇ Last ned .py</button>
   <label for="upload-python" style="display:inline-flex;align-items:center;">⬆ Åpne .py</label>
   <input id="upload-python" type="file" accept=".py,text/x-python,text/plain" hidden>
-  <span id="current-project" aria-live="polite" style="align-self:center;font-weight:bold;">Ikke lagret prosjekt</span>
+  <span id="current-project" hidden aria-live="polite">Ikke lagret prosjekt</span>
 </div>
-<p id="save-status" role="status"></p>
+<p id="save-status" role="status" hidden></p>
 <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
 
   <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
