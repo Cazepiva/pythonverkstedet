@@ -230,8 +230,13 @@
       .editor-panel { padding:16px; }
     }
   </style>
-</head>
-<body>
+<style id="pv-shared-nav-style">
+#pv-shared-nav{position:fixed;top:0;left:0;bottom:0;width:232px;overflow-y:auto;z-index:9999;background:#fff;border-right:1px solid #dbe5f3;box-shadow:2px 0 15px #24324a12;padding:18px 12px;font:15px/1.4 Arial,sans-serif;color:#26374a;text-align:left}
+#pv-shared-nav .pv-brand{font-size:18px;font-weight:800;margin:4px 7px 17px}#pv-shared-nav a{display:block;color:#254a76;text-decoration:none;padding:11px 9px;border-radius:9px;margin:3px 0;font-size:14px;font-weight:650;background:transparent;border:0;box-shadow:none}#pv-shared-nav a:hover{background:#edf4ff}#pv-shared-nav a[aria-current=page]{background:#dceafd;color:#163c79}#pv-shared-nav summary{display:none}
+body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
+@media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
+</style></head>
+<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="start-her.html">🚀 Start her – Ny i Python</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-oppgaver.html">🎯 Turtle-utfordringer</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html">🐱 Spill kattespillet</a></div></details></nav>
   <header>
     <h1>🐍 Pythonverkstedet</h1>
     <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
@@ -239,13 +244,6 @@
 
   <main class="workspace">
     <aside class="sidebar" aria-label="Verkstedmeny">
-      <div class="sidebar-heading">🧭 Utforsk</div>
-      <a class="side-link" href="index.html">💻 Python-editor</a>
-      <a class="side-link active" href="#oppgavebank">📘 Lær Python</a>
-      <a class="side-link" href="turtle.html">🐢 Turtle-verkstedet</a>
-      <a class="side-link" href="turtle-oppgaver.html">🎯 Turtle-utfordringen</a>
-      <a class="side-link" href="spillverksted.html">🎮 Spillverksted</a>
-      <a class="side-link" href="kattespill.html">🐱 Kattespillet</a>
       <div class="sidebar-heading projects-title">📁 Mine prosjekter</div>
       <div class="future-feature">
         <strong>Kommer senere</strong>
@@ -264,12 +262,7 @@
 3
 4
 5</pre>
-  <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode">price = float(input("Pris per vare: "))
-quantity = int(input("Hvor mange varer? "))
-
-total = price * quantity
-
-print("Totalpris:", total)</textarea>
+  <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode"></textarea>
 </div>
 
   <div id="task-solution" hidden style="max-width:760px;margin:12px 0 18px;padding:16px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
