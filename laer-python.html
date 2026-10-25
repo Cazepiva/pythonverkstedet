@@ -1,10 +1,12 @@
+
 <!DOCTYPE html>
+
 <html lang="no">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lær Python – Pythonverkstedet</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lær Python – Pythonverkstedet</title>
+<style>
     * { box-sizing: border-box; }
 
     body {
@@ -230,86 +232,77 @@
       .editor-panel { padding:16px; }
     }
   </style>
-</head>
-<body>
-  <header>
-    <h1>🐍 Pythonverkstedet</h1>
-    <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
-  </header>
+<style id="pv-shared-nav-style">
+#pv-shared-nav{position:fixed;top:0;left:0;bottom:0;width:232px;overflow-y:auto;z-index:9999;background:#fff;border-right:1px solid #dbe5f3;box-shadow:2px 0 15px #24324a12;padding:18px 12px;font:15px/1.4 Arial,sans-serif;color:#26374a;text-align:left}
+#pv-shared-nav .pv-brand{font-size:18px;font-weight:800;margin:4px 7px 17px}#pv-shared-nav a{display:block;color:#254a76;text-decoration:none;padding:11px 9px;border-radius:9px;margin:3px 0;font-size:14px;font-weight:650;background:transparent;border:0;box-shadow:none}#pv-shared-nav a:hover{background:#edf4ff}#pv-shared-nav a[aria-current=page]{background:#dceafd;color:#163c79}#pv-shared-nav summary{display:none}
+body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
+@media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
+</style><style>
+/* Skjul gammel prosjektmeny; kun den felles sidemenyen skal vises. */
+.sidebar,.projects-title,.future-feature{display:none!important}
+ /* Kode og læringsløype ved siden av hverandre */
+main.workspace{display:block;grid-template-columns:none;max-width:1680px!important;}
+.workspace-main{display:grid;grid-template-columns:minmax(290px,1fr) minmax(310px,1fr);gap:18px;align-items:start;min-width:0}
+#editor{position:sticky;top:12px;min-width:0}
+#oppgavebank{min-width:0;max-height:calc(100vh - 35px);overflow-y:auto;overscroll-behavior:contain;padding:20px}
+#task-detail{position:relative;margin:0 0 18px!important;scroll-margin-top:10px}
+#learning-topics{margin-top:12px!important}
+#task-solution{max-width:100%!important;overflow:auto}
+@media(max-width:760px){.workspace-main{grid-template-columns:1fr}#editor{position:static}#oppgavebank{max-height:none;overflow:visible}}
+</style></head>
+<body><nav aria-label="Felles meny for Pythonverkstedet" id="pv-shared-nav"><div class="pv-brand">🐍 Pythonverkstedet</div><details open=""><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a aria-current="page" href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Spillverkstedet</a><a href="kattespill.html">🐱 Kattespill – spill og kode</a></div></details></nav>
+<header>
+<h1>🐍 Pythonverkstedet</h1>
+<p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
+</header>
+<main class="workspace">
 
-  <main class="workspace">
-    <aside class="sidebar" aria-label="Verkstedmeny">
-      <div class="sidebar-heading">🧭 Utforsk</div>
-      <a class="side-link" href="index.html">💻 Python-editor</a>
-      <a class="side-link active" href="#oppgavebank">📘 Lær Python</a>
-      <a class="side-link" href="turtle.html">🐢 Turtle-verkstedet</a>
-      <a class="side-link" href="turtle-oppgaver.html">🎯 Turtle-utfordringen</a>
-      <a class="side-link" href="spillverksted.html">🎮 Spillverksted</a>
-      <a class="side-link" href="kattespill.html">🐱 Kattespillet</a>
-      <div class="sidebar-heading projects-title">📁 Mine prosjekter</div>
-      <div class="future-feature">
-        <strong>Kommer senere</strong>
-        <p>Her skal elevene kunne se egne mapper og lagret kode når vi har laget en trygg innloggingsløsning.</p>
-        <span class="future-tag">🔒 Krever innlogging</span>
-      </div>
-    </aside>
-    <div class="workspace-main">
+<div class="workspace-main">
 <section class="editor-panel" id="editor">
-  <h2>💻 Prøv Python-koden din</h2>
-  <p>Skriv, test og utforsk Python. Velg en oppgave fra læringsløypen når du vil øve.</p>
-
-  <div class="python-editor-wrap">
-  <pre id="line-numbers" class="line-numbers" aria-hidden="true">1
+<h2>💻 Prøv Python-koden din</h2>
+<p>Kodefeltet starter tomt. Velg en oppgave til høyre og skriv koden din her.</p>
+<div class="python-editor-wrap">
+<pre aria-hidden="true" class="line-numbers" id="line-numbers">1
 2
 3
 4
 5</pre>
-  <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode">price = float(input("Pris per vare: "))
-quantity = int(input("Hvor mange varer? "))
-
-total = price * quantity
-
-print("Totalpris:", total)</textarea>
+<textarea aria-label="Python-kode" id="python-code" rows="9" spellcheck="false"></textarea>
 </div>
 
-  <div id="task-solution" hidden style="max-width:760px;margin:12px 0 18px;padding:16px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
-    <strong>Løsningsforslag for valgt oppgave</strong>
-    <p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
-    <pre id="task-solution-code"></pre>
-  </div>
-
-  <button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button>
-
-  <div id="input-area" hidden style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
-    <label id="input-question" for="python-answer">Skriv svaret ditt:</label>
-    <input id="python-answer" type="text" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;">
-    <button id="send-answer" style="margin-top: 8px; padding: 10px;">Send svar</button>
-  </div>
-
-  <h3>Resultat</h3>
-  <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
-  <p id="python-status" role="status">Laster Python-motoren …</p>
+<button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button><button id="pv-load-code" style="margin:8px 6px 0 0;padding:11px 14px;border:0;border-radius:8px;background:#3657a5;color:white;font-weight:700;cursor:pointer;" type="button">📂 Åpne lagret kode</button><button id="pv-save-code" style="margin:8px 6px 0 0;padding:11px 14px;border:0;border-radius:8px;background:#3657a5;color:white;font-weight:700;cursor:pointer;" type="button">💾 Lagre koden</button><p id="pv-save-status" role="status"></p>
+<div hidden="" id="input-area" style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
+<label for="python-answer" id="input-question">Skriv svaret ditt:</label>
+<input id="python-answer" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;" type="text"/>
+<button id="send-answer" style="margin-top: 8px; padding: 10px;">Send svar</button>
+</div>
+<h3>Resultat</h3>
+<pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
+<p id="python-status" role="status">Laster Python-motoren …</p>
+</section>
+<section class="panel" id="oppgavebank"><div id="task-detail" style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
+<h3 id="task-title">Velg en oppgave</h3>
+<p id="task-description">Velg «Åpne oppgave» under et tema. Oppgaveteksten og hintene vises her ved siden av kodefeltet.</p>
+<div id="task-actions" style="display:none;flex-wrap:wrap;gap:8px;margin:12px 0;">
+<button id="load-task" type="button">Bruk startkode i editoren</button>
+<button class="secondary" id="toggle-hint" type="button">Vis hint</button>
+<button class="secondary" id="toggle-solution" type="button">Vis løsningsforslag</button>
+</div>
+<div hidden="" id="task-hint" style="background:#fff7df;padding:12px;border-radius:8px;margin:8px 0;"></div>
+<p id="task-load-status" role="status"></p>
+<div hidden="" id="task-solution" style="max-width:760px;margin:12px 0 18px;padding:16px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
+<strong>Løsningsforslag for valgt oppgave</strong>
+<p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
+<pre id="task-solution-code"></pre>
+</div></div>
+<h2>🧭 Læringsløype: lær først, øv etterpå</h2>
+<p>Hvert tema begynner med en kort forklaring og et kodeeksempel. Les gjennom opplæringen, prøv eksempelet i editoren, og gå deretter videre til oppgavene i samme tema.</p>
+<div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
 
 </section>
-<section class="panel" id="oppgavebank">
-  <h2>🧭 Læringsløype: lær først, øv etterpå</h2>
-  <p>Hvert tema begynner med en kort forklaring og et kodeeksempel. Les gjennom opplæringen, prøv eksempelet i editoren, og gå deretter videre til oppgavene i samme tema.</p>
-  <div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
-  <div id="task-detail" hidden style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
-    <h3 id="task-title"></h3>
-    <p id="task-description"></p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:12px 0;">
-      <button type="button" id="load-task">Bruk startkode i editoren</button>
-      <button type="button" class="secondary" id="toggle-hint">Vis hint</button>
-      <button type="button" class="secondary" id="toggle-solution">Vis løsningsforslag</button>
-    </div>
-    <div id="task-hint" hidden style="background:#fff7df;padding:12px;border-radius:8px;margin:8px 0;"></div>
-    <p id="task-load-status" role="status"></p>
-  </div>
-</section>
-    </div>
-  </main>
-  <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
+</div>
+</main>
+<footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
 <script>
 (function () {
   const tasks = [
@@ -446,8 +439,9 @@ print("Totalpris:", total)</textarea>
     document.getElementById("toggle-hint").textContent = "Vis hint";
     document.getElementById("toggle-solution").textContent = "Vis løsningsforslag";
     detail.hidden = false;
+    document.getElementById("task-actions").style.display = "flex";
     loadStatus.textContent = "";
-    detail.scrollIntoView({behavior:"smooth", block:"nearest"});
+    document.getElementById("oppgavebank").scrollTo({top:0,behavior:"smooth"});
   }
 
   document.getElementById("load-task").addEventListener("click", () => {
@@ -457,7 +451,7 @@ print("Totalpris:", total)</textarea>
     editor.dispatchEvent(new Event("input", {bubbles:true}));
     document.getElementById("python-output").textContent = "";
     document.getElementById("python-status").textContent = "Startkoden er lagt inn. Prøv å fullføre oppgaven!";
-    editor.scrollIntoView({behavior:"smooth", block:"center"});
+    
     loadStatus.textContent = "Startkoden er lagt inn i Python-editoren.";
   });
 
@@ -468,12 +462,11 @@ print("Totalpris:", total)</textarea>
   document.getElementById("toggle-solution").addEventListener("click", () => {
     solution.hidden = !solution.hidden;
     document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
-    if (!solution.hidden) solution.scrollIntoView({behavior:"smooth", block:"center"});
+    if (!solution.hidden) document.getElementById("oppgavebank").scrollTo({top:0,behavior:"smooth"});
   });
   renderTasks();
 })();
 </script>
-
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
 <script>
 (function () {
@@ -650,5 +643,20 @@ await _run_student_code()
   });
 })();
 </script>
-</body>
+<script>
+(function(){
+ const code=document.getElementById('python-code'), status=document.getElementById('pv-save-status');
+ const key='pythonverkstedet-laer-python-lagret-kode';
+ document.getElementById('pv-save-code').addEventListener('click',()=>{
+   try{localStorage.setItem(key,code.value);status.textContent='Koden er lagret på denne Chromebooken.'}
+   catch(e){status.textContent='Kunne ikke lagre lokalt. Kopier koden for sikkerhets skyld.'}
+ });
+ document.getElementById('pv-load-code').addEventListener('click',()=>{
+   const saved=localStorage.getItem(key);
+   if(saved===null){status.textContent='Ingen lagret kode på denne Chromebooken.';return}
+   if(code.value.trim()&&!confirm('Vil du erstatte koden som står i feltet med den lagrede koden?'))return;
+   code.value=saved;code.dispatchEvent(new Event('input',{bubbles:true}));status.textContent='Lagret kode er åpnet.';
+ });
+})();
+</script></body>
 </html>
