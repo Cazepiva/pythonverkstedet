@@ -250,7 +250,7 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 @media(max-width:760px){.workspace-main{grid-template-columns:1fr}#editor{position:static}#oppgavebank{max-height:none;overflow:visible}}
 </style><style id="pv-spillmeny-css">
 #pv-shared-nav .pv-game-group{margin-top:5px;border-top:1px solid #dbe5f2;padding-top:7px}
-#pv-shared-nav .pv-game-group>summary{cursor:pointer;list-style:none;padding:11px 13px;border-radius:9px;background:#e9f0ff;color:#254a93;font-weight:700}
+#pv-shared-nav details.pv-game-group > summary{display:block!important;cursor:pointer;list-style:none;padding:11px 13px;border-radius:9px;background:#e9f0ff;color:#254a93;font-weight:700}
 #pv-shared-nav .pv-game-group>summary::-webkit-details-marker{display:none}
 #pv-shared-nav .pv-game-group>summary:after{content:" ▾";float:right}
 #pv-shared-nav .pv-game-group[open]>summary:after{content:" ▴"}
@@ -259,7 +259,7 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 #pv-shared-nav .pv-game-group .pv-game-links a:hover{background:#e2ebff}
 #pv-shared-nav .pv-game-group .pv-game-links a[aria-current="page"]{background:#3657a5;color:#fff}
 </style></head>
-<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group" open><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
+<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
 <header>
 <h1>🐍 Pythonverkstedet</h1>
 <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
