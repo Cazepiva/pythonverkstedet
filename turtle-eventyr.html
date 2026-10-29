@@ -18,10 +18,10 @@ body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
 #pv-shared-nav .pv-game-group .pv-game-links a[aria-current="page"]{background:#3657a5;color:#fff}
 </style></head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group" open><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html" aria-current="page">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav><header><h1>🐢 Turtle på eventyr</h1><nav><a href="index.html">← Pythonverkstedet</a> <a href="turtle.html">Turtle-tegning</a></nav></header>
-<main class="wrap"><p class="intro">Seksten spillnivåer der du styrer skilpadden med Python-lignende Turtle-kommandoer. Finn skatten, unngå hindringene og lag ditt eget nivå!</p>
+<main class="wrap"><p class="intro">24 spillnivåer der du styrer skilpadden med Python-lignende Turtle-kommandoer. Finn skatten, unngå hindringene og lag ditt eget nivå!</p>
 <div id="levels" class="levels" aria-label="Velg nivå"></div>
 <div class="layout"><section class="panel"><h2 id="level-title"></h2><p id="task" class="task"></p><div class="canvas-wrap"><canvas id="board" width="600" height="420" aria-label="Spillbrett med skilpadde, vegger og skatt"></canvas></div><p class="legend">🐢 Skilpadde &nbsp; ⭐ Skatt &nbsp; 🟫 Hindring &nbsp; 🟩 Mål &nbsp; • Små ruter = 10 piksler</p><div class="actions"><button id="hint-btn">💡 Hint</button><button id="reset-btn">↩ Nullstill brettet</button><button id="next-btn" hidden>🎉 Neste nivå →</button></div><div id="hint" class="hint" hidden></div></section>
-<section class="panel"><h2>💻 Programmer skilpadden</h2><textarea id="code" spellcheck="false" aria-label="Skriv Turtle-kode"></textarea><div class="actions"><button class="primary" id="run">▶ Kjør koden</button><button class="danger" id="stop">■ Stopp</button><button id="download">⬇ Last ned .py</button></div><div id="status" class="status" role="status" aria-live="polite">Klar til å starte!</div><div class="help"><p><strong>Kommandoer du kan bruke:</strong></p><p><code>forward(80)</code> / <code>fd(80)</code> – gå fremover<br><code>backward(40)</code> – gå bakover<br><code>right(90)</code> / <code>left(90)</code> – snu<br><code>penup()</code> / <code>pu()</code> – gå uten å tegne<br><code>pendown()</code> / <code>pd()</code> – tegn igjen<br><code>for i in range(3):</code> – gjenta innrykkede linjer<br><code># kommentar</code> – forklar koden</p><p>Tips: Du kan bruke mellomrom i stedet for tabulator. Maks 500 bevegelser per kjøring.</p></div></section></div><p class="footer">Rutenettet viser 10 piksler per liten rute og 50 piksler mellom de tydeligere linjene. Skilpadden starter på et markert kryss. Koden kjøres lokalt i nettleseren. Denne spillsiden bruker en begrenset Turtle-tolker, ikke hele Python. Nivåframgang og kode lagres lokalt på Chromebooken. 16 nivåer – ingen ferdig fasit.</p></main>
+<section class="panel"><h2>💻 Programmer skilpadden</h2><textarea id="code" spellcheck="false" aria-label="Skriv Turtle-kode"></textarea><div class="actions"><button class="primary" id="run">▶ Kjør koden</button><button class="danger" id="stop">■ Stopp</button><button id="download">⬇ Last ned .py</button></div><div id="status" class="status" role="status" aria-live="polite">Klar til å starte!</div><div class="help"><p><strong>Kommandoer du kan bruke:</strong></p><p><code>forward(80)</code> / <code>fd(80)</code> – gå fremover<br><code>backward(40)</code> – gå bakover<br><code>right(90)</code> / <code>left(90)</code> – snu<br><code>penup()</code> / <code>pu()</code> – gå uten å tegne<br><code>pendown()</code> / <code>pd()</code> – tegn igjen<br><code>pensize(5)</code> – velg tykkelse på streken<br><code>pencolor("red")</code> – velg farge på streken<br><code>for i in range(3):</code> – gjenta innrykkede linjer<br><code>if i == 2:</code> / <code>else:</code> – ta valg<br><code>while x &lt; 3:</code> – gjenta så lenge vilkåret er sant<br><code># kommentar</code> – forklar koden</p><p>Tips: Trykk Enter etter kolon (:) for automatisk innrykk. Tab lager fire mellomrom, og Shift+Tab fjerner innrykk. Maks 500 kommandoer per kjøring.</p></div></section></div><p class="footer">Rutenettet viser 10 piksler per liten rute og 50 piksler mellom de tydeligere linjene. Skilpadden starter på et markert kryss. Koden kjøres lokalt i nettleseren. Denne spillsiden bruker en begrenset Turtle-tolker, ikke hele Python. Nivåframgang og kode lagres lokalt på Chromebooken. 24 nivåer – ingen ferdig fasit.</p></main>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id), canvas=$('board'),ctx=canvas.getContext('2d'), W=600,H=420;
@@ -41,7 +41,16 @@ const levels=[
 {title:'13 · Rundt den lange muren',task:'Samle stjernen på andre siden av muren og kom til målsonen. Finn en trygg vei rundt enden av muren.',start:[70,350,0],stars:[[490,350]],goal:[490,90,54,54],walls:[[250,130,50,270]],hint:'Muren når nesten helt ned. Prøv å gå opp til y=70 før du krysser over mot høyre.',code:'# Nivå 13: Rundt den lange muren\n# Skriv din egen kode her\n'},
 {title:'14 · Strekfri skattejakt',task:'Samle tre stjerner. Du skal bruke penup() underveis og pendown() før siste stjerne, slik at deler av ruten ikke får strek.',start:[70,330,0],stars:[[190,330],[350,170],[510,170]],goal:null,walls:[],hint:'Første stjerne ligger rett frem. Løft pennen før en forflytning, og sett den ned igjen før du tegner til den siste stjernen.',code:'# Nivå 14: Strekfri skattejakt\n# Skriv din egen kode her\n',requiresPen:true},
 {title:'15 · Fire hjørner og et mål',task:'Samle stjernene rundt det store området, og avslutt i målsonen. Bruk minst én for-løkke.',start:[110,330,0],stars:[[470,330],[470,90],[110,90],[110,330]],goal:[290,330,54,54],walls:[[255,160,70,80]],hint:'Stjernene danner et rektangel. Finn først alle fire hjørnene. Bruk en løkke til å gjenta en passende del av turen.',code:'# Nivå 15: Fire hjørner og et mål\n# Skriv din egen kode her\n',requiresLoop:true},
-{title:'16 · Den store finalen',task:'Siste utfordring! Samle alle fire stjernene, unngå murene og nå målet. Bruk både en for-løkke og penup()/pendown().',start:[70,350,0],stars:[[190,350],[190,70],[430,70],[430,350]],goal:[510,350,54,54],walls:[[280,160,55,175]],hint:'Del ruten i etapper: høyre, opp, høyre, ned, høyre. Finn en del som kan gjentas med løkke. Husk en strekfri forflytning og tegn videre etterpå.',code:'# Nivå 16: Den store finalen\n# Skriv din egen kode her\n',requiresLoop:true,requiresPen:true}
+{title:'16 · Mesterprøven',task:'En skikkelig utfordring! Samle alle fire stjernene, unngå murene og nå målet. Bruk både en for-løkke og penup()/pendown().',start:[70,350,0],stars:[[190,350],[190,70],[430,70],[430,350]],goal:[510,350,54,54],walls:[[280,160,55,175]],hint:'Del ruten i etapper: høyre, opp, høyre, ned, høyre. Finn en del som kan gjentas med løkke. Husk en strekfri forflytning og tegn videre etterpå.',code:'# Nivå 16: Mesteroppdraget\n# Skriv din egen kode her\n',requiresLoop:true,requiresPen:true},
+
+{title:'17 · Slalåm i dalen',task:'Samle fire stjerner i sikksakk uten å berøre de tre murene. Planlegg veien langs de åpne korridorene.',start:[70,350,0],stars:[[150,350],[150,90],[350,90],[490,350]],goal:null,walls:[[230,170,40,230],[390,0,40,245]],hint:'Første stjerne er 80 piksler til høyre. Tenk i etapper: opp til y=90, bortover, og så ned igjen. Se hvor murene stopper.',code:'# Nivå 17: Slalåm i dalen\n# Planlegg ruten på rutenettet\n'},
+{title:'18 · Tre skatteøyer',task:'Samle seks stjerner på tre øyer. Bruk en for-løkke minst én gang for å lage en del av ruten.',start:[70,330,0],stars:[[170,330],[170,230],[310,230],[310,130],[470,130],[470,330]],goal:null,walls:[],hint:'Lag en trapp av vannrette og loddrette bevegelser. To like svinger kan gjerne samles i en løkke.',code:'# Nivå 18: Tre skatteøyer\n# Bruk minst én for-løkke\n',requiresLoop:true},
+{title:'19 · Den smale passasjen',task:'Finn veien til de tre stjernene gjennom åpningene mellom murene. Små feil i avstanden kan føre til kollisjon.',start:[70,350,0],stars:[[150,350],[310,70],[510,350]],goal:null,walls:[[220,140,45,280],[385,0,45,280]],hint:'Det er plass til å gå over den første muren ved y=70, men den andre må du gå under ved y=350. Del turen i rette linjer.',code:'# Nivå 19: Den smale passasjen\n# Tell rutene nøye\n'},
+{title:'20 · Den usynlige stien',task:'Samle alle stjernene og nå målet. Bruk penup() på en del av turen og pendown() før du fortsetter å tegne. Bruk også en løkke.',start:[70,330,0],stars:[[190,330],[190,90],[430,90],[430,330]],goal:[510,330,54,54],walls:[],hint:'Stjernene ligger som hjørner i et rektangel. Du kan bruke en løkke for en gjentatt bevegelse, løfte pennen på én strekning og sette den ned igjen.',code:'# Nivå 20: Den usynlige stien\n# Løkke og penup/pendown\n',requiresLoop:true,requiresPen:true},
+{title:'21 · Dobbelt labyrint',task:'To store murer deler brettet. Samle fire stjerner og nå målsonen uten å gå gjennom murene.',start:[70,350,0],stars:[[150,350],[150,70],[350,70],[510,350]],goal:[510,350,54,54],walls:[[220,140,45,280],[400,0,45,280]],hint:'Fra venstre side kan du gå opp til y=70. Den første muren krysses over, men den andre må krysses under ved y=350. Sjekk avstandene.',code:'# Nivå 21: Dobbelt labyrint\n# Bruk flere etapper\n'},
+{title:'22 · Rektangelmesteren',task:'Samle åtte stjerner i to rektangler og avslutt i mål. Bruk minst én for-løkke og finn en effektiv rute.',start:[70,350,0],stars:[[190,350],[190,230],[70,230],[70,350],[350,350],[470,350],[470,230],[350,230]],goal:[510,350,54,54],walls:[],hint:'Det første rektangelet er 120 × 120. Det andre ligger lenger mot høyre. Prøv en løkke for sidene og en egen forflytning mellom figurene.',code:'# Nivå 22: Rektangelmesteren\n# Bruk løkker og planlegg ruten\n',requiresLoop:true},
+{title:'23 · Ekspertens hinderløype',task:'Samle fem stjerner rundt tre murer. Bruk både løkke og penup()/pendown(). Her må du planlegge før du skriver kode!',start:[70,350,0],stars:[[150,350],[150,70],[330,70],[330,350],[510,350]],goal:null,walls:[[220,150,40,270],[400,0,40,260]],hint:'Tenk deg en rute som går opp på venstre side, ned mellom murene og videre under den siste muren. Bruk en kort løkke for en gjentatt kommando.',code:'# Nivå 23: Ekspertens hinderløype\n# Både løkke og pennkommandoer\n',requiresLoop:true,requiresPen:true},
+{title:'24 · Den store finalen',task:'Den aller vanskeligste utfordringen! Samle seks stjerner, naviger rundt murene og nå den grønne målsonen. Du MÅ bruke en for-løkke og både penup() og pendown().',start:[70,350,0],stars:[[150,350],[150,70],[310,70],[310,350],[490,350],[490,70]],goal:[530,70,54,54],walls:[[220,140,40,280],[390,0,40,280]],hint:'Lag først en plan på papir. Du må over den første muren (øverst), men under den andre (nederst). Stjernene danner en rute med mange svinger. Finn en del du kan gjenta i en løkke, og bruk pennkommandoene underveis.',code:'# Nivå 24: Den store finalen\n# Bruk løkke, penup og pendown\n',requiresLoop:true,requiresPen:true}
 ];
 let level=0,runner=null,token=0,finished=new Set(),state=null;
 const storage='pythonverkstedet-turtle-eventyr-v1';let saved={};try{saved=JSON.parse(localStorage.getItem(storage)||'{}')||{};finished=new Set(Array.isArray(saved.finished)?saved.finished:[])}catch(_){}
@@ -51,7 +60,7 @@ for(let i=0;i<Math.min(levels.length,oldAutoAnswers.length);i++){if(saved['code'
 persist();
 function saveCode(){saved['code'+level]=$('code').value;saved.finished=[...finished];persist()}
 function stop(){token++;if(runner){clearTimeout(runner);runner=null}$('run').disabled=false}
-function reset(){stop();const l=levels[level];state={x:l.start[0],y:l.start[1],angle:l.start[2],stars:new Set(),path:[],penDown:true,failed:false,penUpMoved:false,penDownAfterLiftMoved:false};draw();$('next-btn').hidden=!finished.has(level)}
+function reset(){stop();const l=levels[level];state={x:l.start[0],y:l.start[1],angle:l.start[2],stars:new Set(),path:[],penDown:true,failed:false,penUpMoved:false,penDownAfterLiftMoved:false,penColor:'#2884b9',penSize:3};draw();$('next-btn').hidden=!finished.has(level)}
 function setStatus(msg,kind=''){const el=$('status');el.textContent=msg;el.className='status'+(kind?' '+kind:'')}
 function switchLevel(i){saveCode();level=i;const l=levels[i];$('level-title').textContent=l.title;$('task').textContent=l.task;$('hint').hidden=true;$('code').value=typeof saved['code'+i]==='string'?saved['code'+i]:l.code;reset();renderLevels();setStatus('Klar! Skriv kode og trykk «Kjør koden».')}
 function renderLevels(){const host=$('levels');host.replaceChildren();levels.forEach((l,i)=>{const b=document.createElement('button');b.textContent=(finished.has(i)?'✓ ':'')+'Nivå '+(i+1);b.className=(i===level?'active ':'')+(finished.has(i)?'done':'');b.onclick=()=>switchLevel(i);host.append(b)})}
@@ -64,7 +73,7 @@ const [sx,sy]=l.start;ctx.save();ctx.strokeStyle='#df572f';ctx.lineWidth=2.5;
 ctx.beginPath();ctx.moveTo(sx-23,sy);ctx.lineTo(sx+23,sy);ctx.moveTo(sx,sy-23);ctx.lineTo(sx,sy+23);ctx.stroke();
 ctx.fillStyle='#a84222';ctx.font='bold 12px system-ui';ctx.textAlign='left';ctx.textBaseline='alphabetic';ctx.fillText('START ('+sx+', '+sy+')',Math.min(sx+26,W-125),Math.max(17,sy-16));ctx.restore();
 for(const [x,y,w,h] of l.walls){ctx.fillStyle='#8b6047';ctx.fillRect(x,y,w,h);ctx.fillStyle='#a7785b';ctx.fillRect(x+5,y+5,w-10,h-10)}if(l.goal){const [x,y,w,h]=l.goal;ctx.fillStyle='#5cb978';ctx.fillRect(x-w/2,y-h/2,w,h);ctx.fillStyle='#20562f';ctx.font='bold 16px system-ui';ctx.textAlign='center';ctx.fillText('MÅL',x,y+5)}
-ctx.strokeStyle='#2884b9';ctx.lineWidth=3;ctx.lineCap='round';for(const [a,b,c,d] of state.path){ctx.beginPath();ctx.moveTo(a,b);ctx.lineTo(c,d);ctx.stroke()}
+ctx.lineCap='round';for(const seg of state.path){ctx.strokeStyle=seg.color;ctx.lineWidth=seg.size;ctx.beginPath();ctx.moveTo(seg.x1,seg.y1);ctx.lineTo(seg.x2,seg.y2);ctx.stroke()}
 ctx.font='28px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';l.stars.forEach(([x,y],i)=>{if(!state.stars.has(i))ctx.fillText('⭐',x,y)});ctx.save();ctx.translate(state.x,state.y);ctx.rotate(-state.angle*Math.PI/180);
 // Tegn skilpadden selv: hodet peker alltid i faktisk kjøreretning (mot høyre ved 0°).
 ctx.fillStyle='#6d9f45';
@@ -78,12 +87,189 @@ ctx.fillStyle='#172d1a';ctx.beginPath();ctx.arc(20,-3,1.8,0,Math.PI*2);ctx.fill(
 ctx.restore()}
 function blocked(x,y){if(x<15||x>W-15||y<15||y>H-15)return true;return levels[level].walls.some(([wx,wy,w,h])=>x>=wx-13&&x<=wx+w+13&&y>=wy-13&&y<=wy+h+13)}
 function collect(){levels[level].stars.forEach(([x,y],i)=>{if(Math.hypot(state.x-x,state.y-y)<=23)state.stars.add(i)})}
-function step(action){if(action.type==='pen'){state.penDown=action.down;draw();return true}if(action.type==='turn'){state.angle=(state.angle+action.value+36000)%360;draw();return true}const distance=action.value;const count=Math.ceil(Math.abs(distance)/4);if(count===0)return true;const dx=Math.cos(state.angle*Math.PI/180)*distance/count,dy=-Math.sin(state.angle*Math.PI/180)*distance/count;for(let i=0;i<count;i++){const nx=state.x+dx,ny=state.y+dy;if(blocked(nx,ny)){setStatus('💥 Oi! Skilpadden traff en hindring eller kanten. Prøv en annen rute.','bad');return false}if(state.penDown){state.path.push([state.x,state.y,nx,ny]);if(state.penUpMoved)state.penDownAfterLiftMoved=true}else{state.penUpMoved=true}state.x=nx;state.y=ny;collect()}draw();return true}
-function parse(source){const raw=source.replace(/\r/g,'').split('\n');let idx=0,hasLoop=false;function block(indent){const out=[];while(idx<raw.length){const line=raw[idx],trim=line.trim();if(!trim||trim.startsWith('#')){idx++;continue}const spaces=line.match(/^[ \t]*/)[0].replace(/\t/g,'    ').length;if(spaces<indent)break;if(spaces>indent)throw Error('Linje '+(idx+1)+': Sjekk innrykket.');idx++;const loop=trim.match(/^for\s+([a-zA-Z_]\w*)\s+in\s+range\(\s*(\d+)\s*\)\s*:\s*(?:#.*)?$/);if(loop){hasLoop=true;const n=Number(loop[2]);if(n>100)throw Error('Maks 100 gjentakelser i en løkke.');let nextIndent=null;for(let j=idx;j<raw.length;j++){if(!raw[j].trim()||raw[j].trim().startsWith('#'))continue;nextIndent=raw[j].match(/^[ \t]*/)[0].replace(/\t/g,'    ').length;break}if(nextIndent===null||nextIndent<=spaces)throw Error('Linje '+idx+': Løkken trenger innrykket kode.');const inside=block(nextIndent);for(let k=0;k<n;k++){out.push(...inside);if(out.length>500)throw Error('For mange kommandoer (maks 500).')}continue}
-const pen=trim.match(/^(penup|pu|pendown|pd)\(\s*\)\s*(?:#.*)?$/);if(pen){out.push({type:'pen',down:pen[1]==='pendown'||pen[1]==='pd'});if(out.length>500)throw Error('For mange kommandoer (maks 500).');continue}const m=trim.match(/^(forward|fd|backward|bk|right|rt|left|lt)\(\s*(-?\d+(?:\.\d+)?)\s*\)\s*(?:#.*)?$/);if(!m)throw Error('Linje '+idx+': Ukjent kommando: '+trim);const n=Number(m[2]);if(!Number.isFinite(n)||Math.abs(n)>1500)throw Error('Linje '+idx+': Bruk tall mellom -1500 og 1500.');let name=m[1];out.push({type:['right','rt','left','lt'].includes(name)?'turn':'move',value:name==='right'||name==='rt'?-n:name==='left'||name==='lt'?n:name==='backward'||name==='bk'?-n:n});if(out.length>500)throw Error('For mange kommandoer (maks 500).')}return out}
-const commands=block(0);if(idx<raw.length)throw Error('Feil innrykk på linje '+(idx+1));return {commands,hasLoop}}
+function step(action){
+if(action.type==='pen'){state.penDown=action.down;draw();return true}
+if(action.type==='color'){state.penColor=action.value;draw();return true}
+if(action.type==='size'){state.penSize=action.value;draw();return true}
+if(action.type==='turn'){state.angle=(state.angle+action.value+36000)%360;draw();return true}
+const distance=action.value,count=Math.ceil(Math.abs(distance)/4);
+if(count===0)return true;
+const dx=Math.cos(state.angle*Math.PI/180)*distance/count,dy=-Math.sin(state.angle*Math.PI/180)*distance/count;
+for(let i=0;i<count;i++){
+ const nx=state.x+dx,ny=state.y+dy;
+ if(blocked(nx,ny)){setStatus('💥 Oi! Skilpadden traff en hindring eller kanten. Prøv en annen rute.','bad');return false}
+ if(state.penDown){state.path.push({x1:state.x,y1:state.y,x2:nx,y2:ny,color:state.penColor,size:state.penSize});if(state.penUpMoved)state.penDownAfterLiftMoved=true}
+ else state.penUpMoved=true;
+ state.x=nx;state.y=ny;collect();
+}
+draw();return true}
+function parse(source){
+ const raw=source.replace(/\r/g,'').split('\n');
+ const lines=[];
+ for(let i=0;i<raw.length;i++){
+  const content=raw[i].trim();
+  if(!content||content.startsWith('#'))continue;
+  const ws=raw[i].match(/^[ \t]*/)[0];
+  const indent=ws.replace(/\t/g,'    ').length;
+  if(indent%4!==0)throw Error('Linje '+(i+1)+': Bruk innrykk med fire mellomrom.');
+  lines.push({text:content,indent,line:i+1});
+ }
+ let at=0,hasLoop=false;
+ function block(indent){
+  const nodes=[];
+  while(at<lines.length){
+   const cur=lines[at];
+   if(cur.indent<indent)break;
+   if(cur.indent>indent)throw Error('Linje '+cur.line+': Sjekk innrykket.');
+   if(/^\b(?:elif|else)\b/.test(cur.text))break;
+   at++;
+   const forMatch=cur.text.match(/^for\s+([a-zA-Z_]\w*)\s+in\s+range\(\s*([^)]*)\s*\)\s*:\s*(?:#.*)?$/);
+   if(forMatch){hasLoop=true;nodes.push({kind:'for',name:forMatch[1],args:forMatch[2].split(',').map(x=>x.trim()),body:indented(cur),line:cur.line});continue}
+   const whileMatch=cur.text.match(/^while\s+(.+?)\s*:\s*(?:#.*)?$/);
+   if(whileMatch){nodes.push({kind:'while',condition:whileMatch[1],body:indented(cur),line:cur.line});continue}
+   const ifMatch=cur.text.match(/^if\s+(.+?)\s*:\s*(?:#.*)?$/);
+   if(ifMatch){
+    const branches=[{condition:ifMatch[1],body:indented(cur),line:cur.line}];
+    let fallback=null;
+    while(at<lines.length&&lines[at].indent===indent){
+     const next=lines[at];
+     const elif=next.text.match(/^elif\s+(.+?)\s*:\s*(?:#.*)?$/);
+     if(elif){at++;branches.push({condition:elif[1],body:indented(next),line:next.line});continue}
+     if(/^else\s*:\s*(?:#.*)?$/.test(next.text)){at++;fallback=indented(next);break}
+     break;
+    }
+    nodes.push({kind:'if',branches,fallback});continue
+   }
+   const assign=cur.text.match(/^([a-zA-Z_]\w*)\s*(\+=|-=|=)\s*(.+?)\s*(?:#.*)?$/);
+   if(assign){nodes.push({kind:'assign',name:assign[1],op:assign[2],expr:assign[3],line:cur.line});continue}
+   const pen=cur.text.match(/^(penup|pu|pendown|pd)\(\s*\)\s*(?:#.*)?$/);
+   if(pen){nodes.push({kind:'action',type:'pen',down:pen[1]==='pendown'||pen[1]==='pd'});continue}
+   const color=cur.text.match(/^pencolor\(\s*(['"])([^'"\n]+)\1\s*\)\s*(?:#.*)?$/);
+   if(color){
+    const value=color[2].trim();
+    if(!/^#[0-9a-f]{3}(?:[0-9a-f]{3})?$/i.test(value)&&!/^[a-z]+$/i.test(value))throw Error('Linje '+cur.line+': Bruk f.eks. pencolor("red") eller pencolor("#3366ff").');
+    nodes.push({kind:'action',type:'color',value,line:cur.line});continue
+   }
+   const size=cur.text.match(/^pensize\(\s*(.+?)\s*\)\s*(?:#.*)?$/);
+   if(size){nodes.push({kind:'size',expr:size[1],line:cur.line});continue}
+   const move=cur.text.match(/^(forward|fd|backward|bk|right|rt|left|lt)\(\s*(.+?)\s*\)\s*(?:#.*)?$/);
+   if(move){nodes.push({kind:'move',name:move[1],expr:move[2],line:cur.line});continue}
+   throw Error('Linje '+cur.line+': Ukjent kommando: '+cur.text);
+  }
+  return nodes;
+ }
+ function indented(parent){
+  if(at>=lines.length||lines[at].indent<=parent.indent)throw Error('Linje '+parent.line+': Etter kolon (:) må du skrive innrykket kode.');
+  if(lines[at].indent!==parent.indent+4)throw Error('Linje '+lines[at].line+': Bruk fire mellomrom ekstra etter kolon (:).');
+  return block(parent.indent+4);
+ }
+ const ast=block(0);
+ if(at<lines.length)throw Error('Linje '+lines[at].line+': «else» eller «elif» må høre til en «if».');
+ const env=Object.create(null),commands=[];
+ function value(expr,line){
+  const e=expr.trim();
+  if(/^-?(?:\d+(?:\.\d*)?|\.\d+)$/.test(e))return Number(e);
+  if(/^[a-zA-Z_]\w*$/.test(e)){
+   if(!Object.prototype.hasOwnProperty.call(env,e))throw Error('Linje '+line+': Ukjent variabel «'+e+'».');
+   return env[e];
+  }
+  const arithmetic=e.match(/^(.+?)\s*([+*%\/-])\s*(.+)$/);
+  if(arithmetic){const a=value(arithmetic[1],line),b=value(arithmetic[3],line);
+   if(arithmetic[2]==='+')return a+b;
+   if(arithmetic[2]==='-')return a-b;
+   if(arithmetic[2]==='*')return a*b;
+   if(b===0)throw Error('Linje '+line+': Kan ikke dele på null.');
+   return arithmetic[2]==='%'?a%b:a/b;
+  }
+  throw Error('Linje '+line+': Forventet tall eller variabel, fikk «'+e+'».');
+ }
+ function condition(expr,line){
+  const e=expr.trim();
+  if(e==='True')return true;
+  if(e==='False')return false;
+  if(e.startsWith('not '))return !condition(e.slice(4),line);
+  const cmp=e.match(/^(.+?)\s*(==|!=|<=|>=|<|>)\s*(.+)$/);
+  if(cmp){const a=value(cmp[1],line),b=value(cmp[3],line);
+   switch(cmp[2]){case '==':return a===b;case '!=':return a!==b;case '<':return a<b;case '>':return a>b;case '<=':return a<=b;case '>=':return a>=b}
+  }
+  return value(e,line)!==0;
+ }
+ function emit(cmd,line){commands.push(cmd);if(commands.length>500)throw Error('Linje '+line+': For mange kommandoer (maks 500).')}
+ function execute(nodes){
+  for(const n of nodes){
+   if(n.kind==='for'){
+    if(n.args.length<1||n.args.length>3||n.args.some(a=>!a))throw Error('Linje '+n.line+': Bruk range(antall) eller range(start, slutt, steg).');
+    const nums=n.args.map(a=>value(a,n.line));
+    const start=nums.length===1?0:nums[0],stop=nums.length===1?nums[0]:nums[1],stepSize=nums.length===3?nums[2]:1;
+    if(!Number.isInteger(start)||!Number.isInteger(stop)||!Number.isInteger(stepSize)||stepSize===0)throw Error('Linje '+n.line+': range() trenger heltall og et steg ulik null.');
+    const repetitions=Math.max(0,Math.ceil((stop-start)/stepSize));
+    if(repetitions>100)throw Error('Linje '+n.line+': Maks 100 gjentakelser i en løkke.');
+    for(let k=0;k<repetitions;k++){env[n.name]=start+k*stepSize;execute(n.body)}
+   }else if(n.kind==='while'){
+    let k=0;
+    while(condition(n.condition,n.line)){
+     if(++k>100)throw Error('Linje '+n.line+': while-løkken er stoppet etter 100 gjentakelser. Sjekk vilkåret.');
+     execute(n.body);
+    }
+   }else if(n.kind==='if'){
+    let matched=false;
+    for(const branch of n.branches){if(condition(branch.condition,branch.line)){execute(branch.body);matched=true;break}}
+    if(!matched&&n.fallback)execute(n.fallback);
+   }else if(n.kind==='assign'){
+    const v=value(n.expr,n.line);
+    if(!Number.isFinite(v))throw Error('Linje '+n.line+': Ugyldig tall.');
+    if(n.op==='=')env[n.name]=v;
+    else if(n.op==='+=')env[n.name]=value(n.name,n.line)+v;
+    else env[n.name]=value(n.name,n.line)-v;
+   }else if(n.kind==='size'){
+    const v=value(n.expr,n.line);
+    if(!Number.isFinite(v)||v<1||v>20)throw Error('Linje '+n.line+': pensize() må være mellom 1 og 20.');
+    emit({type:'size',value:v},n.line);
+   }else if(n.kind==='move'){
+    const v=value(n.expr,n.line);
+    if(!Number.isFinite(v)||Math.abs(v)>1500)throw Error('Linje '+n.line+': Bruk tall mellom -1500 og 1500.');
+    const turn=['right','rt','left','lt'].includes(n.name);
+    const negative=['right','rt','backward','bk'].includes(n.name);
+    emit({type:turn?'turn':'move',value:negative?-v:v},n.line);
+   }else emit(n,n.line);
+  }
+ }
+ execute(ast);
+ return {commands,hasLoop};
+}
 function win(){const l=levels[level];const all=l.stars.every((_,i)=>state.stars.has(i));const goal=!l.goal||Math.hypot(state.x-l.goal[0],state.y-l.goal[1])<27;const penOk=!l.requiresPen||(state.penUpMoved&&state.penDownAfterLiftMoved);return all&&goal&&penOk}
 function run(){reset();saveCode();let parsed;try{parsed=parse($('code').value)}catch(e){setStatus('⚠️ '+e.message,'bad');return}if(levels[level].requiresLoop&&!parsed.hasLoop){setStatus('💡 På dette nivået må du bruke en for-løkke.','bad');return}if(!parsed.commands.length){setStatus('Skriv noen Turtle-kommandoer først.');return}const current=token;$('run').disabled=true;let i=0;function tick(){if(current!==token)return;if(i>=parsed.commands.length){runner=null;$('run').disabled=false;if(!win()&&levels[level].requiresPen&&!state.penDownAfterLiftMoved){setStatus('💡 Husk å bruke penup() til å flytte deg uten strek, og pendown() til å tegne igjen.','bad');return}if(win()){finished.add(level);saveCode();renderLevels();$('next-btn').hidden=level===levels.length-1;setStatus(level===levels.length-1?'🏆 Fantastisk! Du har fullført alle '+levels.length+' nivåene i Turtle-eventyret!':'🎉 Bra jobbet! Nivået er fullført!','good')}else{setStatus('Koden er ferdig, men du har ikke samlet alle stjernene eller nådd målet. Prøv igjen!','bad')}return}if(!step(parsed.commands[i++])){runner=null;$('run').disabled=false;return}runner=setTimeout(tick,Math.max(30,220-i*0.15))}tick()}
+// Kodeeditor: automatisk Python-innrykk etter kolon og støtte for Tab / Shift+Tab.
+$('code').addEventListener('keydown',e=>{
+ const editor=e.currentTarget;
+ if(e.key==='Enter'&&!e.isComposing){
+  e.preventDefault();
+  const start=editor.selectionStart,end=editor.selectionEnd,text=editor.value;
+  const lineStart=text.lastIndexOf('\n',start-1)+1;
+  const left=text.slice(lineStart,start);
+  const leading=(left.match(/^[ \t]*/)||[''])[0].replace(/\t/g,'    ');
+  const extra=/\:\s*(?:#.*)?$/.test(left.trimEnd())?'    ':'';
+  const addition='\n'+leading+extra;
+  editor.setRangeText(addition,start,end,'end');
+  editor.dispatchEvent(new Event('input',{bubbles:true}));
+ }else if(e.key==='Tab'){
+  e.preventDefault();
+  const start=editor.selectionStart,end=editor.selectionEnd,text=editor.value;
+  if(start!==end&&text.slice(start,end).includes('\n')){
+   const a=text.lastIndexOf('\n',start-1)+1;
+   const originalEnd=end;
+   const selected=text.slice(a,end);
+   const changed=selected.split('\n').map(line=>e.shiftKey?line.replace(/^(?: {1,4}|\t)/,''):'    '+line).join('\n');
+   editor.setRangeText(changed,a,end,'select');
+   editor.setSelectionRange(a, a+changed.length);
+  }else if(e.shiftKey){
+   const a=text.lastIndexOf('\n',start-1)+1;
+   const spaces=(text.slice(a).match(/^(?: {1,4}|\t)/)||[''])[0];
+   if(spaces){editor.setRangeText('',a,a+spaces.length,'preserve');editor.setSelectionRange(Math.max(a,start-spaces.length),Math.max(a,end-spaces.length))}
+  }else editor.setRangeText('    ',start,end,'end');
+  editor.dispatchEvent(new Event('input',{bubbles:true}));
+ }
+});
 $('run').onclick=run;$('stop').onclick=()=>{stop();setStatus('⏹ Stoppet. Du kan endre koden og prøve igjen.')};$('reset-btn').onclick=()=>{reset();setStatus('Brettet er nullstilt.')};$('hint-btn').onclick=()=>{const h=$('hint');h.hidden=!h.hidden;h.textContent=levels[level].hint};$('next-btn').onclick=()=>{if(level<levels.length-1)switchLevel(level+1)};$('code').addEventListener('input',saveCode);
 $('download').onclick=()=>{const proposed='turtle-eventyr-nivaa-'+(level+1);const name=prompt('Hva vil du kalle Python-filen?',proposed);if(name===null)return;const clean=name.trim().replace(/\.py$/i,'').replace(/[^a-zA-Z0-9æøåÆØÅ_-]+/g,'-').replace(/^-+|-+$/g,'');if(!clean){alert('Skriv et filnavn.');return}const url=URL.createObjectURL(new Blob([$('code').value],{type:'text/x-python;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=clean+'.py';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 // Første nivå må initialiseres uten å overskrive tidligere lagret kode.
