@@ -70,7 +70,7 @@
 body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
 @media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
 </style></head>
-<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="start-her.html">🚀 Start her – Ny i Python</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-oppgaver.html">🎯 Turtle-utfordringer</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Spillverkstedet</a><a href="kattespill.html" aria-current="page">🐱 Kattespill – spill og kode</a></div></details></nav>
+<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html" aria-current="page">🐱 Spill kattespillet</a></div></details></nav>
 
 <header>
   <h1>🐱 Mitt kattespill</h1>
@@ -80,7 +80,7 @@ body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
 <main>
   <section>
     <h2>🎮 Spill</h2>
-    <p>Bruk piltastene for å samle mynter.</p>
+    <p>Bruk piltastene for å samle mynter. Røde hindringer trekker 1 poeng. Treffer katten en rød hindring når du har 0 poeng, får du −1 poeng og spillet er over!</p>
     <canvas id="game" width="800" height="500"></canvas>
     <p id="status">Spillet er klart!</p>
   </section>
@@ -137,6 +137,8 @@ bakgrunn_farge = "lightblue"</textarea>
 { x: 500, y: 180, size: 40, dx: -3, dy: 0 }
 ];
   let touchingObstacle = false;
+  let gameState = "playing"; // playing, dead, won eller timeup
+
 
   function randomCoin() {
     coin.x = 20 + Math.random() * (canvas.width - 40);
@@ -214,21 +216,26 @@ bakgrunn_farge = "lightblue"</textarea>
       settings = newSettings;
       player = { x: 100, y: 100, size: 40 };
       score = 0;
+      touchingObstacle = false;
+      gameState = "playing";
       clearInterval(gameTimer);
-      timeLeft=60; 
+      timeLeft = 60;
       keys.clear();
+      obstacles = [
+        { x: 180, y: 150, size: 40, dx: 2, dy: 0 },
+        { x: 350, y: 300, size: 40, dx: 0, dy: 2 },
+        { x: 500, y: 180, size: 40, dx: -3, dy: 0 }
+      ];
+      document.querySelectorAll(".pv-game-overlay").forEach(el => el.remove());
       randomCoin();
       gameTimer = setInterval(() => {
-  timeLeft--;
-
-  if (timeLeft <= 0) {
-    clearInterval(gameTimer);
-    timeLeft = 0;
-    if (confirm("⏰ Tiden er ute!\n\nVil du spille igjen?")) {
-  startGame();
-}
-  }
-}, 1000);
+        if (gameState !== "playing") return;
+        timeLeft--;
+        if (timeLeft <= 0) {
+          timeLeft = 0;
+          endGame("timeup", "⏰", "Tiden er ute!", "Du fikk " + score + " poeng.");
+        }
+      }, 1000);
 
       status.textContent =
         "Spillet kjører! Fart: " + settings.speed +
@@ -237,49 +244,52 @@ bakgrunn_farge = "lightblue"</textarea>
       status.textContent = "⚠️ " + error.message;
     }
   }
-function showVictory() {
-  const overlay = document.createElement("div");
+  function endGame(reason, icon, title, message) {
+    if (gameState !== "playing") return;
+    gameState = reason;
+    clearInterval(gameTimer);
+    keys.clear();
+    status.textContent = title + " " + message;
 
-  overlay.style.cssText = `
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-  `;
+    const overlay = document.createElement("div");
+    overlay.className = "pv-game-overlay";
+    overlay.style.cssText = `
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.75);
+      display: flex; justify-content: center; align-items: center;
+      z-index: 10001; padding: 16px; box-sizing: border-box;
+    `;
+    const box = document.createElement("div");
+    box.style.cssText = `
+      background: white; padding: 34px; border-radius: 20px;
+      text-align: center; font-family: Arial, sans-serif;
+      max-width: 420px; width: 100%; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    `;
+    const symbol = document.createElement("div");
+    symbol.style.fontSize = "65px";
+    symbol.textContent = icon;
+    const heading = document.createElement("h2");
+    heading.style.color = reason === "dead" ? "#b42332" : "#16803c";
+    heading.textContent = title;
+    const description = document.createElement("p");
+    description.textContent = message;
+    const again = document.createElement("button");
+    again.type = "button";
+    again.textContent = "🎮 Spill igjen";
+    again.style.cssText = "padding: 15px 30px; font-size: 19px; background: #244a91; color: white; border: 0; border-radius: 12px; cursor: pointer;";
+    again.addEventListener("click", startGame);
+    box.append(symbol, heading, description, again);
+    overlay.appendChild(box);
+    document.body.appendChild(overlay);
+  }
 
-  const victoryBox = document.createElement("div");
+  function showVictory() {
+    endGame("won", "🏆", "Gratulerer!", "Du samlet " + score + " poeng!");
+  }
 
-  victoryBox.style.cssText = `
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    font-family: Arial, sans-serif;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  `;
+  function showDeath() {
+    endGame("dead", "💀", "Katten døde – Game over!", "Du traff en rød hindring med 0 poeng. Poengsummen er nå −1.");
+  }
 
-  victoryBox.innerHTML = `
-    <div style="font-size:70px;">🏆</div>
-    <h1 style="color:#16803c;">Gratulerer!</h1>
-    <p>Du samlet 10 poeng!</p>
-    <button id="playAgainButton"
-      style="padding:15px 30px; font-size:20px;
-      background:#16803c; color:white;
-      border:0; border-radius:12px; cursor:pointer;">
-      🎮 Spill igjen
-    </button>
-  `;
-
-  overlay.appendChild(victoryBox);
-  document.body.appendChild(overlay);
-
-  document.getElementById("playAgainButton").onclick = () => {
-    overlay.remove();
-  };
-}
   function playCoinSound() {
   const AudioContextClass =
     window.AudioContext || window.webkitAudioContext;
@@ -347,7 +357,11 @@ const hitObstacle = obstacles.some(obstacle =>
 );
 
 if (hitObstacle && !touchingObstacle) {
-  score = Math.max(0, score - 1);
+  score -= 1;
+  if (score < 0) {
+    showDeath();
+    return; // Stopp: katten kan ikke samle mynter etter at den døde.
+  }
 }
 
 touchingObstacle = hitObstacle;
@@ -362,9 +376,9 @@ touchingObstacle = hitObstacle;
       score += settings.poeng_per_mynt;
       playCoinSound();
       if (score >= 10) {
-          showVictory();
-          score = 0;
-}
+        showVictory();
+        return;
+      }
       randomCoin();
     }
   }
@@ -479,13 +493,13 @@ ctx.textBaseline = "alphabetic";
 
     ctx.fillStyle = "#243047";
     ctx.font = "bold 30px Arial";
+    ctx.fillStyle = score < 0 ? "#b42332" : "#243047";
     ctx.fillText("Poeng: " + score, 20, 40);
     ctx.fillText("Tid: " + timeLeft + " s", canvas.width - 180, 40);
   }
 
   function gameLoop() {
-    if (timeLeft <= 0) return;
-    update();
+    if (gameState === "playing") update();
     draw();
     requestAnimationFrame(gameLoop);
   }
