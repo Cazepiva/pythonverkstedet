@@ -248,18 +248,8 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 #learning-topics{margin-top:12px!important}
 #task-solution{max-width:100%!important;overflow:auto}
 @media(max-width:760px){.workspace-main{grid-template-columns:1fr}#editor{position:static}#oppgavebank{max-height:none;overflow:visible}}
-</style><style id="pv-spillmeny-css">
-#pv-shared-nav .pv-game-group{margin-top:5px;border-top:1px solid #dbe5f2;padding-top:7px}
-#pv-shared-nav details.pv-game-group > summary{display:block!important;cursor:pointer;list-style:none;padding:11px 13px;border-radius:9px;background:#e9f0ff;color:#254a93;font-weight:700}
-#pv-shared-nav .pv-game-group>summary::-webkit-details-marker{display:none}
-#pv-shared-nav .pv-game-group>summary:after{content:" ▾";float:right}
-#pv-shared-nav .pv-game-group[open]>summary:after{content:" ▴"}
-#pv-shared-nav .pv-game-group .pv-game-links{padding:5px 0 2px 10px;display:flex;flex-direction:column;gap:3px}
-#pv-shared-nav .pv-game-group .pv-game-links a{display:block;padding:10px 12px;text-decoration:none;border-radius:8px;color:#254a93;background:#f5f8ff;font-weight:600}
-#pv-shared-nav .pv-game-group .pv-game-links a:hover{background:#e2ebff}
-#pv-shared-nav .pv-game-group .pv-game-links a[aria-current="page"]{background:#3657a5;color:#fff}
 </style></head>
-<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
+<body><nav aria-label="Felles meny for Pythonverkstedet" id="pv-shared-nav"><div class="pv-brand">🐍 Pythonverkstedet</div><details open=""><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a aria-current="page" href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html">🐱 Spill kattespillet</a></div></details></nav>
 <header>
 <h1>🐍 Pythonverkstedet</h1>
 <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
@@ -269,7 +259,7 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 <div class="workspace-main">
 <section class="editor-panel" id="editor">
 <h2>💻 Prøv Python-koden din</h2>
-<p>Kodefeltet starter tomt. Velg en oppgave til høyre og skriv koden din her.</p>
+<p>Kodefeltet starter tomt. Velg en oppgave til høyre og skriv koden din her. Parenteser og anførselstegn lukkes automatisk.</p>
 <div class="python-editor-wrap">
 <pre aria-hidden="true" class="line-numbers" id="line-numbers">1
 2
@@ -361,7 +351,11 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
     {"topic": "Spilløkker", "title": "41. Tre runder", "description": "Lag en løkke som teller tre runder og skriver ut poeng.", "start": "poeng = 0", "hint": "Bruk range(3) og øk poeng.", "solution": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde+1, 'poeng:', poeng)"},
     {"topic": "Spilløkker", "title": "42. Spill til fem poeng", "description": "Bruk while for å spille til poengsummen er fem.", "start": "poeng = 0", "hint": "while poeng < 5: og øk poeng.", "solution": "poeng = 0\nwhile poeng < 5:\n    poeng += 1\n    print('Poeng:', poeng)\nprint('Du vant!')"},
     {"topic": "Spilløkker", "title": "43. Fang eller unngå", "description": "Lag fem tilfeldige hendelser der hvit gir +1 og rød gir -1.", "start": "import random\npoeng = 0", "hint": "Bruk random.choice og max(0, poeng-1).", "solution": "import random\npoeng = 0\nfor runde in range(5):\n    ball = random.choice(['hvit', 'rød'])\n    if ball == 'hvit':\n        poeng += 1\n    else:\n        poeng = max(0, poeng - 1)\n    print(ball, 'poeng:', poeng)"},
-    {"topic": "Spilløkker", "title": "44. Lag et lite tekstspill", "description": "La brukeren velge mellom å fange boble eller unngå hindring i tre runder.", "start": "poeng = 0\n# Tre runder med input()", "hint": "Bruk for, input og if/else. Gi poeng for 'fang'.", "solution": "poeng = 0\nfor runde in range(3):\n    valg = input('Skriv fang eller unngå: ').lower()\n    if valg == 'fang':\n        poeng += 1\n        print('Boble fanget!')\n    elif valg == 'unngå':\n        print('Du unngikk hindringen!')\n    else:\n        print('Ukjent valg')\nprint('Poeng:', poeng)"}
+    {"topic": "Spilløkker", "title": "44. Lag et lite tekstspill", "description": "La brukeren velge mellom å fange boble eller unngå hindring i tre runder.", "start": "poeng = 0\n# Tre runder med input()", "hint": "Bruk for, input og if/else. Gi poeng for 'fang'.", "solution": "poeng = 0\nfor runde in range(3):\n    valg = input('Skriv fang eller unngå: ').lower()\n    if valg == 'fang':\n        poeng += 1\n        print('Boble fanget!')\n    elif valg == 'unngå':\n        print('Du unngikk hindringen!')\n    else:\n        print('Ukjent valg')\nprint('Poeng:', poeng)"},
+    {"topic": "Matematikk", "title": "45. Regn med math", "description": "Importer math. Skriv ut kvadratroten av 81 med math.sqrt(), og prøv et annet tall.", "start": "import math\n\n# Finn kvadratroten av 81", "hint": "Bruk math.sqrt(81). Husk import math øverst.", "solution": "import math\n\nprint(math.sqrt(81))"},
+    {"topic": "Matematikk", "title": "46. Rund opp antall lag", "description": "Det er 23 elever. Det kan være maks 4 elever på hvert lag. Finn antall lag med math.ceil().", "start": "import math\nelever = 23\nmaks_per_lag = 4\n\n# Hvor mange lag trengs?", "hint": "Del elever på maks_per_lag og rund opp med math.ceil().", "solution": "import math\nelever = 23\nmaks_per_lag = 4\nlag = math.ceil(elever / maks_per_lag)\nprint(\"Vi trenger\", lag, \"lag\")"},
+    {"topic": "Matematikk", "title": "47. Sirkelens omkrets", "description": "Spør etter radiusen og regn ut sirkelens omkrets med math.pi. Avrund svaret til to desimaler.", "start": "import math\nradius = float(input(\"Radius: \"))\n\n# Finn og skriv ut omkretsen", "hint": "Omkretsen er 2 * math.pi * radius. Bruk round(verdi, 2) når du skriver ut.", "solution": "import math\nradius = float(input(\"Radius: \"))\nomkrets = 2 * math.pi * radius\nprint(\"Omkrets:\", round(omkrets, 2))"},
+    {"topic": "Matematikk", "title": "48. Avstand mellom to spillfigurer", "description": "To figurer står i (2, 3) og (8, 11). Finn avstanden mellom dem med math.sqrt().", "start": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\n\n# Finn avstanden", "hint": "Finn forskjellen i x og y. Bruk math.sqrt(dx ** 2 + dy ** 2).", "solution": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\ndx = x2 - x1\ndy = y2 - y1\navstand = math.sqrt(dx ** 2 + dy ** 2)\nprint(\"Avstand:\", avstand)"}
   ];
 
   const topicsContainer = document.getElementById("learning-topics");
@@ -416,7 +410,8 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
     {"topic": "Bevegelse", "title": "8. Bevegelse og retning", "intro": "I spill flytter vi en figur ved å endre x og y. Retningen kan representeres med tekst eller vinkler: 0=høyre, 90=opp, 180=venstre, 270=ned.", "example": "x = 0\ny = 0\nretning = 'opp'\nif retning == 'opp':\n    y += 10\nprint(x, y)", "tryText": "Prøv andre retninger."},
     {"topic": "Figurer", "title": "9. Lag figurer med kode", "intro": "Vi kan lage enkle figurer med teksttegn og løkker. I Turtle- og Fiskespillverkstedet tegnes figurene grafisk. Her øver vi på Python-logikken.", "example": "for rad in range(3):\n    print('*' * 5)", "tryText": "Endre antall rader og bredden."},
     {"topic": "Kollisjon", "title": "10. Kollisjon og poeng", "intro": "En kollisjon oppstår når to figurer er nær hverandre. Vi kan bruke koordinater og avstand til å bestemme om spilleren får eller mister poeng.", "example": "fisk_x = 10\nboble_x = 13\nif abs(fisk_x - boble_x) < 5:\n    print('Treff!')", "tryText": "Endre koordinatene slik at det ikke blir treff."},
-    {"topic": "Spilløkker", "title": "11. Spilløkker og små spill", "intro": "Et spill gjentar handlinger, oppdaterer posisjoner og sjekker regler. Her lager vi tekstbaserte minispill med løkker og funksjoner.", "example": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde + 1, 'poeng', poeng)", "tryText": "Endre hva som gir poeng."}
+    {"topic": "Spilløkker", "title": "11. Spilløkker og små spill", "intro": "Et spill gjentar handlinger, oppdaterer posisjoner og sjekker regler. Her lager vi tekstbaserte minispill med løkker og funksjoner.", "example": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde + 1, 'poeng', poeng)", "tryText": "Endre hva som gir poeng."},
+    {"topic": "Matematikk", "title": "12. Matematikk med math", "intro": "Pythons innebygde math-modul har blant annet kvadratrøtter, pi og funksjoner for avrunding. Start med import math. math er en del av Python og er ikke det samme som den eksterne pakken mathpy.", "example": "import math\nprint(math.sqrt(81))\nprint(round(math.pi, 2))", "tryText": "Prøv å finne kvadratroten av 144 eller regne ut omkretsen av en sirkel."}
   ];
 
   tasks.forEach((task, i) => { const topicIndex = tasks.filter(t => t.topic === task.topic).indexOf(task); task.level = topicIndex === 0 ? 1 : topicIndex === 1 ? 2 : 3; });
@@ -546,26 +541,65 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
   codeBox.addEventListener("input", updateLineNumbers);
   codeBox.addEventListener("scroll", () => { lineNumbers.scrollTop = codeBox.scrollTop; });
 
-  // Tab inserts four spaces; Enter repeats the current line's indentation.
+  // Editorhjelp: lukk parenteser og anførselstegn automatisk.
+  // Markert tekst omsluttes; skriv en avsluttende parentes for å hoppe over den som allerede finnes.
   codeBox.addEventListener("keydown", (event) => {
+    if (event.isComposing || event.ctrlKey || event.metaKey || event.altKey) return;
+    const start = codeBox.selectionStart;
+    const end = codeBox.selectionEnd;
+    const value = codeBox.value;
+    const pairs = {"(": ")", "[": "]", "{": "}", '"': '"', "'": "'"};
+    const closers = [")", "]", "}", '"', "'"];
+
     if (event.key === "Tab") {
       event.preventDefault();
-      const start = codeBox.selectionStart;
-      const end = codeBox.selectionEnd;
-      codeBox.setRangeText("    ", start, end, "end");
+      if (event.shiftKey) {
+        const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+        const prefix = value.slice(lineStart, start);
+        const spaces = (prefix.match(/^ {1,4}/) || [""])[0].length;
+        if (spaces) {
+          codeBox.setRangeText("", lineStart, lineStart + spaces, "preserve");
+          codeBox.setSelectionRange(Math.max(lineStart, start - spaces), Math.max(lineStart, end - spaces));
+        }
+      } else {
+        codeBox.setRangeText("    ", start, end, "end");
+      }
       updateLineNumbers();
       return;
     }
 
     if (event.key === "Enter") {
-      const start = codeBox.selectionStart;
-      const beforeCursor = codeBox.value.slice(0, start);
-      const currentLine = beforeCursor.split("\n").pop();
-      const indent = (currentLine.match(/^\s*/) || [""])[0];
-      const trimmed = currentLine.trimEnd();
-      const extraIndent = /(:|\bdef\b.*|\belse\s*:|\belif\b.*:|\bfor\b.*:|\bwhile\b.*|\bif\b.*:)$/.test(trimmed) ? "    " : "";
       event.preventDefault();
-      codeBox.setRangeText("\n" + indent + extraIndent, start, codeBox.selectionEnd, "end");
+      const currentLine = value.slice(value.lastIndexOf("\n", start - 1) + 1, start);
+      const indent = (currentLine.match(/^[ \t]*/) || [""])[0];
+      const extra = currentLine.trimEnd().endsWith(":") ? "    " : "";
+      codeBox.setRangeText("\n" + indent + extra, start, end, "end");
+      updateLineNumbers();
+      return;
+    }
+
+    if (event.key === "Backspace" && start === end && start > 0 && pairs[value[start - 1]] === value[start]) {
+      event.preventDefault();
+      codeBox.setRangeText("", start - 1, start + 1, "start");
+      updateLineNumbers();
+      return;
+    }
+
+    if (closers.includes(event.key) && start === end && value[start] === event.key) {
+      event.preventDefault();
+      codeBox.setSelectionRange(start + 1, start + 1);
+      return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(pairs, event.key)) {
+      // Ikke legg inn ekstra anførselstegn midt i et ord eller i en apostrof.
+      if ((event.key === "'" || event.key === '"') && start === end && /[A-Za-zÆØÅæøå0-9]/.test(value[start - 1] || "")) return;
+      event.preventDefault();
+      const selected = value.slice(start, end);
+      codeBox.setRangeText(event.key + selected + pairs[event.key], start, end, "select");
+      const cursor = start + 1 + selected.length;
+      if (!selected) codeBox.setSelectionRange(start + 1, start + 1);
+      else codeBox.setSelectionRange(start + 1, cursor);
       updateLineNumbers();
     }
   });
