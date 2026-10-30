@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+<html lang="no">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Lær Python – Pythonverkstedet</title>
+<style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f6ff;
+      color: #24324a;
+    }
+
+    header {
+      background: #ffffff;
+      padding: 20px;
+      border-bottom: 1px solid #dce3f2;
+    }
+
+    header h1 { margin: 0 0 6px; color: #3657a5; }
+    header p { margin: 0; }
+
+    main {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 16px #24324a12;
+    }
+
+    .stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat {
+      background: #edf2ff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    #game {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      border: 3px solid #b8d5a1;
+      border-radius: 14px;
+      background: linear-gradient(#bde8ff 0 65%, #a7d98d 65%);
+      touch-action: manipulation;
+    }
+
+    #player, #coin {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      user-select: none;
+    }
+
+    #player {
+      left: 40px;
+      bottom: 25px;
+      width: 54px;
+      height: 54px;
+      font-size: 42px;
+    }
+
+    #coin {
+      left: 70%;
+      top: 45%;
+      width: 38px;
+      height: 38px;
+      font-size: 32px;
+    }
+
+    .controls, .customize {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    button, select, input {
+      font: inherit;
+      border-radius: 10px;
+      padding: 10px 14px;
+      border: 1px solid #cbd5e5;
+    }
+
+    button {
+      cursor: pointer;
+      background: #3657a5;
+      color: white;
+      border: 0;
+      font-weight: bold;
+    }
+
+    button:hover { background: #274582; }
+
+    .secondary {
+      background: #e9efff;
+      color: #24324a;
+    }
+
+    .secondary:hover { background: #d7e2ff; }
+
+    .hint {
+      background: #fff7df;
+      padding: 14px;
+      border-radius: 10px;
+      line-height: 1.5;
+    }
+
+    #message { min-height: 24px; font-weight: bold; }
+
+    #code {
+      background: #182235;
+      color: #dce8ff;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+
+    .python-editor-wrap {
+      display: grid;
+      grid-template-columns: 3.2rem minmax(0, 1fr);
+      border: 1px solid #cbd5e5;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fff;
+      margin-top: 12px;
+    }
+    .line-numbers {
+      margin: 0;
+      padding: 12px 8px 12px 0;
+      text-align: right;
+      color: #78859b;
+      background: #edf2f8;
+      border-right: 1px solid #d7dfeb;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      user-select: none;
+      overflow: hidden;
+    }
+    #python-code {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 230px;
+      resize: vertical;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      padding: 12px;
+      outline: none;
+      font: 16px/1.5 monospace;
+      white-space: pre;
+      overflow: auto;
+      tab-size: 4;
+    }
+    #task-solution {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #dce3f2;
+      border-radius: 10px;
+      background: #f8faff;
+    }
+    #task-solution-code {
+      display: block;
+      margin: 10px 0 0;
+      padding: 14px;
+      background: #182235;
+      color: #dce8ff;
+      border-radius: 8px;
+      font: 15px/1.6 monospace;
+      white-space: pre;
+      overflow-x: auto;
+      tab-size: 4;
+    }
+
+    label { font-weight: bold; }
+    footer { text-align: center; padding: 20px; color: #63718a; }
+    .site-nav {display:flex;flex-wrap:wrap;gap:12px;padding:12px 20px;background:#eaf0ff;border-bottom:1px solid #dce3f2;}
+    .site-nav a {color:#254a93;text-decoration:none;font-weight:bold;padding:10px 14px;border-radius:9px;background:white;}
+    .site-nav a[aria-current="page"] {background:#3657a5;color:white;}
+    .page-intro {max-width:1000px;margin:22px auto;padding:0 16px;}
+
+    /* Ny arbeidsflate: editor i midten og navigasjon til venstre */
+    body { padding:0; background:#f3f6ff; }
+    header { padding:19px max(20px, calc((100vw - 1380px)/2)); background:white; border-bottom:1px solid #dce3f2; }
+    header h1 { margin:0 0 5px; color:#3657a5; }
+    header p { margin:0; color:#53627b; }
+    main.workspace { max-width:1380px; margin:0 auto; padding:22px 18px; display:grid; grid-template-columns:245px minmax(0,1fr); gap:22px; align-items:start; }
+    .sidebar { position:sticky; top:18px; background:white; border:1px solid #e0e7f3; border-radius:16px; padding:15px; box-shadow:0 4px 16px #24324a0c; }
+    .sidebar-heading { font-size:.88rem; color:#63718a; font-weight:bold; padding:8px 10px 11px; }
+    .side-link { display:block; padding:13px 12px; margin-bottom:5px; text-decoration:none; color:#254a93; font-weight:600; border-radius:10px; background:#f5f8ff; }
+    .side-link:hover, .side-link:focus-visible { background:#e2ebff; outline-offset:2px; }
+    .side-link.active { background:#3657a5; color:white; }
+    .projects-title { margin-top:17px; border-top:1px solid #e2e7f1; padding-top:18px; }
+    .future-feature { padding:12px; border-radius:10px; background:#f5f7fa; color:#53627b; font-size:.85rem; line-height:1.5; }
+    .future-feature p { margin:7px 0 10px; }
+    .future-tag { display:inline-block; padding:5px 7px; border-radius:6px; background:#e9edf3; font-size:.77rem; }
+    .workspace-main { min-width:0; }
+    .editor-panel { background:white; padding:24px; border-radius:16px; border:1px solid #dce3f2; box-shadow:0 4px 16px #24324a12; color:#17324d; }
+    .editor-panel h2 { margin-top:0; color:#254a93; }
+    .editor-panel #python-code { min-height:310px; }
+    #oppgavebank { scroll-margin-top:18px; }
+    #editor { scroll-margin-top:18px; }
+    @media (max-width:850px) {
+      main.workspace { grid-template-columns:1fr; padding:14px; gap:14px; }
+      .sidebar { position:static; }
+      .sidebar .side-link { display:inline-block; margin:3px; padding:10px; }
+      .sidebar-heading { padding:6px; }
+      .projects-title { margin-top:10px; }
+      .editor-panel { padding:16px; }
+    }
+  </style>
+<style id="pv-shared-nav-style">
+#pv-shared-nav{position:fixed;top:0;left:0;bottom:0;width:232px;overflow-y:auto;z-index:9999;background:#fff;border-right:1px solid #dbe5f3;box-shadow:2px 0 15px #24324a12;padding:18px 12px;font:15px/1.4 Arial,sans-serif;color:#26374a;text-align:left}
+#pv-shared-nav .pv-brand{font-size:18px;font-weight:800;margin:4px 7px 17px}#pv-shared-nav a{display:block;color:#254a76;text-decoration:none;padding:11px 9px;border-radius:9px;margin:3px 0;font-size:14px;font-weight:650;background:transparent;border:0;box-shadow:none}#pv-shared-nav a:hover{background:#edf4ff}#pv-shared-nav a[aria-current=page]{background:#dceafd;color:#163c79}#pv-shared-nav summary{display:none}
+body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
+@media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
+</style><style>
+/* Skjul gammel prosjektmeny; kun den felles sidemenyen skal vises. */
+.sidebar,.projects-title,.future-feature{display:none!important}
+ /* Kode og læringsløype ved siden av hverandre */
+main.workspace{display:block;grid-template-columns:none;max-width:1680px!important;}
+.workspace-main{display:grid;grid-template-columns:minmax(290px,1fr) minmax(310px,1fr);gap:18px;align-items:start;min-width:0}
+#editor{position:sticky;top:12px;min-width:0}
+#oppgavebank{min-width:0;max-height:calc(100vh - 35px);overflow-y:auto;overscroll-behavior:contain;padding:20px}
+#task-detail{position:relative;margin:0 0 18px!important;scroll-margin-top:10px}
+#learning-topics{margin-top:12px!important}
+#task-solution{max-width:100%!important;overflow:auto}
+@media(max-width:760px){.workspace-main{grid-template-columns:1fr}#editor{position:static}#oppgavebank{max-height:none;overflow:visible}}
+</style></head>
+<body><nav aria-label="Felles meny for Pythonverkstedet" id="pv-shared-nav"><div class="pv-brand">🐍 Pythonverkstedet</div><details open=""><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a aria-current="page" href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html">🐱 Spill kattespillet</a></div></details></nav>
+<header>
+<h1>🐍 Pythonverkstedet</h1>
+<p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
+</header>
+<main class="workspace">
+
+<div class="workspace-main">
+<section class="editor-panel" id="editor">
+<h2>💻 Prøv Python-koden din</h2>
+<p>Kodefeltet starter tomt. Velg en oppgave til høyre og skriv koden din her. Parenteser og anførselstegn lukkes automatisk.</p>
+<div class="python-editor-wrap">
+<pre aria-hidden="true" class="line-numbers" id="line-numbers">1
+2
+3
+4
+5</pre>
+<textarea aria-label="Python-kode" id="python-code" rows="9" spellcheck="false"></textarea>
+</div>
+
+<button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button><button id="pv-load-code" style="margin:8px 6px 0 0;padding:11px 14px;border:0;border-radius:8px;background:#3657a5;color:white;font-weight:700;cursor:pointer;" type="button">📂 Åpne lagret kode</button><button id="pv-save-code" style="margin:8px 6px 0 0;padding:11px 14px;border:0;border-radius:8px;background:#3657a5;color:white;font-weight:700;cursor:pointer;" type="button">💾 Lagre koden</button><p id="pv-save-status" role="status"></p>
+<div hidden="" id="input-area" style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
+<label for="python-answer" id="input-question">Skriv svaret ditt:</label>
+<input id="python-answer" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;" type="text"/>
+<button id="send-answer" style="margin-top: 8px; padding: 10px;">Send svar</button>
+</div>
+<h3>Resultat</h3>
+<pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
+<p id="python-status" role="status">Laster Python-motoren …</p>
+</section>
+<section class="panel" id="oppgavebank"><div id="task-detail" style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
+<h3 id="task-title">Velg en oppgave</h3>
+<p id="task-description">Velg «Åpne oppgave» under et tema. Oppgaveteksten og hintene vises her ved siden av kodefeltet.</p>
+<div id="task-actions" style="display:none;flex-wrap:wrap;gap:8px;margin:12px 0;">
+<button id="load-task" type="button">Bruk startkode i editoren</button>
+<button class="secondary" id="toggle-hint" type="button">Vis hint</button>
+<button class="secondary" id="toggle-solution" type="button">Vis løsningsforslag</button>
+</div>
+<div hidden="" id="task-hint" style="background:#fff7df;padding:12px;border-radius:8px;margin:8px 0;"></div>
+<p id="task-load-status" role="status"></p>
+<div hidden="" id="task-solution" style="max-width:760px;margin:12px 0 18px;padding:16px;background:#f8faff;border:1px solid #dce3f2;border-radius:12px;">
+<strong>Løsningsforslag for valgt oppgave</strong>
+<p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
+<pre id="task-solution-code"></pre>
+</div></div>
+<h2>📘 Velg tema og oppgave</h2>
+<p>Velg et tema og et nivå. Oppgavene går fra enkle øvelser til større utfordringer. Temaene om bevegelse og figurer øves her med tekst og koordinater; grafiske figurer lager du i Turtle- og Fiskespillverkstedet.</p>
+<label for="topic-select" style="display:block;font-weight:700;margin:12px 0 7px">Tema</label>
+<select id="topic-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"></select>
+<label for="level-select" style="display:block;font-weight:700;margin:12px 0 7px">Vanskelighetsgrad</label><select id="level-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"><option value="alle">Alle nivåer</option><option value="1">Nivå 1 – Kom i gang</option><option value="2">Nivå 2 – Øv videre</option><option value="3">Nivå 3 – Utfordring</option></select><div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
+
+</section>
+</div>
+</main>
+<footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
+<script>
+(function () {
+  const tasks = [
+    {topic:"Variabler", title:"1. Si hei!", description:"Spør brukeren om navnet og skriv en personlig hilsen.", start:'name = input("Hva heter du? ")\\nprint("Hei,", name)', hint:"Lagre svaret fra input() i en variabel. Bruk print() til å skrive ut navnet.", solution:'name = input("Hva heter du? ")\\nprint("Hei,", name)'},
+    {topic:"Variabler", title:"2. Alder neste år", description:"Spør hvor gammel brukeren er, og skriv ut alderen neste år.", start:'age = int(input("Hvor gammel er du? "))\\n# Skriv koden din under', hint:"Gjør svaret om til et heltall med int(), og legg til 1.", solution:'age = int(input("Hvor gammel er du? "))\\nnext_age = age + 1\\nprint("Neste år er du", next_age)'},
+    {topic:"Variabler", title:"3. Butikkalkulator", description:"Regn ut totalprisen når brukeren skriver inn pris og antall.", start:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\n# Regn ut og skriv ut totalprisen', hint:"Totalpris er pris per vare ganget med antall varer.", solution:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\ntotal = price * quantity\\nprint("Totalpris:", total)'},
+    {topic:"Variabler", title:"4. Poengtavle", description:"Spør hvor mange poeng spilleren har, og skriv ut poengsummen.", start:'score = int(input("Hvor mange poeng har du? "))\\n# Skriv ut en melding med poengsummen', hint:"Variabelen score inneholder tallet brukeren skrev inn.", solution:'score = int(input("Hvor mange poeng har du? "))\\nprint("Du har", score, "poeng!")'},
+    {topic:"Vilkår", title:"5. Er du gammel nok?", description:"Hvis brukeren er 13 år eller eldre, skriv «Du kan bli med!». Ellers skriv «Du må vente litt til».", start:'age = int(input("Hvor gammel er du? "))\\n\\n# Skriv if og else her', hint:"Sammenlign age med 13. Husk kolon og innrykk under if og else.", solution:'age = int(input("Hvor gammel er du? "))\\nif age >= 13:\\n    print("Du kan bli med!")\\nelse:\\n    print("Du må vente litt til")'},
+    {topic:"Vilkår", title:"6. Positivt eller negativt?", description:"Spør etter et tall, og fortell om det er positivt, negativt eller null.", start:'number = int(input("Skriv et tall: "))\\n# Sjekk tallet', hint:"Bruk if number > 0, elif number < 0 og else.", solution:'number = int(input("Skriv et tall: "))\\nif number > 0:\\n    print("Positivt")\\nelif number < 0:\\n    print("Negativt")\\nelse:\\n    print("Null")'},
+    {topic:"Vilkår", title:"7. Poeng og premie", description:"Hvis spilleren har minst 10 poeng, gi en premie. Ellers oppmuntre spilleren til å prøve igjen.", start:'score = int(input("Poeng: "))\\n# Lag en if/else-test', hint:"Sjekk om score er større enn eller lik 10.", solution:'score = int(input("Poeng: "))\\nif score >= 10:\\n    print("Du får en premie!")\\nelse:\\n    print("Prøv igjen!")'},
+    {topic:"Vilkår", title:"8. Par eller oddetall", description:"Finn ut om et heltall er partall eller oddetall.", start:'number = int(input("Skriv et heltall: "))\\n# Bruk modulo (%)', hint:"Et partall gir resten 0 når du deler på 2: number % 2 == 0.", solution:'number = int(input("Skriv et heltall: "))\\nif number % 2 == 0:\\n    print("Partall")\\nelse:\\n    print("Oddetall")'},
+    {topic:"Løkker", title:"9. Tell til ti", description:"Skriv ut tallene fra 1 til og med 10 ved hjelp av en for-løkke.", start:'# Skriv en for-løkke som teller til 10', hint:"range(1, 11) gir tallene 1 til 10.", solution:'for number in range(1, 11):\\n    print(number)'},
+    {topic:"Løkker", title:"10. Gangetabellen", description:"Spør etter et tall og skriv ut gangetabellen fra 1 til 10.", start:'number = int(input("Hvilken gangetabell? "))\\n# Bruk en løkke', hint:"Gå gjennom tallene 1 til 10 og skriv ut number * i.", solution:'number = int(input("Hvilken gangetabell? "))\\nfor i in range(1, 11):\\n    print(number, "x", i, "=", number * i)'},
+    {topic:"Løkker", title:"11. Samle fem mynter", description:"Bruk en løkke til å skrive «Mynt samlet!» fem ganger.", start:'# Gjenta en melding fem ganger', hint:"En for-løkke med range(5) kjører fem ganger.", solution:'for i in range(5):\\n    print("Mynt samlet!")'},
+    {topic:"Løkker", title:"12. Gjett passordet", description:"Fortsett å spørre til brukeren skriver riktig passord: python123.", start:'password = ""\\n# Bruk while til passordet er riktig', hint:"while password != 'python123': gjentar så lenge passordet er feil.", solution:'password = input("Passord: ")\\nwhile password != "python123":\\n    print("Feil passord, prøv igjen.")\\n    password = input("Passord: ")\\nprint("Riktig passord!")'},
+    {topic:"Lister", title:"13. Favorittmat", description:"Lag en liste med tre matretter og skriv ut hele listen.", start:'# Lag en liste med tre favorittretter', hint:"Lister skrives med hakeparenteser, og tekstverdier må stå i anførselstegn.", solution:'foods = ["pizza", "taco", "sushi"]\\nprint(foods)'},
+    {topic:"Lister", title:"14. Handlelisten", description:"Lag en handleliste og legg til en ny vare med append().", start:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\n# Legg varen til i listen', hint:"Bruk shopping.append(new_item).", solution:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\nshopping.append(new_item)\\nprint(shopping)'},
+    {topic:"Lister", title:"15. Høyeste poengsum", description:"Finn den høyeste poengsummen i listen.", start:'scores = [4, 12, 7, 9, 15]\\n# Finn og skriv ut høyeste poengsum', hint:"Python har en innebygd funksjon som heter max().", solution:'scores = [4, 12, 7, 9, 15]\\nprint("Høyeste poengsum:", max(scores))'},
+    {topic:"Lister", title:"16. Tilfeldig premie", description:"Trekk en tilfeldig premie fra en liste.", start:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\n# Trekk en premie', hint:"Bruk random.choice(prizes).", solution:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\nprize = random.choice(prizes)\\nprint("Du vant:", prize)'},
+    {topic:"Funksjoner", title:"17. Min egen hilsen", description:"Lag en funksjon som skriver en hilsen, og kall funksjonen.", start:'# Lag funksjonen greet og kall den', hint:"Start med def greet(): og skriv funksjonskroppen med innrykk.", solution:'def greet():\\n    print("Hei og velkommen!")\\n\\ngreet()'},
+    {topic:"Funksjoner", title:"18. Dobbelt så mye", description:"Lag en funksjon som tar imot et tall og returnerer det dobbelte.", start:'def double(number):\\n    # Returner det dobbelte av number\\n    pass\\n\\nprint(double(6))', hint:"Bruk return number * 2.", solution:'def double(number):\\n    return number * 2\\n\\nprint(double(6))'},
+    {topic:"Funksjoner", title:"19. Lag en terning", description:"Lag en funksjon som returnerer et tilfeldig tall fra 1 til 6.", start:'import random\\n\\ndef roll_dice():\\n    # Returner et tilfeldig tall fra 1 til 6\\n    pass\\n\\nprint(roll_dice())', hint:"Bruk random.randint(1, 6).", solution:'import random\\n\\ndef roll_dice():\\n    return random.randint(1, 6)\\n\\nprint(roll_dice())'},
+    {topic:"Funksjoner", title:"20. Poengfunksjonen", description:"Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.", start:'def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))', hint:"Funksjonen skal returnere summen av score og points.", solution:'def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))'}
+,
+    {"topic": "Tilfeldighet", "title": "21. Kast en terning", "description": "Skriv ut et tilfeldig tall mellom 1 og 6.", "start": "import random\n# Kast terningen", "hint": "Bruk random.randint(1, 6).", "solution": "import random\nprint(random.randint(1, 6))"},
+    {"topic": "Tilfeldighet", "title": "22. Trekk en premie", "description": "Velg tilfeldig en premie fra en liste.", "start": "import random\npremier = ['stjerne', 'mynt', 'hjerte']", "hint": "Bruk random.choice().", "solution": "import random\npremier = ['stjerne', 'mynt', 'hjerte']\nprint(random.choice(premier))"},
+    {"topic": "Tilfeldighet", "title": "23. Tilfeldig bobleplassering", "description": "Lag fem tilfeldige x-posisjoner for bobler.", "start": "import random\n# Bruk en for-løkke", "hint": "Bruk randint(-100, 100) inni range(5).", "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    print('Boble', i + 1, 'x=', x)"},
+    {"topic": "Tilfeldighet", "title": "24. Unngå en tilfeldig hindring", "description": "Trekk en tilfeldig posisjon og sjekk om den er nær spilleren.", "start": "import random\nspiller_x = 0", "hint": "Bruk abs(spiller_x - hinder_x) < 20.", "solution": "import random\nspiller_x = 0\nhinder_x = random.randint(-50, 50)\nprint('Hinder:', hinder_x)\nif abs(spiller_x - hinder_x) < 20:\n    print('Pass opp!')\nelse:\n    print('Trygt!')"},
+    {"topic": "Koordinater", "title": "25. Flytt til høyre", "description": "Start med x=0 og flytt figuren 15 plasser mot høyre.", "start": "x = 0", "hint": "Legg 15 til x.", "solution": "x = 0\nx += 15\nprint(x)"},
+    {"topic": "Koordinater", "title": "26. Finn posisjonen", "description": "Start på (10, 20), flytt 5 til venstre og 10 opp.", "start": "x, y = 10, 20", "hint": "Venstre betyr minus på x; opp betyr pluss på y.", "solution": "x, y = 10, 20\nx -= 5\ny += 10\nprint(x, y)"},
+    {"topic": "Koordinater", "title": "27. Hold figuren innenfor banen", "description": "Begrens x slik at den alltid er mellom -100 og 100.", "start": "x = 135", "hint": "Bruk if og sett x=100 når den er for stor.", "solution": "x = 135\nif x > 100:\n    x = 100\nif x < -100:\n    x = -100\nprint(x)"},
+    {"topic": "Koordinater", "title": "28. Tilfeldige koordinater", "description": "Lag fem tilfeldige (x,y)-posisjoner.", "start": "import random", "hint": "Trekk x og y hver for seg i en løkke.", "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    y = random.randint(-100, 100)\n    print(x, y)"},
+    {"topic": "Bevegelse", "title": "29. Svøm oppover", "description": "Øk y-posisjonen med 10 tre ganger.", "start": "y = 0", "hint": "Bruk for-løkke og y += 10.", "solution": "y = 0\nfor i in range(3):\n    y += 10\n    print(y)"},
+    {"topic": "Bevegelse", "title": "30. Fire retninger", "description": "Bruk if/elif til å endre x eller y ut fra retningen.", "start": "x, y = 0, 0\nretning = 'venstre'", "hint": "Venstre: x -= 10; høyre: x += 10; opp: y += 10; ned: y -= 10.", "solution": "x, y = 0, 0\nretning = 'venstre'\nif retning == 'opp':\n    y += 10\nelif retning == 'ned':\n    y -= 10\nelif retning == 'venstre':\n    x -= 10\nelif retning == 'høyre':\n    x += 10\nprint(x, y)"},
+    {"topic": "Bevegelse", "title": "31. Bevegelse som funksjon", "description": "Lag en funksjon flytt(x,y,retning) som returnerer ny posisjon.", "start": "# def flytt(x, y, retning):", "hint": "Bruk return x, y etter if/elif.", "solution": "def flytt(x, y, retning):\n    if retning == 'opp':\n        y += 10\n    elif retning == 'ned':\n        y -= 10\n    elif retning == 'venstre':\n        x -= 10\n    elif retning == 'høyre':\n        x += 10\n    return x, y\nprint(flytt(0, 0, 'opp'))"},
+    {"topic": "Bevegelse", "title": "32. Tilfeldig svømmetur", "description": "La figuren ta ti tilfeldige steg og skriv ut sluttposisjonen.", "start": "import random\nx, y = 0, 0", "hint": "Velg retning med random.choice(['opp','ned','venstre','høyre']).", "solution": "import random\nx, y = 0, 0\nfor i in range(10):\n    retning = random.choice(['opp', 'ned', 'venstre', 'høyre'])\n    if retning == 'opp': y += 1\n    elif retning == 'ned': y -= 1\n    elif retning == 'venstre': x -= 1\n    else: x += 1\nprint('Sluttposisjon:', x, y)"},
+    {"topic": "Figurer", "title": "33. Lag en strek", "description": "Skriv ut en strek av åtte stjerner.", "start": "# Skriv ut åtte stjerner", "hint": "Du kan gange en tekst med et tall.", "solution": "print('*' * 8)"},
+    {"topic": "Figurer", "title": "34. Lag en firkant", "description": "Skriv ut en firkant med fire rader og seks stjerner på hver rad.", "start": "# Bruk en for-løkke", "hint": "Skriv ut '*' * 6 fire ganger.", "solution": "for rad in range(4):\n    print('*' * 6)"},
+    {"topic": "Figurer", "title": "35. Lag en trekant", "description": "Lag en trekant med én, to, tre, fire og fem stjerner.", "start": "# Bruk range(1, 6)", "hint": "Antall stjerner er radnummeret.", "solution": "for rad in range(1, 6):\n    print('*' * rad)"},
+    {"topic": "Figurer", "title": "36. Lag en egen figur", "description": "Lag en diamant av stjerner med to løkker.", "start": "# Lag øvre og nedre halvdel", "hint": "Bruk mellomrom og stjerner for å sentrere.", "solution": "for i in range(1, 5):\n    print(' ' * (4-i) + '*' * (2*i-1))\nfor i in range(3, 0, -1):\n    print(' ' * (4-i) + '*' * (2*i-1))"},
+    {"topic": "Kollisjon", "title": "37. Er det treff?", "description": "Sjekk om to x-posisjoner er nærmere enn 10.", "start": "fisk_x = 20\nboble_x = 26", "hint": "Bruk abs() til å finne avstanden.", "solution": "fisk_x = 20\nboble_x = 26\nif abs(fisk_x - boble_x) < 10:\n    print('Treff!')"},
+    {"topic": "Kollisjon", "title": "38. Hvite gir poeng", "description": "Legg til ett poeng hvis fisken er nær den hvite boblen.", "start": "score = 0\nfisk_x, boble_x = 5, 8", "hint": "Øk score når avstanden er under 5.", "solution": "score = 0\nfisk_x, boble_x = 5, 8\nif abs(fisk_x - boble_x) < 5:\n    score += 1\nprint('Poeng:', score)"},
+    {"topic": "Kollisjon", "title": "39. Røde trekker fra", "description": "Trekk fra ett poeng ved treff på en rød ball. Poeng skal aldri bli negativt.", "start": "score = 2\nfisk_x, rod_x = 5, 8", "hint": "Bruk max(0, score - 1).", "solution": "score = 2\nfisk_x, rod_x = 5, 8\nif abs(fisk_x - rod_x) < 5:\n    score = max(0, score - 1)\nprint('Poeng:', score)"},
+    {"topic": "Kollisjon", "title": "40. Kollisjon i to dimensjoner", "description": "Finn ut om fisken er nær en boble ved å sjekke både x og y.", "start": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14", "hint": "Bruk avstand: ((dx**2 + dy**2)**0.5) < 10.", "solution": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14\ndx = fisk_x - boble_x\ndy = fisk_y - boble_y\nif (dx**2 + dy**2)**0.5 < 10:\n    print('Boble fanget!')"},
+    {"topic": "Spilløkker", "title": "41. Tre runder", "description": "Lag en løkke som teller tre runder og skriver ut poeng.", "start": "poeng = 0", "hint": "Bruk range(3) og øk poeng.", "solution": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde+1, 'poeng:', poeng)"},
+    {"topic": "Spilløkker", "title": "42. Spill til fem poeng", "description": "Bruk while for å spille til poengsummen er fem.", "start": "poeng = 0", "hint": "while poeng < 5: og øk poeng.", "solution": "poeng = 0\nwhile poeng < 5:\n    poeng += 1\n    print('Poeng:', poeng)\nprint('Du vant!')"},
+    {"topic": "Spilløkker", "title": "43. Fang eller unngå", "description": "Lag fem tilfeldige hendelser der hvit gir +1 og rød gir -1.", "start": "import random\npoeng = 0", "hint": "Bruk random.choice og max(0, poeng-1).", "solution": "import random\npoeng = 0\nfor runde in range(5):\n    ball = random.choice(['hvit', 'rød'])\n    if ball == 'hvit':\n        poeng += 1\n    else:\n        poeng = max(0, poeng - 1)\n    print(ball, 'poeng:', poeng)"},
+    {"topic": "Spilløkker", "title": "44. Lag et lite tekstspill", "description": "La brukeren velge mellom å fange boble eller unngå hindring i tre runder.", "start": "poeng = 0\n# Tre runder med input()", "hint": "Bruk for, input og if/else. Gi poeng for 'fang'.", "solution": "poeng = 0\nfor runde in range(3):\n    valg = input('Skriv fang eller unngå: ').lower()\n    if valg == 'fang':\n        poeng += 1\n        print('Boble fanget!')\n    elif valg == 'unngå':\n        print('Du unngikk hindringen!')\n    else:\n        print('Ukjent valg')\nprint('Poeng:', poeng)"},
+    {"topic": "Matematikk", "title": "45. Regn med math", "description": "Importer math. Skriv ut kvadratroten av 81 med math.sqrt(), og prøv et annet tall.", "start": "import math\n\n# Finn kvadratroten av 81", "hint": "Bruk math.sqrt(81). Husk import math øverst.", "solution": "import math\n\nprint(math.sqrt(81))"},
+    {"topic": "Matematikk", "title": "46. Rund opp antall lag", "description": "Det er 23 elever. Det kan være maks 4 elever på hvert lag. Finn antall lag med math.ceil().", "start": "import math\nelever = 23\nmaks_per_lag = 4\n\n# Hvor mange lag trengs?", "hint": "Del elever på maks_per_lag og rund opp med math.ceil().", "solution": "import math\nelever = 23\nmaks_per_lag = 4\nlag = math.ceil(elever / maks_per_lag)\nprint(\"Vi trenger\", lag, \"lag\")"},
+    {"topic": "Matematikk", "title": "47. Sirkelens omkrets", "description": "Spør etter radiusen og regn ut sirkelens omkrets med math.pi. Avrund svaret til to desimaler.", "start": "import math\nradius = float(input(\"Radius: \"))\n\n# Finn og skriv ut omkretsen", "hint": "Omkretsen er 2 * math.pi * radius. Bruk round(verdi, 2) når du skriver ut.", "solution": "import math\nradius = float(input(\"Radius: \"))\nomkrets = 2 * math.pi * radius\nprint(\"Omkrets:\", round(omkrets, 2))"},
+    {"topic": "Matematikk", "title": "48. Avstand mellom to spillfigurer", "description": "To figurer står i (2, 3) og (8, 11). Finn avstanden mellom dem med math.sqrt().", "start": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\n\n# Finn avstanden", "hint": "Finn forskjellen i x og y. Bruk math.sqrt(dx ** 2 + dy ** 2).", "solution": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\ndx = x2 - x1\ndy = y2 - y1\navstand = math.sqrt(dx ** 2 + dy ** 2)\nprint(\"Avstand:\", avstand)"}
+  ];
+
+  const topicsContainer = document.getElementById("learning-topics");
+  const detail = document.getElementById("task-detail");
+  const title = document.getElementById("task-title");
+  const description = document.getElementById("task-description");
+  const hint = document.getElementById("task-hint");
+  const solution = document.getElementById("task-solution");
+  const solutionCode = document.getElementById("task-solution-code");
+  const loadStatus = document.getElementById("task-load-status");
+  let selectedTask = null;
+
+  const lessons = [
+    {
+      topic: "Variabler",
+      title: "1. Variabler og input",
+      intro: "En variabel er en navngitt plass der vi lagrer en verdi. input() lar brukeren skrive noe, og print() viser tekst på skjermen.",
+      example: 'name = input("Hva heter du? ")\\nprint("Hei,", name)',
+      tryText: "Prøv å endre eksempelet slik at programmet også spør hvor gammel brukeren er."
+    },
+    {
+      topic: "Vilkår",
+      title: "2. Vilkår: if, elif og else",
+      intro: "Vilkår lar programmet velge hva det skal gjøre. Python bruker kolon etter vilkåret og innrykk på linjene som hører til.",
+      example: 'points = int(input("Hvor mange poeng? "))\\nif points >= 5:\\n    print("Du vant!")\\nelse:\\n    print("Prøv igjen!")',
+      tryText: "Prøv med 3 poeng og deretter 7 poeng. Se hvordan resultatet endrer seg."
+    },
+    {
+      topic: "Løkker",
+      title: "3. Løkker: gjenta kode",
+      intro: "En for-løkke gjentar kode et bestemt antall ganger. Linjene som skal gjentas, må stå med innrykk under løkken.",
+      example: 'for number in range(1, 6):\\n    print(number)',
+      tryText: "Prøv å skrive ut tallene fra 1 til 10."
+    },
+    {
+      topic: "Lister",
+      title: "4. Lister: samle flere verdier",
+      intro: "En liste samler flere verdier i én variabel. Hvert element har en plassering, og append() legger til et nytt element på slutten.",
+      example: 'foods = ["pizza", "taco", "sushi"]\\nfoods.append("pasta")\\nprint(foods)',
+      tryText: "Prøv å legge til en matrett du liker, og skriv ut listen."
+    },
+    {
+      topic: "Funksjoner",
+      title: "5. Funksjoner: lag egne kommandoer",
+      intro: "En funksjon samler kode som kan brukes flere ganger. def lager funksjonen, og parentesene kan inneholde verdier som sendes inn.",
+      example: 'def greet(name):\\n    print("Hei,", name)\\n\\ngreet("Ada")',
+      tryText: "Prøv å endre funksjonen slik at den skriver en annen hilsen."
+    }
+,
+    {"topic": "Tilfeldighet", "title": "6. Tilfeldighet og random", "intro": "Spill bruker tilfeldige tall for å plassere premier, bobler og hindringer. import random må stå øverst.", "example": "import random\nprint(random.randint(1, 6))", "tryText": "Endre intervallet og kjør flere ganger."},
+    {"topic": "Koordinater", "title": "7. Koordinater og posisjon", "intro": "En figur i et spill har en x-posisjon (sideveis) og en y-posisjon (oppover/nedover). Vi kan regne med koordinater før vi tegner figuren.", "example": "x = 0\ny = 0\nx = x + 10\nprint('Posisjon:', x, y)", "tryText": "Flytt figuren både vannrett og loddrett."},
+    {"topic": "Bevegelse", "title": "8. Bevegelse og retning", "intro": "I spill flytter vi en figur ved å endre x og y. Retningen kan representeres med tekst eller vinkler: 0=høyre, 90=opp, 180=venstre, 270=ned.", "example": "x = 0\ny = 0\nretning = 'opp'\nif retning == 'opp':\n    y += 10\nprint(x, y)", "tryText": "Prøv andre retninger."},
+    {"topic": "Figurer", "title": "9. Lag figurer med kode", "intro": "Vi kan lage enkle figurer med teksttegn og løkker. I Turtle- og Fiskespillverkstedet tegnes figurene grafisk. Her øver vi på Python-logikken.", "example": "for rad in range(3):\n    print('*' * 5)", "tryText": "Endre antall rader og bredden."},
+    {"topic": "Kollisjon", "title": "10. Kollisjon og poeng", "intro": "En kollisjon oppstår når to figurer er nær hverandre. Vi kan bruke koordinater og avstand til å bestemme om spilleren får eller mister poeng.", "example": "fisk_x = 10\nboble_x = 13\nif abs(fisk_x - boble_x) < 5:\n    print('Treff!')", "tryText": "Endre koordinatene slik at det ikke blir treff."},
+    {"topic": "Spilløkker", "title": "11. Spilløkker og små spill", "intro": "Et spill gjentar handlinger, oppdaterer posisjoner og sjekker regler. Her lager vi tekstbaserte minispill med løkker og funksjoner.", "example": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde + 1, 'poeng', poeng)", "tryText": "Endre hva som gir poeng."},
+    {"topic": "Matematikk", "title": "12. Matematikk med math", "intro": "Pythons innebygde math-modul har blant annet kvadratrøtter, pi og funksjoner for avrunding. Start med import math. math er en del av Python og er ikke det samme som den eksterne pakken mathpy.", "example": "import math\nprint(math.sqrt(81))\nprint(round(math.pi, 2))", "tryText": "Prøv å finne kvadratroten av 144 eller regne ut omkretsen av en sirkel."}
+  ];
+
+  tasks.forEach((task, i) => { const topicIndex = tasks.filter(t => t.topic === task.topic).indexOf(task); task.level = topicIndex === 0 ? 1 : topicIndex === 1 ? 2 : 3; });
+  document.getElementById("level-select").addEventListener("change", renderTasks);
+
+  function renderTasks() {
+    topicsContainer.replaceChildren();
+    const chosenTopic = document.getElementById("topic-select").value;
+    lessons.filter(lesson => lesson.topic === chosenTopic).forEach((lesson) => {
+      const section = document.createElement("section");
+      section.style.cssText = "border:1px solid #dce3f2;border-radius:14px;padding:18px;background:#f8faff;";
+      const heading = document.createElement("h3");
+      heading.textContent = lesson.title;
+      heading.style.marginTop = "0";
+      const intro = document.createElement("p");
+      intro.textContent = lesson.intro;
+      const exampleLabel = document.createElement("strong");
+      exampleLabel.textContent = "Kodeeksempel";
+      const example = document.createElement("pre");
+      example.textContent = lesson.example.replace(/\\n/g, "\n");
+      example.style.cssText = "white-space:pre;overflow-x:auto;background:#182235;color:#dce8ff;padding:14px;border-radius:8px;font:15px/1.6 monospace;tab-size:4;";
+      const tryText = document.createElement("p");
+      tryText.textContent = lesson.tryText;
+      const lessonButton = document.createElement("button");
+      lessonButton.type = "button";
+      lessonButton.textContent = "Prøv eksempelet i Python-editoren";
+      lessonButton.addEventListener("click", () => {
+        const codeBox = document.getElementById("python-code");
+        codeBox.value = lesson.example.replace(/\\n/g, "\n");
+        codeBox.dispatchEvent(new Event("input", {bubbles:true}));
+        codeBox.focus({preventScroll:true});
+      });
+      const tasksHeading = document.createElement("h4");
+      tasksHeading.textContent = "Oppgaver i temaet";
+      tasksHeading.style.margin = "22px 0 10px";
+      const cards = document.createElement("div");
+      cards.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;";
+      tasks.filter(task => task.topic === lesson.topic && (document.getElementById("level-select").value === "alle" || String(task.level) === document.getElementById("level-select").value)).forEach(task => {
+        const card = document.createElement("div");
+        card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
+        const taskHeading = document.createElement("h4");
+        taskHeading.textContent = task.title + " · Nivå " + task.level;
+        taskHeading.style.marginTop = "0";
+        const text = document.createElement("p");
+        text.textContent = task.description;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Åpne oppgave";
+        button.addEventListener("click", () => openTask(task));
+        card.append(taskHeading, text, button);
+        cards.append(card);
+      });
+      section.append(heading, intro, exampleLabel, example, tryText, lessonButton, tasksHeading, cards);
+      topicsContainer.append(section);
+    });
+  }
+
+  function openTask(task) {
+    selectedTask = task;
+    title.textContent = task.title;
+    description.textContent = task.description;
+    hint.textContent = "Hint: " + task.hint;
+    solutionCode.textContent = task.solution.replace(/\\n/g, "\n");
+    hint.hidden = true;
+    solution.hidden = true;
+    document.getElementById("toggle-hint").textContent = "Vis hint";
+    document.getElementById("toggle-solution").textContent = "Vis løsningsforslag";
+    detail.hidden = false;
+    document.getElementById("task-actions").style.display = "flex";
+    loadStatus.textContent = "";
+    document.getElementById("oppgavebank").scrollTo({top:0,behavior:"smooth"});
+  }
+
+  document.getElementById("load-task").addEventListener("click", () => {
+    if (!selectedTask) return;
+    const editor = document.getElementById("python-code");
+    editor.value = selectedTask.start.replace(/\\n/g, "\n");
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+    document.getElementById("python-output").textContent = "";
+    document.getElementById("python-status").textContent = "Startkoden er lagt inn. Prøv å fullføre oppgaven!";
+    
+    loadStatus.textContent = "Startkoden er lagt inn i Python-editoren.";
+  });
+
+  document.getElementById("toggle-hint").addEventListener("click", () => {
+    hint.hidden = !hint.hidden;
+    document.getElementById("toggle-hint").textContent = hint.hidden ? "Vis hint" : "Skjul hint";
+  });
+  document.getElementById("toggle-solution").addEventListener("click", () => {
+    solution.hidden = !solution.hidden;
+    document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
+    if (!solution.hidden) document.getElementById("oppgavebank").scrollTo({top:0,behavior:"smooth"});
+  });
+  const topicSelect = document.getElementById("topic-select");
+  lessons.forEach(lesson => {
+    const option = document.createElement("option");
+    option.value = lesson.topic;
+    option.textContent = lesson.title;
+    topicSelect.append(option);
+  });
+  topicSelect.addEventListener("change", () => {
+    selectedTask = null;
+    title.textContent = "Velg en oppgave";
+    description.textContent = "Velg en oppgave under temaet. Oppgavetekst og hint vises her.";
+    document.getElementById("task-actions").style.display = "none";
+    hint.hidden = true;
+    solution.hidden = true;
+    loadStatus.textContent = "";
+    renderTasks();
+    document.getElementById("oppgavebank").scrollTo({top:0});
+  });
+  renderTasks();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script>
+(function () {
+  const codeBox = document.getElementById("python-code");
+  const lineNumbers = document.getElementById("line-numbers");
+
+  function updateLineNumbers() {
+    const count = Math.max(1, codeBox.value.split("\n").length);
+    lineNumbers.textContent = Array.from({length: count}, (_, i) => i + 1).join("\n");
+    lineNumbers.scrollTop = codeBox.scrollTop;
+  }
+
+  codeBox.addEventListener("input", updateLineNumbers);
+  codeBox.addEventListener("scroll", () => { lineNumbers.scrollTop = codeBox.scrollTop; });
+
+  // Editorhjelp: lukk parenteser og anførselstegn automatisk.
+  // Markert tekst omsluttes; skriv en avsluttende parentes for å hoppe over den som allerede finnes.
+  codeBox.addEventListener("keydown", (event) => {
+    if (event.isComposing || event.ctrlKey || event.metaKey || event.altKey) return;
+    const start = codeBox.selectionStart;
+    const end = codeBox.selectionEnd;
+    const value = codeBox.value;
+    const pairs = {"(": ")", "[": "]", "{": "}", '"': '"', "'": "'"};
+    const closers = [")", "]", "}", '"', "'"];
+
+    if (event.key === "Tab") {
+      event.preventDefault();
+      if (event.shiftKey) {
+        const lineStart = value.lastIndexOf("\n", start - 1) + 1;
+        const prefix = value.slice(lineStart, start);
+        const spaces = (prefix.match(/^ {1,4}/) || [""])[0].length;
+        if (spaces) {
+          codeBox.setRangeText("", lineStart, lineStart + spaces, "preserve");
+          codeBox.setSelectionRange(Math.max(lineStart, start - spaces), Math.max(lineStart, end - spaces));
+        }
+      } else {
+        codeBox.setRangeText("    ", start, end, "end");
+      }
+      updateLineNumbers();
+      return;
+    }
+
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const currentLine = value.slice(value.lastIndexOf("\n", start - 1) + 1, start);
+      const indent = (currentLine.match(/^[ \t]*/) || [""])[0];
+      const extra = currentLine.trimEnd().endsWith(":") ? "    " : "";
+      codeBox.setRangeText("\n" + indent + extra, start, end, "end");
+      updateLineNumbers();
+      return;
+    }
+
+    if (event.key === "Backspace" && start === end && start > 0 && pairs[value[start - 1]] === value[start]) {
+      event.preventDefault();
+      codeBox.setRangeText("", start - 1, start + 1, "start");
+      updateLineNumbers();
+      return;
+    }
+
+    if (closers.includes(event.key) && start === end && value[start] === event.key) {
+      event.preventDefault();
+      codeBox.setSelectionRange(start + 1, start + 1);
+      return;
+    }
+
+    if (Object.prototype.hasOwnProperty.call(pairs, event.key)) {
+      // Ikke legg inn ekstra anførselstegn midt i et ord eller i en apostrof.
+      if ((event.key === "'" || event.key === '"') && start === end && /[A-Za-zÆØÅæøå0-9]/.test(value[start - 1] || "")) return;
+      event.preventDefault();
+      const selected = value.slice(start, end);
+      codeBox.setRangeText(event.key + selected + pairs[event.key], start, end, "select");
+      const cursor = start + 1 + selected.length;
+      if (!selected) codeBox.setSelectionRange(start + 1, start + 1);
+      else codeBox.setSelectionRange(start + 1, cursor);
+      updateLineNumbers();
+    }
+  });
+
+  updateLineNumbers();
+  const runButton = document.getElementById("run-python");
+  const output = document.getElementById("python-output");
+  const status = document.getElementById("python-status");
+  const inputArea = document.getElementById("input-area");
+  const inputQuestion = document.getElementById("input-question");
+  const answerBox = document.getElementById("python-answer");
+  const sendAnswer = document.getElementById("send-answer");
+
+  let pyodide = null;
+  let starting = null;
+  let answerResolver = null;
+
+  function askInput(question) {
+    return new Promise(function (resolve) {
+      answerResolver = resolve;
+      inputQuestion.textContent = question || "Skriv svaret ditt:";
+      answerBox.value = "";
+      inputArea.hidden = false;
+      answerBox.focus();
+      status.textContent = "Python venter på svaret ditt.";
+    });
+  }
+
+  function finishInput() {
+    if (!answerResolver) return;
+    const resolve = answerResolver;
+    answerResolver = null;
+    inputArea.hidden = true;
+    resolve(answerBox.value.trim());
+  }
+
+  sendAnswer.addEventListener("click", finishInput);
+  answerBox.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") finishInput();
+  });
+
+  async function startPython() {
+    if (pyodide) return pyodide;
+    if (!starting) {
+      starting = loadPyodide().then(function (engine) {
+        engine.setStdout({
+          batched: function (text) {
+            output.textContent += text + "\n";
+          }
+        });
+        pyodide = engine;
+        status.textContent = "Python er klar!";
+        return engine;
+      }).catch(function (error) {
+        starting = null;
+        throw error;
+      });
+    }
+    return starting;
+  }
+
+  runButton.addEventListener("click", async function () {
+    runButton.disabled = true;
+    output.textContent = "";
+    inputArea.hidden = true;
+    status.textContent = "Kjører koden …";
+
+    try {
+      const engine = await startPython();
+      engine.setStdout({
+        batched: function (text) {
+          output.textContent += text + "\n";
+        }
+      });
+
+     
+
+      const code = codeBox.value;
+      engine.globals.set("student_code", code);
+      engine.globals.set("ask_input_js", askInput);
+
+      await engine.runPythonAsync(`
+import ast
+
+async def _pythonverksted_input(question=""):
+    answer = await ask_input_js(str(question))
+    return str(answer)
+
+class _InputTransformer(ast.NodeTransformer):
+    def visit_Call(self, node):
+        self.generic_visit(node)
+        if isinstance(node.func, ast.Name) and node.func.id == "input":
+            return ast.copy_location(
+                ast.Await(
+                    value=ast.Call(
+                        func=ast.Name(id="_pythonverksted_input", ctx=ast.Load()),
+                        args=node.args,
+                        keywords=node.keywords,
+                    )
+                ),
+                node,
+            )
+        return node
+
+_tree = ast.parse(student_code)
+_tree = _InputTransformer().visit(_tree)
+ast.fix_missing_locations(_tree)
+
+_runner = ast.AsyncFunctionDef(
+    name="_run_student_code",
+    args=ast.arguments(
+        posonlyargs=[], args=[], vararg=None, kwonlyargs=[],
+        kw_defaults=[], kwarg=None, defaults=[]
+    ),
+    body=_tree.body or [ast.Pass()],
+    decorator_list=[],
+)
+_module = ast.Module(body=[_runner], type_ignores=[])
+ast.fix_missing_locations(_module)
+exec(compile(_module, "<elevkode>", "exec"))
+await _run_student_code()
+`);
+
+      if (!output.textContent) {
+        output.textContent = "(Koden ga ingen utskrift.)";
+      }
+      status.textContent = "Ferdig! Prøv å endre koden.";
+    } catch (error) {
+      output.textContent = String(error);
+      status.textContent = "Noe gikk galt. Les feilmeldingen.";
+    } finally {
+      runButton.disabled = false;
+    }
+  });
+
+  startPython().catch(function (error) {
+    status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen.";
+    output.textContent = String(error);
+  });
+})();
+</script>
+<script>
+(function(){
+ const code=document.getElementById('python-code'), status=document.getElementById('pv-save-status');
+ const key='pythonverkstedet-laer-python-lagret-kode';
+ document.getElementById('pv-save-code').addEventListener('click',()=>{
+   try{localStorage.setItem(key,code.value);status.textContent='Koden er lagret på denne Chromebooken.'}
+   catch(e){status.textContent='Kunne ikke lagre lokalt. Kopier koden for sikkerhets skyld.'}
+ });
+ document.getElementById('pv-load-code').addEventListener('click',()=>{
+   const saved=localStorage.getItem(key);
+   if(saved===null){status.textContent='Ingen lagret kode på denne Chromebooken.';return}
+   if(code.value.trim()&&!confirm('Vil du erstatte koden som står i feltet med den lagrede koden?'))return;
+   code.value=saved;code.dispatchEvent(new Event('input',{bubbles:true}));status.textContent='Lagret kode er åpnet.';
+ });
+})();
+</script></body>
+</html>
