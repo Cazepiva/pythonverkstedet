@@ -248,6 +248,42 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 #learning-topics{margin-top:12px!important}
 #task-solution{max-width:100%!important;overflow:auto}
 @media(max-width:760px){.workspace-main{grid-template-columns:1fr}#editor{position:static}#oppgavebank{max-height:none;overflow:visible}}
+</style><style id="pv-easy-learning-design">
+/* Ro i læringsflaten: ett oppdrag av gangen */
+#oppgavebank{background:#fff;box-shadow:0 4px 18px #24324a12}
+#oppgavebank>h2{font-size:1.25rem;margin:9px 0 5px;color:#203d6b}
+#oppgavebank>.pv-instruction{margin:4px 0 15px;color:#53647c;font-size:.92rem;line-height:1.5}
+#task-detail{background:#f1f6ff!important;border:2px solid #c7d8f7;border-radius:16px!important;padding:20px!important}
+#task-title{font-size:1.35rem;color:#173c79;margin:5px 0 10px}
+#task-description{font-size:1.06rem;line-height:1.45;font-weight:650;color:#182f4c;margin:8px 0 12px}
+.pv-task-badge{display:inline-block;background:#ddeafe;color:#1b447d;font-size:.78rem;font-weight:800;border-radius:99px;padding:5px 10px}
+.pv-task-instructions{margin:12px 0;padding:12px 15px;background:white;border-radius:12px;border:1px solid #d9e5f7}
+.pv-task-instructions h4{margin:0 0 6px;color:#203d6b;font-size:.94rem}
+.pv-task-instructions ol{margin:4px 0 0;padding-left:22px;line-height:1.65;font-size:.93rem}
+.pv-task-instructions li{margin:2px 0}
+.pv-expected{padding:10px 12px;border-left:4px solid #5b85c7;background:#fff;border-radius:8px;font-size:.93rem;margin-bottom:12px}
+.pv-expected strong{display:block;margin-bottom:3px;color:#264776}
+#task-actions{gap:8px!important}
+#task-actions button{padding:10px 13px;font-size:.89rem}
+#mark-done{background:#177451!important}
+#mark-done.pv-finished{background:#e1f4e9!important;color:#125b3d!important}
+#pv-progress{background:#f2f8ff;padding:11px 13px;border-radius:10px;margin:14px 0;color:#2b4d77;font-size:.92rem;font-weight:700}
+#pv-progress-track{height:7px;background:#dce7f8;border-radius:99px;overflow:hidden;margin-top:7px}
+#pv-progress-bar{height:100%;background:#23826a;width:0%;transition:width .15s}
+.pv-lesson-short{background:#f7f9fe;border-radius:13px;border:1px solid #dce5f2;padding:12px 13px;margin:16px 0}
+.pv-lesson-short summary{cursor:pointer;font-size:.94rem;font-weight:700;color:#234b83}
+.pv-lesson-short p{font-size:.9rem;line-height:1.5;color:#34455e}
+.pv-lesson-short pre{white-space:pre-wrap;overflow-x:auto;background:#182235;color:#dce8ff;padding:12px;border-radius:9px;font:14px/1.55 monospace}
+.pv-task-card{background:white;border:1px solid #dae3f1;border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;justify-content:space-between}
+.pv-task-card.is-done{background:#f5fcf8;border-color:#bce0cd}
+.pv-task-card h4{margin:0 0 3px;font-size:.97rem;color:#26446a}
+.pv-task-card p{margin:0;font-size:.84rem;color:#62718a;line-height:1.3}
+.pv-task-card button{flex-shrink:0;padding:9px 12px;font-size:.84rem}
+.pv-task-card.is-active{border:2px solid #4a73be;background:#f1f6ff}
+.pv-task-cards{display:grid;grid-template-columns:1fr;gap:9px}
+.pv-task-lesson-header{margin:0;font-size:1.02rem;color:#203d6b}
+#task-hint{font-size:.94rem;line-height:1.5}
+@media(max-width:520px){.pv-task-card{align-items:stretch;flex-direction:column}.pv-task-card button{align-self:flex-start}#task-actions button{flex:1}#oppgavebank{padding:12px!important}}
 </style></head>
 <body><nav aria-label="Felles meny for Pythonverkstedet" id="pv-shared-nav"><div class="pv-brand">🐍 Pythonverkstedet</div><details open=""><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a aria-current="page" href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Turtle-verkstedet</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="kattespill.html">🐱 Spill kattespillet</a></div></details></nav>
 <header>
@@ -259,7 +295,7 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 <div class="workspace-main">
 <section class="editor-panel" id="editor">
 <h2>💻 Prøv Python-koden din</h2>
-<p>Kodefeltet starter tomt. Velg en oppgave til høyre og skriv koden din her. Parenteser og anførselstegn lukkes automatisk.</p>
+<p>① Velg en oppgave til høyre. ② Skriv koden her. ③ Trykk <b>▶ Kjør kode</b> og se resultatet nedenfor.</p>
 <div class="python-editor-wrap">
 <pre aria-hidden="true" class="line-numbers" id="line-numbers">1
 2
@@ -280,10 +316,10 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 <p id="python-status" role="status">Laster Python-motoren …</p>
 </section>
 <section class="panel" id="oppgavebank"><div id="task-detail" style="margin-top:20px;padding:18px;border-radius:12px;background:#edf2ff;">
-<h3 id="task-title">Velg en oppgave</h3>
-<p id="task-description">Velg «Åpne oppgave» under et tema. Oppgaveteksten og hintene vises her ved siden av kodefeltet.</p>
+<span class="pv-task-badge" id="pv-task-badge">VELG OPPGAVE</span><h3 id="task-title">Start her</h3>
+<p id="task-description">Velg den første oppgaven nedenfor. Gjør én ting om gangen.</p><div id="pv-task-steps" class="pv-task-instructions" hidden></div><div id="pv-expected" class="pv-expected" hidden></div>
 <div id="task-actions" style="display:none;flex-wrap:wrap;gap:8px;margin:12px 0;">
-<button id="load-task" type="button">Bruk startkode i editoren</button>
+<button id="load-task" type="button">✏️ Hent startkode (valgfritt)</button><button id="mark-done" type="button">✓ Jeg fikk det til!</button>
 <button class="secondary" id="toggle-hint" type="button">Vis hint</button>
 <button class="secondary" id="toggle-solution" type="button">Vis løsningsforslag</button>
 </div>
@@ -294,11 +330,11 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 <p style="margin:6px 0 0;color:#63718a;">Les koden linje for linje. Innrykkene er en del av Python-koden.</p>
 <pre id="task-solution-code"></pre>
 </div></div>
-<h2>📘 Velg tema og oppgave</h2>
-<p>Velg et tema og et nivå. Oppgavene går fra enkle øvelser til større utfordringer. Temaene om bevegelse og figurer øves her med tekst og koordinater; grafiske figurer lager du i Turtle- og Fiskespillverkstedet.</p>
+<h2>📘 Velg oppgave</h2>
+<p class="pv-instruction">Start med «Kom i gang». Velg en oppgave, skriv koden til venstre og trykk <b>▶ Kjør kode</b>. Du kan åpne hint hvis du står fast.</p><div id="pv-progress" aria-live="polite"><span id="pv-progress-label">Fremgang: 0 oppgaver</span><div id="pv-progress-track"><div id="pv-progress-bar"></div></div></div>
 <label for="topic-select" style="display:block;font-weight:700;margin:12px 0 7px">Tema</label>
 <select id="topic-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"></select>
-<label for="level-select" style="display:block;font-weight:700;margin:12px 0 7px">Vanskelighetsgrad</label><select id="level-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"><option value="alle">Alle nivåer</option><option value="1">Nivå 1 – Kom i gang</option><option value="2">Nivå 2 – Øv videre</option><option value="3">Nivå 3 – Utfordring</option></select><div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
+<label for="level-select" style="display:block;font-weight:700;margin:12px 0 7px">Vanskelighetsgrad</label><select id="level-select" style="width:100%;padding:12px;border:1px solid #c5d1e8;border-radius:9px;font-size:16px;background:white"><option value="alle">Alle oppgaver</option><option value="1">Nivå 1 – Kom i gang</option><option value="2">Nivå 2 – Øv videre</option><option value="3">Nivå 3 – Utfordring</option></select><div id="learning-topics" style="display:grid;gap:18px;margin-top:20px;"></div>
 
 </section>
 </div>
@@ -307,6 +343,10 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
 <script>
 (function () {
   const tasks = [
+    {topic:"Kom i gang", title:"A. Si hei til datamaskinen", description:"Få programmet til å skrive Hei! på skjermen.", start:'', hint:'Skriv print("Hei!") med parenteser og anførselstegn.', solution:'print("Hei!")', expected:'Hei!', steps:['Skriv en print-kommando.','Sett teksten Hei! mellom anførselstegn.','Kjør og sjekk om du ser Hei! i resultatfeltet.']},
+    {topic:"Kom i gang", title:"B. Regn med Python", description:"Få datamaskinen til å regne ut 7 + 5 og vise svaret.", start:'', hint:'Sett regnestykket inne i print(). Tall trenger ikke anførselstegn.', solution:'print(7 + 5)', expected:'12', steps:['Skriv print() i kodefeltet.','Sett regnestykket 7 + 5 mellom parentesene.','Kjør og sjekk resultatet.']},
+    {topic:"Kom i gang", title:"C. Lag din første variabel", description:"Lagre navnet ditt i en variabel og skriv det ut.", start:'', hint:'Bruk for eksempel navn = "Ada" og print(navn).', solution:'navn = "Ada"\nprint(navn)', expected:'Ada', steps:['Lag en variabel som heter navn.','Legg navnet ditt i anførselstegn.','Bruk print(navn) for å vise navnet.']},
+    {topic:"Kom i gang", title:"D. Endre og eksperimenter", description:"Skriv ut tre forskjellige meldinger. Endre én av dem og kjør på nytt.", start:'', hint:'Du kan bruke print() på tre separate linjer.', solution:'print("Hei!")\nprint("Jeg lærer Python")\nprint("Dette er gøy!")', expected:'Tre linjer med dine egne meldinger', steps:['Lag tre print()-linjer.','Kjør programmet.','Endre en av meldingene og kjør på nytt.']},
     {topic:"Variabler", title:"1. Si hei!", description:"Spør brukeren om navnet og skriv en personlig hilsen.", start:'name = input("Hva heter du? ")\\nprint("Hei,", name)', hint:"Lagre svaret fra input() i en variabel. Bruk print() til å skrive ut navnet.", solution:'name = input("Hva heter du? ")\\nprint("Hei,", name)'},
     {topic:"Variabler", title:"2. Alder neste år", description:"Spør hvor gammel brukeren er, og skriv ut alderen neste år.", start:'age = int(input("Hvor gammel er du? "))\\n# Skriv koden din under', hint:"Gjør svaret om til et heltall med int(), og legg til 1.", solution:'age = int(input("Hvor gammel er du? "))\\nnext_age = age + 1\\nprint("Neste år er du", next_age)'},
     {topic:"Variabler", title:"3. Butikkalkulator", description:"Regn ut totalprisen når brukeren skriver inn pris og antall.", start:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\n# Regn ut og skriv ut totalprisen', hint:"Totalpris er pris per vare ganget med antall varer.", solution:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\ntotal = price * quantity\\nprint("Totalpris:", total)'},
@@ -369,6 +409,7 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
   let selectedTask = null;
 
   const lessons = [
+    {topic:"Kom i gang", title:"Start her – første kode", intro:"Python kan vise tekst og regne. Du trenger ikke kunne noe fra før.", example:'print("Hei!")', tryText:"Endre meldingen og kjør på nytt."},
     {
       topic: "Variabler",
       title: "1. Variabler og input",
@@ -414,65 +455,109 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
     {"topic": "Matematikk", "title": "12. Matematikk med math", "intro": "Pythons innebygde math-modul har blant annet kvadratrøtter, pi og funksjoner for avrunding. Start med import math. math er en del av Python og er ikke det samme som den eksterne pakken mathpy.", "example": "import math\nprint(math.sqrt(81))\nprint(round(math.pi, 2))", "tryText": "Prøv å finne kvadratroten av 144 eller regne ut omkretsen av en sirkel."}
   ];
 
-  tasks.forEach((task, i) => { const topicIndex = tasks.filter(t => t.topic === task.topic).indexOf(task); task.level = topicIndex === 0 ? 1 : topicIndex === 1 ? 2 : 3; });
+  tasks.forEach((task, i) => { const topicIndex = tasks.filter(t => t.topic === task.topic).indexOf(task); task.level = task.topic === "Kom i gang" ? 1 : topicIndex === 0 ? 1 : topicIndex === 1 ? 2 : 3; });
   document.getElementById("level-select").addEventListener("change", renderTasks);
 
+  const doneKey = "pv-python-done-v2";
+  let completedTasks = new Set();
+  try { completedTasks = new Set(JSON.parse(localStorage.getItem(doneKey) || "[]")); } catch (_) {}
+  function taskId(task) { return task.topic + "::" + task.title; }
+  function updateProgress() {
+    const count = tasks.filter(t => completedTasks.has(taskId(t))).length;
+    document.getElementById("pv-progress-label").textContent = "Fremgang: " + count + " av " + tasks.length + " oppgaver markert som ferdige";
+    document.getElementById("pv-progress-bar").style.width = Math.round(count / tasks.length * 100) + "%";
+    const doneBtn = document.getElementById("mark-done");
+    if (selectedTask) {
+      const finished = completedTasks.has(taskId(selectedTask));
+      doneBtn.textContent = finished ? "✓ Ferdig – angre" : "✓ Jeg fikk det til!";
+      doneBtn.classList.toggle("pv-finished", finished);
+    }
+  }
   function renderTasks() {
     topicsContainer.replaceChildren();
     const chosenTopic = document.getElementById("topic-select").value;
+    const level = document.getElementById("level-select").value;
     lessons.filter(lesson => lesson.topic === chosenTopic).forEach((lesson) => {
       const section = document.createElement("section");
-      section.style.cssText = "border:1px solid #dce3f2;border-radius:14px;padding:18px;background:#f8faff;";
-      const heading = document.createElement("h3");
-      heading.textContent = lesson.title;
-      heading.style.marginTop = "0";
+      const details = document.createElement("details");
+      details.className = "pv-lesson-short";
+      const summary = document.createElement("summary");
+      summary.textContent = "💡 Trenger du forklaring? Vis kort teori og eksempel";
       const intro = document.createElement("p");
       intro.textContent = lesson.intro;
-      const exampleLabel = document.createElement("strong");
-      exampleLabel.textContent = "Kodeeksempel";
       const example = document.createElement("pre");
-      example.textContent = lesson.example.replace(/\\n/g, "\n");
-      example.style.cssText = "white-space:pre;overflow-x:auto;background:#182235;color:#dce8ff;padding:14px;border-radius:8px;font:15px/1.6 monospace;tab-size:4;";
+      example.textContent = lesson.example.replace(/\n/g, "\n");
       const tryText = document.createElement("p");
       tryText.textContent = lesson.tryText;
       const lessonButton = document.createElement("button");
       lessonButton.type = "button";
-      lessonButton.textContent = "Prøv eksempelet i Python-editoren";
+      lessonButton.className = "secondary";
+      lessonButton.textContent = "Prøv kodeeksempelet";
       lessonButton.addEventListener("click", () => {
-        const codeBox = document.getElementById("python-code");
-        codeBox.value = lesson.example.replace(/\\n/g, "\n");
-        codeBox.dispatchEvent(new Event("input", {bubbles:true}));
-        codeBox.focus({preventScroll:true});
+        const editor = document.getElementById("python-code");
+        if (editor.value.trim() && !confirm("Vil du erstatte koden du har skrevet med eksempelet?")) return;
+        editor.value = lesson.example.replace(/\n/g, "\n");
+        editor.dispatchEvent(new Event("input", {bubbles:true}));
+        editor.focus({preventScroll:true});
       });
-      const tasksHeading = document.createElement("h4");
-      tasksHeading.textContent = "Oppgaver i temaet";
-      tasksHeading.style.margin = "22px 0 10px";
+      details.append(summary,intro,example,tryText,lessonButton);
+      const heading = document.createElement("h3");
+      heading.className="pv-task-lesson-header";
+      const matching = tasks.filter(task => task.topic === chosenTopic && (level === "alle" || String(task.level) === level));
+      heading.textContent = "Oppdragene" + (level === "alle" ? "" : " på nivå " + level);
       const cards = document.createElement("div");
-      cards.style.cssText = "display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;";
-      tasks.filter(task => task.topic === lesson.topic && (document.getElementById("level-select").value === "alle" || String(task.level) === document.getElementById("level-select").value)).forEach(task => {
-        const card = document.createElement("div");
-        card.style.cssText = "background:white;border:1px solid #dce3f2;border-radius:12px;padding:14px;";
-        const taskHeading = document.createElement("h4");
-        taskHeading.textContent = task.title + " · Nivå " + task.level;
-        taskHeading.style.marginTop = "0";
-        const text = document.createElement("p");
-        text.textContent = task.description;
+      cards.className = "pv-task-cards";
+      if (!matching.length) {
+        const empty = document.createElement("p");
+        empty.textContent="Ingen oppgaver på dette nivået. Prøv «Alle oppgaver».";
+        cards.append(empty);
+      }
+      matching.forEach(task => {
+        const card = document.createElement("article");
+        card.className = "pv-task-card";
+        if (completedTasks.has(taskId(task))) card.classList.add("is-done");
+        if (selectedTask === task) card.classList.add("is-active");
+        const text = document.createElement("div");
+        const title = document.createElement("h4");
+        title.textContent = (completedTasks.has(taskId(task)) ? "✓ " : "") + task.title;
+        const description = document.createElement("p");
+        description.textContent = task.description;
         const button = document.createElement("button");
         button.type = "button";
-        button.textContent = "Åpne oppgave";
+        button.textContent = "Velg oppgave";
         button.addEventListener("click", () => openTask(task));
-        card.append(taskHeading, text, button);
+        text.append(title,description);
+        card.append(text,button);
         cards.append(card);
       });
-      section.append(heading, intro, exampleLabel, example, tryText, lessonButton, tasksHeading, cards);
+      section.append(heading,cards,details);
       topicsContainer.append(section);
     });
+    updateProgress();
   }
 
   function openTask(task) {
     selectedTask = task;
     title.textContent = task.title;
     description.textContent = task.description;
+    document.getElementById("pv-task-badge").textContent = task.topic.toUpperCase() + " · NIVÅ " + task.level;
+    const stepsBox = document.getElementById("pv-task-steps");
+    const steps = task.steps || ["Les hva programmet skal gjøre.", "Skriv koden i feltet til venstre. Bruk hint hvis du står fast.", "Trykk ▶ Kjør kode og se om resultatet passer til oppgaven."];
+    stepsBox.replaceChildren();
+    const stepsTitle = document.createElement("h4");
+    stepsTitle.textContent = "Slik gjør du";
+    const list = document.createElement("ol");
+    steps.forEach(t => {const li=document.createElement("li");li.textContent=t;list.append(li);});
+    stepsBox.append(stepsTitle,list);
+    stepsBox.hidden = false;
+    const expectedBox = document.getElementById("pv-expected");
+    expectedBox.replaceChildren();
+    const expectedTitle = document.createElement("strong");
+    expectedTitle.textContent = "Dette skal skje når koden virker:";
+    const expectedText = document.createElement("span");
+    expectedText.textContent = task.expected || task.description;
+    expectedBox.append(expectedTitle,expectedText);
+    expectedBox.hidden = false;
     hint.textContent = "Hint: " + task.hint;
     solutionCode.textContent = task.solution.replace(/\\n/g, "\n");
     hint.hidden = true;
@@ -482,6 +567,7 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
     detail.hidden = false;
     document.getElementById("task-actions").style.display = "flex";
     loadStatus.textContent = "";
+    renderTasks();
     document.getElementById("oppgavebank").scrollTo({top:0,behavior:"smooth"});
   }
 
@@ -505,6 +591,13 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
     document.getElementById("toggle-solution").textContent = solution.hidden ? "Vis løsningsforslag" : "Skjul løsningsforslag";
     if (!solution.hidden) document.getElementById("oppgavebank").scrollTo({top:0,behavior:"smooth"});
   });
+  document.getElementById("mark-done").addEventListener("click", () => {
+    if (!selectedTask) return;
+    const key = taskId(selectedTask);
+    if (completedTasks.has(key)) completedTasks.delete(key); else completedTasks.add(key);
+    try { localStorage.setItem(doneKey, JSON.stringify([...completedTasks])); } catch (_) {}
+    renderTasks();
+  });
   const topicSelect = document.getElementById("topic-select");
   lessons.forEach(lesson => {
     const option = document.createElement("option");
@@ -515,6 +608,9 @@ main.workspace{display:block;grid-template-columns:none;max-width:1680px!importa
   topicSelect.addEventListener("change", () => {
     selectedTask = null;
     title.textContent = "Velg en oppgave";
+    document.getElementById("pv-task-badge").textContent = "VELG OPPGAVE";
+    document.getElementById("pv-task-steps").hidden = true;
+    document.getElementById("pv-expected").hidden = true;
     description.textContent = "Velg en oppgave under temaet. Oppgavetekst og hint vises her.";
     document.getElementById("task-actions").style.display = "none";
     hint.hidden = true;
