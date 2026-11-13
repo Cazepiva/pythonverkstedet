@@ -365,6 +365,24 @@ main.workspace{max-width:1560px!important;padding:20px 20px 34px}
 #task-solution-code{background:#182235!important;color:#dce8ff!important;margin-top:11px!important}
 #load-task[hidden]{display:none!important}
 </style>
+<style id="pv-student-error-help">
+/* Forklar Python-feil uten å fylle arbeidsflaten med lange traceback-meldinger. */
+#pv-python-error[hidden]{display:none!important}
+#pv-python-error{margin-top:14px;padding:17px 18px;background:#fff9f7;border:1px solid #edc0b9;border-left:5px solid #bc5548;border-radius:12px;color:#29394b;line-height:1.5}
+.pv-error-heading{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:9px}
+.pv-error-heading strong{font-size:1.08rem;color:#8d3028}
+#pv-error-type{color:#7c4540;font:600 .81rem/1.4 monospace;background:#fbeae8;padding:4px 8px;border-radius:6px}
+#pv-error-location{font-weight:700;margin:8px 0;color:#263d57}
+#pv-error-code-line{background:#fff;border:1px solid #f0d2ca;border-radius:8px;padding:9px 12px;margin:8px 0;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.5 monospace;color:#4d2930}
+#pv-error-meaning{margin:10px 0 6px}
+#pv-error-tip{margin:8px 0 13px}
+#pv-error-jump{background:#3657a5;padding:9px 13px;margin:2px 0 12px;font-size:.88rem}
+#pv-error-jump[hidden],#pv-error-code-line[hidden]{display:none!important}
+.pv-error-raw{margin-top:7px;padding-top:10px;border-top:1px solid #ebd5d0}
+.pv-error-raw summary{cursor:pointer;color:#37577d;font-size:.87rem;font-weight:700}
+#pv-error-raw-code{white-space:pre-wrap;overflow-wrap:anywhere;background:#202b3c;color:#eef3ff;padding:13px;border-radius:8px;max-height:240px;overflow:auto;font:12px/1.5 monospace}
+@media(max-width:600px){#pv-python-error{padding:14px}}
+</style>
 </head>
 <body><nav aria-label="Felles meny for Pythonverkstedet" id="pv-shared-nav"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a aria-current="page" href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
 <header>
@@ -394,6 +412,19 @@ main.workspace{max-width:1560px!important;padding:20px 20px 34px}
 </div>
 <h3>Resultat</h3>
 <pre id="python-output" style="background: #10231c; color: #baf7ce; padding: 16px; border-radius: 8px; white-space: pre-wrap; min-height: 40px;"></pre>
+<section id="pv-python-error" aria-label="Hjelp til Python-feil" role="alert" hidden>
+  <div class="pv-error-heading"><strong>🔎 Her er det noe du kan rette</strong><span id="pv-error-type"></span></div>
+  <p id="pv-error-location"></p>
+  <pre id="pv-error-code-line" hidden></pre>
+  <p id="pv-error-meaning"></p>
+  <p id="pv-error-tip"></p>
+  <button id="pv-error-jump" type="button" hidden>Gå til feilen i koden</button>
+  <details class="pv-error-raw" id="pv-error-original">
+    <summary>Se den opprinnelige feilmeldingen fra Python</summary>
+    <pre id="pv-error-raw-code"></pre>
+  </details>
+</section>
+
 <p id="python-status" role="status">Laster Python-motoren …</p>
 </section>
 <section class="panel" id="oppgavebank" aria-label="Python-oppgaver">
@@ -861,6 +892,98 @@ main.workspace{max-width:1560px!important;padding:20px 20px 34px}
   const answerBox = document.getElementById("python-answer");
   const sendAnswer = document.getElementById("send-answer");
 
+  // Korte, konkrete forklaringer på norsk. Behold alltid originalfeilen for læring.
+  const errorPanel = document.getElementById("pv-python-error");
+  const errorType = document.getElementById("pv-error-type");
+  const errorLocation = document.getElementById("pv-error-location");
+  const errorCodeLine = document.getElementById("pv-error-code-line");
+  const errorMeaning = document.getElementById("pv-error-meaning");
+  const errorTip = document.getElementById("pv-error-tip");
+  const errorJump = document.getElementById("pv-error-jump");
+  const errorOriginal = document.getElementById("pv-error-original");
+  const errorRaw = document.getElementById("pv-error-raw-code");
+  let currentErrorLine = null;
+
+  function explainPythonError(kind, message) {
+    const msg = String(message || "");
+    const lower = msg.toLowerCase();
+    const nameMatch = msg.match(/name ['\"]([^'\"]+)['\"] is not defined/i);
+    switch (kind) {
+      case "SyntaxError":
+        if (/expected ':'/.test(lower)) return ["Python savner et kolon (:).", "Se etter if, elif, else, for, while eller def på den markerte linjen. Slike linjer skal slutte med kolon."];
+        if (/never closed|unexpected eof|was never closed/.test(lower)) return ["En parentes eller hakeparentes er ikke avsluttet.", "Se etter en åpnet ( eller [ uten tilhørende ) eller ]. Sjekk også linjen over."];
+        if (/unterminated string|eol while scanning string/.test(lower)) return ["En tekst mangler avsluttende anførselstegn.", "Sjekk at teksten har både et anførselstegn i starten og ett i slutten."];
+        if (/invalid syntax/.test(lower)) return ["Python forstår ikke skrivemåten her.", "Se etter manglende kolon, parenteser eller anførselstegn. Sjekk også slutten av linjen over."];
+        return ["Python fant en skrivefeil i koden.", "Sjekk tegnene på denne linjen og linjen over: kolon, parenteser og anførselstegn må stå riktig."];
+      case "IndentationError":
+        if (/expected an indented block/.test(lower)) return ["Det mangler innrykk etter en linje med kolon.", "Trykk Tab eller bruk fire mellomrom på linjen under if, for, while eller def. Koden inni blokken skal ha innrykk."];
+        if (/unexpected indent/.test(lower)) return ["Denne linjen har et innrykk Python ikke forventer.", "Se om linjen har flere mellomrom enn den skal. Innrykk brukes for kode inni løkker, vilkår og funksjoner."];
+        return ["Innrykket passer ikke med resten av kodeblokken.", "Sørg for at linjer i samme blokk starter like langt inn. Bruk helst fire mellomrom per nivå."];
+      case "TabError": return ["Koden blander Tab og mellomrom i innrykket.", "Bruk fire mellomrom for hvert nivå. Fjern ujevnt innrykk og skriv det inn på nytt."];
+      case "NameError":
+        if (nameMatch && /^(pritn|pirnt|prnt|Print)$/.test(nameMatch[1])) return ["Python kjenner ikke igjen kommandoen «" + nameMatch[1] + "».", "Mente du print()? Sjekk stavemåten og at små og store bokstaver brukes riktig."];
+        return ["Python finner ikke et navn som brukes i koden.", nameMatch ? "Kontroller at «" + nameMatch[1] + "» er skrevet likt overalt, og at variabelen er laget før du bruker den." : "Sjekk at variabelen er laget før den brukes, og at navnet er skrevet helt likt."];
+      case "UnboundLocalError": return ["En lokal variabel brukes før den har fått en verdi.", "Gi variabelen en verdi før du bruker den inne i funksjonen."];
+      case "TypeError":
+        if (/not supported between instances|unsupported operand type|can only concatenate/.test(lower)) return ["Du prøver å bruke en regneoperasjon på verdier som ikke passer sammen.", "Sjekk om du blander tekst og tall. Bruk int() eller float() for å gjøre om tekst til tall når det trengs."];
+        if (/not callable/.test(lower)) return ["Du prøver å bruke noe som en funksjon, men det kan ikke kalles med parenteser.", "Se om du har skrevet parenteser på et variabelnavn eller gitt en variabel samme navn som en funksjon, for eksempel print."];
+        if (/missing .*required positional argument/.test(lower)) return ["En funksjon mangler en verdi den trenger.", "Se hvilke verdier funksjonen forventer mellom parentesene."];
+        return ["En kommando fikk feil type verdi eller ble brukt på feil måte.", "Se hvilke verdier som sendes til funksjonen. Sjekk særlig forskjellen mellom tekst, tall og lister."];
+      case "ValueError":
+        if (/invalid literal for int|could not convert string to float/.test(lower)) return ["Python prøvde å gjøre tekst om til et tall, men teksten er ikke et gyldig tall.", "Skriv bare et tall når programmet spør. Husk at int() tar heltall, mens float() tar desimaltall (bruk punktum)."];
+        return ["Python fikk en verdi som ikke kan brukes her.", "Se på tallet eller teksten som ble sendt inn. Prøv en verdi som passer til oppgaven."];
+      case "ZeroDivisionError": return ["Programmet prøver å dele på null.", "Se på tallet etter / eller %. Det må være forskjellig fra 0."];
+      case "IndexError": return ["Programmet prøver å hente et element utenfor listen.", "En liste starter med plass 0. Sjekk hvor mange elementer listen har før du bruker [nummer]."];
+      case "KeyError": return ["Programmet leter etter en nøkkel som ikke finnes i ordboken.", "Sjekk stavemåten på nøkkelen, eller undersøk om nøkkelen finnes før du bruker den."];
+      case "AttributeError": return ["Denne verdien har ikke kommandoen eller egenskapen du prøvde å bruke.", "Sjekk stavemåten etter punktum, for eksempel .append() for lister, og at du bruker riktig datatype."];
+      case "ModuleNotFoundError": return ["Python finner ikke modulen du prøver å importere.", "Sjekk navnet etter import. Noen tilleggspakker er ikke tilgjengelige i nettleseren."];
+      case "ImportError": return ["Python finner ikke funksjonen eller navnet du prøver å importere.", "Sjekk navnet og hvilken modul funksjonen hører til."];
+      case "RecursionError": return ["En funksjon kaller seg selv for mange ganger.", "Sjekk om funksjonen mangler en betingelse som stopper gjentakelsen."];
+      case "AssertionError": return ["En kontroll i koden ble ikke oppfylt.", "Se hvilken verdi koden forventet, og hva programmet faktisk regnet ut."];
+      default: return ["Python stoppet fordi noe ikke fungerte som forventet.", "Se på kodelinjen og den opprinnelige feilmeldingen. Prøv å endre én ting om gangen og kjør på nytt."];
+    }
+  }
+
+  function hidePythonError() {
+    errorPanel.hidden = true;
+    errorOriginal.open = false;
+    currentErrorLine = null;
+  }
+
+  function showPythonError(details) {
+    const kind = String(details.type || "Python-feil");
+    const message = String(details.message || "");
+    const line = Number(details.line);
+    const codeLines = codeBox.value.split("\n");
+    const validLine = Number.isInteger(line) && line >= 1 && line <= codeLines.length;
+    const advice = explainPythonError(kind, message);
+    currentErrorLine = validLine ? line : null;
+    errorType.textContent = kind;
+    errorLocation.textContent = validLine ? "Se på linje " + line + " i koden din:" : "Se på koden din:";
+    errorCodeLine.hidden = !validLine;
+    if (validLine) errorCodeLine.textContent = line + "  " + (codeLines[line-1] || "(tom linje)");
+    errorMeaning.textContent = "Hva betyr feilen? " + advice[0];
+    errorTip.textContent = "Prøv dette: " + advice[1];
+    errorJump.hidden = !validLine;
+    if (validLine) errorJump.textContent = "Gå til linje " + line + " i kodefeltet";
+    errorRaw.textContent = String(details.raw || (kind + ": " + message));
+    errorOriginal.open = false;
+    errorPanel.hidden = false;
+  }
+
+  errorJump.addEventListener("click", function () {
+    if (!currentErrorLine) return;
+    const lines = codeBox.value.split("\n");
+    const before = lines.slice(0, currentErrorLine-1).join("\n");
+    const start = currentErrorLine === 1 ? 0 : before.length + 1;
+    const end = start + (lines[currentErrorLine-1] || "").length;
+    codeBox.focus();
+    codeBox.setSelectionRange(start, end);
+    const lineHeight = parseFloat(getComputedStyle(codeBox).lineHeight) || 24;
+    codeBox.scrollTop = Math.max(0, (currentErrorLine - 3) * lineHeight);
+    lineNumbers.scrollTop = codeBox.scrollTop;
+  });
+
   let pyodide = null;
   let starting = null;
   let answerResolver = null;
@@ -912,6 +1035,7 @@ main.workspace{max-width:1560px!important;padding:20px 20px 34px}
   runButton.addEventListener("click", async function () {
     runButton.disabled = true;
     output.textContent = "";
+    hidePythonError();
     inputArea.hidden = true;
     status.textContent = "Kjører koden …";
 
@@ -929,8 +1053,10 @@ main.workspace{max-width:1560px!important;padding:20px 20px 34px}
       engine.globals.set("student_code", code);
       engine.globals.set("ask_input_js", askInput);
 
-      await engine.runPythonAsync(`
+      const errorJson = await engine.runPythonAsync(`
 import ast
+import json
+import traceback
 
 async def _pythonverksted_input(question=""):
     answer = await ask_input_js(str(question))
@@ -952,32 +1078,56 @@ class _InputTransformer(ast.NodeTransformer):
             )
         return node
 
-_tree = ast.parse(student_code)
-_tree = _InputTransformer().visit(_tree)
-ast.fix_missing_locations(_tree)
+_pv_error_json = None
+try:
+    _tree = ast.parse(student_code, filename="<elevkode>")
+    _tree = _InputTransformer().visit(_tree)
+    ast.fix_missing_locations(_tree)
 
-_runner = ast.AsyncFunctionDef(
-    name="_run_student_code",
-    args=ast.arguments(
-        posonlyargs=[], args=[], vararg=None, kwonlyargs=[],
-        kw_defaults=[], kwarg=None, defaults=[]
-    ),
-    body=_tree.body or [ast.Pass()],
-    decorator_list=[],
-)
-_module = ast.Module(body=[_runner], type_ignores=[])
-ast.fix_missing_locations(_module)
-exec(compile(_module, "<elevkode>", "exec"))
-await _run_student_code()
+    _runner = ast.AsyncFunctionDef(
+        name="_run_student_code",
+        args=ast.arguments(
+            posonlyargs=[], args=[], vararg=None, kwonlyargs=[],
+            kw_defaults=[], kwarg=None, defaults=[]
+        ),
+        body=_tree.body or [ast.Pass()],
+        decorator_list=[],
+    )
+    _module = ast.Module(body=[_runner], type_ignores=[])
+    ast.fix_missing_locations(_module)
+    exec(compile(_module, "<elevkode>", "exec"))
+    await _run_student_code()
+except Exception as _pv_exc:
+    _pv_student_frames = [f for f in traceback.extract_tb(_pv_exc.__traceback__) if f.filename == "<elevkode>"]
+    _pv_source_line = getattr(_pv_exc, "lineno", None)
+    if _pv_source_line is None and _pv_student_frames:
+        _pv_source_line = _pv_student_frames[-1].lineno
+    _pv_error_json = json.dumps({
+        "type": type(_pv_exc).__name__,
+        "message": str(_pv_exc),
+        "line": _pv_source_line,
+        "raw": "".join(traceback.format_exception(type(_pv_exc), _pv_exc, _pv_exc.__traceback__)),
+    }, ensure_ascii=False)
+_pv_error_json
 `);
 
-      if (!output.textContent) {
-        output.textContent = "(Koden ga ingen utskrift.)";
+      if (errorJson) {
+        let details;
+        try { details = JSON.parse(errorJson); }
+        catch (_) { details = {type:"Python-feil", message:String(errorJson), raw:String(errorJson)}; }
+        if (!output.textContent) output.textContent = "(Koden stoppet før den skrev ut noe.)";
+        showPythonError(details);
+        status.textContent = "Koden stoppet. Les forklaringen nedenfor og prøv igjen.";
+      } else {
+        if (!output.textContent) output.textContent = "(Koden ga ingen utskrift.)";
+        status.textContent = "Ferdig! Prøv å endre koden.";
       }
-      status.textContent = "Ferdig! Prøv å endre koden.";
     } catch (error) {
-      output.textContent = String(error);
-      status.textContent = "Noe gikk galt. Les feilmeldingen.";
+      if (!output.textContent) output.textContent = "(Koden kunne ikke kjøres.)";
+      showPythonError({type:"Teknisk feil",message:String(error),raw:String(error)});
+      errorMeaning.textContent = "Hva betyr feilen? Python-motoren kunne ikke fullføre kjøringen.";
+      errorTip.textContent = "Prøv dette: Oppdater siden og sjekk internettforbindelsen. Hvis feilen kommer igjen, vis den opprinnelige meldingen til læreren.";
+      status.textContent = "Python kunne ikke kjøre programmet nå.";
     } finally {
       runButton.disabled = false;
     }
@@ -985,7 +1135,10 @@ await _run_student_code()
 
   startPython().catch(function (error) {
     status.textContent = "Kunne ikke laste Python. Kontroller internettforbindelsen.";
-    output.textContent = String(error);
+    output.textContent = "Python-motoren kunne ikke lastes. Prøv å oppdatere siden.";
+    showPythonError({type:"Teknisk feil", message:String(error), raw:String(error)});
+    errorMeaning.textContent = "Hva betyr feilen? Nettleseren fikk ikke startet Python-motoren.";
+    errorTip.textContent = "Prøv dette: Sjekk internettforbindelsen og oppdater siden. Dette betyr ikke at elevkoden er feil.";
   });
 })();
 </script>
