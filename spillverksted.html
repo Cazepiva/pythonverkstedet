@@ -200,23 +200,39 @@
     .site-nav a[aria-current="page"] {background:#3657a5;color:white;}
     .page-intro {max-width:1000px;margin:22px auto;padding:0 16px;}
   </style>
-<style id="pv-shared-nav-style">
-#pv-shared-nav{position:fixed;top:0;left:0;bottom:0;width:232px;overflow-y:auto;z-index:9999;background:#fff;border-right:1px solid #dbe5f3;box-shadow:2px 0 15px #24324a12;padding:18px 12px;font:15px/1.4 Arial,sans-serif;color:#26374a;text-align:left}
-#pv-shared-nav .pv-brand{font-size:18px;font-weight:800;margin:4px 7px 17px}#pv-shared-nav a{display:block;color:#254a76;text-decoration:none;padding:11px 9px;border-radius:9px;margin:3px 0;font-size:14px;font-weight:650;background:transparent;border:0;box-shadow:none}#pv-shared-nav a:hover{background:#edf4ff}#pv-shared-nav a[aria-current=page]{background:#dceafd;color:#163c79}#pv-shared-nav summary{display:none}
-body{padding-left:232px!important}body .workspace{max-width:calc(100% - 24px)}
-@media(max-width:850px){#pv-shared-nav{position:relative;width:auto;bottom:auto;top:auto;border-right:0;border-bottom:1px solid #dbe5f3;padding:8px 12px}#pv-shared-nav summary{display:list-item;cursor:pointer;font-weight:800;padding:9px}#pv-shared-nav .pv-brand{display:none}#pv-shared-nav details:not([open]) .pv-links{display:none}body{padding-left:0!important}body .workspace{max-width:100%}}
-</style><style id="pv-spillmeny-css">
-#pv-shared-nav .pv-game-group{margin-top:5px;border-top:1px solid #dbe5f2;padding-top:7px}
-#pv-shared-nav details.pv-game-group > summary{display:block!important;cursor:pointer;list-style:none;padding:11px 13px;border-radius:9px;background:#e9f0ff;color:#254a93;font-weight:700}
+<style id="pv-unified-nav-2026">
+/* Felles navigasjon på samtlige Pythonverkstedet-sider. */
+#pv-shared-nav, #pv-shared-nav * {box-sizing:border-box}
+#pv-shared-nav {position:fixed!important;inset:0 auto 0 0!important;width:232px!important;z-index:9000!important;overflow-y:auto!important;background:#ffffff!important;color:#233954!important;border-right:1px solid #d9e3ef!important;box-shadow:2px 0 14px #193c6812!important;padding:16px 12px!important;text-align:left!important;font:14px/1.42 Arial,Helvetica,sans-serif!important}
+#pv-shared-nav .pv-brand{display:block;font-size:18px;font-weight:800;margin:5px 7px 17px;color:#213955}
+#pv-shared-nav .pv-shell{display:block;border:0;background:transparent;padding:0;margin:0}
+#pv-shared-nav .pv-shell>summary{display:none!important}
+#pv-shared-nav .pv-links{display:flex!important;flex-direction:column;gap:3px}
+#pv-shared-nav a{display:block!important;padding:10px 12px!important;margin:0!important;border:0!important;box-shadow:none!important;background:transparent!important;color:#234e80!important;font-size:14px!important;line-height:1.4!important;font-weight:700!important;text-decoration:none!important;text-align:left!important;border-radius:9px!important}
+#pv-shared-nav a:hover,#pv-shared-nav a:focus-visible{background:#eaf2ff!important}
+#pv-shared-nav a[aria-current="page"]{background:#dbe9ff!important;color:#16437b!important}
+#pv-shared-nav .pv-game-group{display:block!important;margin:4px 0 0!important;padding:7px 0 0!important;border:0!important;border-top:1px solid #e0e8f3!important;background:transparent!important}
+#pv-shared-nav .pv-game-group>summary{display:block!important;cursor:pointer!important;list-style:none!important;position:relative!important;padding:11px 12px!important;border:0!important;border-radius:9px!important;background:#e8f0ff!important;color:#214b85!important;font-size:14px!important;font-weight:800!important;line-height:1.4!important}
 #pv-shared-nav .pv-game-group>summary::-webkit-details-marker{display:none}
-#pv-shared-nav .pv-game-group>summary:after{content:" ▾";float:right}
-#pv-shared-nav .pv-game-group[open]>summary:after{content:" ▴"}
-#pv-shared-nav .pv-game-group .pv-game-links{padding:5px 0 2px 10px;display:flex;flex-direction:column;gap:3px}
-#pv-shared-nav .pv-game-group .pv-game-links a{display:block;padding:10px 12px;text-decoration:none;border-radius:8px;color:#254a93;background:#f5f8ff;font-weight:600}
-#pv-shared-nav .pv-game-group .pv-game-links a:hover{background:#e2ebff}
-#pv-shared-nav .pv-game-group .pv-game-links a[aria-current="page"]{background:#3657a5;color:#fff}
+#pv-shared-nav .pv-game-group>summary::after{content:"▾";float:right}
+#pv-shared-nav .pv-game-group[open]>summary::after{content:"▴"}
+#pv-shared-nav .pv-game-group>summary:hover{background:#dae8ff!important}
+#pv-shared-nav .pv-game-links{display:flex!important;flex-direction:column;gap:2px;padding:6px 0 0 9px!important;margin:0!important}
+#pv-shared-nav .pv-game-group:not([open])>.pv-game-links{display:none!important}
+#pv-shared-nav .pv-game-links>a{font-size:13px!important;padding:9px 10px!important;background:#f5f8fd!important;font-weight:650!important}
+#pv-shared-nav .pv-game-links>a[aria-current="page"]{background:#dbe9ff!important}
+body{padding-left:232px!important}
+@media(max-width:850px){
+ #pv-shared-nav{position:relative!important;inset:auto!important;width:100%!important;min-height:0!important;max-height:none!important;overflow:visible!important;border-right:0!important;border-bottom:1px solid #d9e3ef!important;box-shadow:none!important;padding:7px 12px!important}
+ #pv-shared-nav .pv-brand{display:none}
+ #pv-shared-nav .pv-shell>summary{display:block!important;cursor:pointer!important;padding:10px 12px!important;background:#e8f0ff!important;color:#214b85!important;font-weight:800!important;border-radius:9px!important;list-style:none!important}
+ #pv-shared-nav .pv-shell>summary::-webkit-details-marker{display:none}
+ #pv-shared-nav .pv-shell:not([open])>.pv-links{display:none!important}
+ #pv-shared-nav .pv-links{padding:7px 0 3px!important}
+ body{padding-left:0!important}
+}
 </style></head>
-<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html" aria-current="page">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
+<body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group" open><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html" aria-current="page">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
   <header>
     <h1>🐍 Pythonverkstedet</h1>
     <p>Lær Python i ditt eget tempo – og bruk kunnskapen til å lage spill.</p>
