@@ -409,7 +409,31 @@ body{padding-left:232px!important}
  #pv-shared-nav .pv-links{padding:7px 0 3px!important}
  body{padding-left:0!important}
 }
-</style></head>
+</style>
+<style id="pv-topic-introductions-2026">
+/* En lettfattelig introduksjon før oppgave 1 i hvert tema. */
+#pv-topic-intro[hidden],#task-detail[hidden],#pv-help-drawer[hidden]{display:none!important}
+#pv-topic-intro{border:1px solid #b7d0ed;background:linear-gradient(180deg,#f3f8ff,#fff 65%);border-radius:15px;padding:22px;margin:0;color:#213b5b}
+#pv-topic-intro .pv-intro-kicker{font-size:.73rem;color:#426da5;font-weight:800;letter-spacing:.08em}
+#pv-topic-intro h3{font-size:1.5rem;line-height:1.26;margin:10px 0 12px;color:#1b3d72}
+#pv-topic-intro .pv-intro-meaning{font-size:1.02rem;line-height:1.57;margin:0 0 17px;color:#354b64}
+#pv-topic-intro .pv-intro-goal{border-left:4px solid #4f8acc;background:#fff;border-radius:8px;padding:12px 14px;margin:0 0 20px}
+#pv-topic-intro .pv-intro-goal strong{color:#204b7c;font-size:.92rem}
+#pv-topic-intro .pv-intro-goal p{margin:6px 0 0;line-height:1.5;color:#3d526c}
+#pv-topic-intro h4{font-size:.97rem;margin:0 0 9px;color:#244c81}
+#pv-intro-example{background:#182235;color:#e7f0ff;border-radius:10px;padding:16px 14px;margin:0;white-space:pre;overflow-x:auto;tab-size:4;font:14px/1.65 monospace;max-width:100%}
+#pv-topic-intro .pv-intro-experiment{margin:13px 0 0;color:#3e5269;line-height:1.54;font-size:.94rem}
+#pv-topic-intro .pv-intro-actions{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 9px}
+#pv-topic-intro .pv-intro-actions button{flex:1 1 175px;padding:12px 11px;font-size:.89rem}
+#pv-intro-start{background:#23589e;color:#fff}
+#pv-intro-use-example{background:#e9f0fc;color:#234b80;border:1px solid #c5d7f2}
+#pv-topic-intro .pv-intro-note{font-size:.79rem;color:#718096;margin:8px 0 0;line-height:1.5}
+#pv-topic-intro .pv-intro-feedback{font-size:.87rem;color:#196a4c;min-height:0;margin:4px 0}
+#learning-topics .pv-intro-list-link{border:1px solid #c6d7ee;background:#f2f7ff;margin-bottom:7px}
+#learning-topics .pv-intro-list-link.is-active{border:2px solid #4f85bd}
+@media(max-width:600px){#pv-topic-intro{padding:17px}#pv-topic-intro h3{font-size:1.32rem}}
+</style>
+</head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
 <header>
 <h1>🐍 Pythonverkstedet</h1>
@@ -457,7 +481,7 @@ body{padding-left:232px!important}
   <div class="pv-workshop-header">
     <div class="pv-workshop-kicker">LÆRINGSSTI</div>
     <h2>Én oppgave om gangen</h2>
-    <p>Velg tema, les oppdraget og prøv i kodefeltet.</p>
+    <p>Start med en kort forklaring. Gå så videre til oppgavene med pilen.</p>
   </div>
   <div class="pv-topic-chooser">
     <label for="topic-select">Velg tema</label>
@@ -473,6 +497,21 @@ body{padding-left:232px!important}
     <div class="pv-step-position"><strong id="pv-task-position">Oppgave 1 av 4</strong><small id="pv-task-level">Nivå 1 · Kom i gang</small></div>
     <button id="pv-next-task" class="pv-arrow" type="button" aria-label="Neste oppgave">→</button>
   </nav>
+  <article id="pv-topic-intro" class="pv-topic-intro" aria-live="polite" hidden>
+    <span class="pv-intro-kicker">📘 FØR DU BEGYNNER</span>
+    <h3 id="pv-intro-title">Dette skal du lære</h3>
+    <p id="pv-intro-meaning" class="pv-intro-meaning"></p>
+    <section class="pv-intro-goal"><strong>Dette skal du øve på</strong><p id="pv-intro-goal"></p></section>
+    <h4>Se et lite kodeeksempel</h4>
+    <pre id="pv-intro-example"></pre>
+    <p class="pv-intro-experiment"><strong>Prøv gjerne:</strong> <span id="pv-intro-try"></span></p>
+    <div class="pv-intro-actions">
+      <button id="pv-intro-use-example" class="secondary" type="button">Prøv eksempelet i kodefeltet</button>
+      <button id="pv-intro-start" type="button">Start første oppgave →</button>
+    </div>
+    <p id="pv-intro-feedback" role="status" class="pv-intro-feedback"></p>
+    <p class="pv-intro-note">Du trenger ikke kunne alt før du starter. Koden din blir ikke slettet når du går videre.</p>
+  </article>
   <article id="task-detail" aria-live="polite">
     <div class="pv-task-topline"><span id="pv-task-badge" class="pv-task-badge">OPPDRAG</span><span id="pv-task-done-indicator" hidden>✓ Fullført</span></div>
     <h3 id="task-title">Velg en oppgave</h3>
@@ -641,6 +680,22 @@ body{padding-left:232px!important}
     {"topic": "Matematikk", "title": "12. Matematikk med math", "intro": "Pythons innebygde math-modul har blant annet kvadratrøtter, pi og funksjoner for avrunding. Start med import math. math er en del av Python og er ikke det samme som den eksterne pakken mathpy.", "example": "import math\nprint(math.sqrt(81))\nprint(round(math.pi, 2))", "tryText": "Prøv å finne kvadratroten av 144 eller regne ut omkretsen av en sirkel."}
   ];
 
+  const introGoals = {
+  "Kom i gang": "Du skal lære å skrive en enkel kommando med print(), kjøre koden og endre teksten som vises.",
+  "Variabler": "Du skal lære å lagre informasjon med et navn, vise den med print() og spørre brukeren med input().",
+  "Vilkår": "Du skal lære å bruke if, elif og else slik at programmet kan ta valg. Du øver også på kolon og innrykk.",
+  "Løkker": "Du skal lære å bruke for og range() for å gjenta en handling, akkurat som når Turtle tegner en firkant.",
+  "Lister": "Du skal lære å samle flere verdier i én liste, finne et element og legge til nye elementer.",
+  "Funksjoner": "Du skal lære å lage en egen kommando med def, sende inn en verdi og bruke funksjonen flere ganger.",
+  "Tilfeldighet": "Du skal lære å hente tilfeldige tall med random. Det kan brukes til terninger, premier og hindringer.",
+  "Koordinater": "Du skal lære å bruke x og y for å plassere en figur og regne ut hvor den flytter seg.",
+  "Bevegelse": "Du skal lære å endre en figurs posisjon og bestemme retning. Dette bruker du senere når du lager spill.",
+  "Figurer": "Du skal lære å lage enkle mønstre med tekst og løkker, og forstå hvordan gjentakelser bygger figurer.",
+  "Kollisjon": "Du skal lære å undersøke om to figurer er nær nok hverandre til å gi treff og poeng.",
+  "Spilløkker": "Du skal lære å gjenta spillrunder, oppdatere poeng og holde orden på hva som skjer i et lite spill.",
+  "Matematikk": "Du skal lære å hente matematikkfunksjoner fra math, blant annet kvadratrot og pi."
+};
+
   // Nivåene er de samme som i forrige versjon. Ingen oppgaver er fjernet.
   tasks.forEach(task => {
     const topicTasks = tasks.filter(t => t.topic === task.topic);
@@ -679,10 +734,46 @@ body{padding-left:232px!important}
     }
   }
 
+  function openIntro() {
+    const lessonIndex = lessons.findIndex(lesson => lesson.topic === topicSelect.value);
+    const lesson = lessons[lessonIndex];
+    if (!lesson) return;
+    selectedTask = null;
+    selectedIndex = -1;
+    document.getElementById("pv-topic-intro").hidden = false;
+    document.getElementById("task-detail").hidden = true;
+    document.getElementById("pv-help-drawer").open = false;
+    document.getElementById("pv-help-drawer").hidden = true;
+    document.getElementById("pv-intro-title").textContent = lesson.title;
+    document.getElementById("pv-intro-meaning").textContent = lesson.intro;
+    document.getElementById("pv-intro-goal").textContent = introGoals[lesson.topic] || "Du får prøve noen enkle eksempler før oppgavene.";
+    document.getElementById("pv-intro-example").textContent = lesson.example.replace(/\\n/g, "\n");
+    document.getElementById("pv-intro-try").textContent = lesson.tryText;
+    document.getElementById("pv-intro-feedback").textContent = "";
+    document.getElementById("pv-task-position").textContent = "Introduksjon til temaet";
+    document.getElementById("pv-task-level").textContent = "Første oppgave kommer etterpå";
+    previousButton.disabled = lessonIndex === 0;
+    nextButton.disabled = false;
+    previousButton.title = "Forrige tema";
+    nextButton.title = "Gå til første oppgave";
+    updateProgress();
+    renderTaskList();
+  }
+
   function renderTaskList() {
     topicsContainer.replaceChildren();
     const list = currentTasks();
     document.getElementById("pv-task-list-count").textContent = "(" + list.length + ")";
+    const introduction = document.createElement("button");
+    introduction.type = "button";
+    introduction.className = "pv-compact-task pv-intro-list-link" + (selectedIndex === -1 ? " is-active" : "");
+    introduction.textContent = "📘 Introduksjon til temaet";
+    introduction.setAttribute("aria-current", selectedIndex === -1 ? "step" : "false");
+    introduction.addEventListener("click", () => {
+      openIntro();
+      document.getElementById("pv-task-list-drawer").open = false;
+    });
+    topicsContainer.append(introduction);
     list.forEach((task, i) => {
       const button = document.createElement("button");
       button.type = "button";
@@ -713,6 +804,9 @@ body{padding-left:232px!important}
     selectedIndex = Math.max(0, Math.min(index, list.length - 1));
     const task = list[selectedIndex];
     selectedTask = task;
+    document.getElementById("pv-topic-intro").hidden = true;
+    document.getElementById("task-detail").hidden = false;
+    document.getElementById("pv-help-drawer").hidden = false;
     const activeLesson = lessons.find(lesson => lesson.topic === task.topic);
     const name = task.title.replace(/^(?:\d+\.|[A-D]\.)\s*/, "");
     title.textContent = name;
@@ -723,11 +817,11 @@ body{padding-left:232px!important}
     const lessonIndex = lessons.findIndex(lesson => lesson.topic === task.topic);
     const atVeryStart = selectedIndex === 0 && lessonIndex === 0;
     const atVeryEnd = selectedIndex === list.length - 1 && lessonIndex === lessons.length - 1;
-    previousButton.disabled = atVeryStart;
+    previousButton.disabled = false; // Fra første oppgave kan eleven gå tilbake til temaintroduksjonen.
     nextButton.disabled = atVeryEnd;
     nextAction.disabled = atVeryEnd;
     nextAction.textContent = atVeryEnd ? "Alle oppgaver gjennomgått" : selectedIndex === list.length - 1 ? "Neste tema →" : "Neste oppgave →";
-    previousButton.title = selectedIndex === 0 ? "Forrige tema" : "Forrige oppgave";
+    previousButton.title = selectedIndex === 0 ? "Til introduksjonen" : "Forrige oppgave";
     nextButton.title = selectedIndex === list.length - 1 ? "Neste tema" : "Neste oppgave";
     const expectedBox = document.getElementById("pv-expected");
     expectedBox.replaceChildren();
@@ -768,18 +862,27 @@ body{padding-left:232px!important}
   }
 
   function changeTask(step) {
-    const next = selectedIndex + step;
     const list = currentTasks();
+    const themeIndex = lessons.findIndex(lesson => lesson.topic === topicSelect.value);
+    if (selectedIndex === -1) {
+      if (step > 0) openTask(0);
+      else if (themeIndex > 0) {
+        topicSelect.value = lessons[themeIndex - 1].topic;
+        persistTopic();
+        openTask(currentTasks().length - 1);
+      }
+      return;
+    }
+    const next = selectedIndex + step;
     if (next >= 0 && next < list.length) {
       openTask(next);
       return;
     }
-    const themeIndex = lessons.findIndex(lesson => lesson.topic === topicSelect.value) + (step > 0 ? 1 : -1);
-    if (themeIndex < 0 || themeIndex >= lessons.length) return;
-    topicSelect.value = lessons[themeIndex].topic;
+    if (next < 0) { openIntro(); return; }
+    if (themeIndex + 1 >= lessons.length) return;
+    topicSelect.value = lessons[themeIndex + 1].topic;
     persistTopic();
-    const nextList = currentTasks();
-    openTask(step > 0 ? 0 : nextList.length - 1);
+    openIntro();
   }
 
   previousButton.addEventListener("click", () => changeTask(-1));
@@ -787,10 +890,9 @@ body{padding-left:232px!important}
   nextAction.addEventListener("click", () => changeTask(1));
   topicSelect.addEventListener("change", () => {
     persistTopic();
-    const list = currentTasks();
-    const firstUnfinished = list.findIndex(task => !completedTasks.has(taskId(task)));
-    openTask(firstUnfinished < 0 ? 0 : firstUnfinished);
+    openIntro();
   });
+  document.getElementById("pv-intro-start").addEventListener("click", () => openTask(0));
   doneButton.addEventListener("click", () => {
     if (!selectedTask) return;
     const id = taskId(selectedTask);
@@ -809,7 +911,7 @@ body{padding-left:232px!important}
     editor.focus({preventScroll:true});
     loadStatus.textContent = "Startkoden er lagt inn. Fullfør oppgaven selv!";
   });
-  document.getElementById("pv-load-lesson-example").addEventListener("click", () => {
+  function loadLessonExample() {
     const lesson = lessons.find(item => item.topic === topicSelect.value);
     if (!lesson) return;
     const editor = document.getElementById("python-code");
@@ -817,17 +919,22 @@ body{padding-left:232px!important}
     editor.value = lesson.example.replace(/\\n/g, "\n");
     editor.dispatchEvent(new Event("input", {bubbles:true}));
     editor.focus({preventScroll:true});
-    loadStatus.textContent = "Eksempelkoden er lagt inn i editoren.";
-  });
+    if (selectedIndex === -1) {
+      document.getElementById("pv-intro-feedback").textContent = "Eksempelet er lagt inn i kodefeltet. Kjør koden når du vil.";
+    } else {
+      loadStatus.textContent = "Eksempelkoden er lagt inn i editoren.";
+    }
+  }
+  document.getElementById("pv-load-lesson-example").addEventListener("click", loadLessonExample);
+  document.getElementById("pv-intro-use-example").addEventListener("click", loadLessonExample);
 
   let rememberedTopic = null;
   try { rememberedTopic = localStorage.getItem(topicKey); } catch (_) {}
   if (rememberedTopic && lessons.some(lesson => lesson.topic === rememberedTopic)) {
     topicSelect.value = rememberedTopic;
   }
-  const initial = currentTasks();
-  const firstUnfinished = initial.findIndex(task => !completedTasks.has(taskId(task)));
-  openTask(firstUnfinished < 0 ? 0 : firstUnfinished);
+  // Hver gang siden åpnes, møter eleven først introduksjonen til valgt tema.
+  openIntro();
 
 })();
 </script>
