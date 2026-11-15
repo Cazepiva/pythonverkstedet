@@ -205,7 +205,9 @@
     header { padding:19px max(20px, calc((100vw - 1380px)/2)); background:white; border-bottom:1px solid #dce3f2; }
     header h1 { margin:0 0 5px; color:#3657a5; }
     header p { margin:0; color:#53627b; }
-    main.workspace { max-width:1380px; margin:0 auto; padding:22px 18px; display:grid; grid-template-columns:245px minmax(0,1fr); gap:22px; align-items:start; }
+    /* Forsiden har ingen synlig intern sidemeny. Bruk derfor hele innholdsfeltet. */
+    main.workspace { width:100%; max-width:1120px; margin:0 auto; padding:22px 18px; display:block; }
+    main.workspace .workspace-main { width:100%; min-width:0; }
     .sidebar { position:sticky; top:18px; background:white; border:1px solid #e0e7f3; border-radius:16px; padding:15px; box-shadow:0 4px 16px #24324a0c; }
     .sidebar-heading { font-size:.88rem; color:#63718a; font-weight:bold; padding:8px 10px 11px; }
     .side-link { display:block; padding:13px 12px; margin-bottom:5px; text-decoration:none; color:#254a93; font-weight:600; border-radius:10px; background:#f5f8ff; }
