@@ -83,6 +83,34 @@ body{padding-left:232px!important}
  #pv-shared-nav .pv-links{padding:7px 0 3px!important}
  body{padding-left:0!important}
 }
+</style><style id="pv-turtle-editor-match-python">
+/* Samme bredde og kodefelthøyde som i Lær Python.
+   Oppgaver og Turtle-tegning beholdes uendret. */
+main { max-width:1560px; width:100%; }
+.turtle-workspace {
+  grid-template-columns:minmax(385px,1.16fr) minmax(370px,.84fr);
+  gap:20px;
+}
+.turtle-work-area { min-width:0; }
+#turtle-code {
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+  height:360px;
+  min-height:360px;
+  padding:12px;
+  border:1px solid #cbd5e5;
+  border-radius:10px;
+  font:16px/1.5 monospace;
+  white-space:pre;
+  tab-size:4;
+  overflow:auto;
+  resize:vertical;
+}
+@media (max-width:1050px) {
+  .turtle-workspace {grid-template-columns:minmax(0,1fr);}
+}
 </style></head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html" aria-current="page">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
 <main>
