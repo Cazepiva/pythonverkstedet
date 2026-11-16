@@ -47,7 +47,130 @@ body{padding-left:232px!important}
  #pv-shared-nav .pv-links{padding:7px 0 3px!important}
  body{padding-left:0!important}
 }
-</style></head><body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html" aria-current="page">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
+</style><style id="pv-error-common-style">/* Lik, elevvennlig feilhjelp på alle sidene. */
+.pv-error-card{box-sizing:border-box;max-width:100%;text-align:left;background:#fff9f7;color:#26374f;border:1px solid #e8b7a8;border-left:5px solid #b45335;border-radius:12px;padding:14px 16px;margin:12px 0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5;box-shadow:0 2px 7px rgba(20,44,74,.06)}
+.pv-error-card *{box-sizing:border-box}
+.pv-error-kicker{font-weight:700;font-size:.87rem;color:#954129;letter-spacing:.02em}
+.pv-error-title{font-size:1.14rem;line-height:1.35;margin:6px 0 9px;color:#813622}
+.pv-error-line{font-weight:700;margin:7px 0 4px}
+.pv-error-source{background:#f3f0ed!important;color:#1d354d!important;border:1px solid #ddcec6;border-radius:7px;padding:9px 10px;white-space:pre-wrap;overflow:auto;font:14px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;max-width:100%}
+.pv-error-meaning,.pv-error-tip{margin:9px 0;font-size:.96rem}
+.pv-error-tip{background:#fff0dd;border-radius:8px;padding:10px 11px}
+.pv-error-jump{font:inherit!important;font-size:.9rem!important;display:inline-block;border:1px solid #244f82!important;background:#285b96!important;color:white!important;border-radius:8px!important;cursor:pointer;padding:8px 12px;margin:2px 0 10px}
+.pv-error-jump:focus-visible{outline:3px solid #9cc7f6;outline-offset:3px}
+.pv-error-original{background:transparent!important;border:0!important;padding:0!important;margin-top:5px;font-size:.9rem}
+.pv-error-original summary{cursor:pointer;color:#304f76;font-weight:600}
+.pv-error-raw{background:#eaf0f8!important;color:#203449!important;white-space:pre-wrap;overflow-wrap:anywhere;padding:10px;border-radius:7px;max-height:200px;overflow:auto;font:12px/1.45 ui-monospace,Consolas,monospace}
+[hidden]{display:none!important}</style><script id="pv-error-common-script">(function(){
+  "use strict";
+  // Én felles feilhjelp på alle åtte sidene. Ingen nettjeneste og ingen elevdata sendes videre.
+  function explain(raw, obj){
+    var r=String(raw || 'Ukjent feil');
+    var provided=obj || {};
+    var kind=String(provided.type || '').trim();
+    var line=Number(provided.line) || null;
+    var message=String(provided.message || '').trim();
+    // Prioriter linjen i elevens kode fremfor linjer inne i Python-motoren.
+    if(!line){
+      var student=[...r.matchAll(/File\s+["']<elevkode>["'],\s*line\s+(\d+)/g)];
+      var trace=[...r.matchAll(/File\s+["'](?:<exec>|<string>|<module>|<unknown>)["'],\s*line\s+(\d+)/g)];
+      var norsk=[...r.matchAll(/\bLinje\s+(\d+)\s*:/gi)];
+      var frames=student.length?student:(trace.length?trace:norsk);
+      if(frames.length)line=Number(frames[frames.length-1][1]);
+    }
+    if(!kind){var named=[...r.matchAll(/\b(IndentationError|TabError|SyntaxError|NameError|UnboundLocalError|TypeError|ValueError|ZeroDivisionError|IndexError|KeyError|AttributeError|ImportError|ModuleNotFoundError|EOFError|OverflowError|RecursionError|RuntimeError|PVLoopLimitError|TimeoutError|FileNotFoundError|StopIteration|AssertionError)\s*:\s*([^\n]*)/g)];
+      if(named.length){kind=named[named.length-1][1];message=message||named[named.length-1][2].trim()}}
+    if(!message)message=(r.trim().split('\n').filter(Boolean).slice(-1)[0] || 'Ukjent feil').trim();
+    var lower=(r+' '+message).toLowerCase();
+    var title='Koden trenger en liten rettelse';
+    var meaning='Programmet stoppet fordi det møtte noe det ikke kunne bruke slik koden er skrevet.';
+    var tip='Se på linjen som er markert. Sammenlign kommandoen med eksempelet i oppgaven og prøv igjen.';
+    var category=kind.toLowerCase();
+    if(/^(indentationerror|taberror)$/.test(category)||/innrykk|innrykket kode|four spaces|expected an indented block|unexpected indent/.test(lower)){
+      title='Se på innrykket';meaning='Python bruker mellomrom for å vise hvilke linjer som hører til en løkke, et vilkår eller en funksjon.';
+      tip='Etter en linje som slutter med kolon (:), skal neste linje vanligvis starte med fire mellomrom. Bruk samme innrykk på linjer som hører sammen.';
+    }else if(category==='syntaxerror'||/ugyldig python|forventet.*kolon|invalid syntax|never closed|unmatched|unterminated string/.test(lower)){
+      title='Sjekk skrivemåten';meaning='Python forstod ikke hvordan en del av koden var skrevet.';
+      tip=/never closed|unmatched|parentes/.test(lower)?'Se om alle parenteser har en avsluttende parentes, og om alle anførselstegn er lukket.':'Sjekk om du mangler kolon (:) etter if, for eller while, eller om du har glemt parenteser eller anførselstegn.';
+    }else if(category==='nameerror'||category==='unboundlocalerror'||/ukjent variabel/.test(lower)){
+      title='Python finner ikke navnet';var m=message.match(/name ['\"]([^'\"]+)['\"] is not defined/i)||message.match(/variabel\s+[«\"]([^»\"]+)[»\"]/i);
+      meaning='Python finner ikke variabelen eller funksjonen'+(m?' «'+m[1]+'»':'')+'.';
+      tip='Sjekk stavemåten, store og små bokstaver, og at variabelen er laget før du bruker den.';
+    }else if(category==='typeerror'){
+      title='Verdiene passer ikke sammen';meaning='Koden prøver å bruke en verdi på en måte som ikke passer, for eksempel legge sammen tekst og tall.';
+      tip='Undersøk hvilke verdier variablene inneholder. Trenger du int() for heltall, float() for desimaltall eller str() for tekst?';
+    }else if(category==='valueerror'){
+      title='Verdien kan ikke brukes';meaning='Python fikk en verdi i feil format, for eksempel tekst der det forventes et tall.';
+      tip='Sjekk input() og verdien som sendes til int() eller float(). Bruk et gyldig tall, eller håndter svaret som tekst.';
+    }else if(category==='zerodivisionerror'||/dele på null/.test(lower)){
+      title='Du kan ikke dele på null';meaning='Koden prøver å dele et tall med 0.';
+      tip='Sjekk tallet under brøkstreken (etter /). Pass på at det ikke blir 0.';
+    }else if(category==='indexerror'){
+      title='Du er utenfor listen';meaning='Koden forsøker å hente et element på en plass som ikke finnes i listen.';
+      tip='Husk at første element i en liste har indeks 0. Sjekk lengden med len().';
+    }else if(category==='keyerror'){
+      title='Nøkkelen finnes ikke';meaning='Koden finner ikke oppslaget du bruker i en ordbok (dictionary).';
+      tip='Sjekk stavemåten på nøkkelen og om den er lagt inn i ordboken.';
+    }else if(category==='attributeerror'){
+      title='Kommandoen finnes ikke her';meaning='Du prøvde å bruke en metode eller egenskap som objektet ikke har.';
+      tip='Sjekk at du har riktig objekt foran punktumet, og at metoden er stavet riktig.';
+    }else if(category==='modulenotfounderror'||category==='importerror'){
+      title='Fant ikke modulen';meaning='Python finner ikke biblioteket du forsøker å importere.';
+      tip='Sjekk stavemåten etter import. Noen Python-biblioteker er ikke tilgjengelige i nettleseren.';
+    }else if(category==='eoferror'||/testbokstav/.test(lower)){
+      title='Programmet trenger flere svar';meaning='Programmet ber om mer input() enn det finnes svar til.';
+      tip='Skriv inn flere testbokstaver, eller endre løkken slik at spillet kan avsluttes.';
+    }else if(category==='pvlooplimiterror'||category==='timeouterror'||/for lang tid|for mange gjentakelser|while-løkken er stoppet|løkke.*stoppet|uendelig løkke/.test(lower)){
+      title='Løkken ser ikke ut til å stoppe';meaning='Programmet gjentok koden svært mange ganger eller brukte for lang tid. Kjøringen ble avbrutt for å beskytte siden.';
+      tip='Sjekk at noe endres inne i løkken, for eksempel en teller eller et svar fra input(), slik at vilkåret etter hvert kan bli usant.';
+    }else if(category==='recursionerror'){
+      title='Funksjonen kaller seg selv for mange ganger';meaning='En funksjon fortsetter å kalle seg selv uten å stoppe.';
+      tip='Sjekk at funksjonen har en betingelse som avslutter de gjentatte kallene.';
+    }else if(/ukjent kommando/.test(lower)){
+      title='Ukjent Turtle-kommando';meaning='Turtle-verkstedet kjenner ikke igjen kommandoen du skrev.';
+      tip='Sjekk stavemåten. Prøv for eksempel forward(100), right(90), pencolor("red") eller pensize(3).';
+    }else if(/pencolor|ukjent farge|farge i anførselstegn/.test(lower)){
+      title='Sjekk fargen';meaning='Fargen mangler anførselstegn eller er ikke en kjent farge.';
+      tip='Skriv fargen som tekst, for eksempel pencolor("blue") eller spiller_farge = "orange".';
+    }else if(/heltall|mellom 1 og 50|fire innstillingene/.test(lower)){
+      title='Sjekk spillinnstillingene';meaning='En av verdiene i spillet er ikke skrevet slik spillmotoren forventer.';
+      tip='Bruk de oppgitte variabelnavnene. Skriv fart og poeng som heltall, og farger i anførselstegn.';
+    }else if(/kunne ikke laste|failed to fetch|python-motoren|networkerror|internett|loadpyodide/.test(lower)||category==='teknisk feil'){
+      title='Python-motoren fikk ikke startet';meaning='Nettleseren fikk et teknisk problem med å laste eller kjøre Python. Dette betyr ikke nødvendigvis at du har skrevet feil kode.';
+      tip='Sjekk internettforbindelsen og oppdater siden. Hvis det skjer igjen, vis meldingen til læreren.';
+    }else if(/trenger \d+ argument|må ha|forventet tall|bruk et tall/.test(lower)){
+      title='Sjekk verdiene i kommandoen';meaning='Kommandoen fikk for få, for mange eller feil typer verdier.';
+      tip='Se på eksempelet for kommandoen. Husk parenteser og tall eller tekst der kommandoen forventer det.';
+    }
+    return {line:line>0?line:null,title:title,meaning:meaning,tip:tip,raw:r};
+  }
+  function add(parent,tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;parent.appendChild(e);return e}
+  function clear(mount){if(!mount)return;mount.replaceChildren();mount.hidden=true}
+  function show(mount, err, editor, provided){
+    if(!mount)return;
+    var raw=typeof err==='string'?err:(err && (err.raw||err.stack||err.message))||String(err);
+    var details=explain(raw,provided);
+    if(provided && provided.line)details.line=Number(provided.line);
+    var lines=editor&&typeof editor.value==='string'?editor.value.split('\n'):null;
+    var valid=!!(lines && details.line>=1 && details.line<=lines.length);
+    mount.replaceChildren(); mount.hidden=false;
+    var box=add(mount,'section','pv-error-card');box.setAttribute('role','alert');
+    add(box,'div','pv-error-kicker','⚠️ Hjelp til å rette feilen');
+    add(box,'h3','pv-error-title',details.title);
+    if(valid){add(box,'p','pv-error-line','Se på linje '+details.line+':');add(box,'pre','pv-error-source',details.line+'  '+(lines[details.line-1] || '(tom linje)'));}
+    add(box,'p','pv-error-meaning','Hva betyr det? '+details.meaning);
+    add(box,'p','pv-error-tip','Prøv dette: '+details.tip);
+    if(valid){var btn=add(box,'button','pv-error-jump','Gå til linje '+details.line);btn.type='button';btn.addEventListener('click',function(){
+      var start=lines.slice(0,details.line-1).reduce((n,s)=>n+s.length+1,0);var end=start+lines[details.line-1].length;
+      editor.focus();editor.setSelectionRange(start,end);
+      var h=parseFloat(window.getComputedStyle(editor).lineHeight)||24;
+      editor.scrollTop=Math.max(0,(details.line-3)*h);
+    });}
+    var more=add(box,'details','pv-error-original');add(more,'summary','Vis den opprinnelige feilmeldingen');add(more,'pre','pv-error-raw',details.raw.slice(-5000));
+    return details;
+  }
+  window.PVErrors={show:show,clear:clear,explain:explain};
+})();</script></head><body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html" aria-current="page">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
 <header class="intro"><h1>🐟 Lag ditt eget fiskespill</h1><p>Bygg fiskespillet selv! Les ett trinn om gangen, skriv koden og test. Når du velger neste trinn, beholder du koden du har skrevet. Hvis du står fast, kan du åpne løsningsforslaget.</p></header>
 <main class="layout"><div><section class="panel"><h2>💻 Python-koden din</h2><label for="code"><strong>Skriv og prøv kode</strong></label><div class="pv-code-wrap"><div id="pv-line-numbers" aria-hidden="true">1</div><textarea id="code" class="codebox" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off"></textarea></div><div class="actions"><button id="run">▶ Kjør spillet</button><button id="stop" class="secondary">■ Stopp</button><button id="reset" class="light">↺ Start på nytt</button><button id="download" class="light">⬇ Last ned .py</button></div><p class="status" id="status" role="status">Laster Python-motoren …</p><div id="errors" role="alert" hidden></div><p class="muted">Koden lagres automatisk i denne nettleseren. Du bygger videre på samme program gjennom alle trinnene.</p></section><section class="panel"><h2>🌊 Spillvindu</h2><canvas id="game" class="game" width="640" height="480" tabindex="0" aria-label="Fiskespill – bruk piltastene for å styre fisken"></canvas><p class="muted">Når piltaststyringen er lagt til (trinn 4), klikker du på spillvinduet og bruker ↑ ↓ ← →. På Chromebook kan du også bruke knappene under.</p><div class="actions"><button class="secondary" data-key="Up">↑ Opp</button><button class="secondary" data-key="Left">← Venstre</button><button class="secondary" data-key="Down">↓ Ned</button><button class="secondary" data-key="Right">→ Høyre</button></div></section><section class="panel"><h2>🎨 Gjør spillet til ditt eget</h2><p class="muted">Du kan laste opp et bilde som havbakgrunn og et bilde av fisken – eller bruke en helt annen figur, for eksempel en hai, ubåt eller skilpadde. Dette endrer utseendet i spillvinduet, ikke Python-koden.</p><div class="asset-controls"><label>🌊 Bakgrunnsbilde <input id="bg-upload" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></label><button id="bg-clear" class="light" type="button">Fjern bakgrunnsbilde</button><label>🐟 Fisk eller annen figur <input id="fish-upload" type="file" accept="image/png,image/jpeg,image/webp,image/gif"></label><button id="fish-clear" class="light" type="button">Bruk vanlig fisk</button></div><p class="muted">Tips: PNG med gjennomsiktig bakgrunn passer godt til figurer. Bildene brukes bare i nettleseren og lastes ikke opp til en server. Du må velge bildene på nytt hvis du lukker siden.</p></section></div>
 <aside class="panel taskpanel"><h2>📚 Lær mens du lager spillet</h2><label for="step"><strong>Velg trinn</strong></label><select id="step"></select><h3 id="step-title"></h3><div id="explain"></div><div id="challenge" class="challenge" style="display:none"></div><details id="hint-details"><summary>💡 Vis hint</summary><p id="hint"></p></details><details id="solution-details" class="solution"><summary>🛟 Se løsningsforslag (hvis du står fast)</summary><p>Prøv selv først! Her vises bare den nye koden for dette trinnet. Les kommentarene om hvor koden skal plasseres.</p><pre id="solution-code" class="solution-code"></pre><button id="copy-solution" class="light" type="button">Kopier kodebiten</button></details><details id="full-details" class="solution" style="margin-top:12px"><summary>📄 Se hele koden til fiskespillet</summary><p>Her finner du hele spillet med bobler, poeng, direkte piltaststyring og hindringer. Bruk det til å sammenligne med ditt eget arbeid. Koden settes ikke automatisk inn i kodefeltet.</p><pre id="full-code" class="solution-code"></pre><button id="copy-full" class="light" type="button">Kopier hele koden</button></details><div class="actions"><button id="previous" class="light">← Forrige</button><button id="next" class="secondary">Neste trinn →</button></div><p class="note"><strong>Slik lærer du:</strong> Les forklaringen, skriv koden selv og prøv igjen. Du kan alltid hente startkoden tilbake. Du kan åpne løsningsforslaget bare når du trenger hjelp. Trykk Enter etter kolon (:) for automatisk innrykk; Tab legger til fire mellomrom.</p><p class="note"><strong>Om Turtle her:</strong> Spillet kjører ekte Python i nettleseren med en tilpasset Turtle-modul for tegning og piltaster. Det krever internett første gang Python-motoren lastes inn. Ikke alle kommandoer fra vanlig skrivebords-Turtle støttes.</p></aside></main>
@@ -72,15 +195,8 @@ window.fishBridge=bridge;
 function draw(){const w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle=game.background;ctx.fillRect(0,0,w,h);if(art.background){ctx.drawImage(art.background,0,0,w,h)}const scale=Math.min(w/440,h/440);function X(x){return w/2+x*scale}function Y(y){return h/2-y*scale}
  for(const t of game.items){if(t.visible){ctx.save();ctx.translate(X(t.x),Y(t.y));ctx.rotate(-t.heading*Math.PI/180);ctx.fillStyle=t.color;ctx.strokeStyle=t.color;if(art.fish && game.items.indexOf(t)===0){ctx.drawImage(art.fish,-20*scale,-20*scale,40*scale,40*scale)}else if(t.shape==='circle'){ctx.beginPath();ctx.arc(0,0,10*scale,0,Math.PI*2);ctx.fill();if(t.color==='yellow'||t.color==='orange'){ctx.beginPath();ctx.moveTo(-7*scale,0);ctx.lineTo(-18*scale,-8*scale);ctx.lineTo(-18*scale,8*scale);ctx.closePath();ctx.fill();ctx.fillStyle='#222';ctx.beginPath();ctx.arc(4*scale,-3*scale,1.7*scale,0,Math.PI*2);ctx.fill()}}else{ctx.beginPath();ctx.moveTo(13*scale,0);ctx.lineTo(-9*scale,-8*scale);ctx.lineTo(-9*scale,8*scale);ctx.closePath();ctx.fill()}ctx.restore()}for(const wri of t.writes){ctx.fillStyle=wri.color;ctx.font=`bold ${Math.max(12,wri.size*scale)}px Arial`;ctx.fillText(wri.value,X(wri.x),Y(wri.y))}}}
 function showError(err){
- const raw=String(err), matches=[...raw.matchAll(/File ["'](?:<exec>|<string>|<module>)["'], line (\d+)/g)];
- const line=matches.length?Number(matches[matches.length-1][1]):null;
- const last=raw.match(/(?:SyntaxError|IndentationError|NameError|TypeError|ValueError|AttributeError|ZeroDivisionError|IndexError|UnboundLocalError):[^\n]*/g);
- const message=last?last[last.length-1]:(raw.split('\n').filter(Boolean).pop()||'Ukjent feil');
- const box=$('errors');box.hidden=false;box.className='error';box.replaceChildren();
- const intro=document.createElement('div');intro.id='pv-friendly-error';intro.textContent=(line?'Feil på linje '+line+' i koden din.\n':'Feil i koden din.\n')+message;box.appendChild(intro);
- if(line){const btn=document.createElement('button');btn.id='pv-error-go';btn.type='button';btn.textContent='↗ Gå til linje '+line;btn.onclick=()=>goToCodeLine(line);box.appendChild(btn)}
- const details=document.createElement('details');details.id='pv-error-raw';const summary=document.createElement('summary');summary.textContent='Vis teknisk feilmelding';const pre=document.createElement('pre');pre.textContent=raw;details.append(summary,pre);box.appendChild(details);
- $('status').textContent='Rett feilen og prøv å kjøre koden igjen.';
+ PVErrors.show($('errors'),err,$('code'));
+ $('status').textContent='Koden stoppet. Les feilhjelpen og prøv igjen.';
 }
 function goToCodeLine(line){const el=$('code'),lines=el.value.split('\n');let start=0;for(let i=0;i<Math.min(line-1,lines.length);i++)start+=lines[i].length+1;el.focus();el.setSelectionRange(start,start+(lines[line-1]||'').length);const lh=22;el.scrollTop=Math.max(0,(line-4)*lh);$('pv-line-numbers').scrollTop=el.scrollTop}
 function updateFishLines(){const el=$('code'),g=$('pv-line-numbers');g.textContent=Array.from({length:el.value.split('\n').length},(_,i)=>i+1).join('\n');g.scrollTop=el.scrollTop}
@@ -132,7 +248,7 @@ m.Screen=Screen;m.Turtle=Turtle;m.mainloop=mainloop
 sys.modules['turtle']=m
 `;
 async function loadPython(){if(py||loading)return;loading=true;$('run').disabled=true;try{if(typeof loadPyodide!=='function')throw new Error('Python-motoren kunne ikke lastes. Kontroller internettilkoblingen og oppdater siden.');py=await loadPyodide({indexURL:'https://cdn.jsdelivr.net/pyodide/v0.27.7/full/'});$('status').textContent='Python er klar! Velg et trinn og trykk «Kjør spillet».'}catch(e){showError(e)}finally{loading=false;$('run').disabled=false}}
-async function run(){if(!py){await loadPython();if(!py)return}save();resetGame();$('errors').hidden=true;$('status').textContent='Kjører Python …';$('run').disabled=true;try{await py.runPythonAsync(PY_SHIM);await py.runPythonAsync($('code').value);game.active=true;$('status').textContent='Spillet kjører! Klikk på spillvinduet og bruk piltastene når de er lagt til.';canvas.focus();draw()}catch(e){showError(e);game.active=false}finally{$('run').disabled=false}}
+async function run(){if(!py){await loadPython();if(!py)return}save();resetGame();PVErrors.clear($('errors'));$('status').textContent='Kjører Python …';$('run').disabled=true;try{await py.runPythonAsync(PY_SHIM);await py.runPythonAsync($('code').value);game.active=true;$('status').textContent='Spillet kjører! Klikk på spillvinduet og bruk piltastene når de er lagt til.';canvas.focus();draw()}catch(e){showError(e);game.active=false}finally{$('run').disabled=false}}
 const BUILD_TASKS = [{"challenge": "Skriv selv: opprett spillvinduet og gi det blå bakgrunn.", "hint": "<code>import turtle</code><br><code>screen = turtle.Screen()</code><br><code>screen.bgcolor(\"blue\")</code>"}, {"challenge": "Bygg videre på koden fra trinn 1. Opprett variabelen <code>fish</code>, lag en rund gul fisk og løft pennen.", "hint": "Opprett fisken med <code>fish = turtle.Turtle()</code>. Bruk deretter metodene på egne linjer:<br><code>shape</code> · <code>color</code> · <code>penup</code> · <code>setheading</code>.<br>Husk parenteser når du kaller en metode."}, {"challenge": "Legg til <code>import random</code> øverst. Lag en tom liste og en <code>for</code>-løkke som oppretter fem hvite bobler og legger dem i listen.", "hint": "Du trenger <code>import random</code>, listen <code>bubbles = []</code> og en <code>for</code>-løkke. For hver boble: <code>turtle.Turtle()</code>, <code>shape</code>, <code>color</code>, <code>penup</code>, <code>goto</code> med to tilfeldige tall, og <code>append</code>. Husk fire mellomrom inni løkken."}, {"challenge": "Lag fire funksjoner: <code>up</code>, <code>down</code>, <code>left</code> og <code>right</code>. Hver funksjon skal peke fisken i riktig retning og flytte den framover. Koble funksjonene til piltastene.", "hint": "Lag først variabelen <code>move_speed</code> med en passende verdi, for eksempel 15. Retningene med <code>setheading</code> er: opp 90°, ned 270°, venstre 180° og høyre 0°. I hver funksjon trenger du både <code>setheading</code> og <code>forward(move_speed)</code>. Avslutt med <code>screen.listen()</code> og <code>screen.onkey()</code> for alle fire piltastene."}, {"challenge": "Lag <code>score = 0</code> og en poengteller. Skriv funksjonen <code>check_collision()</code> som går gjennom boblene og gir poeng når avstanden er mindre enn 20. Kall den etter hver bevegelse.", "hint": "Begynn med <code>score = 0</code>. Lag deretter en <em>egen</em> Turtle for poengteksten, for eksempel <code>p = turtle.Turtle()</code>. Metodene du trenger er <code>penup</code>, <code>hideturtle</code>, <code>goto</code>, <code>write</code> og <code>clear</code>. Lag <code>check_collision()</code> med <code>global score</code>, en løkke over boblene og <code>distance</code>. Kall funksjonen fra alle fire bevegelsesfunksjonene. Bruk <code>p.clear()</code> med parenteser før du skriver ny poengtekst, og samme <code>goto</code>-posisjon hver gang. Uten parenteser blir teksten ikke slettet. Spillet erstatter også gamle poengtekster automatisk for å hindre overlapp."}, {"challenge": "Lag funksjonen <code>check_bounds()</code> og kall den etter bevegelsene. Fisken skal holde seg mellom −200 og 200 på begge akser.", "hint": "Hent posisjon med <code>xcor()</code> og <code>ycor()</code>. Bruk fire <code>if</code>-tester og <code>setx()</code> / <code>sety()</code> for grensene. Husk punktum mellom fiskevariabelen og metoden, for eksempel <code>f.setx(...)</code>, ikke understrek."}, {"challenge": "Sett <code>MAX_SCORE = 10</code>. Når fisken har nok poeng, vis «Du vant!» og avslutt etter to sekunder.", "hint": "Opprett <code>MAX_SCORE</code> én gang sammen med <code>score</code>. Sjekk målet inne i <code>check_collision()</code>. Bruk <code>write</code> og <code>ontimer</code> ved seier. Fontstilen skrives <code>\"bold\"</code>."}, {"challenge": "Lag tre røde hindringer og få fisken til å miste ett poeng ved treff. Flytt hindringen etter treff slik at du ikke mister flere poeng på samme sted. Bruk <code>max(0, score - 1)</code>.", "hint": "Skriv <code>obstacles = []</code> og lag røde <code>turtle.Turtle()</code>-objekter i en løkke. Lag <code>check_obstacles()</code> med <code>global score</code>. Husk å kalle funksjonen i <em>alle fire</em> bevegelsesfunksjonene."}, {"challenge": "Få de hvite boblene til å stige oppover automatisk. Bruk en løkke, <code>sety()</code> og <code>screen.ontimer()</code>. Boblene skal dukke opp nederst når de forsvinner øverst. Behold koden fra trinn 1–8.", "hint": "Start med <code>bubble_speed = 7</code> og <code>def move_bubbles():</code>. Inne i funksjonen: <code>for b in bubbles:</code> og <code>b.sety(b.ycor() + bubble_speed)</code>. Bruk <code>screen.ontimer(move_bubbles, 200)</code> både inne i funksjonen og én gang utenfor for å starte."}];
 const STEP_SNIPPETS = ["screen.bgcolor(\"blue\")", "fish = turtle.Turtle()\nfish.shape(\"circle\")\nfish.color(\"yellow\")\nfish.penup()\nfish.setheading(90)", "# VIKTIG: Denne linjen må stå øverst, sammen med import turtle:\nimport random\n\n# Legg denne delen etter koden som lager fisken:\nbubbles = []\nfor i in range(5):\n    b = turtle.Turtle()\n    b.shape(\"circle\")\n    b.color(\"white\")\n    b.penup()\n    b.goto(random.randint(-170, 170), random.randint(-170, 170))\n    bubbles.append(b)", "# Legg funksjonene etter koden som lager fisken og boblene.\nmove_speed = 15\n\ndef up():\n    fish.setheading(90)\n    fish.forward(move_speed)\n\ndef down():\n    fish.setheading(270)\n    fish.forward(move_speed)\n\ndef left():\n    fish.setheading(180)\n    fish.forward(move_speed)\n\ndef right():\n    fish.setheading(0)\n    fish.forward(move_speed)\n\n# Disse linjene skal stå til slutt i programmet:\nscreen.listen()\nscreen.onkey(up, \"Up\")\nscreen.onkey(down, \"Down\")\nscreen.onkey(left, \"Left\")\nscreen.onkey(right, \"Right\")\nturtle.mainloop()", "# Legg dette ÉN gang før funksjonene:\nscore = 0\n\n# Lag en egen Turtle for poengvisningen:\np = turtle.Turtle()\np.penup()\np.color(\"white\")\np.hideturtle()\np.goto(100, 170)\np.write(\"Poeng: 0\", font=(\"Arial\", 14))\n\n# Legg funksjonen før up(), down(), left(), right():\ndef check_collision():\n    global score\n    for b in bubbles:\n        if fish.distance(b) < 20:\n            score += 1\n            p.clear()  # Parentesene er viktige!\n            p.goto(100, 170)  # Samme sted som første poengtekst\n            p.write(\"Poeng: \" + str(score), font=(\"Arial\", 14))\n            b.goto(random.randint(-180, 180), random.randint(-180, 180))\n\n# Kall check_collision() etter forward() i hver retning.", "# Legg funksjonen FØR bevegelsesfunksjonene:\ndef check_bounds():\n    x, y = fish.xcor(), fish.ycor()\n    if x > 200:\n        fish.setx(200)\n    if x < -200:\n        fish.setx(-200)\n    if y > 200:\n        fish.sety(200)\n    if y < -200:\n        fish.sety(-200)\n\n# Legg til etter check_collision() i alle bevegelsesfunksjonene:\n    check_bounds()", "# Legg denne linjen ved score = 0:\nMAX_SCORE = 10\n\n# Legg dette INNE I check_collision(), etter at boblen flyttes:\n            if score >= MAX_SCORE:\n                p.goto(-90, 0)\n                p.write(\"Gratulerer! Du vant!\", font=(\"Arial\", 16, \"bold\"))\n                screen.ontimer(screen.bye, 2000)", "# Du trenger import random øverst i programmet.\n# Legg dette ETTER at boblene er opprettet:\nobstacles = []\nfor i in range(3):\n    o = turtle.Turtle()\n    o.shape(\"circle\")\n    o.color(\"red\")\n    o.penup()\n    o.goto(random.randint(-170, 170), random.randint(-170, 170))\n    obstacles.append(o)\n\n# Legg denne funksjonen etter check_collision():\ndef check_obstacles():\n    global score\n    for o in obstacles:\n        if fish.distance(o) < 25:\n            score = max(0, score - 1)\n            p.clear()\n            p.goto(100, 170)\n            p.write(\"Poeng: \" + str(score), font=(\"Arial\", 14))\n            o.goto(random.randint(-170, 170), random.randint(-170, 170))\n\n# Legg til dette etter check_collision() i ALLE fire\n# funksjonene up(), down(), left() og right():\n    check_obstacles()", "# Legg til denne koden mot slutten av programmet,\n# FØR turtle.mainloop().\n# Husk at import random må stå øverst.\nbubble_speed = 7\n\ndef move_bubbles():\n    for b in bubbles:\n        b.sety(b.ycor() + bubble_speed)\n        if b.ycor() > 200:\n            b.sety(-200)\n            b.setx(random.randint(-170, 170))\n    check_collision()\n    screen.ontimer(move_bubbles, 200)\n\n# Start bevegelsen:\nscreen.ontimer(move_bubbles, 200)"];
 function chooseStep(i){step=Math.max(0,Math.min(STEPS.length-1,i));const t=STEPS[step],task=BUILD_TASKS[step];$('step').value=String(step);$('step-title').textContent=t.title;$('explain').innerHTML='<p>'+t.explain+'</p>';$('challenge').innerHTML=task.challenge;$('hint').innerHTML=task.hint;$('hint-details').open=false;$('solution-details').open=false;$('solution-code').textContent=STEP_SNIPPETS[step];$('full-details').open=false;$('full-code').textContent=STEPS[STEPS.length-1].code;$('previous').disabled=step===0;$('next').disabled=step===STEPS.length-1;$('status').textContent=py?'Klar. Bygg videre på din egen kode.':'Laster Python-motoren …'}
