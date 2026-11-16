@@ -1,0 +1,204 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🐢 Lag Skilpaddeløpet – Pythonverkstedet</title><style>
+:root{color-scheme:light}*{box-sizing:border-box}body{margin:0;padding:24px 26px 30px 256px;background:#eef5ff;color:#1e3450;font:16px/1.5 Arial,Helvetica,sans-serif}h1{font-size:2rem;color:#173b74;margin:0 0 8px}h2{font-size:1.24rem;margin:0 0 12px;color:#234f85}p{margin:6px 0 11px}.intro{max-width:1400px;margin:0 auto 20px}.layout{display:grid;grid-template-columns:minmax(365px,1.07fr) minmax(365px,.93fr);gap:18px;max-width:1450px;margin:auto;align-items:start}.panel{background:white;border-radius:16px;box-shadow:0 4px 16px #122d5112;padding:20px;margin-bottom:16px}.guide{position:sticky;top:16px;max-height:calc(100vh - 32px);overflow-y:auto;scrollbar-width:auto;scrollbar-color:#89a6cc #e9f2ff;direction:rtl}.guide>*{direction:ltr}.guide>*{text-align:left}.muted{color:#566983;font-size:14px}.code-wrap{display:flex;min-width:0;border:1px solid #a8bedb;border-radius:10px;overflow:hidden;background:#f8fbff}.lines{white-space:pre;min-width:43px;overflow:hidden;text-align:right;padding:12px 7px 12px 0;background:#e8f0fa;color:#57708e;font:14px/1.55 Consolas,monospace;user-select:none}.editor{width:100%;min-height:310px;height:340px;resize:vertical;border:0;outline:0;padding:12px;color:#172d47;background:#f8fbff;font:14px/1.55 Consolas,monospace;white-space:pre;tab-size:4;overflow:auto}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}button{font:inherit;font-size:14px;font-weight:bold;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;background:#27643f;color:white}button.secondary{background:#2c5c9f}button.light{background:#e5eefb;color:#19467d}button:disabled{opacity:.5;cursor:not-allowed}select,input[type=text]{font:inherit;padding:10px;border-radius:9px;border:1px solid #aebed0;max-width:100%;background:white;color:#203652}.step-select{display:block;width:100%;margin:9px 0}.help{padding:13px;border-radius:10px;background:#eff6ff;border-left:4px solid #5689be;margin:14px 0}.example{border:1px solid #d7e6fb;border-radius:10px;padding:12px;margin:12px 0;background:#f8fbff}.tasklist{padding-left:24px}.tasklist li{margin:6px 0}.pill{display:inline-block;font-size:12px;background:#e5f3e8;color:#22633e;font-weight:bold;padding:4px 9px;border-radius:30px}details{border-radius:10px;border:1px solid #d7e1ef;padding:10px 12px;margin:12px 0}details summary{cursor:pointer;font-weight:bold;color:#244e7d}pre.solution{overflow:auto;white-space:pre;color:#edf5ff;background:#152740;border-radius:9px;padding:14px;font:13px/1.5 Consolas,monospace;max-height:350px}code{font:14px Consolas,monospace;background:#edf3fa;padding:1px 4px;border-radius:4px}pre code{background:transparent;color:inherit;padding:0}.console{min-height:125px;max-height:320px;overflow:auto;border-radius:10px;background:#17283c;color:#ebf4ff;padding:13px;font:14px/1.6 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.error{background:#fff0ed;border:1px solid #efc5bd;border-radius:9px;padding:12px;color:#892b27;font-size:14px;white-space:pre-wrap}.gamebox{min-height:160px;border-radius:14px;padding:18px;border:2px solid #c5debd;background:linear-gradient(#d9f4ff,#eef9f2)}.lane{position:relative;margin:14px 0 18px;height:62px;border-bottom:3px dashed #8eae9e;padding:0 5px}.lane .name{font-size:12px;font-weight:bold;color:#35638d}.marker{position:absolute;bottom:7px;left:0;font-size:28px;line-height:1;transform:translateX(-30%);transition:left .25s linear;filter:drop-shadow(0 2px 2px #375d7630)}.finish{position:absolute;right:0;top:0;height:62px;border-right:4px dotted #cd693f}.track-num{font-size:14px;font-weight:600;color:#41627b}.hang-canvas{display:block;width:100%;aspect-ratio:4/3;max-height:500px;border:2px solid #a8bed8;border-radius:12px;background:#fff;object-fit:contain}.guess-row{margin:10px 0;padding:10px;background:#ecf3fb;border-radius:9px}.guess-row input{width:100%;margin:5px 0}.status{min-height:23px;font-size:14px;color:#355b7c;font-weight:600}.layout-note{background:#f0f7ff;padding:11px;border-radius:9px;font-size:14px}.step-top{display:flex;align-items:center;justify-content:space-between;gap:12px}.progress{font-size:13px;color:#50708b}@media(max-width:1120px){.layout{grid-template-columns:1fr}.guide{position:relative;top:auto;max-height:none;direction:ltr}.guide>*{direction:ltr}}@media(max-width:850px){body{padding:18px}.layout{grid-template-columns:1fr}}@media(max-width:500px){body{padding:12px}.panel{padding:14px}.intro h1{font-size:1.5rem}.editor{height:310px}.marker{font-size:25px}}
+</style><style id="pv-unified-nav-2026">
+/* Felles navigasjon på samtlige Pythonverkstedet-sider. */
+#pv-shared-nav, #pv-shared-nav * {box-sizing:border-box}
+#pv-shared-nav {position:fixed!important;inset:0 auto 0 0!important;width:232px!important;z-index:9000!important;overflow-y:auto!important;background:#ffffff!important;color:#233954!important;border-right:1px solid #d9e3ef!important;box-shadow:2px 0 14px #193c6812!important;padding:16px 12px!important;text-align:left!important;font:14px/1.42 Arial,Helvetica,sans-serif!important}
+#pv-shared-nav .pv-brand{display:block;font-size:18px;font-weight:800;margin:5px 7px 17px;color:#213955}
+#pv-shared-nav .pv-shell{display:block;border:0;background:transparent;padding:0;margin:0}
+#pv-shared-nav .pv-shell>summary{display:none!important}
+#pv-shared-nav .pv-links{display:flex!important;flex-direction:column;gap:3px}
+#pv-shared-nav a{display:block!important;padding:10px 12px!important;margin:0!important;border:0!important;box-shadow:none!important;background:transparent!important;color:#234e80!important;font-size:14px!important;line-height:1.4!important;font-weight:700!important;text-decoration:none!important;text-align:left!important;border-radius:9px!important}
+#pv-shared-nav a:hover,#pv-shared-nav a:focus-visible{background:#eaf2ff!important}
+#pv-shared-nav a[aria-current="page"]{background:#dbe9ff!important;color:#16437b!important}
+#pv-shared-nav .pv-game-group{display:block!important;margin:4px 0 0!important;padding:7px 0 0!important;border:0!important;border-top:1px solid #e0e8f3!important;background:transparent!important}
+#pv-shared-nav .pv-game-group>summary{display:block!important;cursor:pointer!important;list-style:none!important;position:relative!important;padding:11px 12px!important;border:0!important;border-radius:9px!important;background:#e8f0ff!important;color:#214b85!important;font-size:14px!important;font-weight:800!important;line-height:1.4!important}
+#pv-shared-nav .pv-game-group>summary::-webkit-details-marker{display:none}
+#pv-shared-nav .pv-game-group>summary::after{content:"▾";float:right}
+#pv-shared-nav .pv-game-group[open]>summary::after{content:"▴"}
+#pv-shared-nav .pv-game-group>summary:hover{background:#dae8ff!important}
+#pv-shared-nav .pv-game-links{display:flex!important;flex-direction:column;gap:2px;padding:6px 0 0 9px!important;margin:0!important}
+#pv-shared-nav .pv-game-group:not([open])>.pv-game-links{display:none!important}
+#pv-shared-nav .pv-game-links>a{font-size:13px!important;padding:9px 10px!important;background:#f5f8fd!important;font-weight:650!important}
+#pv-shared-nav .pv-game-links>a[aria-current="page"]{background:#dbe9ff!important}
+body{padding-left:232px!important}
+@media(max-width:850px){
+ #pv-shared-nav{position:relative!important;inset:auto!important;width:100%!important;min-height:0!important;max-height:none!important;overflow:visible!important;border-right:0!important;border-bottom:1px solid #d9e3ef!important;box-shadow:none!important;padding:7px 12px!important}
+ #pv-shared-nav .pv-brand{display:none}
+ #pv-shared-nav .pv-shell>summary{display:block!important;cursor:pointer!important;padding:10px 12px!important;background:#e8f0ff!important;color:#214b85!important;font-weight:800!important;border-radius:9px!important;list-style:none!important}
+ #pv-shared-nav .pv-shell>summary::-webkit-details-marker{display:none}
+ #pv-shared-nav .pv-shell:not([open])>.pv-links{display:none!important}
+ #pv-shared-nav .pv-links{padding:7px 0 3px!important}
+ body{padding-left:0!important}
+}
+</style></head><body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html" aria-current="page">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html">4 · 🐟 Fiskespillet</a></div></details></div></details></nav><header class="intro"><h1>🐢 Lag Skilpaddeløpet</h1><p>Bygg et løp der to skilpadder konkurrerer! Du lærer variabler, tilfeldige tall, løkker og vilkår. Små 🐢-emojier viser hvem som leder.</p></header><main class="layout"><div><section class="panel"><h2>💻 Din Python-kode</h2><p class="muted">Skriv koden selv. <strong>Trinnbytte endrer ikke koden.</strong> Enter rykker inn etter kolon; Tab gir innrykk, og Enter på tom innrykket linje går tilbake.</p><div class="code-wrap"><div class="lines" id="lines" aria-hidden="true">1</div><textarea id="editor" class="editor" spellcheck="false" autocorrect="off" autocapitalize="off" wrap="off" aria-label="Skriv Python-koden din"></textarea></div><div class="actions"><button id="run" type="button">▶ Kjør Python</button><button id="stop" class="secondary" type="button">■ Stopp</button><button id="download" class="light" type="button">⬇ Lagre .py</button><button id="newCode" class="light" type="button">↺ Tøm kodefeltet</button></div><p class="status" id="status" role="status">Klar.</p><div class="error" id="errors" role="alert" hidden></div><p class="muted">Koden lagres automatisk i denne nettleseren. Last ned en .py-fil hvis du vil ta den med til en annen datamaskin.</p></section><section class="panel"><h2>🏁 Løpsbanen</h2><p class="muted">Banen oppdateres når du skriver ut posisjonene som <code>A: 4 B: 7</code> i Python.</p><div class="gamebox"><div class="lane"><div class="name">Skilpadde A <span class="track-num" id="countA">0 steg</span></div><div class="finish"></div><div class="marker" id="turtleA">🐢</div></div><div class="lane"><div class="name">Skilpadde B <span class="track-num" id="countB">0 steg</span></div><div class="finish"></div><div class="marker" id="turtleB">🐢</div></div><div class="muted">Mål: 20 steg 🏁. Når du kjører et nytt løp, vises rundene etter hverandre.</div></div></section><section class="panel"><h2>🖥️ Utskrift fra Python</h2><div id="output" class="console" aria-live="polite">Her kommer utskriften når du kjører koden.</div></section></div><aside class="panel guide" aria-label="Oppgaver og veiledning"><div class="step-top"><h2>📘 Lær mens du lager spillet</h2><span class="pill" id="stepcount"></span></div><label for="step"><strong>Velg trinn</strong></label><select class="step-select" id="step"></select><h2 id="stepTitle"></h2><div class="help"><strong>Før du starter</strong><div id="learn"></div></div><h3>🎯 Ditt oppdrag</h3><div id="task"></div><h3>🧭 Slik kan du gå frem</h3><ol id="taskSteps" class="tasklist"></ol><div class="example"><strong>Eksempel på resultat</strong><p id="example" class="muted"></p></div><details id="hintDetails"><summary>💡 Trenger du et hint?</summary><p id="hint"></p></details><details id="snippetDetails"><summary>🛟 Se kodebiten til dette trinnet</summary><p class="muted">Her vises bare ny kode. Skriv den inn på riktig sted i ditt eget program. Les kommentarene nøye.</p><pre id="piece" class="solution"></pre><button class="light" type="button" id="insert">Sett kodebiten inn ved markøren (valgfritt)</button></details><details><summary>⭐ Ekstra utfordring</summary><p id="extra"></p></details><details><summary>📄 Se hele eksempelspillet (hvis du trenger det)</summary><p class="muted">Dette er et eksempel til sammenligning, ikke noe du må kopiere. Det settes ikke automatisk inn i kodefeltet.</p><pre id="fullCode" class="solution"></pre></details><div class="actions"><button class="light" id="previous" type="button">← Forrige trinn</button><button class="secondary" id="next" type="button">Neste trinn →</button></div><div class="layout-note"><strong>Husk:</strong> Lagre koden ved å laste ned .py-filen når du vil ta den med deg. Det er helt greit å prøve flere ganger før spillet virker.</div></aside></main><script id="pv-worker-src" type="text/plain">let py=null,mode='race',lineCount=0,drawCount=0,running=false;
+const send = obj => self.postMessage(JSON.stringify(obj));
+const loader='https://cdn.jsdelivr.net/pyodide/v0.27.7/full/';
+const shim=String.raw`
+import sys, types, math, json
+from js import postMessage as _post
+
+def _emit(kind, **kw):
+    _post(json.dumps(dict(type=kind, **kw), ensure_ascii=False))
+
+class _Screen:
+    def title(self,t): _emit('screen_title', title=str(t))
+    def setup(self,width=800,height=600): pass
+    def bgcolor(self,v): _emit('background', color=str(v))
+    def mainloop(self): pass
+
+class _Turtle:
+    def __init__(self):
+        self.x=0;self.y=0;self.angle=0;self.ink=True;self.colorvalue='#274567';self.widthvalue=2
+    def speed(self, v=0):pass
+    def hideturtle(self):pass
+    def showturtle(self):pass
+    def penup(self):self.ink=False
+    def pendown(self):self.ink=True
+    def color(self, v):self.colorvalue=str(v)
+    def pencolor(self, v):self.colorvalue=str(v)
+    def pensize(self, v):self.widthvalue=float(v)
+    def width(self, v):self.pensize(v)
+    def setheading(self, a):self.angle=float(a)
+    def left(self,a):self.angle+=float(a)
+    def right(self,a):self.angle-=float(a)
+    def goto(self, x, y=None):
+        if y is None: x,y=x
+        nx,ny=float(x),float(y)
+        if self.ink:_emit('draw', op='line',x1=self.x,y1=self.y,x2=nx,y2=ny,color=self.colorvalue,width=self.widthvalue)
+        self.x,self.y=nx,ny
+    def forward(self,d):
+        a=math.radians(self.angle); self.goto(self.x+float(d)*math.cos(a),self.y+float(d)*math.sin(a))
+    def backward(self,d): self.forward(-float(d))
+    def circle(self, radius):
+        r=float(radius); a=math.radians(self.angle)
+        cx=self.x-math.sin(a)*r;cy=self.y+math.cos(a)*r
+        if self.ink:_emit('draw',op='circle',x=cx,y=cy,r=abs(r),color=self.colorvalue,width=self.widthvalue)
+    def clear(self): _emit('clear')
+    def write(self,text,font=('Arial',14,'normal'),align='left'):
+        try:size=int(font[1])
+        except:size=14
+        _emit('draw',op='text',x=self.x,y=self.y,value=str(text),color=self.colorvalue,size=size)
+
+def _screen():return _Screen()
+def _done():pass
+m=types.ModuleType('turtle');m.Screen=_screen;m.Turtle=_Turtle;m.done=_done;m.mainloop=_done
+sys.modules['turtle']=m
+`;
+async function initialize(){
+ try{
+   importScripts(loader+'pyodide.js');
+   py=await loadPyodide({indexURL:loader});
+   py.setStdout({batched:line=>{if(lineCount++<170)send({type:'output',value:line});else if(lineCount===172)send({type:'output',value:'… Flere utskrifter skjules.'})}});
+   py.setStderr({batched:line=>send({type:'stderr',value:line})});
+   send({type:'ready'});
+ }catch(err){send({type:'error',value:'Kunne ikke laste Python-motoren. Sjekk internett og oppdater siden. '+String(err)})}
+}
+async function execute(obj){if(running)return;running=true;lineCount=0;drawCount=0;
+ try{
+   await py.runPythonAsync(shim);
+   py.globals.set('__student_guesses',obj.guesses||'');
+   await py.runPythonAsync(String.raw`
+import builtins
+__inputs=[x.strip() for x in __student_guesses.split(',') if x.strip()]
+__idx=0
+def __student_input(prompt=''):
+    global __idx
+    if __idx>=len(__inputs):
+        raise EOFError('Du har brukt opp testbokstavene. Legg til flere bokstaver i feltet «Testbokstaver» og prøv på nytt.')
+    answer=__inputs[__idx];__idx+=1
+    print(str(prompt)+answer)
+    return answer
+builtins.input=__student_input
+`);
+   await py.runPythonAsync(obj.code);
+   send({type:'done'});
+ }catch(err){send({type:'error',value:String(err)})}
+ finally{running=false}
+}
+self.onmessage=async event=>{
+ const v=event.data;
+ if(v.action==='init'){mode=v.mode;await initialize()}
+ if(v.action==='run'&&py)await execute(v);
+};
+</script><script>
+'use strict';
+const MODE="race";
+const STEPS=[{"title": "Velkommen til løpet", "learn": "Du kan bruke <code>print()</code> til å vise tekst. Emoji som 🐢 kan stå inne i anførselstegn akkurat som annen tekst.", "task": "Skriv ut en velkomstmelding med en skilpadde-emoji.", "steps": ["Start med <code>import random</code>.", "Bruk <code>print()</code> til å vise en melding.", "Legg 🐢 inne i teksten mellom anførselstegn."], "hint": "Et eksempel fra en annen oppgave er <code>print(\"🎮 Nå spiller vi!\")</code>.", "snippet": "print(\"🐢 Velkommen til Skilpaddeløpet!\")", "example": "🐢 Velkommen til Skilpaddeløpet!", "extra": "Skriv også ut navnet på de to skilpaddene."}, {"title": "To skilpadder på startstreken", "learn": "En <strong>variabel</strong> lagrer et tall. Begge skilpaddene starter på posisjon 0. Vi trenger også en variabel for hvor mange runder som har gått.", "task": "Lag variablene <code>posisjon_a</code>, <code>posisjon_b</code> og <code>runde</code>. Skriv ut startposisjonene.", "steps": ["Skriv <code>posisjon_a = 0</code>.", "Lag <code>posisjon_b</code> og <code>runde</code> på samme måte.", "Skriv ut posisjonene med <code>print(\"A:\", posisjon_a, \"B:\", posisjon_b)</code>."], "hint": "Du kan skrive både tekst og variabler i samme <code>print()</code> ved å skille dem med komma.", "snippet": "posisjon_a = 0\nposisjon_b = 0\nrunde = 0\nprint(\"A:\", posisjon_a, \"B:\", posisjon_b)", "example": "A: 0 B: 0", "extra": "Legg til variabelen <code>maal = 20</code>."}, {"title": "Ta tilfeldige steg", "learn": "<code>random.randint(1, 3)</code> gir et tilfeldig heltall fra 1 til 3. Med <code>+=</code> kan vi legge et tall til en posisjon. <code>posisjon_a += steg_a</code> betyr det samme som <code>posisjon_a = posisjon_a + steg_a</code>.", "task": "Få skilpaddene til å ta ett tilfeldig steg hver.", "steps": ["Lag <code>steg_a</code> med <code>random.randint(1, 3)</code>.", "Lag <code>steg_b</code> med <code>random.randint(1, 4)</code>.", "Legg stegene til posisjonene med <code>+=</code>.", "Skriv ut begge posisjonene igjen."], "hint": "En tilfeldig verdi lagres slik: <code>steg_a = random.randint(1, 3)</code>.", "snippet": "steg_a = random.randint(1, 3)\nsteg_b = random.randint(1, 4)\nposisjon_a += steg_a\nposisjon_b += steg_b\nprint(\"A:\", posisjon_a, \"B:\", posisjon_b)", "example": "A: 2 B: 4 (tallene varierer)", "extra": "Gjør begge skilpaddene like raske ved å bruke 1–3 på begge."}, {"title": "Gjenta fem runder", "learn": "<code>for i in range(5):</code> gjentar innrykket kode fem ganger. <code>runde += 1</code> øker rundetallet med én.", "task": "La de to skilpaddene flytte seg i fem runder.", "steps": ["Skriv en <code>for</code>-løkke rundt de tilfeldige stegene.", "Flytt linjene med steg og posisjon ett innrykksnivå inn.", "Øk <code>runde</code> og skriv ut hver rundes posisjon."], "hint": "Begynn med <code>for i in range(5):</code>. Bruk fire mellomrom foran alt som skal gjentas.", "snippet": "for i in range(5):\n    runde += 1\n    steg_a = random.randint(1, 3)\n    steg_b = random.randint(1, 4)\n    posisjon_a += steg_a\n    posisjon_b += steg_b\n    print(\"A:\", posisjon_a, \"B:\", posisjon_b)", "example": "Fem linjer med A: … B: …", "extra": "Endre fra fem til åtte runder."}, {"title": "Lag målstreken", "learn": "En <code>while</code>-løkke fortsetter så lenge betingelsen er sann. Med <code>and</code> fortsetter vi så lenge <em>begge</em> skilpaddene er før mål. Dermed slutter løpet når minst én kommer frem.", "task": "Bytt ut <code>for</code>-løkken med en <code>while</code>-løkke som stopper når en skilpadde når 20 steg.", "steps": ["Lag variabelen <code>maal = 20</code> før løkken.", "Bruk <code>while posisjon_a &lt; maal and posisjon_b &lt; maal:</code>.", "La de tilfeldige stegene bli inni løkken.", "Kontroller at minst én posisjon øker i hver runde."], "hint": "Hele while-betingelsen er <code>posisjon_a &lt; maal and posisjon_b &lt; maal</code>. Bruk den i stedet for <code>for</code>-linjen.", "snippet": "maal = 20\nwhile posisjon_a < maal and posisjon_b < maal:\n    # Her skal rundetallet og de tilfeldige stegene stå", "example": "Løpet stopper når A eller B når minst 20.", "extra": "Endre målet til 30. Hvor mange runder tar løpet nå?"}, {"title": "Hvem vant?", "learn": "<code>if</code> undersøker en betingelse. <code>elif</code> betyr «ellers hvis», og <code>else</code> fanger opp resten. Husk at begge kan komme i mål i samme runde.", "task": "Skriv en melding som forteller om det ble uavgjort, om A vant eller om B vant.", "steps": ["Sjekk først om <strong>begge</strong> har nådd <code>maal</code>.", "Bruk <code>elif</code> til å sjekke om A nådde målet.", "Bruk <code>else</code> til å melde seier til B.", "Plasser vinnersjekken <strong>etter</strong> while-løkken (uten innrykk)."], "hint": "Begynn med <code>if posisjon_a &gt;= maal and posisjon_b &gt;= maal:</code>. Tegnet <code>&gt;=</code> betyr «større enn eller lik».", "snippet": "if posisjon_a >= maal and posisjon_b >= maal:\n    print(\"🤝 Uavgjort!\")\nelif posisjon_a >= maal:\n    print(\"🎉 Skilpadde A vant!\")\nelse:\n    print(\"🎉 Skilpadde B vant!\")", "example": "🎉 Skilpadde B vant!", "extra": "Skriv også ut hvor mange runder løpet varte."}, {"title": "Lag en skilpaddebane med emoji", "learn": "Tekst kan gjentas med <code>*</code>. For eksempel betyr <code>\"·\" * 3</code> tre prikker: <code>···</code>. Vi kan bruke dette til å vise fremdrift med en emoji.", "task": "Skriv ut en enkel tekstbane med prikker og 🐢 for en av skilpaddene.", "steps": ["Prøv <code>print(\"·\" * 5 + \"🐢\")</code> for å forstå mønsteret.", "Bytt tallet 5 med <code>posisjon_a</code>.", "Prøv også for skilpadde B."], "hint": "Bruk <code>\"·\" * posisjon_a + \"🐢\"</code> inne i <code>print()</code>. Det er en ekstra utskrift, ikke en erstatning for A/B-tallene.", "snippet": "print(\"A:\", \"·\" * posisjon_a + \"🐢\")\nprint(\"B:\", \"·\" * posisjon_b + \"🐢\")", "example": "A: ·····🐢", "extra": "Sett inn en mål-emoji 🏁 til slutt."}, {"title": "Mesteroppdrag: Gjør løpet rettferdig", "learn": "Hvis A får 1–3 steg og B får 1–4, har B en fordel. Små endringer i tilfeldige verdier påvirker hvem som oftest vinner.", "task": "Gjør spillet ditt personlig, og test om løpet er rettferdig.", "steps": ["Velg om skilpaddene skal få like eller ulike steg.", "Legg inn en ny velkomstmelding og flere emoji.", "Test minst tre ganger.", "Sjekk at spillet både stopper og skriver ut en vinner."], "hint": "Vil du ha like muligheter, kan du bruke <code>random.randint(1, 3)</code> for både A og B.", "snippet": "steg_a = random.randint(1, 3)\nsteg_b = random.randint(1, 3)", "example": "Spillet viser runder, skilpadder og en vinner.", "extra": "Lag tre skilpadder i stedet for to – A, B og C."}];
+const FULL="import random\n\nprint(\"🐢 Velkommen til Skilpaddeløpet!\")\nposisjon_a = 0\nposisjon_b = 0\nrunde = 0\nmaal = 20\n\nwhile posisjon_a < maal and posisjon_b < maal:\n    runde += 1\n    print(\"\\nRunde\", runde)\n    steg_a = random.randint(1, 3)\n    steg_b = random.randint(1, 4)\n    posisjon_a += steg_a\n    posisjon_b += steg_b\n    print(\"A:\", posisjon_a, \"B:\", posisjon_b)\n\nif posisjon_a >= maal and posisjon_b >= maal:\n    print(\"🤝 Uavgjort!\")\nelif posisjon_a >= maal:\n    print(\"🎉 Skilpadde A vant!\")\nelse:\n    print(\"🎉 Skilpadde B vant!\")\nprint(\"Antall runder:\", runde)\n";
+const START="import random\n";
+const $=id=>document.getElementById(id);
+let current=Number(localStorage.getItem('pv-lesson-step-'+MODE)||0);
+current=Math.max(0,Math.min(STEPS.length-1,current));
+let worker=null,ready=false,working=false,loadTimeout=null,runTimeout=null,animTimer=null,history=[];
+let drawOps=[],lastOutput=[];
+const editor=$('editor'),output=$('output'),status=$('status');
+function store(){try{localStorage.setItem('pv-lesson-code-'+MODE,editor.value)}catch(e){}}
+function safeLoad(){try{return localStorage.getItem('pv-lesson-code-'+MODE)}catch(e){return null}}
+const saved=safeLoad();editor.value=saved!==null?saved:START;
+function renderStep(){
+ const s=STEPS[current];$('step').value=String(current);$('stepcount').textContent='Trinn '+(current+1)+' av '+STEPS.length;
+ $('stepTitle').textContent=s.title;$('learn').innerHTML=s.learn;$('task').innerHTML=s.task;
+ $('taskSteps').innerHTML=s.steps.map(x=>'<li>'+x+'</li>').join('');
+ $('hint').innerHTML=s.hint;$('piece').textContent=s.snippet;$('example').textContent=s.example;$('extra').innerHTML=s.extra;
+ $('previous').disabled=current===0;$('next').textContent=current===STEPS.length-1?'Fullført ✓':'Neste trinn →';$('next').disabled=current===STEPS.length-1;
+ $('hintDetails').open=false;$('snippetDetails').open=false;
+ try{localStorage.setItem('pv-lesson-step-'+MODE,String(current))}catch(e){}
+}
+const sel=$('step');STEPS.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=(i+1)+'. '+s.title;sel.append(o)});
+sel.onchange=()=>{current=Number(sel.value);renderStep()};
+$('previous').onclick=()=>{if(current>0){current--;renderStep()}};
+$('next').onclick=()=>{if(current<STEPS.length-1){current++;renderStep()}};
+$('fullCode').textContent=FULL;
+function lines(){const n=editor.value.split('\n').length;$('lines').textContent=Array.from({length:n},(_,i)=>i+1).join('\n')}
+editor.addEventListener('input',()=>{store();lines()});editor.addEventListener('scroll',()=>{$('lines').scrollTop=editor.scrollTop});
+editor.addEventListener('keydown',e=>{
+ const a=editor.selectionStart,b=editor.selectionEnd,v=editor.value;
+ if(e.key==='Tab'){e.preventDefault();const insertion=e.shiftKey?'':'    ';if(e.shiftKey){const before=v.slice(0,a),spaces=before.match(/(?:^|\n)( {1,4})$/);if(spaces){const k=spaces[1].length;editor.value=v.slice(0,a-k)+v.slice(a);editor.selectionStart=editor.selectionEnd=a-k}}else{editor.setRangeText(insertion,a,b,'end')}editor.dispatchEvent(new Event('input'));return}
+ if(e.key==='Enter'){e.preventDefault();const line=v.slice(0,a).split('\n').pop();const indent=(line.match(/^\s*/)||[''])[0];const nextIndent=/\:\s*(?:#.*)?$/.test(line)?indent+'    ':(line.trim()===''&&indent.length>=4?indent.slice(4):indent);editor.setRangeText('\n'+nextIndent,a,b,'end');editor.dispatchEvent(new Event('input'));return}
+ if(['(', '[', '{', '"', "'"].includes(e.key)&&a===b){const closes={'(':')','[':']','{':'}','"':'"',"'":"'"};const closing=closes[e.key];if((e.key==='"'||e.key==="'")&&/[\w]/.test(v[a-1]||''))return;e.preventDefault();editor.setRangeText(e.key+closing,a,b,'end');editor.selectionStart=editor.selectionEnd=a+1;editor.dispatchEvent(new Event('input'));return}
+ if([')',']','}','"',"'"].includes(e.key)&&v[a]===e.key&&a===b){e.preventDefault();editor.selectionStart=editor.selectionEnd=a+1}
+});
+lines();renderStep();
+$('download').onclick=()=>{const blob=new Blob([editor.value],{type:'text/x-python;charset=utf-8'});const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=MODE==='race'?'skilpaddelop.py':'hangman.py';a.click();setTimeout(()=>URL.revokeObjectURL(u),2000)};
+$('newCode').onclick=()=>{if(!confirm('Vil du tømme kodefeltet? Last ned .py-filen først hvis du vil ta vare på koden.'))return;editor.value=START;store();lines()};
+$('insert').onclick=()=>{const snippet=STEPS[current].snippet;const a=editor.selectionStart,b=editor.selectionEnd;let prefix=editor.value.slice(0,a);if(prefix&&!prefix.endsWith('\n'))prefix+='\n';editor.value=prefix+snippet+'\n'+editor.value.slice(b);editor.selectionStart=editor.selectionEnd=(prefix+snippet+'\n').length;store();lines();editor.focus()};
+function sendMessage(obj){if(worker)worker.postMessage(obj)}
+function shutdown(){if(loadTimeout)clearTimeout(loadTimeout);if(runTimeout)clearTimeout(runTimeout);if(worker)worker.terminate();worker=null;ready=false;working=false;$('run').disabled=false}
+function errorMessage(text){let m=text.match(/File ["']?[^\n"']*["']?, line (\d+)/g);const line=m?Number((m[m.length-1].match(/line (\d+)/)||[])[1]):null;
+ const tip=/IndentationError|expected an indented block/i.test(text)?'Sjekk innrykk: skriv fire mellomrom inni løkker, vilkår og funksjoner.':/NameError/i.test(text)?'Sjekk at variablene er skrevet likt overalt og opprettet før de brukes.':/SyntaxError/i.test(text)?'Sjekk kolon, parenteser, anførselstegn og innrykk på linjen.':/EOFError/i.test(text)?'Legg til flere testbokstaver i bokstavfeltet før du kjører igjen.':/TimeoutError|stoppet/i.test(text)?'En løkke kan ha blitt uendelig. Kontroller at variabler endres inni løkken.':'Les siste linje i feilen og sjekk kommandoen som er nevnt.';
+ $('errors').hidden=false;$('errors').textContent=(line?'Se på linje '+line+'. ':'')+tip+'\n\nTeknisk feilmelding:\n'+text.slice(-1800);
+ if(line){const arr=editor.value.split('\n'),start=arr.slice(0,line-1).join('\n').length+(line>1?1:0);editor.focus();editor.setSelectionRange(start,start+(arr[line-1]||'').length)}
+}
+function startWorker(){if(worker)return;ready=false;status.textContent='Laster Python-motoren …';const src=$('pv-worker-src').textContent;const u=URL.createObjectURL(new Blob([src],{type:'text/javascript'}));worker=new Worker(u);URL.revokeObjectURL(u);
+ worker.onmessage=e=>{let msg;try{msg=JSON.parse(e.data)}catch(err){return}
+  if(msg.type==='ready'){ready=true;status.textContent='Python er klar.';if(working)sendRun()}
+  if(msg.type==='output'){if(lastOutput.length<175){lastOutput.push(msg.value);output.textContent=lastOutput.join('\n');output.scrollTop=output.scrollHeight}if(MODE==='race')recordTrack(msg.value)}
+  if(msg.type==='draw'&&MODE==='hang'){if(drawOps.length<3800){drawOps.push(msg);renderCanvas()}}
+  if(msg.type==='clear'&&MODE==='hang'){drawOps=[];renderCanvas()}
+  if(msg.type==='background'&&MODE==='hang'){window.hangBg=msg.color;renderCanvas()}
+  if(msg.type==='screen_title'){$('screenName').textContent=msg.title}
+  if(msg.type==='done'){if(runTimeout)clearTimeout(runTimeout);working=false;$('run').disabled=false;status.textContent='Programmet er ferdig. Du kan endre koden og kjøre igjen.';if(MODE==='race')animateTrack()}
+  if(msg.type==='error'){if(runTimeout)clearTimeout(runTimeout);errorMessage(msg.value);working=false;$('run').disabled=false;status.textContent='Programmet fikk en feil. Se forklaringen under.';if(MODE==='race')animateTrack()}
+ };
+ worker.onerror=e=>{errorMessage('En feil oppsto i Python-motoren: '+e.message);shutdown();status.textContent='Python-motoren stoppet.'};
+ worker.postMessage({action:'init',mode:MODE});
+ loadTimeout=setTimeout(()=>{if(!ready){errorMessage('Det tok for lang tid å laste Python. Sjekk internett og oppdater siden.');shutdown()}},55000);
+}
+function sendRun(){if(!ready)return;if(loadTimeout)clearTimeout(loadTimeout);status.textContent='Kjører koden …';sendMessage({action:'run',code:editor.value,guesses:MODE==='hang'?$('guesses').value:''});runTimeout=setTimeout(()=>{errorMessage('Programmet brukte for lang tid og ble stoppet. Sjekk om en while-løkke aldri avsluttes.');shutdown();status.textContent='Kjøringen ble stoppet.'},8000)}
+function run(){store();if(animTimer){clearInterval(animTimer);animTimer=null}working=true;$('run').disabled=true;$('errors').hidden=true;output.textContent='';lastOutput=[];history=[];
+ if(MODE==='race'){setTrack(0,0)}else{drawOps=[];window.hangBg='#ffffff';renderCanvas()}
+ if(!worker)startWorker();else if(ready)sendRun();
+}
+$('run').onclick=run;$('stop').onclick=()=>{if(animTimer){clearInterval(animTimer);animTimer=null}shutdown();status.textContent='Kjøringen ble stoppet. Trykk Kjør for å prøve igjen.'};
+function recordTrack(line){const m=String(line).match(/A:\s*(\d+)\s+B:\s*(\d+)/i);if(m)history.push([Number(m[1]),Number(m[2])])}
+function setTrack(a,b){if(MODE!=='race')return;$('turtleA').style.left=Math.min(100,100*a/20)+'%';$('turtleB').style.left=Math.min(100,100*b/20)+'%';$('countA').textContent=a+' steg';$('countB').textContent=b+' steg'}
+function animateTrack(){if(MODE!=='race'||history.length===0)return;let idx=0;setTrack(0,0);animTimer=setInterval(()=>{if(idx>=history.length){clearInterval(animTimer);animTimer=null;return}setTrack(...history[idx++])},250)}
+const canvas=$('hangCanvas');let ctx=canvas?canvas.getContext('2d'):null;window.hangBg='#fff';
+function renderCanvas(){if(!ctx)return;ctx.clearRect(0,0,800,600);ctx.fillStyle=window.hangBg;ctx.fillRect(0,0,800,600);
+ ctx.strokeStyle='#dde5f3';ctx.setLineDash([2,6]);ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(400,0);ctx.lineTo(400,600);ctx.stroke();ctx.setLineDash([]);
+ for(const op of drawOps){ctx.strokeStyle=op.color||'#274567';ctx.fillStyle=op.color||'#274567';ctx.lineWidth=Math.max(1,Number(op.width)||2);if(op.op==='line'){ctx.beginPath();ctx.moveTo(400+op.x1,300-op.y1);ctx.lineTo(400+op.x2,300-op.y2);ctx.stroke()}else if(op.op==='circle'){ctx.beginPath();ctx.arc(400+op.x,300-op.y,Math.abs(op.r),0,Math.PI*2);ctx.stroke()}else if(op.op==='text'){ctx.font=(op.size||14)+'px Arial';ctx.fillText(op.value,400+op.x,300-op.y)}}
+}
+if(MODE==='hang'){renderCanvas();$('guesses').addEventListener('input',()=>{try{localStorage.setItem('pv-hang-guesses',$('guesses').value)}catch(e){}});$('guesses').value=localStorage.getItem('pv-hang-guesses')||'A, E, S, T, P, Y, H, O, N'}
+status.textContent='Klar til å skrive kode. Python lastes første gang du trykker Kjør.';
+</script></body></html>
