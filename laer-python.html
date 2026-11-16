@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Lær Python – Pythonverkstedet</title>
+<title>Lær Python – tydeligere læringssti – Pythonverkstedet</title>
 <style>
     * { box-sizing: border-box; }
 
@@ -433,6 +433,50 @@ body{padding-left:232px!important}
 #learning-topics .pv-intro-list-link.is-active{border:2px solid #4f85bd}
 @media(max-width:600px){#pv-topic-intro{padding:17px}#pv-topic-intro h3{font-size:1.32rem}}
 </style>
+
+<style id="pv-multiple-programs-styles">
+/* Flere navngitte programmer: biblioteket er skjult når eleven arbeider. */
+.pv-program-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:13px}
+.pv-program-toolbar button{margin:0!important;padding:12px 14px!important;border-radius:9px!important}
+#pv-toggle-projects{background:#e7effd;color:#214b85;border:1px solid #c6d5ed}
+#pv-toggle-projects:hover{background:#dce9fd}
+#pv-toggle-projects[aria-expanded="true"]{background:#d2e3fa}
+#pv-program-state{display:inline-block;font-size:.83rem;color:#52657f;line-height:1.4}
+#pv-programs-panel[hidden]{display:none!important}
+#pv-programs-panel{margin-top:15px;padding:17px;border:1px solid #cddcf0;border-radius:13px;background:#f7faff;min-width:0}
+#pv-programs-panel h3{font-size:1.06rem;color:#24446e;margin:20px 0 10px}
+#pv-programs-panel label{display:block;margin-bottom:7px;color:#2e476a;font-size:.91rem}
+#pv-program-name{display:block;width:100%;max-width:520px;background:white;color:#24324a;margin:0 0 13px}
+.pv-program-actions{display:flex;gap:9px;flex-wrap:wrap}
+.pv-program-actions button,.pv-program-import{display:inline-flex!important;align-items:center;justify-content:center;padding:10px 12px!important;border-radius:9px;font-size:.88rem;font-weight:700;cursor:pointer;white-space:normal}
+.pv-program-actions button{background:#e4edfa;color:#254975;border:1px solid #ccdbef}
+.pv-program-actions button:hover{background:#d3e3f7}
+.pv-program-import{background:#e4edfa;color:#254975;border:1px solid #ccdbef;margin:0!important}
+.pv-program-import:hover{background:#d3e3f7}
+.pv-program-list{display:grid;gap:8px}
+.pv-program-entry{background:white;border:1px solid #dce5f3;border-radius:10px;padding:11px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.pv-program-entry.is-current{border-color:#6388bf;background:#eef5ff}
+.pv-program-info{min-width:0;overflow-wrap:anywhere;flex:1}
+.pv-program-info strong{display:block;color:#1e3d68;font-size:.92rem;line-height:1.5}
+.pv-program-info small{display:block;color:#5c6e87;font-size:.76rem;margin-top:2px}
+.pv-program-entry-actions{display:flex;gap:6px;flex-wrap:wrap}
+.pv-program-entry-actions button{font-size:.81rem;padding:8px 10px;white-space:nowrap}
+.pv-program-entry-actions .pv-open-program{background:#2e629f}
+.pv-program-entry-actions .pv-delete-program{background:#fff3f0;color:#9c382c;border:1px solid #efc9c4}
+.pv-program-entry-actions .pv-delete-program:hover{background:#ffe4dd}
+.pv-program-empty{padding:17px 13px;background:#fff;border:1px dashed #becfe3;border-radius:9px;color:#62748b;font-size:.91rem}
+.pv-program-note{color:#536981;font-size:.82rem;line-height:1.55;margin:15px 0 0}
+#pv-save-status{min-height:0;margin:8px 0 0;font-size:.86rem;color:#235b46;line-height:1.45}
+@media(max-width:600px){#pv-programs-panel{padding:12px}.pv-program-entry{flex-direction:column;align-items:stretch}.pv-program-entry-actions{justify-content:flex-start}.pv-program-toolbar button{flex:1 1 125px}}
+</style>
+<style id="pv-better-teaching-2026">
+.pv-task-before {background:#f3f8ff;border:1px solid #d2e4f6;border-left:4px solid #467db8;border-radius:11px;padding:13px 15px;margin:14px 0 16px;color:#263f60}
+.pv-task-before strong {display:block;font-size:.9rem;margin-bottom:6px;color:#244e86}
+.pv-task-before p{margin:0;line-height:1.62;font-size:.94rem}
+.pv-editor-tip{display:block;color:#58708e;font-size:.86rem;line-height:1.45;margin-top:8px}
+#pv-intro-meaning,#pv-intro-goal{line-height:1.68}
+#task-description{line-height:1.56}
+</style>
 </head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><details class="pv-game-group"><summary>🎮 Spill</summary><div class="pv-game-links"><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><a href="kattespill.html">🐱 Kattespill</a><a href="spillverksted.html">🎮 Lag ditt eget kattespill</a><a href="fiskespill.html">🐟 Fiskespillet</a></div></details></div></details></nav>
 <header>
@@ -444,7 +488,7 @@ body{padding-left:232px!important}
 <div class="workspace-main">
 <section class="editor-panel" id="editor">
 <h2>💻 Prøv Python-koden din</h2>
-<p>Les oppgaven til høyre, skriv koden din her og trykk <b>▶ Kjør kode</b> for å teste.</p>
+<p>Les oppgaven til høyre, skriv koden din her og trykk <b>▶ Kjør kode</b> for å teste. <span class="pv-editor-tip">Enter rykker inn etter kolon. <b>Shift + Enter</b> går ett innrykksnivå tilbake. <b>Shift + Tab</b> fjerner innrykk.</span></p>
 <div class="python-editor-wrap">
 <pre aria-hidden="true" class="line-numbers" id="line-numbers">1
 2
@@ -454,7 +498,31 @@ body{padding-left:232px!important}
 <textarea aria-label="Python-kode" id="python-code" rows="9" spellcheck="false"></textarea>
 </div>
 
-<button id="run-python" style="margin-top: 12px; padding: 12px 18px; border: 0; border-radius: 8px; background: #176b45; color: white; font-size: 16px; cursor: pointer;">▶ Kjør kode</button><button id="pv-load-code" style="margin:8px 6px 0 0;padding:11px 14px;border:0;border-radius:8px;background:#3657a5;color:white;font-weight:700;cursor:pointer;" type="button">📂 Åpne lagret kode</button><button id="pv-save-code" style="margin:8px 6px 0 0;padding:11px 14px;border:0;border-radius:8px;background:#3657a5;color:white;font-weight:700;cursor:pointer;" type="button">💾 Lagre koden</button><p id="pv-save-status" role="status"></p>
+<div class="pv-program-name-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:12px 0 6px;">
+  <label for="pv-program-name" style="font-weight:700;">Navn på program (valgfritt):</label>
+  <input id="pv-program-name" type="text" maxlength="70" autocomplete="off" placeholder="For eksempel: Mitt første spill" style="flex:1 1 185px;max-width:360px;min-width:0;box-sizing:border-box;padding:10px 12px;border-radius:9px;border:1px solid #b8cce5;font-size:15px;" />
+</div>
+<div class="pv-program-toolbar">
+  <button id="run-python" style="padding:12px 18px;background:#176b45;color:white;font-size:16px;" type="button">▶ Kjør kode</button>
+  <button id="pv-save-code" type="button">💾 Lagre program</button>
+  <button id="pv-toggle-projects" type="button" aria-expanded="false" aria-controls="pv-programs-panel">📂 Mine programmer <span id="pv-program-count"></span></button>
+  <span id="pv-program-state" aria-live="polite">Nytt program</span>
+</div>
+<section id="pv-programs-panel" aria-label="Mine lagrede Python-programmer" hidden>
+  <p style="margin:0 0 10px;color:#335373;font-size:13px">Trykk «Lagre program» for å ta vare på koden. Du kan lagre flere programmer og åpne dem igjen her.</p>
+  <div class="pv-program-actions">
+    <button id="pv-new-code" type="button">＋ Nytt program</button>
+    <button id="pv-save-as-code" type="button">💾 Lagre som nytt</button>
+    <button id="pv-download-code" type="button">⬇ Last ned .py</button>
+    <label class="pv-program-import" for="pv-import-code" style="cursor:pointer">⬆ Åpne .py fra PC</label>
+    <input id="pv-import-code" type="file" accept=".py,.txt,text/plain,text/x-python" style="position:absolute;left:-9999px;opacity:0;width:1px;height:1px" aria-label="Velg en Python-fil fra datamaskinen" />
+  </div>
+  <h3>Lagrede programmer <span id="pv-project-total"></span></h3>
+  <div id="pv-program-list" class="pv-program-list"></div>
+  <p class="pv-program-note">Programmene lagres i denne nettleseren på denne enheten. De følger ikke automatisk med til andre Chromebooks eller PC-er. Bruk «Last ned .py» for å ta med et program til en annen enhet. Ikke slett nettleserdata hvis du vil beholde de lokale programmene.</p>
+</section>
+<p id="pv-storage-notice" role="status" hidden style="background:#fff6db;color:#664400;padding:9px 12px;border-radius:8px;margin:8px 0;font-size:13px;"></p>
+<p id="pv-save-status" role="status" aria-live="polite"></p>
 <div hidden="" id="input-area" style="margin-top: 16px; padding: 12px; background: white; border-radius: 8px;">
 <label for="python-answer" id="input-question">Skriv svaret ditt:</label>
 <input id="python-answer" style="width: 100%; box-sizing: border-box; padding: 10px; margin-top: 8px;" type="text"/>
@@ -481,7 +549,7 @@ body{padding-left:232px!important}
   <div class="pv-workshop-header">
     <div class="pv-workshop-kicker">LÆRINGSSTI</div>
     <h2>Én oppgave om gangen</h2>
-    <p>Start med en kort forklaring. Gå så videre til oppgavene med pilen.</p>
+    <p>Les først introduksjonen til temaet, og gå videre med pilen. Hver oppgave forklarer nye ord før du starter.</p>
   </div>
   <div class="pv-topic-chooser">
     <label for="topic-select">Velg tema</label>
@@ -489,7 +557,7 @@ body{padding-left:232px!important}
   </div>
   <div class="pv-topic-progress" aria-live="polite">
     <span id="pv-topic-progress-label">0 av 4 oppgaver fullført</span>
-    <span id="pv-total-progress-label">0 av 52 totalt</span>
+    <span id="pv-total-progress-label">0 av 64 totalt</span>
   </div>
   <div id="pv-progress-track" role="progressbar" aria-label="Fremgang i temaet" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="pv-progress-bar"></div></div>
   <nav class="pv-task-navigation" aria-label="Bla mellom oppgavene">
@@ -516,6 +584,7 @@ body{padding-left:232px!important}
     <div class="pv-task-topline"><span id="pv-task-badge" class="pv-task-badge">OPPDRAG</span><span id="pv-task-done-indicator" hidden>✓ Fullført</span></div>
     <h3 id="task-title">Velg en oppgave</h3>
     <p id="task-description">Les oppgaven og prøv å skrive koden selv.</p>
+    <section class="pv-task-before" id="pv-task-before-box" aria-label="Nye begreper du trenger"><strong>📘 Før du starter</strong><p id="pv-task-before"></p></section>
     <div id="pv-expected" class="pv-expected" hidden></div>
     <div class="pv-task-action-row">
       <button id="mark-done" type="button">✓ Marker som ferdig</button>
@@ -555,60 +624,868 @@ body{padding-left:232px!important}
 <script>
 (function () {
   const tasks = [
-    {topic:"Kom i gang", title:"A. Si hei til datamaskinen", description:"Få programmet til å skrive Hei! på skjermen.", start:'', hint:'Skriv print("Hei!") med parenteser og anførselstegn.', solution:'print("Hei!")', expected:'Hei!', steps:['Skriv en print-kommando.','Sett teksten Hei! mellom anførselstegn.','Kjør og sjekk om du ser Hei! i resultatfeltet.']},
-    {topic:"Kom i gang", title:"B. Regn med Python", description:"Få datamaskinen til å regne ut 7 + 5 og vise svaret.", start:'', hint:'Sett regnestykket inne i print(). Tall trenger ikke anførselstegn.', solution:'print(7 + 5)', expected:'12', steps:['Skriv print() i kodefeltet.','Sett regnestykket 7 + 5 mellom parentesene.','Kjør og sjekk resultatet.']},
-    {topic:"Kom i gang", title:"C. Lag din første variabel", description:"Lagre navnet ditt i en variabel og skriv det ut.", start:'', hint:'Bruk for eksempel navn = "Ada" og print(navn).', solution:'navn = "Ada"\nprint(navn)', expected:'Ada', steps:['Lag en variabel som heter navn.','Legg navnet ditt i anførselstegn.','Bruk print(navn) for å vise navnet.']},
-    {topic:"Kom i gang", title:"D. Endre og eksperimenter", description:"Skriv ut tre forskjellige meldinger. Endre én av dem og kjør på nytt.", start:'', hint:'Du kan bruke print() på tre separate linjer.', solution:'print("Hei!")\nprint("Jeg lærer Python")\nprint("Dette er gøy!")', expected:'Tre linjer med dine egne meldinger', steps:['Lag tre print()-linjer.','Kjør programmet.','Endre en av meldingene og kjør på nytt.']},
-    {topic:"Variabler", title:"1. Si hei!", description:"Spør brukeren om navnet og skriv en personlig hilsen.", start:'name = input("Hva heter du? ")\\nprint("Hei,", name)', hint:"Lagre svaret fra input() i en variabel. Bruk print() til å skrive ut navnet.", solution:'name = input("Hva heter du? ")\\nprint("Hei,", name)'},
-    {topic:"Variabler", title:"2. Alder neste år", description:"Spør hvor gammel brukeren er, og skriv ut alderen neste år.", start:'age = int(input("Hvor gammel er du? "))\\n# Skriv koden din under', hint:"Gjør svaret om til et heltall med int(), og legg til 1.", solution:'age = int(input("Hvor gammel er du? "))\\nnext_age = age + 1\\nprint("Neste år er du", next_age)'},
-    {topic:"Variabler", title:"3. Butikkalkulator", description:"Regn ut totalprisen når brukeren skriver inn pris og antall.", start:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\n# Regn ut og skriv ut totalprisen', hint:"Totalpris er pris per vare ganget med antall varer.", solution:'price = float(input("Pris per vare: "))\\nquantity = int(input("Antall varer: "))\\ntotal = price * quantity\\nprint("Totalpris:", total)'},
-    {topic:"Variabler", title:"4. Poengtavle", description:"Spør hvor mange poeng spilleren har, og skriv ut poengsummen.", start:'score = int(input("Hvor mange poeng har du? "))\\n# Skriv ut en melding med poengsummen', hint:"Variabelen score inneholder tallet brukeren skrev inn.", solution:'score = int(input("Hvor mange poeng har du? "))\\nprint("Du har", score, "poeng!")'},
-    {topic:"Vilkår", title:"5. Er du gammel nok?", description:"Hvis brukeren er 13 år eller eldre, skriv «Du kan bli med!». Ellers skriv «Du må vente litt til».", start:'age = int(input("Hvor gammel er du? "))\\n\\n# Skriv if og else her', hint:"Sammenlign age med 13. Husk kolon og innrykk under if og else.", solution:'age = int(input("Hvor gammel er du? "))\\nif age >= 13:\\n    print("Du kan bli med!")\\nelse:\\n    print("Du må vente litt til")'},
-    {topic:"Vilkår", title:"6. Positivt eller negativt?", description:"Spør etter et tall, og fortell om det er positivt, negativt eller null.", start:'number = int(input("Skriv et tall: "))\\n# Sjekk tallet', hint:"Bruk if number > 0, elif number < 0 og else.", solution:'number = int(input("Skriv et tall: "))\\nif number > 0:\\n    print("Positivt")\\nelif number < 0:\\n    print("Negativt")\\nelse:\\n    print("Null")'},
-    {topic:"Vilkår", title:"7. Poeng og premie", description:"Hvis spilleren har minst 10 poeng, gi en premie. Ellers oppmuntre spilleren til å prøve igjen.", start:'score = int(input("Poeng: "))\\n# Lag en if/else-test', hint:"Sjekk om score er større enn eller lik 10.", solution:'score = int(input("Poeng: "))\\nif score >= 10:\\n    print("Du får en premie!")\\nelse:\\n    print("Prøv igjen!")'},
-    {topic:"Vilkår", title:"8. Par eller oddetall", description:"Finn ut om et heltall er partall eller oddetall.", start:'number = int(input("Skriv et heltall: "))\\n# Bruk modulo (%)', hint:"Et partall gir resten 0 når du deler på 2: number % 2 == 0.", solution:'number = int(input("Skriv et heltall: "))\\nif number % 2 == 0:\\n    print("Partall")\\nelse:\\n    print("Oddetall")'},
-    {topic:"Løkker", title:"9. Tell til ti", description:"Skriv ut tallene fra 1 til og med 10 ved hjelp av en for-løkke.", start:'# Skriv en for-løkke som teller til 10', hint:"range(1, 11) gir tallene 1 til 10.", solution:'for number in range(1, 11):\\n    print(number)'},
-    {topic:"Løkker", title:"10. Gangetabellen", description:"Spør etter et tall og skriv ut gangetabellen fra 1 til 10.", start:'number = int(input("Hvilken gangetabell? "))\\n# Bruk en løkke', hint:"Gå gjennom tallene 1 til 10 og skriv ut number * i.", solution:'number = int(input("Hvilken gangetabell? "))\\nfor i in range(1, 11):\\n    print(number, "x", i, "=", number * i)'},
-    {topic:"Løkker", title:"11. Samle fem mynter", description:"Bruk en løkke til å skrive «Mynt samlet!» fem ganger.", start:'# Gjenta en melding fem ganger', hint:"En for-løkke med range(5) kjører fem ganger.", solution:'for i in range(5):\\n    print("Mynt samlet!")'},
-    {topic:"Løkker", title:"12. Gjett passordet", description:"Fortsett å spørre til brukeren skriver riktig passord: python123.", start:'password = ""\\n# Bruk while til passordet er riktig', hint:"while password != 'python123': gjentar så lenge passordet er feil.", solution:'password = input("Passord: ")\\nwhile password != "python123":\\n    print("Feil passord, prøv igjen.")\\n    password = input("Passord: ")\\nprint("Riktig passord!")'},
-    {topic:"Lister", title:"13. Favorittmat", description:"Lag en liste med tre matretter og skriv ut hele listen.", start:'# Lag en liste med tre favorittretter', hint:"Lister skrives med hakeparenteser, og tekstverdier må stå i anførselstegn.", solution:'foods = ["pizza", "taco", "sushi"]\\nprint(foods)'},
-    {topic:"Lister", title:"14. Handlelisten", description:"Lag en handleliste og legg til en ny vare med append().", start:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\n# Legg varen til i listen', hint:"Bruk shopping.append(new_item).", solution:'shopping = ["brød", "melk"]\\nnew_item = input("Hvilken vare vil du legge til? ")\\nshopping.append(new_item)\\nprint(shopping)'},
-    {topic:"Lister", title:"15. Høyeste poengsum", description:"Finn den høyeste poengsummen i listen.", start:'scores = [4, 12, 7, 9, 15]\\n# Finn og skriv ut høyeste poengsum', hint:"Python har en innebygd funksjon som heter max().", solution:'scores = [4, 12, 7, 9, 15]\\nprint("Høyeste poengsum:", max(scores))'},
-    {topic:"Lister", title:"16. Tilfeldig premie", description:"Trekk en tilfeldig premie fra en liste.", start:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\n# Trekk en premie', hint:"Bruk random.choice(prizes).", solution:'import random\\nprizes = ["klistremerke", "ekstrapoeng", "ny figur"]\\nprize = random.choice(prizes)\\nprint("Du vant:", prize)'},
-    {topic:"Funksjoner", title:"17. Min egen hilsen", description:"Lag en funksjon som skriver en hilsen, og kall funksjonen.", start:'# Lag funksjonen greet og kall den', hint:"Start med def greet(): og skriv funksjonskroppen med innrykk.", solution:'def greet():\\n    print("Hei og velkommen!")\\n\\ngreet()'},
-    {topic:"Funksjoner", title:"18. Dobbelt så mye", description:"Lag en funksjon som tar imot et tall og returnerer det dobbelte.", start:'def double(number):\\n    # Returner det dobbelte av number\\n    pass\\n\\nprint(double(6))', hint:"Bruk return number * 2.", solution:'def double(number):\\n    return number * 2\\n\\nprint(double(6))'},
-    {topic:"Funksjoner", title:"19. Lag en terning", description:"Lag en funksjon som returnerer et tilfeldig tall fra 1 til 6.", start:'import random\\n\\ndef roll_dice():\\n    # Returner et tilfeldig tall fra 1 til 6\\n    pass\\n\\nprint(roll_dice())', hint:"Bruk random.randint(1, 6).", solution:'import random\\n\\ndef roll_dice():\\n    return random.randint(1, 6)\\n\\nprint(roll_dice())'},
-    {topic:"Funksjoner", title:"20. Poengfunksjonen", description:"Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.", start:'def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))', hint:"Funksjonen skal returnere summen av score og points.", solution:'def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))'}
-,
-    {"topic": "Tilfeldighet", "title": "21. Kast en terning", "description": "Skriv ut et tilfeldig tall mellom 1 og 6.", "start": "import random\n# Kast terningen", "hint": "Bruk random.randint(1, 6).", "solution": "import random\nprint(random.randint(1, 6))"},
-    {"topic": "Tilfeldighet", "title": "22. Trekk en premie", "description": "Velg tilfeldig en premie fra en liste.", "start": "import random\npremier = ['stjerne', 'mynt', 'hjerte']", "hint": "Bruk random.choice().", "solution": "import random\npremier = ['stjerne', 'mynt', 'hjerte']\nprint(random.choice(premier))"},
-    {"topic": "Tilfeldighet", "title": "23. Tilfeldig bobleplassering", "description": "Lag fem tilfeldige x-posisjoner for bobler.", "start": "import random\n# Bruk en for-løkke", "hint": "Bruk randint(-100, 100) inni range(5).", "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    print('Boble', i + 1, 'x=', x)"},
-    {"topic": "Tilfeldighet", "title": "24. Unngå en tilfeldig hindring", "description": "Trekk en tilfeldig posisjon og sjekk om den er nær spilleren.", "start": "import random\nspiller_x = 0", "hint": "Bruk abs(spiller_x - hinder_x) < 20.", "solution": "import random\nspiller_x = 0\nhinder_x = random.randint(-50, 50)\nprint('Hinder:', hinder_x)\nif abs(spiller_x - hinder_x) < 20:\n    print('Pass opp!')\nelse:\n    print('Trygt!')"},
-    {"topic": "Koordinater", "title": "25. Flytt til høyre", "description": "Start med x=0 og flytt figuren 15 plasser mot høyre.", "start": "x = 0", "hint": "Legg 15 til x.", "solution": "x = 0\nx += 15\nprint(x)"},
-    {"topic": "Koordinater", "title": "26. Finn posisjonen", "description": "Start på (10, 20), flytt 5 til venstre og 10 opp.", "start": "x, y = 10, 20", "hint": "Venstre betyr minus på x; opp betyr pluss på y.", "solution": "x, y = 10, 20\nx -= 5\ny += 10\nprint(x, y)"},
-    {"topic": "Koordinater", "title": "27. Hold figuren innenfor banen", "description": "Begrens x slik at den alltid er mellom -100 og 100.", "start": "x = 135", "hint": "Bruk if og sett x=100 når den er for stor.", "solution": "x = 135\nif x > 100:\n    x = 100\nif x < -100:\n    x = -100\nprint(x)"},
-    {"topic": "Koordinater", "title": "28. Tilfeldige koordinater", "description": "Lag fem tilfeldige (x,y)-posisjoner.", "start": "import random", "hint": "Trekk x og y hver for seg i en løkke.", "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    y = random.randint(-100, 100)\n    print(x, y)"},
-    {"topic": "Bevegelse", "title": "29. Svøm oppover", "description": "Øk y-posisjonen med 10 tre ganger.", "start": "y = 0", "hint": "Bruk for-løkke og y += 10.", "solution": "y = 0\nfor i in range(3):\n    y += 10\n    print(y)"},
-    {"topic": "Bevegelse", "title": "30. Fire retninger", "description": "Bruk if/elif til å endre x eller y ut fra retningen.", "start": "x, y = 0, 0\nretning = 'venstre'", "hint": "Venstre: x -= 10; høyre: x += 10; opp: y += 10; ned: y -= 10.", "solution": "x, y = 0, 0\nretning = 'venstre'\nif retning == 'opp':\n    y += 10\nelif retning == 'ned':\n    y -= 10\nelif retning == 'venstre':\n    x -= 10\nelif retning == 'høyre':\n    x += 10\nprint(x, y)"},
-    {"topic": "Bevegelse", "title": "31. Bevegelse som funksjon", "description": "Lag en funksjon flytt(x,y,retning) som returnerer ny posisjon.", "start": "# def flytt(x, y, retning):", "hint": "Bruk return x, y etter if/elif.", "solution": "def flytt(x, y, retning):\n    if retning == 'opp':\n        y += 10\n    elif retning == 'ned':\n        y -= 10\n    elif retning == 'venstre':\n        x -= 10\n    elif retning == 'høyre':\n        x += 10\n    return x, y\nprint(flytt(0, 0, 'opp'))"},
-    {"topic": "Bevegelse", "title": "32. Tilfeldig svømmetur", "description": "La figuren ta ti tilfeldige steg og skriv ut sluttposisjonen.", "start": "import random\nx, y = 0, 0", "hint": "Velg retning med random.choice(['opp','ned','venstre','høyre']).", "solution": "import random\nx, y = 0, 0\nfor i in range(10):\n    retning = random.choice(['opp', 'ned', 'venstre', 'høyre'])\n    if retning == 'opp': y += 1\n    elif retning == 'ned': y -= 1\n    elif retning == 'venstre': x -= 1\n    else: x += 1\nprint('Sluttposisjon:', x, y)"},
-    {"topic": "Figurer", "title": "33. Lag en strek", "description": "Skriv ut en strek av åtte stjerner.", "start": "# Skriv ut åtte stjerner", "hint": "Du kan gange en tekst med et tall.", "solution": "print('*' * 8)"},
-    {"topic": "Figurer", "title": "34. Lag en firkant", "description": "Skriv ut en firkant med fire rader og seks stjerner på hver rad.", "start": "# Bruk en for-løkke", "hint": "Skriv ut '*' * 6 fire ganger.", "solution": "for rad in range(4):\n    print('*' * 6)"},
-    {"topic": "Figurer", "title": "35. Lag en trekant", "description": "Lag en trekant med én, to, tre, fire og fem stjerner.", "start": "# Bruk range(1, 6)", "hint": "Antall stjerner er radnummeret.", "solution": "for rad in range(1, 6):\n    print('*' * rad)"},
-    {"topic": "Figurer", "title": "36. Lag en egen figur", "description": "Lag en diamant av stjerner med to løkker.", "start": "# Lag øvre og nedre halvdel", "hint": "Bruk mellomrom og stjerner for å sentrere.", "solution": "for i in range(1, 5):\n    print(' ' * (4-i) + '*' * (2*i-1))\nfor i in range(3, 0, -1):\n    print(' ' * (4-i) + '*' * (2*i-1))"},
-    {"topic": "Kollisjon", "title": "37. Er det treff?", "description": "Sjekk om to x-posisjoner er nærmere enn 10.", "start": "fisk_x = 20\nboble_x = 26", "hint": "Bruk abs() til å finne avstanden.", "solution": "fisk_x = 20\nboble_x = 26\nif abs(fisk_x - boble_x) < 10:\n    print('Treff!')"},
-    {"topic": "Kollisjon", "title": "38. Hvite gir poeng", "description": "Legg til ett poeng hvis fisken er nær den hvite boblen.", "start": "score = 0\nfisk_x, boble_x = 5, 8", "hint": "Øk score når avstanden er under 5.", "solution": "score = 0\nfisk_x, boble_x = 5, 8\nif abs(fisk_x - boble_x) < 5:\n    score += 1\nprint('Poeng:', score)"},
-    {"topic": "Kollisjon", "title": "39. Røde trekker fra", "description": "Trekk fra ett poeng ved treff på en rød ball. Poeng skal aldri bli negativt.", "start": "score = 2\nfisk_x, rod_x = 5, 8", "hint": "Bruk max(0, score - 1).", "solution": "score = 2\nfisk_x, rod_x = 5, 8\nif abs(fisk_x - rod_x) < 5:\n    score = max(0, score - 1)\nprint('Poeng:', score)"},
-    {"topic": "Kollisjon", "title": "40. Kollisjon i to dimensjoner", "description": "Finn ut om fisken er nær en boble ved å sjekke både x og y.", "start": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14", "hint": "Bruk avstand: ((dx**2 + dy**2)**0.5) < 10.", "solution": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14\ndx = fisk_x - boble_x\ndy = fisk_y - boble_y\nif (dx**2 + dy**2)**0.5 < 10:\n    print('Boble fanget!')"},
-    {"topic": "Spilløkker", "title": "41. Tre runder", "description": "Lag en løkke som teller tre runder og skriver ut poeng.", "start": "poeng = 0", "hint": "Bruk range(3) og øk poeng.", "solution": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde+1, 'poeng:', poeng)"},
-    {"topic": "Spilløkker", "title": "42. Spill til fem poeng", "description": "Bruk while for å spille til poengsummen er fem.", "start": "poeng = 0", "hint": "while poeng < 5: og øk poeng.", "solution": "poeng = 0\nwhile poeng < 5:\n    poeng += 1\n    print('Poeng:', poeng)\nprint('Du vant!')"},
-    {"topic": "Spilløkker", "title": "43. Fang eller unngå", "description": "Lag fem tilfeldige hendelser der hvit gir +1 og rød gir -1.", "start": "import random\npoeng = 0", "hint": "Bruk random.choice og max(0, poeng-1).", "solution": "import random\npoeng = 0\nfor runde in range(5):\n    ball = random.choice(['hvit', 'rød'])\n    if ball == 'hvit':\n        poeng += 1\n    else:\n        poeng = max(0, poeng - 1)\n    print(ball, 'poeng:', poeng)"},
-    {"topic": "Spilløkker", "title": "44. Lag et lite tekstspill", "description": "La brukeren velge mellom å fange boble eller unngå hindring i tre runder.", "start": "poeng = 0\n# Tre runder med input()", "hint": "Bruk for, input og if/else. Gi poeng for 'fang'.", "solution": "poeng = 0\nfor runde in range(3):\n    valg = input('Skriv fang eller unngå: ').lower()\n    if valg == 'fang':\n        poeng += 1\n        print('Boble fanget!')\n    elif valg == 'unngå':\n        print('Du unngikk hindringen!')\n    else:\n        print('Ukjent valg')\nprint('Poeng:', poeng)"},
-    {"topic": "Matematikk", "title": "45. Regn med math", "description": "Importer math. Skriv ut kvadratroten av 81 med math.sqrt(), og prøv et annet tall.", "start": "import math\n\n# Finn kvadratroten av 81", "hint": "Bruk math.sqrt(81). Husk import math øverst.", "solution": "import math\n\nprint(math.sqrt(81))"},
-    {"topic": "Matematikk", "title": "46. Rund opp antall lag", "description": "Det er 23 elever. Det kan være maks 4 elever på hvert lag. Finn antall lag med math.ceil().", "start": "import math\nelever = 23\nmaks_per_lag = 4\n\n# Hvor mange lag trengs?", "hint": "Del elever på maks_per_lag og rund opp med math.ceil().", "solution": "import math\nelever = 23\nmaks_per_lag = 4\nlag = math.ceil(elever / maks_per_lag)\nprint(\"Vi trenger\", lag, \"lag\")"},
-    {"topic": "Matematikk", "title": "47. Sirkelens omkrets", "description": "Spør etter radiusen og regn ut sirkelens omkrets med math.pi. Avrund svaret til to desimaler.", "start": "import math\nradius = float(input(\"Radius: \"))\n\n# Finn og skriv ut omkretsen", "hint": "Omkretsen er 2 * math.pi * radius. Bruk round(verdi, 2) når du skriver ut.", "solution": "import math\nradius = float(input(\"Radius: \"))\nomkrets = 2 * math.pi * radius\nprint(\"Omkrets:\", round(omkrets, 2))"},
-    {"topic": "Matematikk", "title": "48. Avstand mellom to spillfigurer", "description": "To figurer står i (2, 3) og (8, 11). Finn avstanden mellom dem med math.sqrt().", "start": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\n\n# Finn avstanden", "hint": "Finn forskjellen i x og y. Bruk math.sqrt(dx ** 2 + dy ** 2).", "solution": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\ndx = x2 - x1\ndy = y2 - y1\navstand = math.sqrt(dx ** 2 + dy ** 2)\nprint(\"Avstand:\", avstand)"}
-  ];
+  {
+    "topic": "Kom i gang",
+    "title": "A. Si hei til datamaskinen",
+    "description": "Skriv et program som viser teksten Hei! Bruk print() og anførselstegn.",
+    "start": "",
+    "hint": "Skriv print(\"Hei!\") med parenteser og anførselstegn.",
+    "solution": "print(\"Hei!\")",
+    "expected": "Hei!",
+    "steps": [
+      "Skriv print med parenteser.",
+      "Skriv teksten inni parentesene, med doble anførselstegn."
+    ],
+    "before": "print() betyr «skriv ut». Tekst skrives mellom anførselstegn, for eksempel \"Hei\". Parentesene () forteller Python hva den skal skrive ut."
+  },
+  {
+    "topic": "Kom i gang",
+    "title": "B. Regn med Python",
+    "description": "Få datamaskinen til å regne ut 7 + 5 og vise svaret.",
+    "start": "",
+    "hint": "Sett regnestykket inne i print(). Tall trenger ikke anførselstegn.",
+    "solution": "print(7 + 5)",
+    "expected": "12",
+    "steps": [
+      "Skriv et regnestykke inni print().",
+      "Kjør, og sjekk at du får tallet 12."
+    ],
+    "before": "Når du regner med tall i Python, skal tallene ikke ha anførselstegn. print(7 + 5) viser svaret, ikke selve regnestykket."
+  },
+  {
+    "topic": "Kom i gang",
+    "title": "C. Lag din første variabel",
+    "description": "Lagre navnet ditt i en variabel og skriv det ut.",
+    "start": "",
+    "hint": "Bruk for eksempel navn = \"Ada\" og print(navn).",
+    "solution": "navn = \"Ada\"\nprint(navn)",
+    "expected": "Ada",
+    "steps": [
+      "Gi variabelen et navn.",
+      "Legg tekst i variabelen med anførselstegn og skriv den ut."
+    ],
+    "before": "En variabel er et navn på en verdi. Med navn = \"Ada\" lagrer du teksten Ada. Med print(navn) henter du fram verdien."
+  },
+  {
+    "topic": "Kom i gang",
+    "title": "D. Endre og eksperimenter",
+    "description": "Skriv ut tre forskjellige meldinger. Endre én av dem og kjør på nytt.",
+    "start": "",
+    "hint": "Du kan bruke print() på tre separate linjer.",
+    "solution": "print(\"Hei!\")\nprint(\"Jeg lærer Python\")\nprint(\"Dette er gøy!\")",
+    "expected": "Tre linjer med dine egne meldinger",
+    "steps": [
+      "Lag tre linjer med print().",
+      "Endre én av tekstene og kjør igjen."
+    ],
+    "before": "Hver print()-kommando kan skrive ut en egen linje. Tekst skal stå mellom \" \", også når teksten inneholder mellomrom."
+  },
+  {
+    "topic": "Variabler",
+    "title": "1. Si hei!",
+    "description": "Spør brukeren om navnet og skriv en personlig hilsen.",
+    "start": "name = input(\"Hva heter du? \")\\nprint(\"Hei,\", name)",
+    "hint": "Lagre svaret fra input() i en variabel. Bruk print() til å skrive ut navnet.",
+    "solution": "name = input(\"Hva heter du? \")\\nprint(\"Hei,\", name)",
+    "before": "input(\"Hva heter du?\") viser et spørsmål og venter på et svar. Svaret lagres som tekst i variabelen name. print() kan skrive ut både tekst og variabler.",
+    "steps": [
+      "Prøv først å skrive inn navnet ditt i input-feltet.",
+      "Bruk name i print() for å lage hilsenen."
+    ]
+  },
+  {
+    "topic": "Variabler",
+    "title": "2. Alder neste år",
+    "description": "Spør om alder, gjør svaret om til et heltall med int(), og skriv ut alderen neste år.",
+    "start": "age = int(input(\"Hvor gammel er du? \"))\\n# Skriv koden din under",
+    "hint": "Gjør svaret om til et heltall med int(), og legg til 1.",
+    "solution": "age = int(input(\"Hvor gammel er du? \"))\\nnext_age = age + 1\\nprint(\"Neste år er du\", next_age)",
+    "before": "input() gir alltid tekst, også når eleven skriver 12. int() gjør om slik tekst til et heltall, så vi kan regne med det: int(\"12\") blir tallet 12.",
+    "steps": [
+      "Hent alderen som tekst med input().",
+      "Bruk int() for å gjøre alderen om til tall, legg til 1 og skriv ut resultatet."
+    ]
+  },
+  {
+    "topic": "Variabler",
+    "title": "3. Butikkalkulator",
+    "description": "Spør om pris (kan ha desimaler) og antall varer (heltall). Regn ut og skriv ut totalprisen.",
+    "start": "price = float(input(\"Pris per vare: \"))\\nquantity = int(input(\"Antall varer: \"))\\n# Regn ut og skriv ut totalprisen",
+    "hint": "Totalpris er pris per vare ganget med antall varer.",
+    "solution": "price = float(input(\"Pris per vare: \"))\\nquantity = int(input(\"Antall varer: \"))\\ntotal = price * quantity\\nprint(\"Totalpris:\", total)",
+    "before": "Her trenger du to typer tall: int() for heltall, for eksempel 3 varer, og float() for desimaltall, for eksempel prisen 19.50. Python bruker punktum som desimalskilletegn.",
+    "steps": [
+      "Bruk float() rundt prisen og int() rundt antallet.",
+      "Gang pris med antall og skriv ut totalen."
+    ]
+  },
+  {
+    "topic": "Variabler",
+    "title": "4. Poengtavle",
+    "description": "Spør om hvor mange poeng spilleren har. Bruk int() på svaret og skriv ut poengsummen.",
+    "start": "score = int(input(\"Hvor mange poeng har du? \"))\\n# Skriv ut en melding med poengsummen",
+    "hint": "Variabelen score inneholder tallet brukeren skrev inn.",
+    "solution": "score = int(input(\"Hvor mange poeng har du? \"))\\nprint(\"Du har\", score, \"poeng!\")",
+    "before": "Variabelen score betyr poengsum. Siden input() gir tekst, bruker vi int(input(...)) for å lagre poengene som tall. Du kan skrive ut tallet sammen med en melding.",
+    "steps": [
+      "Se hva int(input(...)) lagrer i score.",
+      "Bruk print() for å vise en melding med score."
+    ]
+  },
+  {
+    "topic": "Vilkår",
+    "title": "5. Er du gammel nok?",
+    "description": "Hvis brukeren er 13 år eller eldre, skriv «Du kan bli med!». Ellers skriv «Du må vente litt til».",
+    "start": "age = int(input(\"Hvor gammel er du? \"))\\n\\n# Skriv if og else her",
+    "hint": "Sammenlign age med 13. Husk kolon og innrykk under if og else.",
+    "solution": "age = int(input(\"Hvor gammel er du? \"))\\nif age >= 13:\\n    print(\"Du kan bli med!\")\\nelse:\\n    print(\"Du må vente litt til\")",
+    "before": "Et vilkår lar programmet velge. if age >= 13: betyr «hvis alder er minst 13». else: betyr «ellers». Koden under hver del må ha fire mellomrom innrykk.",
+    "steps": [
+      "Lag først en if-test med >=.",
+      "Legg til else: for det som skal skje hvis testen er usann."
+    ]
+  },
+  {
+    "topic": "Vilkår",
+    "title": "6. Positivt eller negativt?",
+    "description": "Spør etter et tall, og fortell om det er positivt, negativt eller null.",
+    "start": "number = int(input(\"Skriv et tall: \"))\\n# Sjekk tallet",
+    "hint": "Bruk if number > 0, elif number < 0 og else.",
+    "solution": "number = int(input(\"Skriv et tall: \"))\\nif number > 0:\\n    print(\"Positivt\")\\nelif number < 0:\\n    print(\"Negativt\")\\nelse:\\n    print(\"Null\")",
+    "before": "Bruk if for første test. elif betyr «ellers hvis» og sjekker en ny mulighet. else kjøres hvis ingen tidligere tester passer. > betyr større enn og < betyr mindre enn.",
+    "steps": [
+      "Sjekk først om tallet er over 0.",
+      "Sjekk deretter under 0, og bruk else for nøyaktig 0."
+    ]
+  },
+  {
+    "topic": "Vilkår",
+    "title": "7. Poeng og premie",
+    "description": "Hvis spilleren har minst 10 poeng, gi en premie. Ellers oppmuntre spilleren til å prøve igjen.",
+    "start": "score = int(input(\"Poeng: \"))\\n# Lag en if/else-test",
+    "hint": "Sjekk om score er større enn eller lik 10.",
+    "solution": "score = int(input(\"Poeng: \"))\\nif score >= 10:\\n    print(\"Du får en premie!\")\\nelse:\\n    print(\"Prøv igjen!\")",
+    "before": "Sammenligningsoperatoren >= betyr «større enn eller lik». == brukes når vi vil undersøke om to verdier er helt like, mens = lagrer en verdi.",
+    "steps": [
+      "Bruk if score >= 10:.",
+      "Skriv premie-melding ved treff, og en annen melding med else:."
+    ]
+  },
+  {
+    "topic": "Vilkår",
+    "title": "8. Par eller oddetall",
+    "description": "Finn ut om tallet er partall eller oddetall. Bruk resten etter deling (%).",
+    "start": "number = int(input(\"Skriv et heltall: \"))\\n# Bruk modulo (%)",
+    "hint": "Et partall gir resten 0 når du deler på 2: number % 2 == 0.",
+    "solution": "number = int(input(\"Skriv et heltall: \"))\\nif number % 2 == 0:\\n    print(\"Partall\")\\nelse:\\n    print(\"Oddetall\")",
+    "before": "% heter modulo og gir RESTEN etter en divisjon. 8 % 2 er 0, fordi 8 går opp i 2. 9 % 2 er 1, fordi det blir 1 til overs. Derfor kan du bruke % for å finne partall.",
+    "steps": [
+      "Regn ut resten når tallet deles på 2.",
+      "Hvis resten er 0, er tallet et partall; ellers et oddetall."
+    ]
+  },
+  {
+    "topic": "For-løkker",
+    "title": "9. Tell til ti",
+    "description": "Skriv ut tallene fra 1 til og med 10 ved hjelp av en for-løkke.",
+    "start": "# Skriv en for-løkke som teller til 10",
+    "hint": "range(1, 11) gir tallene 1 til 10.",
+    "solution": "for number in range(1, 11):\\n    print(number)",
+    "before": "En for-løkke gjentar kode. range(1, 11) gir tallene 1, 2, 3 … 10. Det siste tallet i range() er ikke med. Innholdet i løkken har fire mellomrom innrykk.",
+    "steps": [
+      "Skriv for med range(1, 11):.",
+      "Skriv print() med fire mellomrom innenfor løkken."
+    ],
+    "legacyTopic": "Løkker"
+  },
+  {
+    "topic": "For-løkker",
+    "title": "10. Gangetabellen",
+    "description": "Spør etter et tall og skriv ut gangetabellen fra 1 til 10.",
+    "start": "number = int(input(\"Hvilken gangetabell? \"))\\n# Bruk en løkke",
+    "hint": "Gå gjennom tallene 1 til 10 og skriv ut number * i.",
+    "solution": "number = int(input(\"Hvilken gangetabell? \"))\\nfor i in range(1, 11):\\n    print(number, \"x\", i, \"=\", number * i)",
+    "before": "I en for-løkke får variabelen i en ny verdi for hver runde. Med number * i kan du gange det valgte tallet med 1, 2, 3 og så videre.",
+    "steps": [
+      "Hent et heltall med int(input(...)).",
+      "Bruk for i in range(1, 11): og regn ut number * i."
+    ],
+    "legacyTopic": "Løkker"
+  },
+  {
+    "topic": "For-løkker",
+    "title": "11. Samle fem mynter",
+    "description": "Bruk en løkke til å skrive «Mynt samlet!» fem ganger.",
+    "start": "# Gjenta en melding fem ganger",
+    "hint": "En for-løkke med range(5) kjører fem ganger.",
+    "solution": "for i in range(5):\\n    print(\"Mynt samlet!\")",
+    "before": "range(5) gjør at løkken kjører fem ganger: 0, 1, 2, 3 og 4. Vi bruker løkken til å gjenta samme melding uten fem print-linjer.",
+    "steps": [
+      "Lag en for-løkke med range(5).",
+      "Skriv meldingen som en innrykket linje."
+    ],
+    "legacyTopic": "Løkker"
+  },
+  {
+    "topic": "While-løkker",
+    "title": "Øv 1. Tell opp til fem",
+    "description": "Skriv ut 1, 2, 3, 4, 5 med while. Endre telleren hver gang.",
+    "start": "teller = 1\n# Lag while-løkken her",
+    "hint": "Sjekk at teller <= 5. Øk telleren med teller += 1 inni løkken.",
+    "solution": "teller = 1\nwhile teller <= 5:\n    print(teller)\n    teller += 1",
+    "before": "while gjentar så lenge vilkåret er sant. Før løkken må du lage en teller. Hvis telleren aldri endres, kan programmet fortsette for alltid.",
+    "steps": [
+      "Lag en teller som starter på 1.",
+      "Gjenta mens telleren er høyst 5, og øk den med 1 hver runde."
+    ],
+    "expected": "1, 2, 3, 4, 5 på hver sin linje."
+  },
+  {
+    "topic": "While-løkker",
+    "title": "Øv 2. Tell ned til start",
+    "description": "Skriv ut 3, 2, 1 og deretter «Start!».",
+    "start": "nedtelling = 3",
+    "hint": "Bruk while nedtelling > 0: og trekk fra 1 hver gang.",
+    "solution": "nedtelling = 3\nwhile nedtelling > 0:\n    print(nedtelling)\n    nedtelling -= 1\nprint(\"Start!\")",
+    "before": "Du kan også telle NED. -= betyr «trekk fra og lagre»: nedtelling -= 1 er det samme som nedtelling = nedtelling - 1.",
+    "steps": [
+      "Skriv nedtelling = 3.",
+      "Så lenge den er over 0, skriv tallet og trekk fra 1."
+    ],
+    "expected": "3, 2, 1 og Start!"
+  },
+  {
+    "topic": "While-løkker",
+    "title": "12. Gjett passordet",
+    "description": "Fortsett å spørre til brukeren skriver riktig passord: python123.",
+    "start": "password = \"\"\\n# Bruk while til passordet er riktig",
+    "hint": "while password != 'python123': gjentar så lenge passordet er feil.",
+    "solution": "password = input(\"Passord: \")\\nwhile password != \"python123\":\\n    print(\"Feil passord, prøv igjen.\")\\n    password = input(\"Passord: \")\\nprint(\"Riktig passord!\")",
+    "before": "while betyr «så lenge». Løkken gjentas helt til testen blir usann. != betyr «er ikke lik». while password != \"python123\": betyr at vi fortsetter så lenge passordet er feil. Det må stilles et nytt spørsmål INNI løkken, ellers kan den fortsette for alltid.",
+    "steps": [
+      "Les passordet før løkken.",
+      "Så lenge passordet ikke er riktig, spør på nytt inne i løkken."
+    ],
+    "legacyTopic": "Løkker"
+  },
+  {
+    "topic": "While-løkker",
+    "title": "Øv 4. Poeng til ti",
+    "description": "Start med 0 poeng. Øk 2 poeng om gangen til poengene er minst 10.",
+    "start": "poeng = 0",
+    "hint": "Bruk while poeng < 10: og legg til 2 inni løkken.",
+    "solution": "poeng = 0\nwhile poeng < 10:\n    poeng += 2\n    print(\"Poeng:\", poeng)\nprint(\"Målet er nådd!\")",
+    "before": "Løkken fortsetter til testen ikke lenger er sann. Her vil du stoppe når poengene har nådd 10. Bruk < og øk poengene inni løkken.",
+    "steps": [
+      "Sjekk poeng < 10 i en while-løkke.",
+      "Legg til to poeng og skriv ut underveis."
+    ],
+    "expected": "2, 4, 6, 8 og 10 poeng; deretter Målet er nådd!"
+  },
+  {
+    "topic": "Tilfeldighet",
+    "title": "21. Kast en terning",
+    "description": "Skriv ut et tilfeldig tall mellom 1 og 6.",
+    "start": "import random\n# Kast terningen",
+    "hint": "Bruk random.randint(1, 6).",
+    "solution": "import random\nprint(random.randint(1, 6))",
+    "before": "import random gjør tilfeldig-funksjonene tilgjengelige. random.randint(1, 6) velger et heltall mellom 1 og 6, og BEGGE tallene kan komme med.",
+    "steps": [
+      "Start med import random.",
+      "Skriv ut et tilfeldig tall med randint(1, 6)."
+    ]
+  },
+  {
+    "topic": "Tilfeldighet",
+    "title": "22. Trekk en premie",
+    "description": "Velg tilfeldig en premie fra en liste.",
+    "start": "import random\npremier = ['stjerne', 'mynt', 'hjerte']",
+    "hint": "Bruk random.choice().",
+    "solution": "import random\npremier = ['stjerne', 'mynt', 'hjerte']\nprint(random.choice(premier))",
+    "before": "random.choice() velger én tilfeldig verdi blant flere alternativer. Alternativene står i en liste med hakeparenteser [ ]. Eksempel: random.choice([\"rød\", \"blå\"]).",
+    "steps": [
+      "Se hvilke premier som står i listen premier.",
+      "Trekk en av dem med random.choice(premier)."
+    ]
+  },
+  {
+    "topic": "Tilfeldighet",
+    "title": "23. Tilfeldig bobleplassering",
+    "description": "Lag fem tilfeldige x-posisjoner for bobler.",
+    "start": "import random\n# Bruk en for-løkke",
+    "hint": "Bruk randint(-100, 100) inni range(5).",
+    "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    print('Boble', i + 1, 'x=', x)",
+    "before": "Når du vil plassere flere bobler, kan du kombinere for-løkke og randint(). Et tall fra -100 til 100 kan være en x-posisjon; negativt betyr venstre og positivt høyre.",
+    "steps": [
+      "Lag en løkke som går fem ganger.",
+      "Velg en ny x med random.randint(-100, 100) for hver runde."
+    ]
+  },
+  {
+    "topic": "Tilfeldighet",
+    "title": "24. Unngå en tilfeldig hindring",
+    "description": "Trekk en tilfeldig posisjon og sjekk om den er nær spilleren.",
+    "start": "import random\nspiller_x = 0",
+    "hint": "Bruk abs(spiller_x - hinder_x) < 20.",
+    "solution": "import random\nspiller_x = 0\nhinder_x = random.randint(-50, 50)\nprint('Hinder:', hinder_x)\nif abs(spiller_x - hinder_x) < 20:\n    print('Pass opp!')\nelse:\n    print('Trygt!')",
+    "before": "hinder_x er navnet på hindringens x-posisjon. abs() betyr «absoluttverdi», altså et tall uten minus: abs(-7) blir 7. abs(spiller_x - hinder_x) forteller hvor langt fra hverandre de står på x-aksen.",
+    "steps": [
+      "Trekk en tilfeldig hinder_x.",
+      "Sjekk avstanden med abs() og bruk if/else for «Pass opp» eller «Trygt»."
+    ]
+  },
+  {
+    "topic": "Lister",
+    "title": "13. Favorittmat",
+    "description": "Lag en liste med tre matretter og skriv ut hele listen.",
+    "start": "# Lag en liste med tre favorittretter",
+    "hint": "Lister skrives med hakeparenteser, og tekstverdier må stå i anførselstegn.",
+    "solution": "foods = [\"pizza\", \"taco\", \"sushi\"]\\nprint(foods)",
+    "before": "En liste samler flere verdier mellom hakeparenteser [ ]. Hver tekst i listen må stå i anførselstegn og skilles med komma.",
+    "steps": [
+      "Lag en liste, for eksempel med tre matretter.",
+      "Bruk print() for å vise hele listen."
+    ]
+  },
+  {
+    "topic": "Lister",
+    "title": "14. Handlelisten",
+    "description": "Lag en handleliste og legg til en ny vare med append().",
+    "start": "shopping = [\"brød\", \"melk\"]\\nnew_item = input(\"Hvilken vare vil du legge til? \")\\n# Legg varen til i listen",
+    "hint": "Bruk shopping.append(new_item).",
+    "solution": "shopping = [\"brød\", \"melk\"]\\nnew_item = input(\"Hvilken vare vil du legge til? \")\\nshopping.append(new_item)\\nprint(shopping)",
+    "before": "append() betyr «legg til på slutten». shopping.append(\"egg\") legger til egg i shopping-listen. new_item er bare et variabelnavn: det betyr «ny vare», og inneholder teksten brukeren skrev inn.",
+    "steps": [
+      "Les den nye varen med input() og lagre den i new_item.",
+      "Legg verdien til shopping med append(), og skriv ut listen."
+    ]
+  },
+  {
+    "topic": "Lister",
+    "title": "15. Høyeste poengsum",
+    "description": "Finn både høyeste og laveste poengsum i listen med max() og min().",
+    "start": "scores = [4, 12, 7, 9, 15]\\n# Finn og skriv ut høyeste poengsum",
+    "hint": "Bruk max(scores) for det høyeste og min(scores) for det laveste tallet.",
+    "solution": "scores = [4, 12, 7, 9, 15]\nprint(\"Høyeste:\", max(scores))\nprint(\"Laveste:\", min(scores))",
+    "before": "max() finner det største tallet i en liste. min() finner det minste. Eksempel: max([2, 7, 4]) er 7, mens min([2, 7, 4]) er 2. Begge er innebygde funksjoner.",
+    "steps": [
+      "Bruk max(scores) for å finne toppresultatet.",
+      "Prøv også min(scores) for å finne laveste poengsum."
+    ],
+    "expected": "Høyeste: 15  ·  Laveste: 4"
+  },
+  {
+    "topic": "Lister",
+    "title": "Øv. Finn høyeste og laveste",
+    "description": "Lag din egen liste med fire tall. Skriv både største og minste verdi.",
+    "start": "# Lag en liste med fire tall",
+    "hint": "Bruk max(min_liste) og min(min_liste) etter at listen er laget.",
+    "solution": "min_liste = [6, 14, 2, 9]\nprint(\"Størst:\", max(min_liste))\nprint(\"Minst:\", min(min_liste))",
+    "before": "max() og min() er innebygd i Python. Begge får en liste som argument: max([1, 8, 3]) gir 8, mens min([1, 8, 3]) gir 1.",
+    "steps": [
+      "Lag en liste med fire tall.",
+      "Skriv ut både største og minste tallet."
+    ]
+  },
+  {
+    "topic": "Lister",
+    "title": "16. Tilfeldig premie",
+    "description": "Trekk en tilfeldig premie fra en liste.",
+    "start": "import random\\nprizes = [\"klistremerke\", \"ekstrapoeng\", \"ny figur\"]\\n# Trekk en premie",
+    "hint": "Bruk random.choice(prizes).",
+    "solution": "import random\\nprizes = [\"klistremerke\", \"ekstrapoeng\", \"ny figur\"]\\nprize = random.choice(prizes)\\nprint(\"Du vant:\", prize)",
+    "before": "random.choice() velger én tilfeldig verdi fra en liste. Du har allerede møtt choice() i temaet Tilfeldighet. Husk import random først.",
+    "steps": [
+      "Bruk listen prizes som inneholder mulige premier.",
+      "Velg en premie med random.choice(prizes) og skriv den ut."
+    ]
+  },
+  {
+    "topic": "Funksjoner",
+    "title": "17. Min egen hilsen",
+    "description": "Lag en funksjon som skriver en hilsen, og kall funksjonen.",
+    "start": "# Lag funksjonen greet og kall den",
+    "hint": "Start med def greet(): og skriv funksjonskroppen med innrykk.",
+    "solution": "def greet():\\n    print(\"Hei og velkommen!\")\\n\\ngreet()",
+    "before": "En funksjon er en egen kommando du lager selv. def greet(): betyr «lag kommandoen greet». Den innrykkede koden kjøres først når du skriver greet() senere i programmet.",
+    "steps": [
+      "Lag funksjonen med def og kolon.",
+      "Legg en print()-linje inni funksjonen, og kall den nedenfor."
+    ]
+  },
+  {
+    "topic": "Funksjoner",
+    "title": "18. Dobbelt så mye",
+    "description": "Lag en funksjon som tar imot et tall og returnerer det dobbelte.",
+    "start": "def double(number):\\n    # Returner det dobbelte av number\\n    pass\\n\\nprint(double(6))",
+    "hint": "Bruk return number * 2.",
+    "solution": "def double(number):\\n    return number * 2\\n\\nprint(double(6))",
+    "before": "En funksjon kan ta imot en verdi i parentesene, for eksempel number. return betyr «send svaret tilbake». print() viser tekst, men return gir resultatet videre slik at annen kode kan bruke det.",
+    "steps": [
+      "Tallet ligger i parameteren number.",
+      "Bruk return inne i funksjonen for å sende tilbake det dobbelte."
+    ]
+  },
+  {
+    "topic": "Funksjoner",
+    "title": "19. Lag en terning",
+    "description": "Lag en funksjon som returnerer et tilfeldig tall fra 1 til 6.",
+    "start": "import random\\n\\ndef roll_dice():\\n    # Returner et tilfeldig tall fra 1 til 6\\n    pass\\n\\nprint(roll_dice())",
+    "hint": "Bruk random.randint(1, 6).",
+    "solution": "import random\\n\\ndef roll_dice():\\n    return random.randint(1, 6)\\n\\nprint(roll_dice())",
+    "before": "Nå kombinerer du to ting: en funksjon med def og tilfeldig tall med random.randint(1, 6). return sender det tilfeldige tallet tilbake til stedet funksjonen ble kalt.",
+    "steps": [
+      "Importer random før funksjonen.",
+      "Bruk randint inne i funksjonen og send verdien tilbake med return."
+    ]
+  },
+  {
+    "topic": "Funksjoner",
+    "title": "20. Poengfunksjonen",
+    "description": "Lag en funksjon som tar imot nåværende poeng og legger til poeng som er vunnet.",
+    "start": "def add_points(score, points):\\n    # Returner ny poengsum\\n    pass\\n\\nprint(add_points(3, 2))",
+    "hint": "Funksjonen skal returnere summen av score og points.",
+    "solution": "def add_points(score, points):\\n    return score + points\\n\\nprint(add_points(3, 2))",
+    "before": "En funksjon kan motta flere verdier, atskilt med komma. add_points(score, points) tar imot den gamle poengsummen og poeng som er vunnet. return sender den NYE summen tilbake.",
+    "steps": [
+      "Se at score og points er to ulike verdier.",
+      "Legg dem sammen og send resultatet tilbake med return."
+    ]
+  },
+  {
+    "topic": "Koordinater",
+    "title": "25. Flytt til høyre",
+    "description": "Start med x=0 og flytt figuren 15 plasser mot høyre.",
+    "start": "x = 0",
+    "hint": "Legg 15 til x.",
+    "solution": "x = 0\nx += 15\nprint(x)",
+    "before": "x er posisjonen fra venstre til høyre. Når x øker, flyttes figuren mot høyre. x += 15 er en kortere måte å skrive x = x + 15.",
+    "steps": [
+      "Start med x = 0.",
+      "Øk x med 15 og skriv ut den nye posisjonen."
+    ]
+  },
+  {
+    "topic": "Koordinater",
+    "title": "26. Finn posisjonen",
+    "description": "Start på (10, 20), flytt 5 til venstre og 10 opp.",
+    "start": "x, y = 10, 20",
+    "hint": "Venstre betyr minus på x; opp betyr pluss på y.",
+    "solution": "x, y = 10, 20\nx -= 5\ny += 10\nprint(x, y)",
+    "before": "Et punkt har to koordinater: x (sideveis) og y (oppover/nedover). For å gå venstre trekker du fra x. For å gå opp legger du til y.",
+    "steps": [
+      "Begynn med punktet (10, 20).",
+      "Trekk 5 fra x og legg 10 til y."
+    ]
+  },
+  {
+    "topic": "Koordinater",
+    "title": "27. Hold figuren innenfor banen",
+    "description": "Begrens x slik at den alltid er mellom -100 og 100.",
+    "start": "x = 135",
+    "hint": "Bruk if og sett x=100 når den er for stor.",
+    "solution": "x = 135\nif x > 100:\n    x = 100\nif x < -100:\n    x = -100\nprint(x)",
+    "before": "I et spill kan en figur ikke forsvinne utenfor banen. Hvis x er større enn 100, kan vi sette x til 100. Hvis x er mindre enn -100, kan vi sette x til -100.",
+    "steps": [
+      "Sjekk først om x er for stor.",
+      "Legg til en ny if-test for verdier under -100."
+    ]
+  },
+  {
+    "topic": "Koordinater",
+    "title": "28. Tilfeldige koordinater",
+    "description": "Lag fem tilfeldige (x,y)-posisjoner.",
+    "start": "import random",
+    "hint": "Trekk x og y hver for seg i en løkke.",
+    "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    y = random.randint(-100, 100)\n    print(x, y)",
+    "before": "Hvert punkt har både x og y. Velg derfor to tilfeldige tall hver gang du lager en ny posisjon: ett for x og ett for y.",
+    "steps": [
+      "Lag en for-løkke som gjentas fem ganger.",
+      "Trekk et tilfeldig tall til x og ett til y."
+    ]
+  },
+  {
+    "topic": "Bevegelse",
+    "title": "29. Svøm oppover",
+    "description": "Øk y-posisjonen med 10 tre ganger.",
+    "start": "y = 0",
+    "hint": "Bruk for-løkke og y += 10.",
+    "solution": "y = 0\nfor i in range(3):\n    y += 10\n    print(y)",
+    "before": "I spill er y-posisjon ofte høyden på figuren. y += 10 betyr «gå ti opp». Etter tre gjentakelser har y økt 30 til sammen.",
+    "steps": [
+      "Start med y = 0.",
+      "Bruk for-løkke til å øke y og skrive ut ny verdi for hver runde."
+    ]
+  },
+  {
+    "topic": "Bevegelse",
+    "title": "30. Fire retninger",
+    "description": "Bruk if/elif til å endre x eller y ut fra retningen.",
+    "start": "x, y = 0, 0\nretning = 'venstre'",
+    "hint": "Venstre: x -= 10; høyre: x += 10; opp: y += 10; ned: y -= 10.",
+    "solution": "x, y = 0, 0\nretning = 'venstre'\nif retning == 'opp':\n    y += 10\nelif retning == 'ned':\n    y -= 10\nelif retning == 'venstre':\n    x -= 10\nelif retning == 'høyre':\n    x += 10\nprint(x, y)",
+    "before": "Retning er lagret som tekst: \"opp\", \"ned\", \"venstre\" eller \"høyre\". Bruk == for å teste hvilken retning som er valgt. Endre bare den riktige koordinaten.",
+    "steps": [
+      "Sjekk tekstvariabelen retning med if/elif.",
+      "Endre x eller y med + eller - 10 og vis resultatet."
+    ]
+  },
+  {
+    "topic": "Bevegelse",
+    "title": "31. Bevegelse som funksjon",
+    "description": "Lag en funksjon flytt(x,y,retning) som returnerer ny posisjon.",
+    "start": "# def flytt(x, y, retning):",
+    "hint": "Bruk return x, y etter if/elif.",
+    "solution": "def flytt(x, y, retning):\n    if retning == 'opp':\n        y += 10\n    elif retning == 'ned':\n        y -= 10\n    elif retning == 'venstre':\n        x -= 10\n    elif retning == 'høyre':\n        x += 10\n    return x, y\nprint(flytt(0, 0, 'opp'))",
+    "before": "Funksjonen flytt(x, y, retning) får tre verdier. Inni funksjonen endrer du x eller y. Når du skriver return x, y, sender du BEGGE tilbake som en ny posisjon.",
+    "steps": [
+      "Lag funksjonen med tre parametere.",
+      "Legg til retningstester, og avslutt med return x, y."
+    ]
+  },
+  {
+    "topic": "Bevegelse",
+    "title": "32. Tilfeldig svømmetur",
+    "description": "La figuren ta ti tilfeldige steg og skriv ut sluttposisjonen.",
+    "start": "import random\nx, y = 0, 0",
+    "hint": "Velg retning med random.choice(['opp','ned','venstre','høyre']).",
+    "solution": "import random\nx, y = 0, 0\nfor i in range(10):\n    retning = random.choice(['opp', 'ned', 'venstre', 'høyre'])\n    if retning == 'opp': y += 1\n    elif retning == 'ned': y -= 1\n    elif retning == 'venstre': x -= 1\n    else: x += 1\nprint('Sluttposisjon:', x, y)",
+    "before": "random.choice() kan velge et ord fra listen med retninger. For hvert valg skal figuren flytte ett steg, så må du gjenta med en for-løkke.",
+    "steps": [
+      "Start med x = 0 og y = 0.",
+      "Trekk en retning ti ganger, oppdater posisjonen og skriv sluttposisjonen."
+    ]
+  },
+  {
+    "topic": "Figurer",
+    "title": "33. Lag en strek",
+    "description": "Skriv ut en strek av åtte stjerner.",
+    "start": "# Skriv ut åtte stjerner",
+    "hint": "Du kan gange en tekst med et tall.",
+    "solution": "print('*' * 8)",
+    "before": "I Python kan du gjenta tekst med gangetegn: \"*\" * 3 blir \"***\". Det er altså mulig å tegne en strek uten en løkke.",
+    "steps": [
+      "Lag en tekst med stjernetegnet.",
+      "Gang teksten med 8 og skriv resultatet ut."
+    ]
+  },
+  {
+    "topic": "Figurer",
+    "title": "34. Lag en firkant",
+    "description": "Skriv ut en firkant med fire rader og seks stjerner på hver rad.",
+    "start": "# Bruk en for-løkke",
+    "hint": "Skriv ut '*' * 6 fire ganger.",
+    "solution": "for rad in range(4):\n    print('*' * 6)",
+    "before": "En firkant av tekst kan bestå av fire LINJER med seks stjerner i hver. En for-løkke lager radene, og \"*\" * 6 lager stjernene i hver rad.",
+    "steps": [
+      "Gjenta fire ganger med for.",
+      "Skriv ut seks stjerner i hver runde."
+    ]
+  },
+  {
+    "topic": "Figurer",
+    "title": "35. Lag en trekant",
+    "description": "Lag en trekant med én, to, tre, fire og fem stjerner.",
+    "start": "# Bruk range(1, 6)",
+    "hint": "Antall stjerner er radnummeret.",
+    "solution": "for rad in range(1, 6):\n    print('*' * rad)",
+    "before": "I en trekant er første rad én stjerne, andre rad to, tredje rad tre osv. Løkkevariabelen rad kan brukes som antall stjerner: \"*\" * rad.",
+    "steps": [
+      "La rad gå fra 1 til 5.",
+      "Skriv ut like mange stjerner som radnummeret."
+    ]
+  },
+  {
+    "topic": "Figurer",
+    "title": "36. Lag en egen figur",
+    "description": "Lag en diamant av stjerner med to løkker.",
+    "start": "# Lag øvre og nedre halvdel",
+    "hint": "Bruk mellomrom og stjerner for å sentrere.",
+    "solution": "for i in range(1, 5):\n    print(' ' * (4-i) + '*' * (2*i-1))\nfor i in range(3, 0, -1):\n    print(' ' * (4-i) + '*' * (2*i-1))",
+    "before": "Dette er en utfordring! En diamant har en øvre del som vokser og en nedre del som krymper. Mellomrom skyver stjernene inn mot midten. \" \" * 3 lager tre mellomrom. Bruk to for-løkker.",
+    "steps": [
+      "Lag øverste halvdel med flere stjerner og færre mellomrom.",
+      "Lag nederste halvdel med færre stjerner og flere mellomrom."
+    ],
+    "expected": "En diamant av stjerner, bredest på midten."
+  },
+  {
+    "topic": "Kollisjon",
+    "title": "37. Er det treff?",
+    "description": "Sjekk om to x-posisjoner er nærmere enn 10. Skriv «Treff!» ved treff og «Ingen treff» ellers.",
+    "start": "fisk_x = 20\nboble_x = 26",
+    "hint": "abs(fisk_x - boble_x) gir avstanden. Bruk if med print(\"Treff!\") og else med print(\"Ingen treff\").",
+    "solution": "fisk_x = 20\nboble_x = 26\nif abs(fisk_x - boble_x) < 10:\n    print('Treff!')\nelse:\n    print('Ingen treff')",
+    "before": "abs() fjerner minustegnet fra et tall. Når du regner fisk_x - boble_x, kan svaret bli negativt, men avstanden skal alltid være positiv. Derfor bruker vi abs(). if/else gir utskrift både ved treff og ved IKKE treff.",
+    "steps": [
+      "Regn ut den positive avstanden med abs().",
+      "Skriv «Treff!» hvis avstanden er under 10, ellers «Ingen treff»."
+    ],
+    "expected": "Med startverdiene: Treff!  Endre boble_x til 40: Ingen treff."
+  },
+  {
+    "topic": "Kollisjon",
+    "title": "38. Hvite gir poeng",
+    "description": "Legg til ett poeng hvis fisken er nær den hvite boblen.",
+    "start": "score = 0\nfisk_x, boble_x = 5, 8",
+    "hint": "Først trenger du score = 0. Inni if-testen bruker du score += 1. Skriv ut score etter testen.",
+    "solution": "score = 0\nfisk_x, boble_x = 5, 8\nif abs(fisk_x - boble_x) < 5:\n    score += 1\nprint('Poeng:', score)",
+    "before": "Før du sjekker kollisjon, trenger du en variabel for poengene: score = 0. Når fisken treffer en hvit boble, kan du øke med score += 1. Det betyr det samme som score = score + 1.",
+    "steps": [
+      "Opprett score før if-testen.",
+      "Øk score ved treff og skriv alltid ut poengsummen etterpå."
+    ],
+    "expected": "Med startverdiene: Poeng: 1"
+  },
+  {
+    "topic": "Kollisjon",
+    "title": "39. Røde trekker fra",
+    "description": "Trekk fra ett poeng ved treff på en rød ball. Poeng skal aldri bli negativt.",
+    "start": "score = 2\nfisk_x, rod_x = 5, 8",
+    "hint": "rod_x er den røde ballens x-verdi. Bruk abs(fisk_x - rod_x) og max(0, score - 1).",
+    "solution": "score = 2\nfisk_x, rod_x = 5, 8\nif abs(fisk_x - rod_x) < 5:\n    score = max(0, score - 1)\nprint('Poeng:', score)",
+    "before": "rod_x er bare et variabelnavn: det betyr x-posisjonen til den RØDE ballen. fisk_x er fiskens posisjon. max(0, score - 1) velger det største av 0 og ny poengsum, slik at poengene aldri blir negative.",
+    "steps": [
+      "Sammenlign fisk_x og rod_x med abs().",
+      "Ved treff: trekk fra ett poeng uten å gå under null."
+    ],
+    "expected": "Med startverdiene: Poeng: 1"
+  },
+  {
+    "topic": "Kollisjon",
+    "title": "40. Kollisjon i to dimensjoner",
+    "description": "Sjekk om fisken er nær en boble i både x- og y-retning. Skriv «Boble fanget!» eller «Ingen treff».",
+    "start": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14",
+    "hint": "dx = fisk_x - boble_x og dy = fisk_y - boble_y. Beregn avstand og bruk if/else.",
+    "solution": "fisk_x, fisk_y = 10, 10\nboble_x, boble_y = 13, 14\ndx = fisk_x - boble_x\ndy = fisk_y - boble_y\nif (dx**2 + dy**2)**0.5 < 10:\n    print('Boble fanget!')\nelse:\n    print('Ingen treff')",
+    "before": "Nå har både fisken og boblen x- OG y-posisjon. dx betyr forskjellen i x: fisk_x - boble_x. dy betyr forskjellen i y: fisk_y - boble_y. Avstanden er kvadratroten av dx² + dy².",
+    "steps": [
+      "Regn ut dx og dy hver for seg.",
+      "Regn ut avstanden med (dx**2 + dy**2)**0.5 og bruk if/else."
+    ],
+    "expected": "Med startverdiene: Boble fanget!  Flytt boblen langt bort: Ingen treff."
+  },
+  {
+    "topic": "Spilløkker",
+    "title": "41. Tre runder",
+    "description": "Lag en løkke som teller tre runder og skriver ut poeng.",
+    "start": "poeng = 0",
+    "hint": "Bruk range(3) og øk poeng.",
+    "solution": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde+1, 'poeng:', poeng)",
+    "before": "En spillrunde er én gjentakelse i løkken. Variabelen runde forteller hvilken runde vi er i; runde + 1 gjør at vi viser 1, 2, 3 i stedet for 0, 1, 2.",
+    "steps": [
+      "Start poengsummen på 0.",
+      "Gjenta tre runder, øk poeng og skriv ut resultatet."
+    ]
+  },
+  {
+    "topic": "Spilløkker",
+    "title": "42. Spill til fem poeng",
+    "description": "Bruk while for å spille til poengsummen er fem.",
+    "start": "poeng = 0",
+    "hint": "while poeng < 5: og øk poeng.",
+    "solution": "poeng = 0\nwhile poeng < 5:\n    poeng += 1\n    print('Poeng:', poeng)\nprint('Du vant!')",
+    "before": "En while-løkke passer når vi ikke vet hvor mange runder vi trenger. while poeng < 5: betyr «fortsett så lenge poengene er under fem». Poeng må økes i løkken, ellers stopper den aldri.",
+    "steps": [
+      "Lag en while-test med poeng under 5.",
+      "Øk poengene inne i løkken, og vis seier etterpå."
+    ]
+  },
+  {
+    "topic": "Spilløkker",
+    "title": "43. Fang eller unngå",
+    "description": "Lag fem tilfeldige hendelser der hvit gir +1 og rød gir -1.",
+    "start": "import random\npoeng = 0",
+    "hint": "Bruk random.choice og max(0, poeng-1).",
+    "solution": "import random\npoeng = 0\nfor runde in range(5):\n    ball = random.choice(['hvit', 'rød'])\n    if ball == 'hvit':\n        poeng += 1\n    else:\n        poeng = max(0, poeng - 1)\n    print(ball, 'poeng:', poeng)",
+    "before": "random.choice([\"hvit\", \"rød\"]) trekker en tilfeldig ball. En hvit ball gir +1, en rød trekker -1. max(0, poeng - 1) hindrer negative poeng.",
+    "steps": [
+      "Gjenta fem runder.",
+      "Trekk en tilfeldig farge og oppdater poeng med if/else."
+    ]
+  },
+  {
+    "topic": "Spilløkker",
+    "title": "44. Lag et lite tekstspill",
+    "description": "La brukeren velge mellom å fange boble eller unngå hindring i tre runder.",
+    "start": "poeng = 0\n# Tre runder med input()",
+    "hint": "Sjekk valget med if/elif. .lower() gjør store bokstaver til små før sammenligningen.",
+    "solution": "poeng = 0\nfor runde in range(3):\n    valg = input('Skriv fang eller unngå: ').lower()\n    if valg == 'fang':\n        poeng += 1\n        print('Boble fanget!')\n    elif valg == 'unngå':\n        print('Du unngikk hindringen!')\n    else:\n        print('Ukjent valg')\nprint('Poeng:', poeng)",
+    "before": "Spillet spør brukeren om et valg med input(). .lower() gjør teksten om til små bokstaver, slik at «FANG» og «fang» behandles likt. Sjekk valget med if/elif/else for hver av tre runder.",
+    "steps": [
+      "Lag for-løkke med tre runder.",
+      "Spør om «fang» eller «unngå», gi poeng ved fangst og skriv ut poengene til slutt."
+    ]
+  },
+  {
+    "topic": "Matte: tall og røtter",
+    "title": "Øv 1. Regn med Python",
+    "description": "Skriv ut resultatet av 18 + 7, 6 * 4 og 17 / 2.",
+    "start": "",
+    "hint": "Skriv ett regnestykke inni hver print(). Bruk / for deling og * for gange.",
+    "solution": "print(18 + 7)\nprint(6 * 4)\nprint(17 / 2)",
+    "before": "Python kan være en kalkulator. + er pluss, - er minus, * er gange, og / er deling. 17 / 2 gir 8.5 fordi Python kan regne med desimaltall.",
+    "steps": [
+      "Skriv tre print()-linjer.",
+      "Sett hvert regnestykke inni parentesene."
+    ],
+    "expected": "25, 24 og 8.5"
+  },
+  {
+    "topic": "Matte: tall og røtter",
+    "title": "Øv 2. Opphøyd i to",
+    "description": "Regn ut 3², 5² og 10² med Python.",
+    "start": "",
+    "hint": "Bruk **2, for eksempel 3 ** 2.",
+    "solution": "print(3 ** 2)\nprint(5 ** 2)\nprint(10 ** 2)",
+    "before": "** betyr «opphøyd i». 3 ** 2 er 3 ganget med seg selv: 3 * 3 = 9. Vi bruker dette senere når vi regner avstand.",
+    "steps": [
+      "Bruk print() på tre linjer.",
+      "Skriv hvert tall med ** 2."
+    ],
+    "expected": "9, 25 og 100"
+  },
+  {
+    "topic": "Matte: tall og røtter",
+    "title": "45. Regn med math",
+    "description": "Importer math. Skriv ut kvadratroten av 81 med math.sqrt(), og prøv et annet tall.",
+    "start": "import math\n\n# Finn kvadratroten av 81",
+    "hint": "Bruk math.sqrt(81). Husk import math øverst.",
+    "solution": "import math\n\nprint(math.sqrt(81))",
+    "before": "math er en del av Python, og må importeres med import math. math.sqrt(81) gir kvadratroten av 81. Kvadratrot betyr tallet som ganget med seg selv gir 81: 9 × 9 = 81.",
+    "steps": [
+      "Importer math.",
+      "Prøv math.sqrt(81) inni print() og deretter et annet tall."
+    ],
+    "legacyTopic": "Matematikk"
+  },
+  {
+    "topic": "Matte: avrunding",
+    "title": "Øv 1. Rund av til desimaler",
+    "description": "Rund tallet 3.14159 av til to desimaler.",
+    "start": "pi_tall = 3.14159",
+    "hint": "Bruk round(pi_tall, 2).",
+    "solution": "pi_tall = 3.14159\nprint(round(pi_tall, 2))",
+    "before": "round(tall, 2) avrunder et tall til to desimaler. round(3.14159, 2) blir 3.14. Denne funksjonen trenger ikke import math.",
+    "steps": [
+      "Bruk funksjonen round() med tallet og 2.",
+      "Skriv ut den avrundede verdien."
+    ],
+    "expected": "3.14"
+  },
+  {
+    "topic": "Matte: avrunding",
+    "title": "46. Rund opp antall lag",
+    "description": "Det er 23 elever. Det kan være maks 4 elever på hvert lag. Finn antall lag med math.ceil().",
+    "start": "import math\nelever = 23\nmaks_per_lag = 4\n\n# Hvor mange lag trengs?",
+    "hint": "Del elever på maks_per_lag og rund opp med math.ceil().",
+    "solution": "import math\nelever = 23\nmaks_per_lag = 4\nlag = math.ceil(elever / maks_per_lag)\nprint(\"Vi trenger\", lag, \"lag\")",
+    "before": "math.ceil() betyr «rund OPP til nærmeste heltall». Hvis 23 elever skal fordeles i grupper på maks 4, blir 23 / 4 = 5.75. Vi trenger derfor 6 grupper.",
+    "steps": [
+      "Del antall elever på maks gruppestørrelse.",
+      "Bruk math.ceil() for å runde opp."
+    ],
+    "legacyTopic": "Matematikk"
+  },
+  {
+    "topic": "Matte: avrunding",
+    "title": "Øv 3. Rund ned",
+    "description": "Det er 23 mynter og du trenger 4 til hver premie. Hvor mange HELE premier kan du kjøpe?",
+    "start": "import math\nmynter = 23\npris = 4",
+    "hint": "Bruk math.floor(mynter / pris) for å runde ned.",
+    "solution": "import math\nmynter = 23\npris = 4\npremier = math.floor(mynter / pris)\nprint(\"Du kan kjøpe\", premier, \"premier\")",
+    "before": "math.floor() runder NED til nærmeste heltall. 23 / 4 er 5.75, og da er det bare nok til 5 hele premier. Det motsatte er math.ceil(), som runder opp.",
+    "steps": [
+      "Del antall mynter på prisen.",
+      "Bruk math.floor() og skriv ut hvor mange hele premier du kan kjøpe."
+    ],
+    "expected": "Du kan kjøpe 5 premier"
+  },
+  {
+    "topic": "Matte: sirkel",
+    "title": "Øv 1. Diameter",
+    "description": "En sirkel har radius 6. Finn diameteren.",
+    "start": "radius = 6",
+    "hint": "Diameter er 2 * radius.",
+    "solution": "radius = 6\ndiameter = 2 * radius\nprint(\"Diameter:\", diameter)",
+    "before": "Radius er avstanden fra midten til kanten. Diameter er hele veien gjennom sirkelen, altså to radier. Derfor er diameter = 2 * radius.",
+    "steps": [
+      "Lag en variabel for diameter.",
+      "Gang radius med 2 og skriv ut resultatet."
+    ],
+    "expected": "Diameter: 12"
+  },
+  {
+    "topic": "Matte: sirkel",
+    "title": "47. Sirkelens omkrets",
+    "description": "Spør etter radiusen og regn ut sirkelens omkrets med math.pi. Avrund svaret til to desimaler.",
+    "start": "import math\nradius = float(input(\"Radius: \"))\n\n# Finn og skriv ut omkretsen",
+    "hint": "Omkretsen er 2 * math.pi * radius. Bruk round(verdi, 2) når du skriver ut.",
+    "solution": "import math\nradius = float(input(\"Radius: \"))\nomkrets = 2 * math.pi * radius\nprint(\"Omkrets:\", round(omkrets, 2))",
+    "before": "math.pi er tallet π (omtrent 3,14). Omkrets av en sirkel er 2 × π × radius. round(tall, 2) runder svaret til to desimaler.",
+    "steps": [
+      "Hent radius som desimaltall med float(input(...)).",
+      "Regn ut 2 * math.pi * radius og rund av med round(..., 2)."
+    ],
+    "legacyTopic": "Matematikk"
+  },
+  {
+    "topic": "Matte: sirkel",
+    "title": "Øv 3. Areal av en sirkel",
+    "description": "Regn ut arealet av en sirkel med radius 5. Avrund til to desimaler.",
+    "start": "import math\nradius = 5",
+    "hint": "Bruk math.pi * radius ** 2 og round(areal, 2).",
+    "solution": "import math\nradius = 5\nareal = math.pi * radius ** 2\nprint(\"Areal:\", round(areal, 2))",
+    "before": "Areal måler hvor stor flaten inni sirkelen er. Formelen er π × radius². I Python skriver vi math.pi * radius ** 2.",
+    "steps": [
+      "Importer math og bruk radius.",
+      "Regn arealet og bruk round(..., 2)."
+    ],
+    "expected": "Areal: 78.54"
+  },
+  {
+    "topic": "Matte: avstand",
+    "title": "Øv 1. Forskjell mellom koordinater",
+    "description": "Punkt A er (2, 3) og B er (8, 11). Finn dx og dy.",
+    "start": "x1, y1 = 2, 3\nx2, y2 = 8, 11",
+    "hint": "Regn x2 - x1 og y2 - y1.",
+    "solution": "x1, y1 = 2, 3\nx2, y2 = 8, 11\ndx = x2 - x1\ndy = y2 - y1\nprint(\"dx:\", dx, \"dy:\", dy)",
+    "before": "dx betyr endringen langs x-aksen, og dy betyr endringen langs y-aksen. Det er bare variabelnavn. Først finner du forskjellen i hver retning.",
+    "steps": [
+      "Regn x2 minus x1.",
+      "Regn y2 minus y1, og skriv ut begge."
+    ],
+    "expected": "dx: 6 dy: 8"
+  },
+  {
+    "topic": "Matte: avstand",
+    "title": "48. Avstand mellom to spillfigurer",
+    "description": "To figurer står i (2, 3) og (8, 11). Finn avstanden mellom dem med math.sqrt().",
+    "start": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\n\n# Finn avstanden",
+    "hint": "Finn forskjellen i x og y. Bruk math.sqrt(dx ** 2 + dy ** 2).",
+    "solution": "import math\nx1, y1 = 2, 3\nx2, y2 = 8, 11\ndx = x2 - x1\ndy = y2 - y1\navstand = math.sqrt(dx ** 2 + dy ** 2)\nprint(\"Avstand:\", avstand)",
+    "before": "Avstanden mellom to punkter finnes ved å sammenligne koordinatene. dx = x2 - x1 og dy = y2 - y1. Bruk så math.sqrt(dx**2 + dy**2). **2 betyr «opphøyd i to».",
+    "steps": [
+      "Regn ut forskjellen i x og y.",
+      "Bruk math.sqrt() for å finne avstanden, og skriv den ut."
+    ],
+    "legacyTopic": "Matematikk"
+  },
+  {
+    "topic": "Matte: avstand",
+    "title": "Øv 3. Er spillerne nær hverandre?",
+    "description": "Finn avstanden mellom spillerne (0, 0) og (3, 4). Skriv «Nær» hvis avstanden er 5 eller mindre, ellers «Langt unna».",
+    "start": "import math\nx1, y1 = 0, 0\nx2, y2 = 3, 4",
+    "hint": "Finn dx og dy. Bruk math.sqrt(dx**2 + dy**2) og if avstand <= 5:.",
+    "solution": "import math\nx1, y1 = 0, 0\nx2, y2 = 3, 4\ndx = x2 - x1\ndy = y2 - y1\navstand = math.sqrt(dx ** 2 + dy ** 2)\nif avstand <= 5:\n    print(\"Nær\")\nelse:\n    print(\"Langt unna\")",
+    "before": "Dette er samme regning som i spillkollisjoner. Avstanden mellom (0,0) og (3,4) er 5. <= betyr mindre enn eller lik. Med if/else får du alltid en melding.",
+    "steps": [
+      "Finn avstand med math.sqrt().",
+      "Sammenlign avstanden med 5 og skriv enten «Nær» eller «Langt unna»."
+    ],
+    "expected": "Nær"
+  }
+];
 
   const topicsContainer = document.getElementById("learning-topics");
   const title = document.getElementById("task-title");
@@ -631,69 +1508,147 @@ body{padding-left:232px!important}
   try { completedTasks = new Set(JSON.parse(localStorage.getItem(doneKey) || "[]")); } catch (_) {}
   let selectedTask = null;
   let selectedIndex = 0;
-  const taskId = task => task.topic + "::" + task.title;
+  const taskId = task => (task.legacyTopic || task.topic) + "::" + task.title;
 
   const lessons = [
-    {topic:"Kom i gang", title:"Start her – første kode", intro:"Python kan vise tekst og regne. Du trenger ikke kunne noe fra før.", example:'print("Hei!")', tryText:"Endre meldingen og kjør på nytt."},
-    {
-      topic: "Variabler",
-      title: "1. Variabler og input",
-      intro: "En variabel er en navngitt plass der vi lagrer en verdi. input() lar brukeren skrive noe, og print() viser tekst på skjermen.",
-      example: 'name = input("Hva heter du? ")\\nprint("Hei,", name)',
-      tryText: "Prøv å endre eksempelet slik at programmet også spør hvor gammel brukeren er."
-    },
-    {
-      topic: "Vilkår",
-      title: "2. Vilkår: if, elif og else",
-      intro: "Vilkår lar programmet velge hva det skal gjøre. Python bruker kolon etter vilkåret og innrykk på linjene som hører til.",
-      example: 'points = int(input("Hvor mange poeng? "))\\nif points >= 5:\\n    print("Du vant!")\\nelse:\\n    print("Prøv igjen!")',
-      tryText: "Prøv med 3 poeng og deretter 7 poeng. Se hvordan resultatet endrer seg."
-    },
-    {
-      topic: "Løkker",
-      title: "3. Løkker: gjenta kode",
-      intro: "En for-løkke gjentar kode et bestemt antall ganger. Linjene som skal gjentas, må stå med innrykk under løkken.",
-      example: 'for number in range(1, 6):\\n    print(number)',
-      tryText: "Prøv å skrive ut tallene fra 1 til 10."
-    },
-    {
-      topic: "Lister",
-      title: "4. Lister: samle flere verdier",
-      intro: "En liste samler flere verdier i én variabel. Hvert element har en plassering, og append() legger til et nytt element på slutten.",
-      example: 'foods = ["pizza", "taco", "sushi"]\\nfoods.append("pasta")\\nprint(foods)',
-      tryText: "Prøv å legge til en matrett du liker, og skriv ut listen."
-    },
-    {
-      topic: "Funksjoner",
-      title: "5. Funksjoner: lag egne kommandoer",
-      intro: "En funksjon samler kode som kan brukes flere ganger. def lager funksjonen, og parentesene kan inneholde verdier som sendes inn.",
-      example: 'def greet(name):\\n    print("Hei,", name)\\n\\ngreet("Ada")',
-      tryText: "Prøv å endre funksjonen slik at den skriver en annen hilsen."
-    }
-,
-    {"topic": "Tilfeldighet", "title": "6. Tilfeldighet og random", "intro": "Spill bruker tilfeldige tall for å plassere premier, bobler og hindringer. import random må stå øverst.", "example": "import random\nprint(random.randint(1, 6))", "tryText": "Endre intervallet og kjør flere ganger."},
-    {"topic": "Koordinater", "title": "7. Koordinater og posisjon", "intro": "En figur i et spill har en x-posisjon (sideveis) og en y-posisjon (oppover/nedover). Vi kan regne med koordinater før vi tegner figuren.", "example": "x = 0\ny = 0\nx = x + 10\nprint('Posisjon:', x, y)", "tryText": "Flytt figuren både vannrett og loddrett."},
-    {"topic": "Bevegelse", "title": "8. Bevegelse og retning", "intro": "I spill flytter vi en figur ved å endre x og y. Retningen kan representeres med tekst eller vinkler: 0=høyre, 90=opp, 180=venstre, 270=ned.", "example": "x = 0\ny = 0\nretning = 'opp'\nif retning == 'opp':\n    y += 10\nprint(x, y)", "tryText": "Prøv andre retninger."},
-    {"topic": "Figurer", "title": "9. Lag figurer med kode", "intro": "Vi kan lage enkle figurer med teksttegn og løkker. I Turtle- og Fiskespillverkstedet tegnes figurene grafisk. Her øver vi på Python-logikken.", "example": "for rad in range(3):\n    print('*' * 5)", "tryText": "Endre antall rader og bredden."},
-    {"topic": "Kollisjon", "title": "10. Kollisjon og poeng", "intro": "En kollisjon oppstår når to figurer er nær hverandre. Vi kan bruke koordinater og avstand til å bestemme om spilleren får eller mister poeng.", "example": "fisk_x = 10\nboble_x = 13\nif abs(fisk_x - boble_x) < 5:\n    print('Treff!')", "tryText": "Endre koordinatene slik at det ikke blir treff."},
-    {"topic": "Spilløkker", "title": "11. Spilløkker og små spill", "intro": "Et spill gjentar handlinger, oppdaterer posisjoner og sjekker regler. Her lager vi tekstbaserte minispill med løkker og funksjoner.", "example": "poeng = 0\nfor runde in range(3):\n    poeng += 1\n    print('Runde', runde + 1, 'poeng', poeng)", "tryText": "Endre hva som gir poeng."},
-    {"topic": "Matematikk", "title": "12. Matematikk med math", "intro": "Pythons innebygde math-modul har blant annet kvadratrøtter, pi og funksjoner for avrunding. Start med import math. math er en del av Python og er ikke det samme som den eksterne pakken mathpy.", "example": "import math\nprint(math.sqrt(81))\nprint(round(math.pi, 2))", "tryText": "Prøv å finne kvadratroten av 144 eller regne ut omkretsen av en sirkel."}
-  ];
-
+  {
+    "topic": "Kom i gang",
+    "title": "Start her – print() og tekst",
+    "intro": "print() betyr «vis på skjermen». Tekst må stå mellom anførselstegn, for eksempel \"Hei!\". Tall trenger ikke anførselstegn. Parentesene sier hva som skal skrives ut.",
+    "example": "print(\"Hei!\")\nprint(\"Jeg lærer Python\")\nprint(2 + 3)",
+    "tryText": "Bytt ut teksten mellom anførselstegnene. Hva skjer hvis du skriver print(2 + 3) uten anførselstegn?"
+  },
+  {
+    "topic": "Variabler",
+    "title": "Variabler, input() og talltyper",
+    "intro": "En variabel lagrer informasjon under et navn. input() spør brukeren, men svaret kommer alltid som tekst. int() gjør tekst til HELTALL, og float() gjør tekst til DESIMALTALL. Det er nødvendig før du kan regne med brukerens svar.",
+    "example": "navn = input(\"Hva heter du? \")\nalder = int(input(\"Hvor gammel er du? \"))\npris = float(\"19.50\")\nprint(\"Hei\", navn)\nprint(\"Neste år:\", alder + 1)\nprint(\"Pris:\", pris)",
+    "tryText": "Skriv inn alderen din. Hva skjer om du prøver int(\"hei\")?"
+  },
+  {
+    "topic": "Vilkår",
+    "title": "Vilkår – if, elif, else og %",
+    "intro": "Vilkår gjør at programmet kan velge. if betyr «hvis», elif betyr «ellers hvis», og else betyr «ellers». == sjekker om to verdier er like, != betyr «ikke lik», og % gir RESTEN ved deling. Eksempel: 7 % 2 er 1, mens 8 % 2 er 0.",
+    "example": "tall = 8\nif tall % 2 == 0:\n    print(\"Partall\")\nelse:\n    print(\"Oddetall\")",
+    "tryText": "Endre 8 til 7. Hva skjer?"
+  },
+  {
+    "topic": "For-løkker",
+    "title": "For-løkker – gjenta et bestemt antall ganger",
+    "intro": "Bruk for når du vet hvor mange ganger noe skal skje. range(5) gir 0, 1, 2, 3 og 4. range(1, 6) gir 1, 2, 3, 4 og 5. Etter kolon : kommer innrykk på fire mellomrom.",
+    "example": "for tall in range(1, 6):\n    print(tall)",
+    "tryText": "Endre 6 til 11 for å telle til 10."
+  },
+  {
+    "topic": "While-løkker",
+    "title": "While-løkker – gjenta så lenge noe er sant",
+    "intro": "Bruk while når noe skal gjentas til et mål er nådd. while teller < 5: gjentar så lenge teller er under 5. Du MÅ endre telleren inne i løkken. != betyr «ikke lik» og brukes for eksempel når et passord ikke er riktig.",
+    "example": "teller = 1\nwhile teller <= 3:\n    print(teller)\n    teller += 1\nprint(\"Ferdig!\")",
+    "tryText": "Endre 3 til 5. Se at programmet stopper når telleren blir større."
+  },
+  {
+    "topic": "Tilfeldighet",
+    "title": "Tilfeldighet – random.randint() og random.choice()",
+    "intro": "import random gir tilgang til tilfeldige valg. random.randint(1, 6) velger et heltall mellom 1 og 6. random.choice([\"rød\", \"blå\"]) velger ett av ordene. Hakeparenteser [ ] betyr her at vi gir Python en liste med alternativer. abs() gjør negative tall positive, og brukes til å måle avstand.",
+    "example": "import random\nprint(\"Terning:\", random.randint(1, 6))\nprint(\"Farge:\", random.choice([\"rød\", \"blå\"]))",
+    "tryText": "Kjør flere ganger. Bytt ut fargene i choice()-listen."
+  },
+  {
+    "topic": "Lister",
+    "title": "Lister – [ ], append(), max() og min()",
+    "intro": "En liste inneholder flere verdier, for eksempel [2, 5, 9]. append() betyr «legg til på slutten». Et navn som new_item er bare en variabel for en ny vare. max() gir største tall og min() gir minste tall i en liste.",
+    "example": "poeng = [4, 8, 2]\npoeng.append(10)\nprint(\"Størst:\", max(poeng))\nprint(\"Minst:\", min(poeng))",
+    "tryText": "Prøv poeng.append(1). Hvilket tall er nå minst?"
+  },
+  {
+    "topic": "Funksjoner",
+    "title": "Funksjoner – egne kommandoer og return",
+    "intro": "En funksjon er kode du gir et navn og kan bruke mange ganger. def lager funksjonen. Verdier i parentesene kalles parametere. return sender et resultat TILBAKE til koden som ba om det, mens print() bare viser resultatet på skjermen.",
+    "example": "def dobbelt(tall):\n    return tall * 2\n\nresultat = dobbelt(4)\nprint(resultat)",
+    "tryText": "Endre tallet 4 til 7. Hva blir return-verdien?"
+  },
+  {
+    "topic": "Koordinater",
+    "title": "Koordinater – x og y",
+    "intro": "I et spill har figurer posisjoner: x går vannrett (høyre/venstre), og y går loddrett (opp/ned). x += 10 betyr det samme som x = x + 10.",
+    "example": "x = 0\ny = 0\nx += 10\ny += 5\nprint(\"Posisjon:\", x, y)",
+    "tryText": "Prøv x -= 4. Hvor havner figuren nå?"
+  },
+  {
+    "topic": "Bevegelse",
+    "title": "Bevegelse – flytt figuren med kode",
+    "intro": "Bevegelse betyr å endre koordinater. x += 10 flytter høyre, x -= 10 venstre, y += 10 opp og y -= 10 ned. Med if kan programmet velge retning.",
+    "example": "x = 0\ny = 0\nretning = \"opp\"\nif retning == \"opp\":\n    y += 10\nprint(x, y)",
+    "tryText": "Endre retning til «høyre» og lag en egen test."
+  },
+  {
+    "topic": "Figurer",
+    "title": "Lag figurer med kode – tekstmønstre",
+    "intro": "I denne delen lager du figurer av stjerner på skjermen. \"*\" * 3 gir ***. Med en for-løkke kan du lage mange rader. For en trekant øker du antall stjerner rad for rad. En diamant kan tegnes med to løkker: en som vokser, og en som krymper.",
+    "example": "for rad in range(1, 5):\n    print(\"*\" * rad)",
+    "tryText": "Prøv å bytte ut stjernen med #. Hvordan lager du færre stjerner for hver rad?"
+  },
+  {
+    "topic": "Kollisjon",
+    "title": "Kollisjon og poeng – treff eller ikke treff",
+    "intro": "Kollisjon betyr at figurer er nær hverandre. Variabelen fisk_x er fiskens x-posisjon, rod_x er den røde ballens x-posisjon. abs() gir positiv avstand: abs(5 - 8) = 3. score er poengsum. dx og dy betyr forskjell i x- og y-retning. Husk else hvis du vil vise «Ingen treff» når det ikke er treff.",
+    "example": "fisk_x = 20\nboble_x = 40\nif abs(fisk_x - boble_x) < 10:\n    print(\"Treff!\")\nelse:\n    print(\"Ingen treff\")",
+    "tryText": "Prøv å endre boble_x til 23. Hvorfor blir det treff nå?"
+  },
+  {
+    "topic": "Spilløkker",
+    "title": "Spilløkker – runder, poeng og regler",
+    "intro": "Et lite spill kombinerer det du har lært: for eller while gjentar runder, if velger hva som skjer, og score/poeng holder oversikt. random.choice() kan velge hendelser. .lower() gjør teksten fra input() om til små bokstaver.",
+    "example": "import random\npoeng = 0\nfor runde in range(3):\n    ball = random.choice([\"hvit\", \"rød\"])\n    if ball == \"hvit\":\n        poeng += 1\n    print(\"Runde:\", runde + 1, \"Poeng:\", poeng)",
+    "tryText": "La rød ball trekke fra ett poeng, men ikke la poengene gå under null."
+  },
+  {
+    "topic": "Matte: tall og røtter",
+    "title": "Matematikk 1 – regning og kvadratrot",
+    "intro": "Python kan regne med +, -, * og /. **2 betyr opphøyd i to: 3 ** 2 blir 9. import math gir deg math.sqrt(), som finner kvadratrot. math.sqrt(81) blir 9 fordi 9 × 9 = 81.",
+    "example": "import math\nprint(6 * 4)\nprint(3 ** 2)\nprint(math.sqrt(81))",
+    "tryText": "Prøv math.sqrt(49). Hva blir svaret?"
+  },
+  {
+    "topic": "Matte: avrunding",
+    "title": "Matematikk 2 – round(), ceil() og floor()",
+    "intro": "round(tall, 2) runder til to desimaler. math.ceil() runder OPP til heltall, og math.floor() runder NED. For math.ceil og math.floor må du først skrive import math.",
+    "example": "import math\nprint(round(3.14159, 2))\nprint(math.ceil(5.2))\nprint(math.floor(5.8))",
+    "tryText": "Hvorfor kan det være nyttig å runde opp antall grupper i en klasse?"
+  },
+  {
+    "topic": "Matte: sirkel",
+    "title": "Matematikk 3 – diameter, omkrets og areal",
+    "intro": "En sirkel har radius fra midten til kanten. Diameter = 2 × radius. Omkrets = 2 × π × radius. Areal = π × radius². I Python skriver vi π som math.pi, og **2 betyr opphøyd i to.",
+    "example": "import math\nradius = 3\nprint(\"Diameter:\", 2 * radius)\nprint(\"Omkrets:\", round(2 * math.pi * radius, 2))",
+    "tryText": "Prøv radius = 5. Hva endrer seg?"
+  },
+  {
+    "topic": "Matte: avstand",
+    "title": "Matematikk 4 – avstand mellom figurer",
+    "intro": "I spill må vi finne hvor langt det er mellom to punkter. Først finner vi dx = x2 - x1 og dy = y2 - y1. Deretter regner vi math.sqrt(dx**2 + dy**2). Det er Pytagoras brukt på koordinater.",
+    "example": "import math\ndx = 3\ndy = 4\navstand = math.sqrt(dx**2 + dy**2)\nprint(\"Avstand:\", avstand)",
+    "tryText": "Bytt dx og dy til 6 og 8. Hva blir avstanden?"
+  }
+];
   const introGoals = {
-  "Kom i gang": "Du skal lære å skrive en enkel kommando med print(), kjøre koden og endre teksten som vises.",
-  "Variabler": "Du skal lære å lagre informasjon med et navn, vise den med print() og spørre brukeren med input().",
-  "Vilkår": "Du skal lære å bruke if, elif og else slik at programmet kan ta valg. Du øver også på kolon og innrykk.",
-  "Løkker": "Du skal lære å bruke for og range() for å gjenta en handling, akkurat som når Turtle tegner en firkant.",
-  "Lister": "Du skal lære å samle flere verdier i én liste, finne et element og legge til nye elementer.",
-  "Funksjoner": "Du skal lære å lage en egen kommando med def, sende inn en verdi og bruke funksjonen flere ganger.",
-  "Tilfeldighet": "Du skal lære å hente tilfeldige tall med random. Det kan brukes til terninger, premier og hindringer.",
-  "Koordinater": "Du skal lære å bruke x og y for å plassere en figur og regne ut hvor den flytter seg.",
-  "Bevegelse": "Du skal lære å endre en figurs posisjon og bestemme retning. Dette bruker du senere når du lager spill.",
-  "Figurer": "Du skal lære å lage enkle mønstre med tekst og løkker, og forstå hvordan gjentakelser bygger figurer.",
-  "Kollisjon": "Du skal lære å undersøke om to figurer er nær nok hverandre til å gi treff og poeng.",
-  "Spilløkker": "Du skal lære å gjenta spillrunder, oppdatere poeng og holde orden på hva som skjer i et lite spill.",
-  "Matematikk": "Du skal lære å hente matematikkfunksjoner fra math, blant annet kvadratrot og pi."
+  "Kom i gang": "Du skal lære print(), parenteser, anførselstegn og enkle tall.",
+  "Variabler": "Du skal bruke variabler, input(), int(), float() og print().",
+  "Vilkår": "Du skal bruke if/elif/else, sammenligning og modulo (%) for partall og oddetall.",
+  "For-løkker": "Du skal forstå for, range(), løkkevariabler og innrykk.",
+  "While-løkker": "Du skal bruke while, oppdatere en teller og forstå != og når en løkke stopper.",
+  "Tilfeldighet": "Du skal lære randint(), choice(), tilfeldige posisjoner og hvordan abs() kan brukes til avstand.",
+  "Lister": "Du skal lage lister, legge til elementer og finne største og minste verdi.",
+  "Funksjoner": "Du skal lage funksjoner, sende inn parametere og forstå forskjellen mellom return og print().",
+  "Koordinater": "Du skal finne og endre x- og y-posisjoner.",
+  "Bevegelse": "Du skal kombinere koordinater, vilkår og funksjoner til bevegelse.",
+  "Figurer": "Du skal bruke løkker, tekstgjentakelse og mellomrom til å lage mønstre.",
+  "Kollisjon": "Du skal lære abs(), score, rod_x, dx og dy og skrive ut melding både ved treff og ingen treff.",
+  "Spilløkker": "Du skal lage små spill med runder, input(), poeng, if og tilfeldige hendelser.",
+  "Matte: tall og røtter": "Du skal øve på regnearter, ** og kvadratrot med math.sqrt().",
+  "Matte: avrunding": "Du skal lære forskjellen på vanlig avrunding, avrunding opp og avrunding ned.",
+  "Matte: sirkel": "Du skal bruke math.pi, round() og formler for sirkel.",
+  "Matte: avstand": "Du skal regne ut dx, dy og avstand, og bruke det i en enkel trefftest."
 };
 
   // Nivåene er de samme som i forrige versjon. Ingen oppgaver er fjernet.
@@ -838,7 +1793,7 @@ body{padding-left:232px!important}
     stepsBox.hidden = !(task.steps && task.steps.length);
     if (task.steps && task.steps.length) {
       const heading = document.createElement("strong");
-      heading.textContent = "Forslag til fremgangsmåte";
+      heading.textContent = "Slik kan du gå frem – uten fasit";
       const ol = document.createElement("ol");
       task.steps.forEach(step => {
         const li = document.createElement("li");
@@ -847,6 +1802,7 @@ body{padding-left:232px!important}
       });
       stepsBox.append(heading, ol);
     }
+    document.getElementById("pv-task-before").textContent = task.before || "Les oppgaven og prøv deg frem.";
     hint.textContent = task.hint || "Se på eksempelet og prøv å endre én linje om gangen.";
     document.getElementById("load-task").hidden = !task.start.trim();
     solutionCode.textContent = task.solution.replace(/\\n/g, "\n");
@@ -930,6 +1886,8 @@ body{padding-left:232px!important}
 
   let rememberedTopic = null;
   try { rememberedTopic = localStorage.getItem(topicKey); } catch (_) {}
+  if (rememberedTopic === "Løkker") rememberedTopic = "For-løkker";
+  if (rememberedTopic === "Matematikk") rememberedTopic = "Matte: tall og røtter";
   if (rememberedTopic && lessons.some(lesson => lesson.topic === rememberedTopic)) {
     topicSelect.value = rememberedTopic;
   }
@@ -976,7 +1934,7 @@ body{padding-left:232px!important}
       } else {
         codeBox.setRangeText("    ", start, end, "end");
       }
-      updateLineNumbers();
+      codeBox.dispatchEvent(new Event("input", {bubbles:true}));
       return;
     }
 
@@ -984,16 +1942,19 @@ body{padding-left:232px!important}
       event.preventDefault();
       const currentLine = value.slice(value.lastIndexOf("\n", start - 1) + 1, start);
       const indent = (currentLine.match(/^[ \t]*/) || [""])[0];
-      const extra = currentLine.trimEnd().endsWith(":") ? "    " : "";
-      codeBox.setRangeText("\n" + indent + extra, start, end, "end");
-      updateLineNumbers();
+      const extra = currentLine.trimEnd().endsWith(":") && !event.shiftKey ? "    " : "";
+      // Shift + Enter: ny linje ett nivå ut. Også Enter på tom, innrykket linje går ut.
+      const shouldDedent = event.shiftKey || (!currentLine.trim() && indent.length >= 4);
+      const nextIndent = shouldDedent ? indent.replace(/(?: {1,4}|\t)$/, "") : indent;
+      codeBox.setRangeText("\n" + nextIndent + extra, start, end, "end");
+      codeBox.dispatchEvent(new Event("input", {bubbles:true}));
       return;
     }
 
     if (event.key === "Backspace" && start === end && start > 0 && pairs[value[start - 1]] === value[start]) {
       event.preventDefault();
       codeBox.setRangeText("", start - 1, start + 1, "start");
-      updateLineNumbers();
+      codeBox.dispatchEvent(new Event("input", {bubbles:true}));
       return;
     }
 
@@ -1012,7 +1973,7 @@ body{padding-left:232px!important}
       const cursor = start + 1 + selected.length;
       if (!selected) codeBox.setSelectionRange(start + 1, start + 1);
       else codeBox.setSelectionRange(start + 1, cursor);
-      updateLineNumbers();
+      codeBox.dispatchEvent(new Event("input", {bubbles:true}));
     }
   });
 
@@ -1275,20 +2236,297 @@ _pv_error_json
   });
 })();
 </script>
-<script>
-(function(){
- const code=document.getElementById('python-code'), status=document.getElementById('pv-save-status');
- const key='pythonverkstedet-laer-python-lagret-kode';
- document.getElementById('pv-save-code').addEventListener('click',()=>{
-   try{localStorage.setItem(key,code.value);status.textContent='Koden er lagret på denne Chromebooken.'}
-   catch(e){status.textContent='Kunne ikke lagre lokalt. Kopier koden for sikkerhets skyld.'}
- });
- document.getElementById('pv-load-code').addEventListener('click',()=>{
-   const saved=localStorage.getItem(key);
-   if(saved===null){status.textContent='Ingen lagret kode på denne Chromebooken.';return}
-   if(code.value.trim()&&!confirm('Vil du erstatte koden som står i feltet med den lagrede koden?'))return;
-   code.value=saved;code.dispatchEvent(new Event('input',{bubbles:true}));status.textContent='Lagret kode er åpnet.';
- });
+<script id="pv-multi-program-library">
+(function () {
+  "use strict";
+  const editor = document.getElementById("python-code");
+  const status = document.getElementById("pv-save-status");
+  const state = document.getElementById("pv-program-state");
+  const panel = document.getElementById("pv-programs-panel");
+  const toggle = document.getElementById("pv-toggle-projects");
+  const nameInput = document.getElementById("pv-program-name");
+  const list = document.getElementById("pv-program-list");
+  const count = document.getElementById("pv-program-count");
+  const total = document.getElementById("pv-project-total");
+  const importInput = document.getElementById("pv-import-code");
+  const libraryKey = "pythonverkstedet-laer-python-programbibliotek-v1";
+  const draftKey = "pythonverkstedet-laer-python-utkast-v1";
+  const oldKey = "pythonverkstedet-laer-python-lagret-kode";
+  let programs = [];
+  let activeId = null;
+  let draftTimer = null;
+  // Enkel, robust lagring: først lokal lagring, deretter øktlagring,
+  // til slutt midlertidig lagring i denne fanen hvis skolens nettleser blokkerer begge.
+  const memoryStorage = {};
+  function availableStorage(name) {
+    try {
+      const area = window[name];
+      const key = "pv-test-storage";
+      area.setItem(key, "ok");
+      area.removeItem(key);
+      return area;
+    } catch (_) { return null; }
+  }
+  const localStore = availableStorage("localStorage");
+  const sessionStore = localStore ? null : availableStorage("sessionStorage");
+  const storageArea = localStore || sessionStore;
+  const storageMode = localStore ? "local" : sessionStore ? "session" : "memory";
+  const storageNotice = document.getElementById("pv-storage-notice");
+  if (storageMode !== "local") {
+    storageNotice.hidden = false;
+    storageNotice.textContent = storageMode === "session"
+      ? "Nettleseren tillater bare midlertidig lagring. Last ned viktige programmer som .py før du lukker nettleseren."
+      : "Lagring er blokkert på denne enheten. Du kan jobbe med flere programmer nå, men de forsvinner når siden lukkes. Bruk «Last ned .py» for å beholde dem.";
+  }
+  function store(key, value) {
+    const text = JSON.stringify(value);
+    try {
+      if (storageArea) storageArea.setItem(key, text);
+      else memoryStorage[key] = text;
+      return true;
+    } catch (_) {
+      memoryStorage[key] = text;
+      storageNotice.hidden = false;
+      storageNotice.textContent = "Nettleseren kunne ikke lagre dette varig. Last ned en .py-fil for å beholde programmet.";
+      return true; // Behold minst innholdet i fanen, uten å hevde at det er varig lagret.
+    }
+  }
+  function loadJson(key, fallback) {
+    try {
+      const raw = storageArea ? storageArea.getItem(key) : (memoryStorage[key] ?? null);
+      return raw === null ? fallback : JSON.parse(raw);
+    } catch (_) { return fallback; }
+  }
+  function makeId() { return "p-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10); }
+  function current() { return programs.find(program => program.id === activeId) || null; }
+  function cleanName(value) { return String(value || "").replace(/\s+/g, " ").trim().slice(0, 70); }
+  function dateText(timestamp) {
+    try { return new Date(timestamp).toLocaleString("nb-NO", {day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); }
+    catch (_) { return ""; }
+  }
+  function uniqueName(base, excludeId = null) {
+    const wanted = cleanName(base) || "Program uten navn";
+    const used = new Set(programs.filter(p => p.id !== excludeId).map(p => p.name.toLocaleLowerCase("nb-NO")));
+    if (!used.has(wanted.toLocaleLowerCase("nb-NO"))) return wanted;
+    let number = 2;
+    while (used.has((wanted + " (" + number + ")").toLocaleLowerCase("nb-NO"))) number++;
+    return wanted.slice(0, 64) + " (" + number + ")";
+  }
+  function draftIsDirty() {
+    const saved = current();
+    return saved ? saved.code !== editor.value || saved.name !== cleanName(nameInput.value) : Boolean(editor.value.trim());
+  }
+  function showState() {
+    const saved = current();
+    if (!saved) state.textContent = editor.value.trim() ? "Ikke lagret som program" : "Nytt program";
+    else state.textContent = draftIsDirty() ? "Endringer ikke lagret" : "Lagret: " + saved.name;
+  }
+  function saveDraft() {
+    store(draftKey, {activeId, name:nameInput.value, code:editor.value});
+    showState();
+  }
+  function scheduleDraft() {
+    showState();
+    window.clearTimeout(draftTimer);
+    draftTimer = window.setTimeout(saveDraft, 280);
+  }
+  function setEditor(text) {
+    editor.value = text;
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+  }
+  function openPanel() {
+    panel.hidden = false;
+    toggle.setAttribute("aria-expanded", "true");
+    renderList();
+  }
+  function persistLibrary() { return store(libraryKey, programs); }
+  function renderList() {
+    const byNewest = programs.slice().sort((a, b) => b.updated - a.updated);
+    count.textContent = "(" + byNewest.length + ")";
+    total.textContent = "(" + byNewest.length + ")";
+    list.replaceChildren();
+    if (!byNewest.length) {
+      const empty = document.createElement("div");
+      empty.className = "pv-program-empty";
+      empty.textContent = "Ingen programmer lagret ennå. Skriv kode, gi den et navn og trykk «Lagre program».";
+      list.append(empty);
+      return;
+    }
+    for (const program of byNewest) {
+      const entry = document.createElement("div");
+      entry.className = "pv-program-entry" + (program.id === activeId ? " is-current" : "");
+      const info = document.createElement("div");
+      info.className = "pv-program-info";
+      const title = document.createElement("strong");
+      title.textContent = program.name;
+      const updated = document.createElement("small");
+      updated.textContent = "Lagret " + dateText(program.updated) + (program.id === activeId ? " · Åpent nå" : "");
+      info.append(title, updated);
+      const actions = document.createElement("div");
+      actions.className = "pv-program-entry-actions";
+      const openBtn = document.createElement("button");
+      openBtn.type = "button";
+      openBtn.className = "pv-open-program";
+      openBtn.textContent = "Åpne";
+      openBtn.setAttribute("aria-label", "Åpne " + program.name);
+      openBtn.addEventListener("click", () => openProgram(program.id));
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.className = "pv-delete-program";
+      deleteBtn.textContent = "Slett";
+      deleteBtn.setAttribute("aria-label", "Slett " + program.name);
+      deleteBtn.addEventListener("click", () => deleteProgram(program.id));
+      actions.append(openBtn, deleteBtn);
+      entry.append(info, actions);
+      list.append(entry);
+    }
+  }
+  function saveProgram(asNew = false) {
+    let name = cleanName(nameInput.value);
+    const previous = current();
+    if (!name) name = previous && !asNew ? previous.name : "Mitt program " + (programs.length + 1);
+    if (asNew || !previous) {
+      name = uniqueName(name);
+      const program = {id:makeId(), name, code:editor.value, updated:Date.now()};
+      programs.push(program);
+      if (!persistLibrary()) { programs.pop(); return; }
+      activeId = program.id;
+    } else {
+      const old = {...previous};
+      previous.name = uniqueName(name, previous.id);
+      previous.code = editor.value;
+      previous.updated = Date.now();
+      if (!persistLibrary()) { Object.assign(previous, old); return; }
+      name = previous.name;
+    }
+    nameInput.value = name;
+    saveDraft();
+    renderList();
+    status.textContent = (storageMode === "local" && storageNotice.hidden ? "«" + name + "» er lagret. Du kan åpne det igjen fra «Mine programmer»." : "«" + name + "» er lagt til i Mine programmer. Husk å laste ned .py-filen hvis du vil være sikker på å beholde den.");
+  }
+  function confirmReplace() {
+    return !draftIsDirty() || window.confirm("Du har kode med endringer som ikke er lagret som et program. Vil du fortsette uten å lagre dem? Trykk Avbryt og lagre først hvis du vil beholde koden.");
+  }
+  function openProgram(id) {
+    const program = programs.find(p => p.id === id);
+    if (!program || !confirmReplace()) return;
+    activeId = program.id;
+    nameInput.value = program.name;
+    setEditor(program.code);
+    saveDraft();
+    renderList();
+    status.textContent = "Du har åpnet «" + program.name + "».";
+    editor.focus();
+  }
+  function deleteProgram(id) {
+    const program = programs.find(p => p.id === id);
+    if (!program || !window.confirm("Vil du slette «" + program.name + "»? Dette kan ikke angres.")) return;
+    const old = programs;
+    programs = programs.filter(p => p.id !== id);
+    if (!persistLibrary()) { programs = old; return; }
+    if (activeId === id) {
+      activeId = null;
+      // Behold koden i feltet for å hindre utilsiktet tap.
+    }
+    saveDraft();
+    renderList();
+    status.textContent = "«" + program.name + "» er slettet fra listen. Koden i skrivefeltet beholdes.";
+  }
+  function newProgram() {
+    if (!confirmReplace()) return;
+    activeId = null;
+    nameInput.value = "";
+    setEditor("");
+    saveDraft();
+    status.textContent = "Nytt tomt program. Skriv kode og lagre med et nytt navn.";
+    editor.focus();
+  }
+  function downloadProgram() {
+    const text = editor.value;
+    const name = cleanName(nameInput.value) || "mitt-pythonprogram";
+    const safeName = name.replace(/æ/gi, "ae").replace(/ø/gi, "o").replace(/å/gi, "a").normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9_-]+/g,"-").replace(/-+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "pythonprogram";
+    const blob = new Blob([text], {type:"text/x-python;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = safeName + ".py";
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    status.textContent = "Programmet er lastet ned som en .py-fil til enheten din.";
+  }
+
+  // Overfør tidligere lagret enkeltkode, uten å slette originalen.
+  const stored = loadJson(libraryKey, null);
+  if (Array.isArray(stored)) {
+    programs = stored.filter(p => p && typeof p.id === "string" && typeof p.name === "string" && typeof p.code === "string" && Number.isFinite(p.updated));
+  } else {
+    let previous = null;
+    try { previous = (localStore || sessionStore)?.getItem(oldKey) ?? null; } catch (_) {}
+    if (previous !== null) programs.push({id:makeId(),name:"Tidligere lagret kode",code:previous,updated:Date.now()});
+    if (previous !== null) persistLibrary();
+  }
+  const draft = loadJson(draftKey, null);
+  if (draft && typeof draft.code === "string") {
+    activeId = programs.some(p => p.id === draft.activeId) ? draft.activeId : null;
+    nameInput.value = typeof draft.name === "string" ? draft.name.slice(0,70) : "";
+    setEditor(draft.code);
+    if (draft.code && draftIsDirty()) status.textContent = "Siste utkast er hentet tilbake. Lagre programmet med navn når du vil ta vare på det.";
+  }
+  if (!draft && editor.value) scheduleDraft();
+  renderList();
+  showState();
+
+  document.getElementById("pv-save-code").addEventListener("click", () => saveProgram(false));
+  document.getElementById("pv-save-as-code").addEventListener("click", () => saveProgram(true));
+  document.getElementById("pv-new-code").addEventListener("click", newProgram);
+  document.getElementById("pv-download-code").addEventListener("click", downloadProgram);
+  toggle.addEventListener("click", () => {
+    const wasClosed = panel.hidden;
+    panel.hidden = !wasClosed;
+    toggle.setAttribute("aria-expanded", String(wasClosed));
+    if (wasClosed) renderList();
+  });
+  nameInput.addEventListener("input", scheduleDraft);
+  editor.addEventListener("input", scheduleDraft);
+  // Lagre utkast også ved rask navigering eller lukking av fanen.
+  window.addEventListener("pagehide", () => { window.clearTimeout(draftTimer); saveDraft(); });
+  // Labelen er koblet direkte til filvelgeren, slik at Chromebook
+  // ikke er avhengig av programmatisk input.click().
+  async function readPythonFile(file) {
+    if (typeof file.text === "function") {
+      try { return await file.text(); } catch (_) { /* Prøv FileReader nedenfor. */ }
+    }
+    return await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("Kunne ikke lese filen"));
+      reader.onload = () => resolve(String(reader.result || ""));
+      reader.readAsText(file, "UTF-8");
+    });
+  }
+  importInput.addEventListener("change", async () => {
+    const file = importInput.files && importInput.files[0];
+    importInput.value = "";
+    if (!file) return;
+    if (file.size > 1024 * 1024) { status.textContent = "Filen er for stor. Velg en Python-fil under 1 MB."; return; }
+    if (!confirmReplace()) {
+      status.textContent = "Filåpningen ble avbrutt. Lagre den eksisterende koden før du prøver igjen.";
+      return;
+    }
+    try {
+      const text = await readPythonFile(file);
+      if (!text && file.size > 0) throw new Error("Filen ble lest, men innholdet kunne ikke vises.");
+      activeId = null;
+      nameInput.value = file.name.replace(/\.py$/i, "").slice(0,70);
+      setEditor(text);
+      saveDraft();
+      renderList();
+      status.textContent = "Filen «" + file.name + "» er åpnet. Trykk «Lagre program» for å legge den i Mine programmer.";
+    } catch (error) {
+      status.textContent = "Kunne ikke åpne filen: " + (error?.message || "ukjent feil") + ". Prøv en vanlig .py-fil med tekst.";
+    }
+  });
 })();
 </script></body>
 </html>
