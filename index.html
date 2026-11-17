@@ -394,7 +394,20 @@ body{padding-left:232px!important}
     return details;
   }
   window.PVErrors={show:show,clear:clear,explain:explain};
-})();</script></head>
+})();</script>
+<style id="pv-contact-style">
+.pv-contact-about,.pv-contact-mini{box-sizing:border-box;max-width:1060px;margin:26px auto;padding:20px 24px;background:#fff;border:1px solid #dce6f2;border-radius:14px;color:#24324a;font:15px/1.55 Arial,sans-serif;box-shadow:0 2px 12px rgba(25,58,110,.06)}
+.pv-contact-about h2{font-size:1.4rem;margin:0 0 10px;color:#254c84}
+.pv-contact-about h3{font-size:1.03rem;margin:18px 0 7px;color:#254c84}
+.pv-contact-about p{margin:7px 0 10px;line-height:1.6}
+.pv-contact-about a.pv-contact-action{display:inline-block;padding:10px 16px;margin:7px 0 3px;background:#2457a5;color:white!important;border-radius:9px;text-decoration:none;font-weight:700}
+.pv-contact-about a.pv-contact-action:hover{background:#173e7a}
+.pv-contact-mini{text-align:center;padding:11px 14px;font-size:13px;background:transparent;box-shadow:none;border:0;margin-top:24px}
+.pv-contact-mini a{color:#2155a5;text-decoration:underline;font-weight:600}
+.pv-contact-mini a:focus-visible,.pv-contact-about a:focus-visible{outline:3px solid #e99c22;outline-offset:3px}
+@media(max-width:650px){.pv-contact-about{margin:18px 10px;padding:16px}.pv-contact-mini{margin:14px 8px}}
+</style>
+</head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html" aria-current="page">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
   <header>
     <h1>🐍 Pythonverkstedet</h1>
@@ -464,6 +477,16 @@ body{padding-left:232px!important}
 </section>
 </div>
   </main>
+<section class="pv-contact-about" aria-labelledby="pv-contact-heading">
+  <h2 id="pv-contact-heading">Om Pythonverkstedet</h2>
+  <p>Pythonverkstedet er laget for å gjøre det enklere og morsommere å lære programmering. Her kan elever utforske Python gjennom oppgaver, Turtle og spill de lager selv.</p>
+  <p><strong>Utviklet av en lærer i norsk skole.</strong></p>
+  <h3>Har du oppdaget en feil eller har et forslag?</h3>
+  <p>Vi setter pris på tilbakemeldinger som kan gjøre Pythonverkstedet bedre. Fortell gjerne hvilken side eller oppgave det gjelder, og hva som skjedde.</p>
+  <a class="pv-contact-action" href="mailto:pythonverkstedet@gmail.com?subject=Tilbakemelding%20til%20Pythonverkstedet">✉ Send tilbakemelding</a>
+  <p><small>E-post: <a href="mailto:pythonverkstedet@gmail.com">pythonverkstedet@gmail.com</a>. Ikke send passord, elevnavn eller andre personopplysninger.</small></p>
+</section>
+
   <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
 <script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
 <script>
