@@ -230,7 +230,18 @@
       .projects-title { margin-top:10px; }
       .editor-panel { padding:16px; }
     }
-  </style>
+  
+/* To skjermbilder: en rolig forklaring før selve oppgaven */
+.pv-learn-step { padding: 4px 0 12px; }
+.pv-learn-step h3 { margin: 12px 0; font-size: 1.4rem; }
+.pv-learn-explanation,.pv-learn-practice { background:#f3f7ff; border:1px solid #d8e4f7; border-radius:12px; padding:14px; margin:14px 0; }
+.pv-learn-explanation p,.pv-learn-practice p { line-height:1.55; margin:8px 0; }
+.pv-learn-practice pre { white-space:pre-wrap; background:#14223b; color:#f7faff; border-radius:9px; padding:12px; overflow:auto; font-size:0.94rem; }
+.pv-learn-suggestion { color:#485a77; font-size:.94rem; }
+.pv-back-to-learn { margin:8px 0 12px; font-size:.89rem; }
+#pv-task-steps-drawer { margin:12px 0; }
+#pv-task-steps-drawer .pv-task-instructions { padding:8px; }
+</style>
 <style>
 /* Skjul gammel prosjektmeny; kun den felles sidemenyen skal vises. */
 .sidebar,.projects-title,.future-feature{display:none!important}
@@ -655,7 +666,20 @@ body{padding-left:232px!important}
     return details;
   }
   window.PVErrors={show:show,clear:clear,explain:explain};
-})();</script></head>
+})();</script>
+<style id="pv-contact-style">
+.pv-contact-about,.pv-contact-mini{box-sizing:border-box;max-width:1060px;margin:26px auto;padding:20px 24px;background:#fff;border:1px solid #dce6f2;border-radius:14px;color:#24324a;font:15px/1.55 Arial,sans-serif;box-shadow:0 2px 12px rgba(25,58,110,.06)}
+.pv-contact-about h2{font-size:1.4rem;margin:0 0 10px;color:#254c84}
+.pv-contact-about h3{font-size:1.03rem;margin:18px 0 7px;color:#254c84}
+.pv-contact-about p{margin:7px 0 10px;line-height:1.6}
+.pv-contact-about a.pv-contact-action{display:inline-block;padding:10px 16px;margin:7px 0 3px;background:#2457a5;color:white!important;border-radius:9px;text-decoration:none;font-weight:700}
+.pv-contact-about a.pv-contact-action:hover{background:#173e7a}
+.pv-contact-mini{text-align:center;padding:11px 14px;font-size:13px;background:transparent;box-shadow:none;border:0;margin-top:24px}
+.pv-contact-mini a{color:#2155a5;text-decoration:underline;font-weight:600}
+.pv-contact-mini a:focus-visible,.pv-contact-about a:focus-visible{outline:3px solid #e99c22;outline-offset:3px}
+@media(max-width:650px){.pv-contact-about{margin:18px 10px;padding:16px}.pv-contact-mini{margin:14px 8px}}
+</style>
+</head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
 <header>
 <h1>🐍 Pythonverkstedet</h1>
@@ -760,17 +784,25 @@ body{padding-left:232px!important}
     <p id="pv-intro-feedback" role="status" class="pv-intro-feedback"></p>
     <p class="pv-intro-note">Du trenger ikke kunne alt før du starter. Koden din blir ikke slettet når du går videre.</p>
   </article>
+  <article id="pv-learn-step" class="pv-learn-step" aria-live="polite" hidden>
+    <span class="pv-intro-kicker">📗 LÆR FØRST</span>
+    <h3 id="pv-learn-title">Dette trenger du i neste oppgave</h3>
+    <p id="pv-learn-context"></p>
+    <div class="pv-learn-explanation"><strong>Kort forklart</strong><p id="pv-learn-before"></p></div>
+    <div class="pv-learn-practice"><strong>Se et lite eksempel</strong><p id="pv-learn-explain"></p><pre id="pv-learn-code"></pre></div>
+    <p class="pv-learn-suggestion">Prøv gjerne eksempelet i kodefeltet før du går videre. Koden du har skrevet, blir ikke endret når du blar.</p>
+    <div class="pv-intro-actions">
+      <button id="pv-learn-load" class="secondary" type="button">Prøv eksempelet i kodefeltet</button>
+      <button id="pv-learn-next" type="button">Gå til oppgaven →</button>
+    </div>
+    <p id="pv-learn-feedback" role="status" class="pv-intro-feedback"></p>
+  </article>
   <article id="task-detail" aria-live="polite">
     <div class="pv-task-topline"><span id="pv-task-badge" class="pv-task-badge">OPPDRAG</span><span id="pv-task-done-indicator" hidden>✓ Fullført</span></div>
     <h3 id="task-title">Velg en oppgave</h3>
     <p id="task-description">Les oppgaven og prøv å skrive koden selv.</p>
-    <section class="pv-task-before" id="pv-task-before-box" aria-label="Nye begreper du trenger"><strong>📘 Før du starter</strong><p id="pv-task-before"></p></section>
-    <section id="pv-task-example-panel" class="pv-task-example-panel" hidden aria-label="Et lite eksempel som forklarer nye begreper">
-      <strong>🔍 Øv først med et enklere eksempel</strong>
-      <p id="pv-task-example-explain"></p>
-      <pre id="pv-task-example-code"></pre>
-    </section>
-    <div id="pv-task-steps" class="pv-task-instructions" hidden></div>
+    <button class="secondary pv-back-to-learn" type="button" id="pv-task-review">← Se forklaring og eksempel</button>
+    <details id="pv-task-steps-drawer" class="pv-help-inner"><summary>Se fremgangsmåte (valgfritt)</summary><div id="pv-task-steps" class="pv-task-instructions" hidden></div></details>
     <div id="pv-expected" class="pv-expected" hidden></div>
     <details id="pv-extra-challenge" class="pv-extra-challenge"><summary>⭐ Ekstra utfordring (frivillig)</summary><p id="pv-extra-challenge-text"></p></details>
     <div class="pv-task-action-row">
@@ -802,10 +834,14 @@ body{padding-left:232px!important}
     <summary>Se alle oppgavene i dette temaet <span id="pv-task-list-count">(4)</span></summary>
     <div id="learning-topics" class="pv-compact-task-list"></div>
   </details>
-  <p class="pv-workshop-footnote">Prøv den enkle øvingskoden først. Løs så oppdraget på egen hånd. Bruk hint eller fasit bare når du trenger det.</p>
+  <p class="pv-workshop-footnote">Lær først → Løs oppgaven → Gå videre. Bruk hint når du trenger det.</p>
 </section>
 </div>
 </main>
+<div class="pv-contact-mini" role="contentinfo">
+  Pythonverkstedet · <a href="mailto:pythonverkstedet@gmail.com?subject=Feil%20eller%20forslag%20til%20Pythonverkstedet">Meld fra om feil eller forslag</a> · Ikke send personopplysninger.
+</div>
+
 <footer>Pythonverkstedet · Vi lærer ved å prøve!</footer>
 <script>
 (function () {
@@ -1223,24 +1259,24 @@ body{padding-left:232px!important}
   },
   {
     "topic": "Tilfeldighet",
-    "title": "23. Tilfeldig bobleplassering",
-    "description": "Velg fem tilfeldige x-posisjoner mellom -100 og 100 og skriv ut én posisjon på hver linje.",
+    "title": "23. Fem tilfeldige x-posisjoner",
+    "description": "Lag fem tilfeldige x-posisjoner mellom −100 og 100. Skriv ut én linje per posisjon, merket x1, x2, x3, x4 og x5.",
     "start": "import random\n# Lag en for-løkke som velger og skriver ut fem x-posisjoner.",
-    "hint": "Bruk først print(x) inni løkken. Når det virker, kan du prøve tekst og variabel sammen med komma: print(\"Boble:\", x).",
-    "solution": "import random\nfor i in range(5):\n    x = random.randint(-100, 100)\n    print(x)",
-    "before": "random.randint(-100, 100) velger én tilfeldig x-posisjon. Med for i in range(5): kan du gjøre dette fem ganger. Skriv ut én verdi med print(x). Du trenger ikke å skrive boblenummer ennå; det er en ekstra utfordring.",
+    "hint": "Bruk print(f\"x{i + 1} = {x}\") inne i løkken. Her betyr {i + 1} nummeret på posisjonen og {x} tallet du nettopp trakk.",
+    "solution": "import random\n\nfor i in range(5):\n    x = random.randint(-100, 100)\n    print(f\"x{i + 1} = {x}\")",
+    "before": "For å vise x1, x2 osv. kan du bruke en f-streng: f\"x{i + 1} = {x}\". Bokstaven f gjør at Python bytter ut uttrykk i { } med verdier. Løkken starter på i = 0, så vi bruker i + 1 når vi nummererer.",
     "steps": [
-      "Importer random og lag en for-løkke med fem runder.",
-      "Inne i løkken: trekk en x-verdi mellom -100 og 100.",
-      "Skriv bare x på hver linje med print(x).",
-      "Ekstra: Legg til tekst som forklarer hva tallet betyr."
+      "Importer random.",
+      "Lag en for-løkke som gjentas fem ganger.",
+      "Velg en ny tilfeldig x-verdi inne i løkken med random.randint(-100, 100).",
+      "Bruk en f-streng i print() slik at hver linje får navn x1, x2, … x5 og viser x-verdien."
     ],
     "mini": {
-      "explain": "Start med én tilfeldig posisjon før du gjentar. Koden her viser tre tilfeldige tall, ett på hver linje.",
-      "code": "import random\nfor runde in range(3):\n    x = random.randint(0, 10)\n    print(x)"
+      "explain": "Først: Se hvordan en løkke nummererer tre ting. f foran anførselstegnet gjør at {nummer} blir satt inn i teksten. I selve oppgaven legger du også til en tilfeldig x-verdi.",
+      "code": "for i in range(3):\n    print(f\"Tall {i + 1}\")"
     },
-    "extra": "Skriv «Boble på x =» foran hvert tall ved å bruke print(\"Boble på x =\", x). Prøv deretter å nummerere boblene med i + 1.",
-    "expected": "Fem heltall, ett på hver linje. Tallene kan være forskjellige hver gang."
+    "extra": "Utvid med y-posisjoner også. Kan du skrive ut x1 og y1 for hver av de fem boblene?",
+    "expected": "Eksempel (tallene varierer):\nx1 = 42\nx2 = -17\nx3 = 5\nx4 = 90\nx5 = -61"
   },
   {
     "topic": "Tilfeldighet",
@@ -2086,6 +2122,7 @@ body{padding-left:232px!important}
   try { completedTasks = new Set(JSON.parse(localStorage.getItem(doneKey) || "[]")); } catch (_) {}
   let selectedTask = null;
   let selectedIndex = 0;
+  let prepIndex = -1; // Viser kort læringssteg mellom introduksjon og oppgave.
   const taskId = task => (task.legacyTopic || task.topic) + "::" + task.title;
 
   const lessons = [
@@ -2274,6 +2311,8 @@ body{padding-left:232px!important}
     if (!lesson) return;
     selectedTask = null;
     selectedIndex = -1;
+    prepIndex = -1;
+    document.getElementById("pv-learn-step").hidden = true;
     document.getElementById("pv-topic-intro").hidden = false;
     document.getElementById("task-detail").hidden = true;
     document.getElementById("pv-help-drawer").open = false;
@@ -2325,11 +2364,41 @@ body{padding-left:232px!important}
       level.textContent = "Nivå " + task.level;
       button.append(number, name, level);
       button.addEventListener("click", () => {
-        openTask(i);
+        openPrep(i);
         document.getElementById("pv-task-list-drawer").open = false;
       });
       topicsContainer.append(button);
     });
+  }
+
+  function openPrep(index) {
+    document.getElementById("oppgavebank").scrollTop = 0;
+    const list = currentTasks();
+    if (!list.length) return;
+    prepIndex = Math.max(0, Math.min(index, list.length - 1));
+    selectedIndex = prepIndex;
+    selectedTask = null;
+    const task = list[prepIndex];
+    document.getElementById("pv-topic-intro").hidden = true;
+    document.getElementById("pv-learn-step").hidden = false;
+    document.getElementById("task-detail").hidden = true;
+    document.getElementById("pv-help-drawer").open = false;
+    document.getElementById("pv-help-drawer").hidden = true;
+    const taskName = task.title.replace(/^(?:\d+\.|[A-D]\.)\s*/, "");
+    document.getElementById("pv-learn-title").textContent = "Før oppgave " + (prepIndex + 1) + ": " + taskName;
+    document.getElementById("pv-learn-context").textContent = "Her lærer du akkurat det du trenger før du prøver oppgaven selv.";
+    document.getElementById("pv-learn-before").textContent = task.before || "Se eksempelet og undersøk hva hver linje gjør.";
+    document.getElementById("pv-learn-explain").textContent = task.mini ? task.mini.explain : "Se hvordan kommandoene brukes i en enklere situasjon.";
+    document.getElementById("pv-learn-code").textContent = task.mini ? task.mini.code : "";
+    document.getElementById("pv-learn-feedback").textContent = "";
+    document.getElementById("pv-task-position").textContent = "Lær først · før oppgave " + (prepIndex + 1);
+    document.getElementById("pv-task-level").textContent = "Kort forklaring og eksempel";
+    previousButton.disabled = false;
+    nextButton.disabled = false;
+    previousButton.title = "Tilbake";
+    nextButton.title = "Gå til oppgaven";
+    updateProgress();
+    renderTaskList();
   }
 
   function openTask(index) {
@@ -2339,6 +2408,8 @@ body{padding-left:232px!important}
     selectedIndex = Math.max(0, Math.min(index, list.length - 1));
     const task = list[selectedIndex];
     selectedTask = task;
+    prepIndex = -1;
+    document.getElementById("pv-learn-step").hidden = true;
     document.getElementById("pv-topic-intro").hidden = true;
     document.getElementById("task-detail").hidden = false;
     document.getElementById("pv-help-drawer").hidden = false;
@@ -2355,7 +2426,7 @@ body{padding-left:232px!important}
     previousButton.disabled = false; // Fra første oppgave kan eleven gå tilbake til temaintroduksjonen.
     nextButton.disabled = atVeryEnd;
     nextAction.disabled = atVeryEnd;
-    nextAction.textContent = atVeryEnd ? "Alle oppgaver gjennomgått" : selectedIndex === list.length - 1 ? "Neste tema →" : "Neste oppgave →";
+    nextAction.textContent = atVeryEnd ? "Alle oppgaver gjennomgått" : selectedIndex === list.length - 1 ? "Neste tema →" : "Lær først →";
     previousButton.title = selectedIndex === 0 ? "Til introduksjonen" : "Forrige oppgave";
     nextButton.title = selectedIndex === list.length - 1 ? "Neste tema" : "Neste oppgave";
     const expectedBox = document.getElementById("pv-expected");
@@ -2368,6 +2439,7 @@ body{padding-left:232px!important}
       result.textContent = task.expected;
       expectedBox.append(strong, result);
     }
+    document.getElementById("pv-task-steps-drawer").open = false;
     const stepsBox = document.getElementById("pv-task-steps");
     stepsBox.replaceChildren();
     stepsBox.hidden = !(task.steps && task.steps.length);
@@ -2382,11 +2454,6 @@ body{padding-left:232px!important}
       });
       stepsBox.append(heading, ol);
     }
-    document.getElementById("pv-task-before").textContent = task.before || "Les oppgaven og prøv deg frem.";
-    const taskMiniPanel = document.getElementById("pv-task-example-panel");
-    taskMiniPanel.hidden = !task.mini;
-    document.getElementById("pv-task-example-explain").textContent = task.mini ? task.mini.explain : "";
-    document.getElementById("pv-task-example-code").textContent = task.mini ? task.mini.code : "";
     document.getElementById("pv-extra-challenge-text").textContent = task.extra || "Prøv å endre et tall og kjør programmet på nytt.";
     document.getElementById("pv-extra-challenge").open = false;
     hint.textContent = task.hint || "Se på eksempelet og prøv å endre én linje om gangen.";
@@ -2407,7 +2474,7 @@ body{padding-left:232px!important}
     const list = currentTasks();
     const themeIndex = lessons.findIndex(lesson => lesson.topic === topicSelect.value);
     if (selectedIndex === -1) {
-      if (step > 0) openTask(0);
+      if (step > 0) openPrep(0);
       else if (themeIndex > 0) {
         topicSelect.value = lessons[themeIndex - 1].topic;
         persistTopic();
@@ -2415,12 +2482,14 @@ body{padding-left:232px!important}
       }
       return;
     }
-    const next = selectedIndex + step;
-    if (next >= 0 && next < list.length) {
-      openTask(next);
+    if (prepIndex >= 0) {
+      if (step > 0) openTask(prepIndex);
+      else if (prepIndex > 0) openTask(prepIndex - 1);
+      else openIntro();
       return;
     }
-    if (next < 0) { openIntro(); return; }
+    if (step < 0) { openPrep(selectedIndex); return; }
+    if (selectedIndex + 1 < list.length) { openPrep(selectedIndex + 1); return; }
     if (themeIndex + 1 >= lessons.length) return;
     topicSelect.value = lessons[themeIndex + 1].topic;
     persistTopic();
@@ -2434,7 +2503,19 @@ body{padding-left:232px!important}
     persistTopic();
     openIntro();
   });
-  document.getElementById("pv-intro-start").addEventListener("click", () => openTask(0));
+  document.getElementById("pv-intro-start").addEventListener("click", () => openPrep(0));
+  document.getElementById("pv-learn-next").addEventListener("click", () => openTask(prepIndex));
+  document.getElementById("pv-task-review").addEventListener("click", () => openPrep(selectedIndex));
+  document.getElementById("pv-learn-load").addEventListener("click", () => {
+    if (prepIndex < 0) return;
+    const task = currentTasks()[prepIndex];
+    const editor = document.getElementById("python-code");
+    if (editor.value.trim() && !confirm("Vil du erstatte koden din med dette lille eksempelet?")) return;
+    editor.value = task.mini ? task.mini.code : "";
+    editor.dispatchEvent(new Event("input", {bubbles:true}));
+    editor.focus({preventScroll:true});
+    document.getElementById("pv-learn-feedback").textContent = "Eksempelet er lagt i kodefeltet. Prøv å kjøre det!";
+  });
   doneButton.addEventListener("click", () => {
     if (!selectedTask) return;
     const id = taskId(selectedTask);
