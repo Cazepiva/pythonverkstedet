@@ -248,7 +248,40 @@ main { max-width:1560px; width:100%; }
 .turtle-task-panel{margin:0!important;top:10px}
 @media(max-width:1390px){.turtle-workspace{grid-template-columns:minmax(0,1fr)!important}.turtle-work-area{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.turtle-task-panel{position:static!important;max-height:none!important}}
 @media(max-width:760px){.turtle-work-area{grid-template-columns:minmax(0,1fr)}.turtle-work-area > .panel:last-child{grid-column:auto}}
-</style></head>
+</style>
+<style id="pv-contact-style">
+.pv-contact-about,.pv-contact-mini{box-sizing:border-box;max-width:1060px;margin:26px auto;padding:20px 24px;background:#fff;border:1px solid #dce6f2;border-radius:14px;color:#24324a;font:15px/1.55 Arial,sans-serif;box-shadow:0 2px 12px rgba(25,58,110,.06)}
+.pv-contact-about h2{font-size:1.4rem;margin:0 0 10px;color:#254c84}
+.pv-contact-about h3{font-size:1.03rem;margin:18px 0 7px;color:#254c84}
+.pv-contact-about p{margin:7px 0 10px;line-height:1.6}
+.pv-contact-about a.pv-contact-action{display:inline-block;padding:10px 16px;margin:7px 0 3px;background:#2457a5;color:white!important;border-radius:9px;text-decoration:none;font-weight:700}
+.pv-contact-about a.pv-contact-action:hover{background:#173e7a}
+.pv-contact-mini{text-align:center;padding:11px 14px;font-size:13px;background:transparent;box-shadow:none;border:0;margin-top:24px}
+.pv-contact-mini a{color:#2155a5;text-decoration:underline;font-weight:600}
+.pv-contact-mini a:focus-visible,.pv-contact-about a:focus-visible{outline:3px solid #e99c22;outline-offset:3px}
+@media(max-width:650px){.pv-contact-about{margin:18px 10px;padding:16px}.pv-contact-mini{margin:14px 8px}}
+</style>
+
+<style id="pv-syntax-editor-style">
+  .pv-editor-surface { position:relative; min-width:0; box-sizing:border-box; overflow:hidden; background:#fff; }
+  .pv-editor-surface .pv-editor-syntax,
+  .pv-editor-surface textarea {
+    position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+    min-height:0 !important; box-sizing:border-box !important; margin:0 !important;
+    padding:12px !important; border:0 !important; border-radius:0 !important;
+    font:16px/1.5 monospace !important; letter-spacing:normal !important; tab-size:4 !important;
+    white-space:pre !important; overflow:auto !important; overflow-wrap:normal !important; word-break:normal !important;
+  }
+  .pv-editor-surface .pv-editor-syntax { z-index:1; pointer-events:none; color:#171b23; background:#fff; scrollbar-width:none; }
+  .pv-editor-surface .pv-editor-syntax::-webkit-scrollbar { display:none; }
+  .pv-editor-surface textarea { z-index:2; background:transparent !important; color:transparent !important; -webkit-text-fill-color:transparent !important; caret-color:#172b55 !important; resize:none !important; outline:none !important; }
+  .pv-editor-surface textarea::selection { background:rgba(111,158,231,.35); }
+  .pv-syntax-text {color:#ba2636} .pv-syntax-function,.pv-syntax-keyword {color:#1857b8} .pv-syntax-keyword {font-weight:600}
+  .pv-syntax-comment {color:#407c45} .pv-syntax-number {color:#8053a1}
+  @media (forced-colors:active) { .pv-editor-surface textarea {color:CanvasText !important; -webkit-text-fill-color:CanvasText !important; background:Canvas !important;} .pv-editor-syntax {visibility:hidden;} }
+  #pv-turtle-editor-surface { height:360px; min-height:360px; resize:vertical; border:1px solid #cbd5e5; border-radius:10px;}
+</style>
+</head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html" aria-current="page">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
 <main>
 <h1>🐢 Turtle-verkstedet</h1>
@@ -285,7 +318,7 @@ main { max-width:1560px; width:100%; }
 </section>
 </div>
 </details>
-<textarea id="turtle-code" spellcheck="false"></textarea>
+<div class="pv-editor-surface" id="pv-turtle-editor-surface"><pre id="pv-editor-syntax" class="pv-editor-syntax" aria-hidden="true"></pre><textarea id="turtle-code" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea></div>
 <div class="controls">
 <button id="run-turtle">▶ Tegn med Turtle</button>
 <button class="secondary" disabled="" id="stop-turtle">■ Stopp</button>
@@ -393,6 +426,10 @@ pencolor(&quot;red&quot;)
 for i in range(3):
     forward(50)
     right(120)</code></pre></details></article></div></section></div></main>
+<div class="pv-contact-mini" role="contentinfo">
+  Pythonverkstedet · <a href="mailto:pythonverkstedet@gmail.com?subject=Feil%20eller%20forslag%20til%20Pythonverkstedet">Meld fra om feil eller forslag</a> · Ikke send personopplysninger.
+</div>
+
 <script>
 (() => {
   'use strict';
@@ -565,6 +602,7 @@ for i in range(3):
     const insertion = '\n' + indent;
     codeBox.value = text.slice(0, start) + insertion + text.slice(end);
     codeBox.selectionStart = codeBox.selectionEnd = start + insertion.length;
+    codeBox.dispatchEvent(new Event("input", {bubbles:true}));
   });
 
   speed.addEventListener('input', () => { speedLabel.textContent = speed.value + '/10'; });
@@ -823,5 +861,105 @@ function show(){const group=topic.value;const chosen=task.value;items.forEach(el
 function fill(){const group=topic.value;task.replaceChildren();items.filter(el=>el.dataset.group===group).forEach(el=>{const option=document.createElement('option');option.value=el.dataset.index;option.textContent=el.dataset.title;task.appendChild(option)});show()}
 topic.addEventListener('change',fill);task.addEventListener('change',show);fill();
 })();
-</script></body>
+</script>
+<script id="pv-syntax-editor-enhancement">
+(function () {
+  "use strict";
+  const editor = document.getElementById("turtle-code");
+  const backdrop = document.getElementById("pv-editor-syntax");
+  if (!editor || !backdrop) return;
+  const pythonKeywords = new Set(["if", "elif", "else", "for", "while", "def", "return", "import", "from", "as", "in", "not", "and", "or", "break", "continue", "pass", "try", "except", "finally", "raise", "with", "class", "lambda", "True", "False", "None", "async", "await", "global", "is"]);
+  const pythonBuiltins = new Set(["print", "input", "range", "int", "float", "str", "len", "list", "max", "min", "sum", "abs", "round", "enumerate", "open", "bool", "type", "set", "dict", "tuple", "sorted"]);
+  function escapeCode(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
+  }
+  function syntaxHtml(code) {
+    let result = "";
+    let index = 0;
+    const put = (kind, value) => { result += kind ? '<span class="pv-syntax-' + kind + '">' + escapeCode(value) + '</span>' : escapeCode(value); };
+    while (index < code.length) {
+      const remaining = code.slice(index);
+      const char = code[index];
+      if (char === "#") {
+        const end = code.indexOf("\n", index);
+        const stop = end < 0 ? code.length : end;
+        put("comment", code.slice(index, stop)); index = stop; continue;
+      }
+      if (char === "\"" || char === "'") {
+        const triple = code.slice(index, index+3) === char.repeat(3);
+        const quote = triple ? char.repeat(3) : char;
+        let end = index + quote.length;
+        while (end < code.length) {
+          if (code[end] === "\\") { end += 2; continue; }
+          if (code.slice(end, end+quote.length) === quote) { end += quote.length; break; }
+          if (!triple && code[end] === "\n") break;
+          end++;
+        }
+        put("text", code.slice(index, Math.min(end, code.length))); index = Math.min(end, code.length); continue;
+      }
+      const identifier = remaining.match(/^[A-Za-z_][A-Za-z_0-9]*/);
+      if (identifier) {
+        const word = identifier[0];
+        const next = code.slice(index+word.length).match(/^\s*\(/);
+        put(pythonKeywords.has(word) ? "keyword" : (pythonBuiltins.has(word) || next ? "function" : ""), word);
+        index += word.length; continue;
+      }
+      const num = remaining.match(/^\d+(?:\.\d+)?/);
+      if (num) { put("number",num[0]); index+=num[0].length; continue; }
+      put("",char); index++;
+    }
+    return result + (code.endsWith("\n") ? " " : "");
+  }
+
+  function refresh() {
+    backdrop.innerHTML = syntaxHtml(editor.value);
+    backdrop.scrollTop = editor.scrollTop;
+    backdrop.scrollLeft = editor.scrollLeft;
+  }
+  editor.addEventListener("input", refresh);
+  editor.addEventListener("scroll", refresh);
+  editor.addEventListener("change", refresh);
+  editor.addEventListener("focus", refresh);
+  // Code may be loaded from previously saved programs without a native input event.
+  document.addEventListener("click", () => requestAnimationFrame(refresh));
+  refresh();
+  window.pvRefreshEditorColors = refresh;
+  
+  // Pair brackets and quotation marks without replacing the existing Enter indentation.
+  editor.addEventListener("keydown", (event) => {
+    if (event.isComposing || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (event.key === "Enter") return;
+    const pairs = {"(": ")", "[": "]", "{": "}", '"': '"', "'": "'"};
+    const start = editor.selectionStart, end = editor.selectionEnd;
+    const value = editor.value;
+    if (event.key === "Tab") {
+      event.preventDefault();
+      if (event.shiftKey) {
+        const lineStart = value.lastIndexOf("\n",start-1)+1;
+        const spaces = (value.slice(lineStart,start).match(/^ {1,4}/)||[""])[0].length;
+        if (spaces) {
+          editor.setRangeText("",lineStart,lineStart+spaces,"preserve");
+          editor.setSelectionRange(Math.max(lineStart,start-spaces), Math.max(lineStart,end-spaces));
+        }
+      } else editor.setRangeText("    ", start, end, "end");
+      editor.dispatchEvent(new Event("input",{bubbles:true})); return;
+    }
+    if (event.key === "Backspace" && start === end && start>0 && pairs[value[start-1]] === value[start]) {
+      event.preventDefault(); editor.setRangeText("",start-1,start+1,"start"); editor.dispatchEvent(new Event("input",{bubbles:true})); return;
+    }
+    if (start === end && [")","]","}",'"',"'"].includes(event.key) && value[start]===event.key) {
+      event.preventDefault(); editor.setSelectionRange(start+1,start+1); return;
+    }
+    if (Object.prototype.hasOwnProperty.call(pairs,event.key)) {
+      if ((event.key==='"'||event.key==="'") && start===end && /[\w]/.test(value[start]||"")) return;
+      event.preventDefault();
+      editor.setRangeText(event.key+value.slice(start,end)+pairs[event.key],start,end,"end");
+      editor.setSelectionRange(start+1,start+1+(end-start));
+      editor.dispatchEvent(new Event("input",{bubbles:true}));
+    }
+  });
+
+})();
+</script>
+</body>
 </html>
