@@ -228,7 +228,7 @@
     .workspace-main { min-width:0; }
     .editor-panel { background:white; padding:24px; border-radius:16px; border:1px solid #dce3f2; box-shadow:0 4px 16px #24324a12; color:#17324d; }
     .editor-panel h2 { margin-top:0; color:#254a93; }
-    .editor-panel #python-code { min-height:310px; }
+    .editor-panel #python-code { min-height:0; }
     #oppgavebank { scroll-margin-top:18px; }
     #editor { scroll-margin-top:18px; }
     @media (max-width:850px) {
@@ -407,6 +407,26 @@ body{padding-left:232px!important}
 .pv-contact-mini a:focus-visible,.pv-contact-about a:focus-visible{outline:3px solid #e99c22;outline-offset:3px}
 @media(max-width:650px){.pv-contact-about{margin:18px 10px;padding:16px}.pv-contact-mini{margin:14px 8px}}
 </style>
+<style id="pv-home-python-highlighting">
+/* Fargelagt Python-kode på forsiden. Textarea beholder tastatur, utvalg og lagring. */
+.python-editor-wrap .pv-code-area { position:relative; min-width:0; height:340px; min-height:230px; resize:vertical; overflow:hidden; background:#fff; }
+.python-editor-wrap .pv-code-colors,
+.python-editor-wrap #python-code {
+  position:absolute; inset:0; width:100%; height:100%; min-height:0;
+  margin:0; padding:12px; border:0; border-radius:0;
+  font:16px/1.5 monospace; letter-spacing:normal; tab-size:4;
+  white-space:pre; overflow:auto; overflow-wrap:normal; word-break:normal;
+}
+.python-editor-wrap .pv-code-colors { z-index:1; pointer-events:none; color:#171b23; background:#fff; scrollbar-width:none; }
+.python-editor-wrap .pv-code-colors::-webkit-scrollbar { display:none; }
+.python-editor-wrap #python-code { z-index:2; display:block; background:transparent; color:transparent; -webkit-text-fill-color:transparent; caret-color:#172b55; resize:none; outline:none; }
+.python-editor-wrap #python-code::selection { background:rgba(111,158,231,.35); }
+.pv-syntax-text { color:#ba2636; }
+.pv-syntax-function { color:#1857b8; }
+.pv-syntax-keyword { color:#1857b8; font-weight:600; }
+.pv-syntax-comment { color:#407c45; }
+.pv-syntax-number { color:#8053a1; }
+</style>
 </head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html" aria-current="page">🏠 Forside</a><a href="laer-python.html">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
   <header>
@@ -448,7 +468,7 @@ body{padding-left:232px!important}
 3
 4
 5</pre>
-  <textarea id="python-code" rows="9" spellcheck="false" aria-label="Python-kode"></textarea>
+  <div class="pv-code-area"><pre id="pv-code-colors" class="pv-code-colors" aria-hidden="true"></pre><textarea id="python-code" rows="9" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Python-kode"></textarea></div>
 </div>
 <div class="project-actions" style="margin-top:12px;">
   <button id="save-project" type="button" hidden style="display:none">Lagre prosjekt</button>
@@ -480,7 +500,7 @@ body{padding-left:232px!important}
 <section class="pv-contact-about" aria-labelledby="pv-contact-heading">
   <h2 id="pv-contact-heading">Om Pythonverkstedet</h2>
   <p>Pythonverkstedet er laget for å gjøre det enklere og morsommere å lære programmering. Her kan elever utforske Python gjennom oppgaver, Turtle og spill de lager selv.</p>
-
+  <p><strong>Utviklet av en lærer i norsk skole.</strong></p>
   <h3>Har du oppdaget en feil eller har et forslag?</h3>
   <p>Vi setter pris på tilbakemeldinger som kan gjøre Pythonverkstedet bedre. Fortell gjerne hvilken side eller oppgave det gjelder, og hva som skjedde.</p>
   <a class="pv-contact-action" href="mailto:pythonverkstedet@gmail.com?subject=Tilbakemelding%20til%20Pythonverkstedet">✉ Send tilbakemelding</a>
@@ -494,17 +514,84 @@ body{padding-left:232px!important}
   const codeBox = document.getElementById("python-code");
   const lineNumbers = document.getElementById("line-numbers");
 
+  const colorLayer = document.getElementById("pv-code-colors");
+  const pythonKeywords = new Set(["if", "elif", "else", "for", "while", "def", "return", "import", "from", "as", "in", "not", "and", "or", "break", "continue", "pass", "try", "except", "finally", "raise", "with", "class", "lambda", "True", "False", "None", "async", "await", "global", "is"]);
+  const pythonBuiltins = new Set(["print", "input", "range", "int", "float", "str", "len", "list", "max", "min", "sum", "abs", "round", "enumerate", "open", "bool", "type", "set", "dict", "tuple", "sorted"]);
+  function escapeCode(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
+  }
+  function syntaxHtml(code) {
+    let result = "";
+    let index = 0;
+    const put = (kind, value) => { result += kind ? '<span class="pv-syntax-' + kind + '">' + escapeCode(value) + '</span>' : escapeCode(value); };
+    while (index < code.length) {
+      const remaining = code.slice(index);
+      const char = code[index];
+      if (char === "#") {
+        const end = code.indexOf("\n", index);
+        const stop = end < 0 ? code.length : end;
+        put("comment", code.slice(index, stop)); index = stop; continue;
+      }
+      if (char === "\"" || char === "'") {
+        const triple = code.slice(index, index+3) === char.repeat(3);
+        const quote = triple ? char.repeat(3) : char;
+        let end = index + quote.length;
+        while (end < code.length) {
+          if (code[end] === "\\") { end += 2; continue; }
+          if (code.slice(end, end+quote.length) === quote) { end += quote.length; break; }
+          if (!triple && code[end] === "\n") break;
+          end++;
+        }
+        put("text", code.slice(index, Math.min(end, code.length))); index = Math.min(end, code.length); continue;
+      }
+      const identifier = remaining.match(/^[A-Za-z_][A-Za-z_0-9]*/);
+      if (identifier) {
+        const word = identifier[0];
+        const next = code.slice(index+word.length).match(/^\s*\(/);
+        put(pythonKeywords.has(word) ? "keyword" : (pythonBuiltins.has(word) || next ? "function" : ""), word);
+        index += word.length; continue;
+      }
+      const num = remaining.match(/^\d+(?:\.\d+)?/);
+      if (num) { put("number",num[0]); index+=num[0].length; continue; }
+      put("",char); index++;
+    }
+    return result + (code.endsWith("\n") ? " " : "");
+  }
+  function syncCodeScroll() {
+    lineNumbers.scrollTop = codeBox.scrollTop;
+    colorLayer.scrollTop = codeBox.scrollTop;
+    colorLayer.scrollLeft = codeBox.scrollLeft;
+  }
   function updateLineNumbers() {
     const count = Math.max(1, codeBox.value.split("\n").length);
     lineNumbers.textContent = Array.from({length: count}, (_, i) => i + 1).join("\n");
-    lineNumbers.scrollTop = codeBox.scrollTop;
+    colorLayer.innerHTML = syntaxHtml(codeBox.value);
+    syncCodeScroll();
   }
 
   codeBox.addEventListener("input", updateLineNumbers);
-  codeBox.addEventListener("scroll", () => { lineNumbers.scrollTop = codeBox.scrollTop; });
+  codeBox.addEventListener("scroll", syncCodeScroll);
 
   // Tab inserts four spaces; Enter repeats the current line's indentation.
   codeBox.addEventListener("keydown", (event) => {
+    const pairs = {"(": ")", "[": "]", "{": "}", '\"': '\"', "'": "'"};
+    const start = codeBox.selectionStart;
+    const end = codeBox.selectionEnd;
+    const key = event.key;
+    if (!event.ctrlKey && !event.metaKey && !event.altKey && Object.prototype.hasOwnProperty.call(pairs, key)) {
+      event.preventDefault();
+      const selected = codeBox.value.slice(start, end);
+      codeBox.setRangeText(key + selected + pairs[key], start, end, "end");
+      codeBox.setSelectionRange(start + 1, start + 1 + selected.length);
+      updateLineNumbers();
+      return;
+    }
+    if (start === end && [")", "]", "}", '\"', "'"].includes(key) && codeBox.value[start] === key) {
+      event.preventDefault(); codeBox.setSelectionRange(start+1,start+1); return;
+    }
+    if (key === "Backspace" && start === end && start > 0 && pairs[codeBox.value[start-1]] === codeBox.value[start]) {
+      event.preventDefault(); codeBox.setRangeText("",start-1,start+1,"start"); updateLineNumbers(); return;
+    }
     if (event.key === "Tab") {
       event.preventDefault();
       const start = codeBox.selectionStart;
