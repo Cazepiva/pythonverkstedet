@@ -679,6 +679,26 @@ body{padding-left:232px!important}
 .pv-contact-mini a:focus-visible,.pv-contact-about a:focus-visible{outline:3px solid #e99c22;outline-offset:3px}
 @media(max-width:650px){.pv-contact-about{margin:18px 10px;padding:16px}.pv-contact-mini{margin:14px 8px}}
 </style>
+
+<style id="pv-syntax-editor-style">
+  .pv-editor-surface { position:relative; min-width:0; box-sizing:border-box; overflow:hidden; background:#fff; }
+  .pv-editor-surface .pv-editor-syntax,
+  .pv-editor-surface textarea {
+    position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+    min-height:0 !important; box-sizing:border-box !important; margin:0 !important;
+    padding:12px !important; border:0 !important; border-radius:0 !important;
+    font:16px/1.5 monospace !important; letter-spacing:normal !important; tab-size:4 !important;
+    white-space:pre !important; overflow:auto !important; overflow-wrap:normal !important; word-break:normal !important;
+  }
+  .pv-editor-surface .pv-editor-syntax { z-index:1; pointer-events:none; color:#171b23; background:#fff; scrollbar-width:none; }
+  .pv-editor-surface .pv-editor-syntax::-webkit-scrollbar { display:none; }
+  .pv-editor-surface textarea { z-index:2; background:transparent !important; color:transparent !important; -webkit-text-fill-color:transparent !important; caret-color:#172b55 !important; resize:none !important; outline:none !important; }
+  .pv-editor-surface textarea::selection { background:rgba(111,158,231,.35); }
+  .pv-syntax-text {color:#ba2636} .pv-syntax-function,.pv-syntax-keyword {color:#1857b8} .pv-syntax-keyword {font-weight:600}
+  .pv-syntax-comment {color:#407c45} .pv-syntax-number {color:#8053a1}
+  @media (forced-colors:active) { .pv-editor-surface textarea {color:CanvasText !important; -webkit-text-fill-color:CanvasText !important; background:Canvas !important;} .pv-editor-syntax {visibility:hidden;} }
+  #pv-python-editor-surface {height:340px; min-height:230px; resize:vertical;}
+</style>
 </head>
 <body><nav id="pv-shared-nav" aria-label="Felles meny for Pythonverkstedet"><div class="pv-brand">🐍 Pythonverkstedet</div><details class="pv-shell" open><summary>☰ Meny – Pythonverkstedet</summary><div class="pv-links"><a href="index.html">🏠 Forside</a><a href="laer-python.html" aria-current="page">📘 Lær Python</a><a href="turtle.html">🐢 Lær Turtle</a><a href="turtle-eventyr.html">🗺️ Turtle på eventyr</a><details class="pv-game-group" open><summary>🎮 Spill · fra lett til vanskelig</summary><div class="pv-game-links"><a href="kattespill.html">1 · 🐱 Kattespill</a><a href="skilpaddelop.html">2 · 🐢 Skilpaddeløpet</a><a href="hangman.html">3 · ✏️ Hangman</a><a href="fiskespill.html">4 · 🐟 Fiskespillet</a></div></details></div></details></nav>
 <header>
@@ -697,7 +717,7 @@ body{padding-left:232px!important}
 3
 4
 5</pre>
-<textarea aria-label="Python-kode" id="python-code" rows="9" spellcheck="false"></textarea>
+<div class="pv-editor-surface" id="pv-python-editor-surface"><pre id="pv-editor-syntax" class="pv-editor-syntax" aria-hidden="true"></pre><textarea aria-label="Python-kode" id="python-code" rows="9" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off"></textarea></div>
 </div>
 
 <div class="pv-program-name-row" style="display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:12px 0 6px;">
@@ -2567,6 +2587,7 @@ body{padding-left:232px!important}
     const count = Math.max(1, codeBox.value.split("\n").length);
     lineNumbers.textContent = Array.from({length: count}, (_, i) => i + 1).join("\n");
     lineNumbers.scrollTop = codeBox.scrollTop;
+    if (window.pvRefreshEditorColors) window.pvRefreshEditorColors();
   }
 
   codeBox.addEventListener("input", updateLineNumbers);
@@ -3306,5 +3327,71 @@ _pv_error_json
     }
   });
 })();
-</script></body>
+</script>
+<script id="pv-syntax-editor-enhancement">
+(function () {
+  "use strict";
+  const editor = document.getElementById("python-code");
+  const backdrop = document.getElementById("pv-editor-syntax");
+  if (!editor || !backdrop) return;
+  const pythonKeywords = new Set(["if", "elif", "else", "for", "while", "def", "return", "import", "from", "as", "in", "not", "and", "or", "break", "continue", "pass", "try", "except", "finally", "raise", "with", "class", "lambda", "True", "False", "None", "async", "await", "global", "is"]);
+  const pythonBuiltins = new Set(["print", "input", "range", "int", "float", "str", "len", "list", "max", "min", "sum", "abs", "round", "enumerate", "open", "bool", "type", "set", "dict", "tuple", "sorted"]);
+  function escapeCode(text) {
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\"/g, "&quot;");
+  }
+  function syntaxHtml(code) {
+    let result = "";
+    let index = 0;
+    const put = (kind, value) => { result += kind ? '<span class="pv-syntax-' + kind + '">' + escapeCode(value) + '</span>' : escapeCode(value); };
+    while (index < code.length) {
+      const remaining = code.slice(index);
+      const char = code[index];
+      if (char === "#") {
+        const end = code.indexOf("\n", index);
+        const stop = end < 0 ? code.length : end;
+        put("comment", code.slice(index, stop)); index = stop; continue;
+      }
+      if (char === "\"" || char === "'") {
+        const triple = code.slice(index, index+3) === char.repeat(3);
+        const quote = triple ? char.repeat(3) : char;
+        let end = index + quote.length;
+        while (end < code.length) {
+          if (code[end] === "\\") { end += 2; continue; }
+          if (code.slice(end, end+quote.length) === quote) { end += quote.length; break; }
+          if (!triple && code[end] === "\n") break;
+          end++;
+        }
+        put("text", code.slice(index, Math.min(end, code.length))); index = Math.min(end, code.length); continue;
+      }
+      const identifier = remaining.match(/^[A-Za-z_][A-Za-z_0-9]*/);
+      if (identifier) {
+        const word = identifier[0];
+        const next = code.slice(index+word.length).match(/^\s*\(/);
+        put(pythonKeywords.has(word) ? "keyword" : (pythonBuiltins.has(word) || next ? "function" : ""), word);
+        index += word.length; continue;
+      }
+      const num = remaining.match(/^\d+(?:\.\d+)?/);
+      if (num) { put("number",num[0]); index+=num[0].length; continue; }
+      put("",char); index++;
+    }
+    return result + (code.endsWith("\n") ? " " : "");
+  }
+
+  function refresh() {
+    backdrop.innerHTML = syntaxHtml(editor.value);
+    backdrop.scrollTop = editor.scrollTop;
+    backdrop.scrollLeft = editor.scrollLeft;
+  }
+  editor.addEventListener("input", refresh);
+  editor.addEventListener("scroll", refresh);
+  editor.addEventListener("change", refresh);
+  editor.addEventListener("focus", refresh);
+  // Code may be loaded from previously saved programs without a native input event.
+  document.addEventListener("click", () => requestAnimationFrame(refresh));
+  refresh();
+  window.pvRefreshEditorColors = refresh;
+  
+})();
+</script>
+</body>
 </html>
