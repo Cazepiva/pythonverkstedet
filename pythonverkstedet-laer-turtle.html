@@ -1,0 +1,457 @@
+<!doctype html><html lang="nb"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lær Turtle – Pythonverkstedet</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f2f7f4;color:#17352b;font:17px/1.6 system-ui,sans-serif}header{background:#123d32;color:white;padding:45px max(5vw,20px)}h1{font-size:clamp(36px,6vw,64px);line-height:1.05;margin:12px 0}h2{font-size:30px;margin:0}h3{font-size:18px}.eyebrow{font-size:12px;font-weight:800;letter-spacing:2px;color:#23805d}header .eyebrow{color:#a5efd0}.layout{max-width:1200px;margin:auto;display:grid;grid-template-columns:240px 1fr;gap:24px;padding:24px}nav{position:sticky;top:15px;align-self:start;max-height:95vh;overflow:auto;background:white;border-radius:16px;padding:18px}nav a{display:block;color:#245743;text-decoration:none;padding:5px;font-size:14px}nav a:hover{text-decoration:underline}section,.intro{background:white;border:1px solid #d8e5dd;border-radius:18px;padding:clamp(16px,4vw,32px);margin-bottom:24px;scroll-margin-top:20px}article{border-top:1px solid #d8e5dd;padding:18px 0}.task{display:flex;gap:12px;align-items:center}input{accent-color:#168354;width:22px;height:22px;flex-shrink:0}pre{background:#152d2b;color:#e2f6e8;padding:16px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.55;tab-size:4}details{margin:8px 0}summary{cursor:pointer;color:#176546;font-weight:600}button{cursor:pointer;border:1px solid #acc7b7;border-radius:8px;padding:6px 12px;background:#fff;color:#174d38;font:inherit;font-size:13px}progress{width:100%;accent-color:#79dbac;height:18px}header .progress{max-width:650px}footer{padding:24px;text-align:center;color:#47675a}@media(max-width:750px){.layout{display:block;padding:12px}nav{position:static;max-height:none;margin-bottom:16px;columns:2}nav h3{column-span:all}section{padding:18px}}@media print{nav,button,progress{display:none}.layout{display:block}section{break-before:page}pre{white-space:pre-wrap;color:black;background:#eee}header{color:black;background:white}}</style></head><body><header><div class="eyebrow">PYTHONVERKSTEDET / UT­VIDET KURS</div><h1>🐢 Lær Turtle</h1><p>15 temaer · 60 oppgaver · Fra første strek til ditt første spill</p><div class="progress"><label id="status" for="progress">0 av 60 oppgaver fullført</label><progress id="progress" max="60" value="0"></progress></div></header><div class="layout"><nav><h3>Innhold</h3><a href="#tema1">1. Kom i gang</a><a href="#tema2">2. Farger og penn</a><a href="#tema3">3. Løkker og figurer</a><a href="#tema4">4. Koordinater</a><a href="#tema5">5. Variabler</a><a href="#tema6">6. Funksjoner</a><a href="#tema7">7. Valg med if</a><a href="#tema8">8. Tilfeldighet</a><a href="#tema9">9. Flere skilpadder</a><a href="#tema10">10. Tastaturstyring</a><a href="#tema11">11. Animasjon</a><a href="#tema12">12. Kanter og sprett</a><a href="#tema13">13. Kollisjoner</a><a href="#tema14">14. Poeng og spilltilstand</a><a href="#tema15">15. Minispill</a></nav><main><div class="intro"><h2>Slik bruker du kurset</h2><p>Åpne Python 3 med Turtle-støtte, for eksempel IDLE eller Thonny på en datamaskin. Kopier et eksempel til en ny Python-fil og kjør det. Prøv deretter oppgavene selv før du åpner hint og løsninger. Kryss av når du er ferdig.</p><p>HTML-siden fungerer uten internett, men kjører ikke Python-koden selv. Fremdrift lagres lokalt i nettleseren dersom den tillater det. Bruk samme nettleser og filplassering for å fortsette.</p><button id="reset">Nullstill fremdrift</button><p id="storage" role="status"></p></div><section id="tema1"><p class="eyebrow">TEMA 01 / 15</p><h2>Kom i gang</h2><p>Turtle er en penn som kan flyttes og dreies.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+t.forward(100)
+t.left(90)
+t.forward(50)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="1"><strong>Oppgave 1: En strek</strong></label><p>Tegn en strek på 150 piksler.</p><details><summary>Hint</summary><p>Se på forward, backward og left i eksemplet.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.forward(150)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="2"><strong>Oppgave 2: En vinkel</strong></label><p>Tegn 100 frem, sving 90 grader og tegn 80.</p><details><summary>Hint</summary><p>Se på forward, backward og left i eksemplet.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.forward(100)
+t.left(90)
+t.forward(80)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="3"><strong>Oppgave 3: Tilbake</strong></label><p>Gå 120 frem og 60 tilbake.</p><details><summary>Hint</summary><p>Se på forward, backward og left i eksemplet.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.forward(120)
+t.backward(60)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="4"><strong>Oppgave 4: Trapp</strong></label><p>Tegn to trappetrinn med lengde 40.</p><details><summary>Hint</summary><p>Se på forward, backward og left i eksemplet.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+for i in range(2):
+    t.forward(40)
+    t.left(90)
+    t.forward(40)
+    t.right(90)
+t.done()</pre></details></article></section><section id="tema2"><p class="eyebrow">TEMA 02 / 15</p><h2>Farger og penn</h2><p>Bruk pencolor, pensize og bgcolor for å endre utseendet.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+t.pencolor(&quot;blue&quot;)
+t.pensize(5)
+t.forward(100)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="5"><strong>Oppgave 5: Rød strek</strong></label><p>Tegn en rød strek på 100.</p><details><summary>Hint</summary><p>Endre pennens egenskaper før du tegner.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.pencolor(&quot;red&quot;)
+t.forward(100)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="6"><strong>Oppgave 6: Tykk strek</strong></label><p>Tegn en grønn strek med tykkelse 8.</p><details><summary>Hint</summary><p>Endre pennens egenskaper før du tegner.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.pencolor(&quot;green&quot;)
+t.pensize(8)
+t.forward(100)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="7"><strong>Oppgave 7: To farger</strong></label><p>Tegn to sammenhengende streker i ulike farger.</p><details><summary>Hint</summary><p>Endre pennens egenskaper før du tegner.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.pencolor(&quot;blue&quot;)
+t.forward(80)
+t.pencolor(&quot;orange&quot;)
+t.forward(80)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="8"><strong>Oppgave 8: Nattehimmel</strong></label><p>Lag mørk bakgrunn og en hvit strek.</p><details><summary>Hint</summary><p>Endre pennens egenskaper før du tegner.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.bgcolor(&quot;navy&quot;)
+t.pencolor(&quot;white&quot;)
+t.forward(120)
+t.done()</pre></details></article></section><section id="tema3"><p class="eyebrow">TEMA 03 / 15</p><h2>Løkker og figurer</h2><p>En for-løkke gjentar kode. Husk innrykk.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+for i in range(4):
+    t.forward(80)
+    t.left(90)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="9"><strong>Oppgave 9: Kvadrat</strong></label><p>Tegn et kvadrat med sider på 100.</p><details><summary>Hint</summary><p>Del 360 på antall sider for en regulær figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+for i in range(4):
+    t.forward(100)
+    t.left(90)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="10"><strong>Oppgave 10: Trekant</strong></label><p>Tegn en likesidet trekant.</p><details><summary>Hint</summary><p>Del 360 på antall sider for en regulær figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+for i in range(3):
+    t.forward(100)
+    t.left(120)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="11"><strong>Oppgave 11: Sekskant</strong></label><p>Tegn en regulær sekskant.</p><details><summary>Hint</summary><p>Del 360 på antall sider for en regulær figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+for i in range(6):
+    t.forward(60)
+    t.left(60)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="12"><strong>Oppgave 12: Stjerne</strong></label><p>Tegn en femtagget stjerne med sving på 144 grader.</p><details><summary>Hint</summary><p>Del 360 på antall sider for en regulær figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+for i in range(5):
+    t.forward(120)
+    t.right(144)
+t.done()</pre></details></article></section><section id="tema4"><p class="eyebrow">TEMA 04 / 15</p><h2>Koordinater</h2><p>Midten er (0, 0). x øker mot høyre og y oppover. penup hindrer streker under flytting.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+t.penup()
+t.goto(-100, 50)
+t.dot(20)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="13"><strong>Oppgave 13: Prikk</strong></label><p>Plasser en prikk ved (100, 80).</p><details><summary>Hint</summary><p>Løft pennen før du bruker goto.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.penup()
+t.goto(100, 80)
+t.dot(20)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="14"><strong>Oppgave 14: To punkter</strong></label><p>Tegn prikker ved (-100, 0) og (100, 0) uten strek.</p><details><summary>Hint</summary><p>Løft pennen før du bruker goto.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.penup()
+for x in [-100, 100]:
+    t.goto(x, 0)
+    t.dot(20)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="15"><strong>Oppgave 15: Akser</strong></label><p>Tegn x- og y-aksen fra -150 til 150.</p><details><summary>Hint</summary><p>Løft pennen før du bruker goto.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+for a,b in [((-150,0),(150,0)),((0,-150),(0,150))]:
+    t.penup()
+    t.goto(a)
+    t.pendown()
+    t.goto(b)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="16"><strong>Oppgave 16: Målområde</strong></label><p>Tegn en sirkel med radius 30 og sentrum (100, 100).</p><details><summary>Hint</summary><p>Løft pennen før du bruker goto.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.penup()
+t.goto(100,70)
+t.setheading(0)
+t.pendown()
+t.circle(30)
+t.done()</pre></details></article></section><section id="tema5"><p class="eyebrow">TEMA 05 / 15</p><h2>Variabler</h2><p>Variabler lagrer verdier som lengde, fart og poeng.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+lengde = 80
+t.forward(lengde)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="17"><strong>Oppgave 17: Lengde</strong></label><p>Bruk en variabel for sidelengden til et kvadrat.</p><details><summary>Hint</summary><p>Gi verdien et navn, og bruk navnet i koden.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+side = 70
+for i in range(4):
+    t.forward(side)
+    t.left(90)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="18"><strong>Oppgave 18: Voksende streker</strong></label><p>Tegn 5 streker som blir 20 lengre for hver gang, med 90 graders sving.</p><details><summary>Hint</summary><p>Gi verdien et navn, og bruk navnet i koden.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+lengde = 20
+for i in range(5):
+    t.forward(lengde)
+    t.left(90)
+    lengde += 20
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="19"><strong>Oppgave 19: Fart</strong></label><p>Lagre fart i en variabel og flytt tre ganger.</p><details><summary>Hint</summary><p>Gi verdien et navn, og bruk navnet i koden.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+fart = 30
+for i in range(3):
+    t.forward(fart)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="20"><strong>Oppgave 20: Poeng</strong></label><p>Start med 0 poeng, legg til 10 og vis poeng på skjermen.</p><details><summary>Hint</summary><p>Gi verdien et navn, og bruk navnet i koden.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+poeng = 0
+poeng += 10
+t.write(f&quot;Poeng: {poeng}&quot;, font=(&quot;Arial&quot;, 18, &quot;normal&quot;))
+t.done()</pre></details></article></section><section id="tema6"><p class="eyebrow">TEMA 06 / 15</p><h2>Funksjoner</h2><p>En funksjon samler kode som kan brukes flere ganger.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+def firkant(side):
+    for i in range(4):
+        t.forward(side)
+        t.left(90)
+firkant(60)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="21"><strong>Oppgave 21: Trekantfunksjon</strong></label><p>Lag og kall en funksjon som tegner en trekant.</p><details><summary>Hint</summary><p>Bruk def, innrykk og et funksjonskall.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+def trekant():
+    for i in range(3):
+        t.forward(80)
+        t.left(120)
+trekant()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="22"><strong>Oppgave 22: Parameter</strong></label><p>Lag en funksjon som tegner en sirkel med valgfri radius.</p><details><summary>Hint</summary><p>Bruk def, innrykk og et funksjonskall.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+def sirkel(r):
+    t.circle(r)
+sirkel(40)
+sirkel(70)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="23"><strong>Oppgave 23: Flytt uten strek</strong></label><p>Lag en funksjon som flytter til x og y uten strek.</p><details><summary>Hint</summary><p>Bruk def, innrykk og et funksjonskall.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+def flytt(x,y):
+    t.penup()
+    t.goto(x,y)
+    t.pendown()
+flytt(80,80)
+t.dot(20)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="24"><strong>Oppgave 24: Hus</strong></label><p>Lag en husfunksjon med kvadrat og trekanttak.</p><details><summary>Hint</summary><p>Bruk def, innrykk og et funksjonskall.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+def hus(s):
+    for i in range(4):
+        t.forward(s)
+        t.left(90)
+    t.left(90)
+    t.forward(s)
+    t.right(60)
+    t.forward(s)
+    t.right(120)
+    t.forward(s)
+hus(80)
+t.done()</pre></details></article></section><section id="tema7"><p class="eyebrow">TEMA 07 / 15</p><h2>Valg med if</h2><p>if kjører kode bare når en betingelse er sann.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+poeng = 10
+if poeng &gt;= 10:
+    t.write(&quot;Bra!&quot;)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="25"><strong>Oppgave 25: Grense</strong></label><p>Skriv «Stopp» dersom x er over 100.</p><details><summary>Hint</summary><p>Skriv betingelsen etter if og husk kolon.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.goto(120,0)
+if t.xcor() &gt; 100:
+    t.write(&quot;Stopp&quot;)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="26"><strong>Oppgave 26: Fargevalg</strong></label><p>Velg grønn ved minst 10 poeng, ellers rød.</p><details><summary>Hint</summary><p>Skriv betingelsen etter if og husk kolon.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+poeng = 12
+if poeng &gt;= 10:
+    t.pencolor(&quot;green&quot;)
+else:
+    t.pencolor(&quot;red&quot;)
+t.forward(80)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="27"><strong>Oppgave 27: Liv</strong></label><p>Vis Game over hvis liv er 0.</p><details><summary>Hint</summary><p>Skriv betingelsen etter if og husk kolon.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+liv = 0
+if liv &lt;= 0:
+    t.write(&quot;Game over&quot;)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="28"><strong>Oppgave 28: Innenfor</strong></label><p>Tegn en prikk bare hvis x er mellom -100 og 100.</p><details><summary>Hint</summary><p>Skriv betingelsen etter if og husk kolon.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+x = 50
+if -100 &lt;= x &lt;= 100:
+    t.penup()
+    t.goto(x,0)
+    t.dot(20)
+t.done()</pre></details></article></section><section id="tema8"><p class="eyebrow">TEMA 08 / 15</p><h2>Tilfeldighet</h2><p>random.randint trekker et tilfeldig heltall, inkludert begge grenser.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+import random
+t.forward(random.randint(20,100))
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="29"><strong>Oppgave 29: Tilfeldig lengde</strong></label><p>Tegn en strek med tilfeldig lengde mellom 30 og 120.</p><details><summary>Hint</summary><p>Importer random og velg randint eller choice.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+t.forward(random.randint(30,120))
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="30"><strong>Oppgave 30: Tilfeldig farge</strong></label><p>Velg en av tre farger tilfeldig.</p><details><summary>Hint</summary><p>Importer random og velg randint eller choice.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+t.pencolor(random.choice([&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;]))
+t.forward(100)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="31"><strong>Oppgave 31: Stjernefelt</strong></label><p>Plasser 20 prikker på tilfeldige koordinater.</p><details><summary>Hint</summary><p>Importer random og velg randint eller choice.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+t.penup()
+for i in range(20):
+    t.goto(random.randint(-200,200),random.randint(-150,150))
+    t.dot(8)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="32"><strong>Oppgave 32: Terning</strong></label><p>Trekk et tall fra 1 til 6 og vis det.</p><details><summary>Hint</summary><p>Importer random og velg randint eller choice.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+t.write(random.randint(1,6),font=(&quot;Arial&quot;,24,&quot;normal&quot;))
+t.done()</pre></details></article></section><section id="tema9"><p class="eyebrow">TEMA 09 / 15</p><h2>Flere skilpadder</h2><p>t.Turtle() lager et eget objekt med egen posisjon og farge.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+spiller = t.Turtle()
+spiller.shape(&quot;turtle&quot;)
+spiller.color(&quot;blue&quot;)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="33"><strong>Oppgave 33: To figurer</strong></label><p>Lag en rød og en blå skilpadde.</p><details><summary>Hint</summary><p>Bruk egne variabelnavn for hver figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+a = t.Turtle()
+b = t.Turtle()
+a.color(&quot;red&quot;)
+b.color(&quot;blue&quot;)
+b.penup()
+b.goto(80,0)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="34"><strong>Oppgave 34: Spiller og mål</strong></label><p>Lag en spiller og et grønt mål ved (100,100).</p><details><summary>Hint</summary><p>Bruk egne variabelnavn for hver figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+spiller = t.Turtle()
+maal = t.Turtle()
+maal.shape(&quot;circle&quot;)
+maal.color(&quot;green&quot;)
+maal.penup()
+maal.goto(100,100)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="35"><strong>Oppgave 35: Kappløp</strong></label><p>Flytt to figurer med forskjellig fart.</p><details><summary>Hint</summary><p>Bruk egne variabelnavn for hver figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+a = t.Turtle()
+b = t.Turtle()
+b.penup()
+b.goto(0,-40)
+for i in range(5):
+    a.forward(15)
+    b.forward(20)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="36"><strong>Oppgave 36: Skjul skriver</strong></label><p>Bruk en usynlig skilpadde til å skrive poeng.</p><details><summary>Hint</summary><p>Bruk egne variabelnavn for hver figur.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+skriver = t.Turtle()
+skriver.hideturtle()
+skriver.penup()
+skriver.goto(-150,120)
+skriver.write(&quot;Poeng: 0&quot;)
+t.done()</pre></details></article></section><section id="tema10"><p class="eyebrow">TEMA 10 / 15</p><h2>Tastaturstyring</h2><p>onkey kobler en tast til en funksjon. listen aktiverer tastaturet.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+s = t.Screen()
+def hoyre():
+    t.setheading(0)
+    t.forward(20)
+s.onkey(hoyre,&quot;Right&quot;)
+s.listen()
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="37"><strong>Oppgave 37: Høyre</strong></label><p>Flytt 20 mot høyre med høyrepil.</p><details><summary>Hint</summary><p>Koble en funksjon til en tast med onkey.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+def flytt():
+    t.setx(t.xcor()+20)
+s.onkey(flytt,&quot;Right&quot;)
+s.listen()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="38"><strong>Oppgave 38: Venstre og høyre</strong></label><p>Koble begge vannrette piltaster til bevegelse.</p><details><summary>Hint</summary><p>Koble en funksjon til en tast med onkey.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+s.onkey(lambda: t.setx(t.xcor()+20),&quot;Right&quot;)
+s.onkey(lambda: t.setx(t.xcor()-20),&quot;Left&quot;)
+s.listen()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="39"><strong>Oppgave 39: Fire retninger</strong></label><p>Styr en figur med alle fire piltaster uten å tegne.</p><details><summary>Hint</summary><p>Koble en funksjon til en tast med onkey.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.penup()
+for tast,dx,dy in [(&quot;Right&quot;,20,0),(&quot;Left&quot;,-20,0),(&quot;Up&quot;,0,20),(&quot;Down&quot;,0,-20)]:
+    s.onkey(lambda dx=dx,dy=dy: t.goto(t.xcor()+dx,t.ycor()+dy),tast)
+s.listen()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="40"><strong>Oppgave 40: Hjem</strong></label><p>La mellomrom sende figuren tilbake til midten.</p><details><summary>Hint</summary><p>Koble en funksjon til en tast med onkey.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.penup()
+t.goto(100,100)
+s.onkey(lambda: t.goto(0,0),&quot;space&quot;)
+s.listen()
+t.done()</pre></details></article></section><section id="tema11"><p class="eyebrow">TEMA 11 / 15</p><h2>Animasjon</h2><p>ontimer planlegger neste oppdatering uten en blokkerende evig løkke.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+s = t.Screen()
+def steg():
+    t.forward(5)
+    s.ontimer(steg,50)
+steg()
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="41"><strong>Oppgave 41: Bevegelse</strong></label><p>Flytt automatisk 3 piksler hvert 50. millisekund.</p><details><summary>Hint</summary><p>La funksjonen planlegge neste kall med ontimer.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.penup()
+def steg():
+    t.forward(3)
+    if t.xcor() &lt; 200:
+        s.ontimer(steg,50)
+steg()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="42"><strong>Oppgave 42: Rotasjon</strong></label><p>Roter figuren 10 grader hvert 100. millisekund.</p><details><summary>Hint</summary><p>La funksjonen planlegge neste kall med ontimer.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.shape(&quot;turtle&quot;)
+def steg():
+    t.left(10)
+    s.ontimer(steg,100)
+steg()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="43"><strong>Oppgave 43: Jevn tegning</strong></label><p>Bruk tracer(0) og update til å animere en figur.</p><details><summary>Hint</summary><p>La funksjonen planlegge neste kall med ontimer.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+s.tracer(0)
+t.penup()
+def steg():
+    t.forward(4)
+    t.left(3)
+    s.update()
+    s.ontimer(steg,30)
+steg()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="44"><strong>Oppgave 44: Stoppknapp</strong></label><p>La mellomrom stoppe en automatisk bevegelse.</p><details><summary>Hint</summary><p>La funksjonen planlegge neste kall med ontimer.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.penup()
+kjorer = True
+def stopp():
+    global kjorer
+    kjorer = False
+def steg():
+    if kjorer:
+        t.forward(3)
+        s.ontimer(steg,40)
+s.onkey(stopp,&quot;space&quot;)
+s.listen()
+steg()
+t.done()</pre></details></article></section><section id="tema12"><p class="eyebrow">TEMA 12 / 15</p><h2>Kanter og sprett</h2><p>Sjekk koordinatene før eller etter bevegelse for å holde figuren i banen.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+if t.xcor() &gt; 200:
+    t.setx(200)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="45"><strong>Oppgave 45: Begrens x</strong></label><p>Hindre x i å bli større enn 150.</p><details><summary>Hint</summary><p>Sammenlign koordinaten med grensen.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.penup()
+t.goto(180,0)
+t.setx(min(t.xcor(),150))
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="46"><strong>Oppgave 46: Sprett</strong></label><p>La en figur sprette mellom x = -150 og 150.</p><details><summary>Hint</summary><p>Sammenlign koordinaten med grensen.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.penup()
+dx = 5
+def steg():
+    global dx
+    t.setx(t.xcor()+dx)
+    if abs(t.xcor()) &gt;= 150:
+        dx = -dx
+    s.ontimer(steg,30)
+steg()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="47"><strong>Oppgave 47: Fra kant til kant</strong></label><p>Flytt figuren til venstre når den når høyre kant.</p><details><summary>Hint</summary><p>Sammenlign koordinaten med grensen.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.penup()
+def steg():
+    t.setx(t.xcor()+5)
+    if t.xcor() &gt; 180:
+        t.setx(-180)
+    s.ontimer(steg,30)
+steg()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="48"><strong>Oppgave 48: Spillefelt</strong></label><p>Tegn en ramme fra (-180,-130) til (180,130).</p><details><summary>Hint</summary><p>Sammenlign koordinaten med grensen.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.penup()
+t.goto(-180,-130)
+t.pendown()
+for p in [(180,-130),(180,130),(-180,130),(-180,-130)]:
+    t.goto(p)
+t.done()</pre></details></article></section><section id="tema13"><p class="eyebrow">TEMA 13 / 15</p><h2>Kollisjoner</h2><p>distance måler avstanden mellom figurer. Små avstander kan bety treff.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+maal = t.Turtle()
+maal.penup()
+maal.goto(15,0)
+if t.distance(maal) &lt; 25:
+    t.write(&quot;Treff!&quot;)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="49"><strong>Oppgave 49: Avstand</strong></label><p>Vis avstanden fra midten til (30,40).</p><details><summary>Hint</summary><p>Bruk distance og en passende treffgrense.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.write(t.distance(30,40))
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="50"><strong>Oppgave 50: Treff</strong></label><p>Lag to figurer og sjekk om avstanden er mindre enn 25.</p><details><summary>Hint</summary><p>Bruk distance og en passende treffgrense.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+a = t.Turtle()
+b = t.Turtle()
+b.penup()
+b.goto(20,0)
+if a.distance(b) &lt; 25:
+    a.write(&quot;Treff!&quot;)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="51"><strong>Oppgave 51: Nytt mål</strong></label><p>Flytt et mål tilfeldig etter treff.</p><details><summary>Hint</summary><p>Bruk distance og en passende treffgrense.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+maal = t.Turtle()
+maal.penup()
+if t.distance(maal) &lt; 25:
+    maal.goto(random.randint(-150,150),random.randint(-100,100))
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="52"><strong>Oppgave 52: Miste liv</strong></label><p>Trekk ett liv fra ved en kollisjon.</p><details><summary>Hint</summary><p>Bruk distance og en passende treffgrense.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+liv = 3
+fiende = t.Turtle()
+if t.distance(fiende) &lt; 20:
+    liv -= 1
+t.write(f&quot;Liv: {liv}&quot;)
+t.done()</pre></details></article></section><section id="tema14"><p class="eyebrow">TEMA 14 / 15</p><h2>Poeng og spilltilstand</h2><p>Spill trenger variabler for poeng og liv, og en funksjon som oppdaterer visningen.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+poeng = 0
+skriver = t.Turtle()
+skriver.hideturtle()
+skriver.write(f&quot;Poeng: {poeng}&quot;)
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="53"><strong>Oppgave 53: Oppdater poeng</strong></label><p>Skriv poeng, øk med 1, og erstatt gammel tekst.</p><details><summary>Hint</summary><p>Bruk clear før du skriver nye poeng.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+t.hideturtle()
+poeng = 0
+t.write(poeng)
+poeng += 1
+t.clear()
+t.write(poeng)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="54"><strong>Oppgave 54: Poengknapp</strong></label><p>Øk poeng hver gang mellomrom trykkes.</p><details><summary>Hint</summary><p>Bruk clear før du skriver nye poeng.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+s = t.Screen()
+t.hideturtle()
+poeng = 0
+def pluss():
+    global poeng
+    poeng += 1
+    t.clear()
+    t.write(poeng)
+s.onkey(pluss,&quot;space&quot;)
+s.listen()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="55"><strong>Oppgave 55: Seier</strong></label><p>Vis seier når poeng når 5.</p><details><summary>Hint</summary><p>Bruk clear før du skriver nye poeng.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+poeng = 5
+if poeng &gt;= 5:
+    t.write(&quot;Du vant!&quot;)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="56"><strong>Oppgave 56: Nullstill</strong></label><p>Lag en funksjon som nullstiller poeng og liv.</p><details><summary>Hint</summary><p>Bruk clear før du skriver nye poeng.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+poeng, liv = 10, 1
+def restart():
+    global poeng,liv
+    poeng,liv = 0,3
+restart()
+t.write(f&quot;{poeng} poeng, {liv} liv&quot;)
+t.done()</pre></details></article></section><section id="tema15"><p class="eyebrow">TEMA 15 / 15</p><h2>Minispill</h2><p>Kombiner styring, mål, kollisjoner og poeng. Bygg og test én del om gangen.</p><h3>Prøv eksemplet</h3><pre>import turtle as t
+s = t.Screen()
+t.shape(&quot;turtle&quot;)
+t.penup()
+s.onkey(lambda: t.forward(20),&quot;Right&quot;)
+s.listen()
+t.done()</pre><article><label class="task"><input type="checkbox" data-id="57"><strong>Oppgave 57: Klikk på målet</strong></label><p>Lag et mål som flytter seg når du klikker på det.</p><details><summary>Hint</summary><p>Start med én mekanikk og test før du legger til neste.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+t.shape(&quot;circle&quot;)
+t.penup()
+def treff(x,y):
+    t.goto(random.randint(-150,150),random.randint(-100,100))
+t.onclick(treff)
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="58"><strong>Oppgave 58: Samle prikker</strong></label><p>Styr en spiller, samle et mål og flytt målet ved treff.</p><details><summary>Hint</summary><p>Start med én mekanikk og test før du legger til neste.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+s = t.Screen()
+t.penup()
+t.shape(&quot;turtle&quot;)
+m = t.Turtle(&quot;circle&quot;)
+m.penup()
+m.goto(80,0)
+def flytt(dx,dy):
+    t.goto(t.xcor()+dx,t.ycor()+dy)
+    if t.distance(m)&lt;25:
+        m.goto(random.randint(-150,150),random.randint(-100,100))
+for k,dx,dy in [(&quot;Right&quot;,20,0),(&quot;Left&quot;,-20,0),(&quot;Up&quot;,0,20),(&quot;Down&quot;,0,-20)]:
+    s.onkey(lambda dx=dx,dy=dy: flytt(dx,dy),k)
+s.listen()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="59"><strong>Oppgave 59: Unngå fienden</strong></label><p>Styr spilleren vannrett og unngå en fallende fiende.</p><details><summary>Hint</summary><p>Start med én mekanikk og test før du legger til neste.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+s = t.Screen()
+t.penup()
+t.goto(0,-120)
+f = t.Turtle(&quot;circle&quot;)
+f.penup()
+f.goto(0,130)
+s.onkey(lambda: t.setx(max(-180,t.xcor()-20)),&quot;Left&quot;)
+s.onkey(lambda: t.setx(min(180,t.xcor()+20)),&quot;Right&quot;)
+s.listen()
+def steg():
+    f.sety(f.ycor()-5)
+    if f.distance(t)&lt;25:
+        t.write(&quot;Game over&quot;)
+        return
+    if f.ycor() &lt; -150:
+        f.goto(random.randint(-180,180),130)
+    s.ontimer(steg,40)
+steg()
+t.done()</pre></details></article><article><label class="task"><input type="checkbox" data-id="60"><strong>Oppgave 60: Ditt første spill</strong></label><p>Lag et klikkespill med poeng og seier ved 5 treff.</p><details><summary>Hint</summary><p>Start med én mekanikk og test før du legger til neste.</p></details><details><summary>Løsningsforslag</summary><pre>import turtle as t
+import random
+t.shape(&quot;circle&quot;)
+t.penup()
+skriver = t.Turtle(visible=False)
+skriver.penup()
+skriver.goto(-180,150)
+poeng = 0
+def treff(x,y):
+    global poeng
+    poeng += 1
+    skriver.clear()
+    skriver.write(f&quot;Poeng: {poeng}&quot;)
+    if poeng &gt;= 5:
+        t.hideturtle()
+        skriver.goto(0,0)
+        skriver.write(&quot;Du vant!&quot;)
+    else:
+        t.goto(random.randint(-150,150),random.randint(-100,100))
+t.onclick(treff)
+t.done()</pre></details></article></section></main></div><footer>Pythonverkstedet · Lær ved å prøve, endre og teste.</footer><script>const key="laer-turtle-60-v1";const checks=[...document.querySelectorAll('input[data-id]')];let saved=[];try{saved=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(saved))saved=[]}catch(e){document.getElementById('storage').textContent='Lokal lagring er ikke tilgjengelig.'}checks.forEach(c=>c.checked=saved.includes(c.dataset.id));function update(){let ids=checks.filter(c=>c.checked).map(c=>c.dataset.id);document.getElementById('progress').value=ids.length;document.getElementById('status').textContent=ids.length+' av 60 oppgaver fullført ('+Math.round(ids.length/60*100)+' %)';try{localStorage.setItem(key,JSON.stringify(ids))}catch(e){document.getElementById('storage').textContent='Fremdriften kan ikke lagres i denne nettleseren.'}}checks.forEach(c=>c.addEventListener('change',update));document.getElementById('reset').onclick=()=>{if(confirm('Vil du nullstille alle avkrysninger?')){checks.forEach(c=>c.checked=false);update()}};document.querySelectorAll('pre').forEach(p=>{let b=document.createElement('button');b.textContent='Kopier kode';b.onclick=async()=>{try{await navigator.clipboard.writeText(p.textContent);b.textContent='Kopiert!'}catch(e){let r=document.createRange();r.selectNodeContents(p);let s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Markert – kopier med Ctrl+C / Cmd+C'}};p.before(b)});update();</script></body></html>
