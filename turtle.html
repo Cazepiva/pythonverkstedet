@@ -669,6 +669,13 @@ goto(xcor() + 40, ycor())</code></pre></details>
 <h3>1. Definer og kall</h3>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> def strek(): lager en funksjon. strek() kaller den.</p>
+<p>Tenk på en funksjon som en oppskrift. <code>def</code> gir oppskriften et navn. Kolonet markerer starten, og linjene med fire mellomrom tilhører funksjonen. Ingenting tegnes før du kaller funksjonen med navnet og parenteser.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def tegn():
+    forward(40)
+
+tegn()</code></pre>
+<p><strong>Dette skjer:</strong> Du får en strek på 40 steg. Prøv å endre lengden og navnet før du lager din egen funksjon.</p>
 <p><strong>Prøv selv:</strong> Lag en funksjon som tegner 70 steg og kall den.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def strek():</code>. def strek(): lager en funksjon. strek() kaller den.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Kall den to ganger.</p></details>
@@ -680,6 +687,15 @@ strek()</code></pre></details>
 <h3>2. Firkantfunksjon</h3>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> Legg en løkke inne i funksjonen med riktig innrykk.</p>
+<p>En funksjon kan inneholde en løkke. Linjen med <code>for</code> har fire mellomrom, og kommandoene i løkken har åtte. Funksjonskallet står helt til venstre, utenfor både funksjonen og løkken.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def trekant():
+    for i in range(3):
+        forward(50)
+        left(120)
+
+trekant()</code></pre>
+<p><strong>Dette skjer:</strong> En trekant tegnes. For en firkant må du endre antall sider og vinkelen.</p>
 <p><strong>Prøv selv:</strong> Lag funksjonen firkant() og kall den.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def firkant():</code>. Legg en løkke inne i funksjonen med riktig innrykk.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Kall den etter en sving.</p></details>
@@ -693,6 +709,15 @@ firkant()</code></pre></details>
 <h3>3. Parameter</h3>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> def strek(lengde): lar deg velge lengden ved kall.</p>
+<p>En parameter er en variabel som får en verdi når du kaller funksjonen. I <code>def sving(vinkel):</code> heter parameteren vinkel. Når du skriver <code>sving(90)</code>, blir vinkel 90 inne i funksjonen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def sving(vinkel):
+    left(vinkel)
+    forward(40)
+
+sving(90)
+sving(45)</code></pre>
+<p><strong>Dette skjer:</strong> Skilpadden snur først 90 grader, deretter 45. Bruk samme idé med en parameter for lengde i stedet.</p>
 <p><strong>Prøv selv:</strong> Lag en funksjon som tegner en strek med valgt lengde. Kall den med 80 og 40.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def strek(lengde):</code>. def strek(lengde): lar deg velge lengden ved kall.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv en tredje lengde.</p></details>
@@ -706,6 +731,19 @@ strek(40)</code></pre></details>
 <h3>4. Gjenbruk</h3>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> En parameter kan brukes i en løkke inne i funksjonen.</p>
+<p>Gjenbruk betyr at du skriver tegnekoden én gang og kaller den med ulike verdier. Du kan flytte skilpadden mellom kallene uten å endre funksjonen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def trekant(side):
+    for i in range(3):
+        forward(side)
+        left(120)
+
+trekant(30)
+penup()
+goto(80, 0)
+pendown()
+trekant(60)</code></pre>
+<p><strong>Dette skjer:</strong> To trekanter med ulik størrelse tegnes. Bygg videre på firkantfunksjonen fra forrige oppgave.</p>
 <p><strong>Prøv selv:</strong> Tegn to firkanter av ulik størrelse med samme funksjon.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def firkant(side):</code>. En parameter kan brukes i en løkke inne i funksjonen.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til en tredje figur.</p></details>
@@ -723,6 +761,12 @@ firkant(90)</code></pre></details>
 <h3>1. Hvis</h3>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> if lengde &gt; 50: kjører koden bare hvis lengden er større enn 50.</p>
+<p>Et vilkår er et spørsmål som kan besvares med sant eller usant. <code>if</code> betyr «hvis». Sammenligningen <code>&gt;</code> betyr større enn. Bare linjene med innrykk kjøres når vilkåret stemmer.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>liv = 3
+if liv &gt; 0:
+    forward(40)</code></pre>
+<p><strong>Dette skjer:</strong> Skilpadden går 40 steg. Endre liv til 0 og kjør igjen: nå tegnes ingenting.</p>
 <p><strong>Prøv selv:</strong> Tegn 80 steg dersom lengde er over 50.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>lengde = 80</code>. if lengde &gt; 50: kjører koden bare hvis lengden er større enn 50.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Test lengde = 30.</p></details>
@@ -734,6 +778,15 @@ if lengde &gt; 50:
 <h3>2. Hvis eller ellers</h3>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> else: kjøres når if-vilkåret er usant.</p>
+<p>Med <code>if</code> og <code>else</code> får du to muligheter. Hvis vilkåret er sant, kjøres den første blokken; ellers kjøres den andre. Koden etter blokkene kjøres uansett.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>liv = 2
+if liv &gt; 0:
+    pencolor(&quot;blue&quot;)
+else:
+    pencolor(&quot;orange&quot;)
+forward(60)</code></pre>
+<p><strong>Dette skjer:</strong> Streken blir blå. Sett liv til 0 for å se den andre fargen. Bruk samme struktur med poeng.</p>
 <p><strong>Prøv selv:</strong> Velg grønn farge ved poeng over 5, ellers rød. Tegn en strek.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>poeng = 7</code>. else: kjøres når if-vilkåret er usant.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Test poeng = 3.</p></details>
@@ -748,6 +801,17 @@ forward(100)</code></pre></details>
 <h3>3. Tre valg</h3>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> elif sjekker et nytt vilkår hvis det første ikke stemmer.</p>
+<p><code>elif</code> betyr «ellers hvis». Python sjekker vilkårene ovenfra og velger den første som stemmer. <code>&gt;=</code> betyr større enn eller lik. Sett den høyeste grensen først når du sammenligner nivåer.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>fart = 25
+if fart &gt;= 40:
+    pencolor(&quot;red&quot;)
+elif fart &gt;= 20:
+    pencolor(&quot;blue&quot;)
+else:
+    pencolor(&quot;green&quot;)
+forward(60)</code></pre>
+<p><strong>Dette skjer:</strong> Streken blir blå. Test fart 10 og 50 for å se de andre valgene.</p>
 <p><strong>Prøv selv:</strong> Velg grønn ved 10 poeng, gul ved minst 5, ellers rød.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>poeng = 6</code>. elif sjekker et nytt vilkår hvis det første ikke stemmer.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Test alle tre farger.</p></details>
@@ -764,6 +828,15 @@ forward(100)</code></pre></details>
 <h3>4. Annenhver farge</h3>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> i % 2 er resten etter deling på 2. == sammenligner verdier.</p>
+<p><code>%</code> gir resten etter en deling. Partall gir rest 0 ved deling på 2, oddetall gir rest 1. <code>==</code> spør om to verdier er like, mens <code>=</code> lagrer en verdi. I en løkke starter i på 0.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>for i in range(4):
+    if i % 2 == 0:
+        pensize(6)
+    else:
+        pensize(2)
+    forward(25)</code></pre>
+<p><strong>Dette skjer:</strong> Du får vekselvis tykke og tynne streker. Bytt ut strektykkelse med farge i oppgaven.</p>
 <p><strong>Prøv selv:</strong> Tegn seks streker med vekslende rød og blå farge.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>for i in range(6):</code>. i % 2 er resten etter deling på 2. == sammenligner verdier.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv svinger mellom strekene.</p></details>
@@ -778,6 +851,13 @@ forward(100)</code></pre></details>
 <h3>1. Tilfeldig lengde</h3>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> random.randint(20, 100) velger et heltall mellom 20 og 100.</p>
+<p><code>import random</code> gjør tilfeldige valg tilgjengelige. <code>random.randint(a, b)</code> velger et heltall fra a til b, inkludert begge grensene. Du kan lagre tallet i en variabel og bruke det i en kommando.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import random
+vinkel = random.randint(30, 90)
+left(vinkel)
+forward(70)</code></pre>
+<p><strong>Dette skjer:</strong> Retningen kan bli forskjellig hver gang du kjører. Bruk et tilfeldig tall som lengde i oppgaven.</p>
 <p><strong>Prøv selv:</strong> Tegn en strek med tilfeldig lengde.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import random</code>. random.randint(20, 100) velger et heltall mellom 20 og 100.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Kjør flere ganger.</p></details>
@@ -789,6 +869,14 @@ forward(lengde)</code></pre></details>
 <h3>2. Tilfeldig farge</h3>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> random.choice([&quot;red&quot;, &quot;blue&quot;]) velger fra en liste.</p>
+<p>En liste samler flere verdier mellom hakeparenteser, med komma mellom. <code>random.choice()</code> velger én verdi fra listen. Tekstverdier som farger trenger anførselstegn.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import random
+farger = [&quot;purple&quot;, &quot;orange&quot;]
+valg = random.choice(farger)
+bgcolor(valg)
+forward(50)</code></pre>
+<p><strong>Dette skjer:</strong> Bakgrunnen blir lilla eller oransje. Bruk den valgte fargen på pennen i oppgaven.</p>
 <p><strong>Prøv selv:</strong> Tegn en strek med en tilfeldig farge.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import random</code>. random.choice([&quot;red&quot;, &quot;blue&quot;]) velger fra en liste.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til flere farger.</p></details>
@@ -801,6 +889,14 @@ forward(100)</code></pre></details>
 <h3>3. Tilfeldige steg</h3>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> Et tilfeldig tall inne i løkken velges på nytt hver runde.</p>
+<p>Når et tilfeldig valg står inne i løkken, trekkes et nytt tall for hver runde. Står valget før løkken, brukes det samme tallet om igjen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import random
+for i in range(4):
+    vinkel = random.randint(30, 120)
+    forward(40)
+    right(vinkel)</code></pre>
+<p><strong>Dette skjer:</strong> Fire like lange streker får tilfeldige svinger. Bytt til tilfeldig lengde og fast vinkel i oppgaven.</p>
 <p><strong>Prøv selv:</strong> Tegn seks streker med tilfeldig lengde og 90 graders sving.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import random</code>. Et tilfeldig tall inne i løkken velges på nytt hver runde.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Velg tilfeldig vinkel også.</p></details>
@@ -813,6 +909,16 @@ for i in range(6):
 <h3>4. Tilfeldige steder</h3>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> Velg tilfeldige x- og y-verdier.</p>
+<p><code>goto(x, y)</code> kan bruke variabler i stedet for faste tall. Velg x og y hver for seg. Løft pennen før flytting slik at du unngår streker mellom tilfeldige steder.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import random
+x = random.randint(-100, 100)
+y = random.randint(-80, 80)
+penup()
+goto(x, y)
+pendown()
+forward(20)</code></pre>
+<p><strong>Dette skjer:</strong> En kort strek dukker opp på et tilfeldig sted. Legg hele flyttingen og tegningen i en løkke for å lage flere.</p>
 <p><strong>Prøv selv:</strong> Tegn fem korte streker på tilfeldige steder.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import random</code>. Velg tilfeldige x- og y-verdier.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Velg tilfeldig farge.</p></details>
@@ -827,6 +933,13 @@ for i in range(5):
 <h3>1. Tell til fem</h3>
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> Start med teller = 0 og øk med teller += 1.</p>
+<p>En <code>for</code>-løkke passer når du vet hvor mange ganger du skal gjenta. <code>while</code> betyr «så lenge» og sjekker vilkåret før hver runde. En teller må endres inne i løkken, ellers kan den fortsette uten å bli ferdig.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>teller = 0
+while teller &lt; 3:
+    forward(30)
+    teller += 1</code></pre>
+<p><strong>Dette skjer:</strong> Teller går fra 0 til 3, og skilpadden flytter seg 90 steg. <code>+= 1</code> betyr å legge til én.</p>
 <p><strong>Prøv selv:</strong> Gå 20 steg fem ganger med while.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>teller = 0</code>. Start med teller = 0 og øk med teller += 1.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv åtte runder.</p></details>
@@ -839,6 +952,11 @@ while teller &lt; 5:
 <h3>2. Nå et mål</h3>
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> xcor() kan brukes i et vilkår.</p>
+<p>Du trenger ikke alltid en egen teller. <code>xcor()</code> gir den nåværende x-posisjonen. Etter hvert steg sjekkes posisjonen på nytt. Når vilkåret ikke lenger stemmer, er løkken ferdig.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>while xcor() &lt; 60:
+    forward(15)</code></pre>
+<p><strong>Dette skjer:</strong> Fra midten går skilpadden fire steg på 15. Slå på koordinatsystemet og se hvor den stopper.</p>
 <p><strong>Prøv selv:</strong> Gå 20 steg om gangen til x er minst 100.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>while xcor() &lt; 100:</code>. xcor() kan brukes i et vilkår.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Endre målet til 180.</p></details>
@@ -849,6 +967,14 @@ while teller &lt; 5:
 <h3>3. Nedtelling</h3>
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> En teller kan også reduseres med -=.</p>
+<p>Med <code>-= 1</code> trekker du én fra variabelen. Begynn på et positivt tall og bruk et vilkår som sjekker om telleren fremdeles er større enn null.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>teller = 3
+while teller &gt; 0:
+    forward(30)
+    left(120)
+    teller -= 1</code></pre>
+<p><strong>Dette skjer:</strong> Tre runder gir en trekant. Tell ned fra fire og endre vinkelen for å løse oppgaven.</p>
 <p><strong>Prøv selv:</strong> Tegn fire streker, med 90 graders sving mellom. Tell ned fra 4.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>teller = 4</code>. En teller kan også reduseres med -=.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv en trekant.</p></details>
@@ -862,6 +988,13 @@ while teller &gt; 0:
 <h3>4. Tilfeldig løp</h3>
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> Kombiner while med tilfeldige positive steg.</p>
+<p>I et løp vet vi ikke på forhånd hvor mange runder som trengs. Derfor kan vi bruke while til skilpadden når en bestemt x-posisjon. Velg positive tilfeldige steg slik at den stadig nærmer seg målet.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import random
+while xcor() &lt; 80:
+    steg = random.randint(10, 20)
+    forward(steg)</code></pre>
+<p><strong>Dette skjer:</strong> Skilpadden stopper ved eller like etter x = 80. Endre mål og stegintervall til din egen løype.</p>
 <p><strong>Prøv selv:</strong> Flytt mot målstreken ved x = 150.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import random</code>. Kombiner while med tilfeldige positive steg.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv lengre løp.</p></details>
@@ -873,6 +1006,14 @@ while xcor() &lt; 150:
 <h3>1. En ny skilpadde</h3>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> spiller = turtle.Turtle() lager en figur. spiller.forward(80) flytter den.</p>
+<p>Tidligere styrte du standardskilpadden med <code>forward()</code>. Nå lager du en egen figur med <code>turtle.Turtle()</code> og lagrer den i en variabel. Punktumet i <code>figur.forward()</code> betyr at kommandoen gjelder akkurat denne figuren.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+figur = turtle.Turtle()
+figur.forward(50)
+figur.left(90)
+figur.forward(30)</code></pre>
+<p><strong>Dette skjer:</strong> Den nye figuren tegner en rute. Lag din egen figur med navnet spiller.</p>
 <p><strong>Prøv selv:</strong> Lag en spiller og flytt den 100 steg.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. spiller = turtle.Turtle() lager en figur. spiller.forward(80) flytter den.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv spiller.left(90).</p></details>
@@ -884,6 +1025,16 @@ spiller.forward(100)</code></pre></details>
 <h3>2. To figurer</h3>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> Hver figur har sin egen posisjon og retning.</p>
+<p>Hvert kall til <code>turtle.Turtle()</code> lager et nytt objekt. Objektene kan ha ulike navn, posisjoner og retninger. En kommando på den ene flytter ikke den andre.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+a = turtle.Turtle()
+b = turtle.Turtle()
+a.penup()
+b.penup()
+a.goto(0, 50)
+b.goto(0, -50)</code></pre>
+<p><strong>Dette skjer:</strong> Én figur står over midten og én under. Bruk x-koordinatene for å plassere dem side ved side.</p>
 <p><strong>Prøv selv:</strong> Lag to figurer og plasser dem ved (-80,0) og (80,0).</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Hver figur har sin egen posisjon og retning.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Gi dem ulike farger.</p></details>
@@ -899,6 +1050,15 @@ b.goto(80, 0)</code></pre></details>
 <h3>3. Form og farge</h3>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> shape(&quot;circle&quot;) og color(&quot;red&quot;) endrer figuren.</p>
+<p><code>shape()</code> velger utseende på figuren, for eksempel "circle", "square" eller "turtle". <code>color()</code> velger fargen. Bruk navnet på objektet foran punktumet for å endre riktig figur.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+figur = turtle.Turtle()
+figur.shape(&quot;circle&quot;)
+figur.color(&quot;orange&quot;)
+figur.penup()
+figur.goto(60, 30)</code></pre>
+<p><strong>Dette skjer:</strong> En oransje sirkel vises. Lag to objekter og gi dem hver sin form, farge og posisjon.</p>
 <p><strong>Prøv selv:</strong> Lag en blå firkant og en rød sirkel.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. shape(&quot;circle&quot;) og color(&quot;red&quot;) endrer figuren.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv arrow.</p></details>
@@ -918,6 +1078,16 @@ b.goto(80, 0)</code></pre></details>
 <h3>4. Skilpaddeløp</h3>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> Flytt to figurer vekselvis med tilfeldige steg.</p>
+<p>Et løp trenger flere deltakere. Start dem på samme x-posisjon, men med forskjellig y-posisjon. I hver runde får begge flytte seg. Med tilfeldige steg kan hvem som leder, endre seg.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+import random
+a = turtle.Turtle()
+a.penup()
+a.goto(-100, 30)
+for i in range(3):
+    a.forward(random.randint(10, 30))</code></pre>
+<p><strong>Dette skjer:</strong> Én deltaker løper tre runder. Lag deltaker b på en egen bane og flytt begge inne i samme løkke.</p>
 <p><strong>Prøv selv:</strong> Lag to deltakere og la dem løpe fem runder.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Flytt to figurer vekselvis med tilfeldige steg.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Øk antall runder.</p></details>
@@ -939,6 +1109,14 @@ for i in range(5):
 <h3>1. En tast</h3>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> onkey(funksjon, &quot;Right&quot;) kobler en tast til en funksjon. Ikke bruk parentes etter funksjonsnavnet her.</p>
+<p>Et tastetrykk er en hendelse. Først lager du funksjonen som skal kjøres, deretter kobler du den til en tast med <code>onkey()</code>. <code>listen()</code> gjør tastaturstyringen klar. Skriv funksjonsnavnet uten parenteser i onkey, slik at funksjonen ikke kjøres med én gang.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def flytt():
+    forward(30)
+
+listen()
+onkey(flytt, &quot;Right&quot;)</code></pre>
+<p><strong>Dette skjer:</strong> Kjør, klikk på tegnefeltet og trykk høyre piltast. Hvert trykk gir 30 steg. Bruk Stopp når du er ferdig.</p>
 <p><strong>Prøv selv:</strong> Flytt spilleren til høyre med høyre piltast.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def hoyre():</code>. onkey(funksjon, &quot;Right&quot;) kobler en tast til en funksjon. Ikke bruk parentes etter funksjonsnavnet her.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv større steg.</p></details>
@@ -951,6 +1129,18 @@ onkey(hoyre, &quot;Right&quot;)</code></pre></details>
 <h3>2. To taster</h3>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> Lag en funksjon for hver retning.</p>
+<p>Du kan koble flere taster til ulike funksjoner. Lag én funksjon per handling, og registrer hver tast for seg. "Right" og "Left" er navnene på høyre og venstre piltast.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def fram():
+    forward(15)
+
+def snu():
+    left(90)
+
+listen()
+onkey(fram, &quot;Right&quot;)
+onkey(snu, &quot;Left&quot;)</code></pre>
+<p><strong>Dette skjer:</strong> Høyre flytter frem, venstre snur. I oppgaven skal venstre flytte bakover i stedet. Husk å klikke på tegnefeltet.</p>
 <p><strong>Prøv selv:</strong> Bruk høyre og venstre piltast til å flytte.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def hoyre():</code>. Lag en funksjon for hver retning.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Løft pennen.</p></details>
@@ -966,6 +1156,15 @@ onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <h3>3. Opp og ned</h3>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> goto(xcor(), ycor() + 20) flytter opp.</p>
+<p>For å flytte rett opp eller ned kan vi endre y-koordinaten og la x være uendret. <code>ycor() + 20</code> er 20 steg høyere enn nå. Minus flytter nedover. "Up" og "Down" er de to tastene.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>penup()
+def opp():
+    goto(xcor(), ycor() + 30)
+
+listen()
+onkey(opp, &quot;Up&quot;)</code></pre>
+<p><strong>Dette skjer:</strong> Piltast opp flytter figuren uten å tegne. Lag en tilsvarende funksjon for ned, og koble den til "Down".</p>
 <p><strong>Prøv selv:</strong> Styr skilpadden opp og ned med piltaster.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>penup()</code>. goto(xcor(), ycor() + 20) flytter opp.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til høyre og venstre.</p></details>
@@ -982,6 +1181,18 @@ onkey(ned, &quot;Down&quot;)</code></pre></details>
 <h3>4. Styr en spiller</h3>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> En funksjon kan flytte et bestemt Turtle-objekt.</p>
+<p>Når spillet har flere figurer, må bevegelsesfunksjonen styre riktig objekt. Bruk for eksempel <code>spiller.forward()</code> i stedet for <code>forward()</code>. Tastene kan kobles til med <code>turtle.onkey()</code>.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+figur = turtle.Turtle()
+figur.color(&quot;purple&quot;)
+figur.penup()
+def fram():
+    figur.forward(15)
+
+turtle.listen()
+turtle.onkey(fram, &quot;Right&quot;)</code></pre>
+<p><strong>Dette skjer:</strong> Den lilla figuren flytter seg når du trykker høyre. Legg til en annen tast og velg farge selv.</p>
 <p><strong>Prøv selv:</strong> Lag en blå spiller og styr den med høyre og venstre.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. En funksjon kan flytte et bestemt Turtle-objekt.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til opp og ned med spiller.goto().</p></details>
@@ -1001,6 +1212,12 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <h3>1. Mål avstand</h3>
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> distance(100, 0) måler avstanden til punktet (100,0).</p>
+<p>Et spill trenger å oppdage når spilleren er nær et mål. <code>distance(x, y)</code> gir avstanden fra skilpaddens nåværende posisjon til punktet. Sammenlign avstanden med en grense i et if-vilkår.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>goto(40, 0)
+avstand = distance(50, 0)
+print(avstand)</code></pre>
+<p><strong>Dette skjer:</strong> Statusfeltet viser 10. Bruk avstanden i et if-vilkår for å bestemme om du er nær nok.</p>
 <p><strong>Prøv selv:</strong> Flytt til x=80. Tegn grønt hvis avstanden til (100,0) er mindre enn 30.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>goto(80, 0)</code>. distance(100, 0) måler avstanden til punktet (100,0).</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv fra x=20.</p></details>
@@ -1013,6 +1230,15 @@ if distance(100, 0) &lt; 30:
 <h3>2. Treff en figur</h3>
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> spiller.distance(maal) måler avstand mellom to figurer.</p>
+<p>Du kan også måle avstanden mellom to Turtle-objekter. <code>a.distance(b)</code> måler mellom midtpunktene til a og b. En treffgrense, for eksempel 20, bestemmer hvor nær de må være for å telle som kollisjon.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+a = turtle.Turtle()
+b = turtle.Turtle()
+b.penup()
+b.goto(50, 0)
+print(a.distance(b))</code></pre>
+<p><strong>Dette skjer:</strong> Statusfeltet viser 50. Flytt b nærmere a og bruk if til å endre fargen ved treff.</p>
 <p><strong>Prøv selv:</strong> Lag to figurer med avstand 10. Gjør spilleren grønn ved treff innen 20.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. spiller.distance(maal) måler avstand mellom to figurer.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Flytt målet lenger bort.</p></details>
@@ -1028,6 +1254,15 @@ if spiller.distance(maal) &lt; 20:
 <h3>3. Tell poeng</h3>
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> poeng += 1 øker en teller når et vilkår er sant.</p>
+<p>En poengvariabel starter vanligvis på 0. Hver gang spillregelen er oppfylt, øker vi den med <code>poeng += 1</code>. <code>print(poeng)</code> viser den siste verdien under tegnefeltet.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>poeng = 0
+for i in range(3):
+    forward(20)
+    if xcor() &gt; 30:
+        poeng += 1
+        print(poeng)</code></pre>
+<p><strong>Dette skjer:</strong> Etter tredje steg er poeng 2. I oppgaven skal du telle nærhet til et mål, ikke bare x-posisjon.</p>
 <p><strong>Prøv selv:</strong> Gå mot x=100 i fem steg. Tell hver gang du er nærmere enn 30.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>poeng = 0</code>. poeng += 1 øker en teller når et vilkår er sant.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Endre treffavstanden.</p></details>
@@ -1042,6 +1277,16 @@ for i in range(5):
 <h3>4. Treff og flytt mål</h3>
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> Et mål kan flyttes etter et treff, slik at samme treff ikke telles igjen.</p>
+<p>Hvis spilleren blir stående nær målet, kan ett treff bli telt flere ganger. En enkel løsning er å flytte målet til et nytt sted med en gang det treffes. Bruk målets egen x-posisjon for å finne neste plass.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+maal = turtle.Turtle()
+maal.penup()
+maal.goto(40, 0)
+forward(40)
+if distance(maal) &lt; 10:
+    maal.goto(maal.xcor() + 70, 0)</code></pre>
+<p><strong>Dette skjer:</strong> Når skilpadden treffer målet ved x = 40, flyttes målet til x = 110. Legg til poeng og gjentakelse i oppgaven.</p>
 <p><strong>Prøv selv:</strong> Flytt spilleren mot målet og flytt målet videre ved treff.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Et mål kan flyttes etter et treff, slik at samme treff ikke telles igjen.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Endre avstanden mellom målene.</p></details>
@@ -1063,6 +1308,17 @@ for i in range(6):
 <h3>1. Lag banen</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> En firkant kan være kanten på spillområdet.</p>
+<p>En spillbane kan tegnes som et rektangel. Start i nederste venstre hjørne med pennen oppe, sett den ned og tegn to lange og to korte sider. En løkke med to runder tegner begge sideparene.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>penup()
+goto(-60, -40)
+pendown()
+for i in range(2):
+    forward(120)
+    left(90)
+    forward(80)
+    left(90)</code></pre>
+<p><strong>Dette skjer:</strong> Dette gir en liten bane. Bytt startpunkt og sidelengder til målene i oppgaven. Banen er foreløpig bare en tegning, ikke en fysisk vegg.</p>
 <p><strong>Prøv selv:</strong> Tegn en bane fra (-150,-100), med bredde 300 og høyde 200.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>penup()</code>. En firkant kan være kanten på spillområdet.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Velg bakgrunnsfarge.</p></details>
@@ -1079,6 +1335,15 @@ for i in range(2):
 <h3>2. Lag spilleren</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Bruk et eget Turtle-objekt, løft pennen og velg farge.</p>
+<p>Skill mellom spilleren som styres og målet som skal treffes. Begge er egne Turtle-objekter. Bruk <code>penup()</code> før plassering, så de ikke tegner spor på banen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+figur = turtle.Turtle()
+figur.penup()
+figur.shape(&quot;square&quot;)
+figur.color(&quot;purple&quot;)
+figur.goto(0, 50)</code></pre>
+<p><strong>Dette skjer:</strong> Du får en lilla figur over midten. Lag to figurer i oppgaven med ulike navn, former og plasseringer.</p>
 <p><strong>Prøv selv:</strong> Plasser en blå spiller ved (-100,0) og et rødt mål ved (100,0).</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Bruk et eget Turtle-objekt, løft pennen og velg farge.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Bytt plassering.</p></details>
@@ -1097,6 +1362,17 @@ maal.goto(100, 0)</code></pre></details>
 <h3>3. Styr mot målet</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Koble bevegelsesfunksjoner til piltastene.</p>
+<p>Bygg videre på de to figurene fra forrige oppgave. Legg funksjonene for bevegelse etter at spilleren er laget. Koble dem deretter til piltastene. Målet skal ikke flyttes av tastene.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+spiller = turtle.Turtle()
+spiller.penup()
+def fram():
+    spiller.forward(10)
+
+turtle.listen()
+turtle.onkey(fram, &quot;Right&quot;)</code></pre>
+<p><strong>Dette skjer:</strong> Bare spilleren styres med høyre piltast. Bruk koden fra forrige oppgave og legg til venstre styring. Klikk på tegnefeltet etter kjøring.</p>
 <p><strong>Prøv selv:</strong> Utvid med høyre og venstre styring.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Koble bevegelsesfunksjoner til piltastene.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv å treffe målet.</p></details>
@@ -1120,6 +1396,17 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <h3>4. Ferdig målspill</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Sjekk avstanden etter en bevegelse. Bytt farge og vis en melding ved treff.</p>
+<p>Et spill trenger en regel for å vinne. Sjekk avstanden rett etter at spilleren har flyttet seg. Hvis den er under treffgrensen, endrer du målets farge og viser en melding med <code>print()</code>. Innrykket avgjør hva som bare skjer ved treff.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def flytt():
+    forward(20)
+    if distance(60, 0) &lt; 15:
+        pencolor(&quot;green&quot;)
+        print(&quot;Treff!&quot;)
+
+listen()
+onkey(flytt, &quot;Right&quot;)</code></pre>
+<p><strong>Dette skjer:</strong> Etter tre trykk vises «Treff!». Her er målet et koordinatpunkt. Bruk det egne målobjektet fra forrige oppgave når du lager spillet. Stopp avslutter tastaturstyringen.</p>
 <p><strong>Prøv selv:</strong> Lag et spill hvor spilleren vinner når den kommer nær målet.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Sjekk avstanden etter en bevegelse. Bytt farge og vis en melding ved treff.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Flytt målet til et tilfeldig sted på x-aksen.</p></details>
@@ -1147,6 +1434,13 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <h3>5. Videre til Turtle på eventyr</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Kombiner retning, avstand og løkker for å følge en rute.</p>
+<p>En rute kan deles opp i små gjentakelser. For ett trappetrinn må du gå bortover, snu opp, gå oppover og snu tilbake. Når retningen blir den samme som før, er du klar for neste trinn.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(20)
+left(90)
+forward(20)
+right(90)</code></pre>
+<p><strong>Dette skjer:</strong> Dette tegner ett trinn. Legg de fire kommandoene i en løkke for å tegne flere.</p>
 <p><strong>Prøv selv:</strong> Tegn en trapp med fire trinn.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>for i in range(4):</code>. Kombiner retning, avstand og løkker for å følge en rute.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv Turtle på eventyr i menyen.</p></details>
@@ -1160,6 +1454,12 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <h3>6. Videre til Skilpaddeløpet</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Bruk while, tilfeldig fart og en målposisjon.</p>
+<p>I Skilpaddeløpet kombinerer du tilfeldig fart og en stoppregel. <code>while</code> sjekker om løperen fortsatt er før mål, mens <code>random.randint()</code> bestemmer lengden på neste steg.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import random
+while xcor() &lt; 60:
+    forward(random.randint(5, 15))</code></pre>
+<p><strong>Dette skjer:</strong> Løpet stopper når x er minst 60. Endre målposisjonen og prøv flere ganger.</p>
 <p><strong>Prøv selv:</strong> La en skilpadde løpe til x=180.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import random</code>. Bruk while, tilfeldig fart og en målposisjon.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv Skilpaddeløpet i menyen.</p></details>
@@ -1171,6 +1471,16 @@ while xcor() &lt; 180:
 <h3>7. Videre til Hangman</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> En funksjon med parameter kan velge hvilke streker som vises.</p>
+<p>I Hangman kan antall feil lagres i en variabel og sendes som parameter til en tegnefunksjon. Et if-vilkår avgjør hvilke deler som skal tegnes. Flere feil kan dermed gi flere streker.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def tegn(feil):
+    forward(40)
+    if feil &gt;= 1:
+        right(90)
+        forward(30)
+
+tegn(1)</code></pre>
+<p><strong>Dette skjer:</strong> Med én feil tegnes to streker. Test med 0, og bygg deretter din egen funksjon med grensen i oppgaven.</p>
 <p><strong>Prøv selv:</strong> Lag en funksjon som tegner en ekstra strek når antall feil er minst 2.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>def draw_hangman(state):</code>. En funksjon med parameter kan velge hvilke streker som vises.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv Hangman i menyen.</p></details>
@@ -1185,6 +1495,17 @@ draw_hangman(2)</code></pre></details>
 <h3>8. Videre til Fiskespillet</h3>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Et mål kan ligge på et tilfeldig sted. Kombiner bevegelse og treff.</p>
+<p>I Fiskespillet trenger du en styrbar figur og mat på en posisjon. Tilfeldighet plasserer maten, en tast flytter fisken, og en avstandstest oppdager treff. Øv først på å plassere maten tilfeldig.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>import turtle
+import random
+mat = turtle.Turtle()
+mat.shape(&quot;circle&quot;)
+mat.color(&quot;orange&quot;)
+mat.penup()
+x = random.randint(40, 100)
+mat.goto(x, 0)</code></pre>
+<p><strong>Dette skjer:</strong> Maten havner på et tilfeldig sted på x-aksen. Legg til en fisk og en bevegelsesfunksjon som sjekker avstanden etter hvert tastetrykk.</p>
 <p><strong>Prøv selv:</strong> Lag en fisk som styres med høyre piltast mot et tilfeldig mål.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>import turtle</code>. Et mål kan ligge på et tilfeldig sted. Kombiner bevegelse og treff.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til venstre piltast, eller prøv Fiskespillet i menyen.</p></details>
