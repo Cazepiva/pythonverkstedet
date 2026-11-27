@@ -379,6 +379,10 @@ main { max-width:1560px; width:100%; }
 
 <p>Skilpadden starter i midten og peker mot høyre.</p>
 <p><strong>Lær først:</strong> forward(50) flytter skilpadden 50 steg frem.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv først eksempelet og kjør. Endre bare tallet i parentesen. Tallet bestemmer hvor langt skilpadden går.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(50)</code></pre>
+<p><strong>Dette skjer:</strong> En strek på 50 steg.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(100)</code>. forward(50) flytter skilpadden 50 steg frem.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv 150 steg.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(100)</code></pre></details>
@@ -396,6 +400,11 @@ main { max-width:1560px; width:100%; }
 
 <p>Skilpadden starter i midten og peker mot høyre.</p>
 <p><strong>Lær først:</strong> backward(30) flytter skilpadden bakover uten å snu.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv først bare forward. Legg så til backward. Pilen peker fortsatt samme vei selv om skilpadden går bakover.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(60)
+backward(20)</code></pre>
+<p><strong>Dette skjer:</strong> Du ender 40 steg til høyre for midten.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(100)</code>. backward(30) flytter skilpadden bakover uten å snu.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv å ende ved start.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(100)
@@ -414,6 +423,12 @@ backward(40)</code></pre></details>
 
 <p>Skilpadden starter i midten og peker mot høyre.</p>
 <p><strong>Lær først:</strong> left(90) snur skilpadden en kvart omdreining.</p>
+<p><strong>Slik kommer du i gang:</strong> Kjør først fremover og sving. En sving flytter ikke skilpadden; legg til en ny forward for å tegne etter svingen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(40)
+left(90)
+forward(30)</code></pre>
+<p><strong>Dette skjer:</strong> En strek mot høyre og en opp.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(80)</code>. left(90) snur skilpadden en kvart omdreining.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Bytt til right(90).</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(80)
@@ -433,6 +448,12 @@ forward(60)</code></pre></details>
 
 <p>Skilpadden starter i midten og peker mot høyre.</p>
 <p><strong>Lær først:</strong> right(90) snur mot høyre. Kombiner flere bevegelser.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn første side og sving. Legg til én side om gangen. Du trenger bare to svinger for tre sider.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(40)
+right(90)
+forward(40)</code></pre>
+<p><strong>Dette skjer:</strong> To sider av en firkant.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(70)</code>. right(90) snur mot høyre. Kombiner flere bevegelser.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Lukk firkanten.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(70)
@@ -453,6 +474,7 @@ forward(70)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> En trapp veksler mellom vannrette og loddrette streker. left(90) og right(90) endrer retning, ikke posisjon.</p>
+<p><strong>Slik kommer du i gang:</strong> Kjør ett trinn. Når pilen peker mot høyre igjen, kan du gjenta de fire kommandoene med de nye målene.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>forward(30)
 left(90)
@@ -486,6 +508,7 @@ right(90)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> En sving på 45 grader er en halv rett vinkel. Du kan snu 90 grader for å bytte mellom to skrå retninger.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn én topp først. Høyre 90 grader gjør at pilen peker skrått ned. Sving deretter venstre 90 for å begynne neste topp.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>left(45)
 forward(50)
@@ -516,6 +539,13 @@ forward(60)</code></pre></details>
 
 <p>En hel omdreining er 360 grader.</p>
 <p><strong>Lær først:</strong> Fire sider og fire svinger på 90 grader gir en firkant.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn én side og sving. Gjenta paret fire ganger. Se om skilpadden er tilbake ved start.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(40)
+right(90)
+forward(40)
+right(90)</code></pre>
+<p><strong>Dette skjer:</strong> To sider; gjenta for å lukke figuren.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(80)</code>. Fire sider og fire svinger på 90 grader gir en firkant.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Tegn den motsatt vei.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(80)
@@ -540,6 +570,13 @@ right(90)</code></pre></details>
 
 <p>En hel omdreining er 360 grader.</p>
 <p><strong>Lær først:</strong> Et rektangel har to lange og to korte sider.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn først den lange siden og den korte siden. Sving etter begge. Gjenta det samme sideparet.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(80)
+right(90)
+forward(40)
+right(90)</code></pre>
+<p><strong>Dette skjer:</strong> En lang og en kort side.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(120)</code>. Et rektangel har to lange og to korte sider.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Bytt bredde og høyde.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(120)
@@ -564,6 +601,13 @@ right(90)</code></pre></details>
 
 <p>En hel omdreining er 360 grader.</p>
 <p><strong>Lær først:</strong> Skilpadden må svinge 120 grader for hver side i en likesidet trekant.</p>
+<p><strong>Slik kommer du i gang:</strong> Test én side og én sving. 120 grader er skilpaddens sving, ikke trekantens innvendige vinkel.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(50)
+left(120)
+forward(50)
+left(120)</code></pre>
+<p><strong>Dette skjer:</strong> To av tre sider.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(90)</code>. Skilpadden må svinge 120 grader for hver side i en likesidet trekant.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Gjør trekanten mindre.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(90)
@@ -586,6 +630,13 @@ left(120)</code></pre></details>
 
 <p>En hel omdreining er 360 grader.</p>
 <p><strong>Lær først:</strong> En femtagget stjerne bruker svinger på 144 grader.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn de første to strekene. Fortsett med samme lengde og sving til du har fem streker.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(60)
+right(144)
+forward(60)
+right(144)</code></pre>
+<p><strong>Dette skjer:</strong> To av stjernens fem streker.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(100)</code>. En femtagget stjerne bruker svinger på 144 grader.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Endre størrelsen.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(100)
@@ -611,6 +662,7 @@ right(144)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> For en regelmessig figur er svingvinkelen 360 delt på antall sider.</p>
+<p><strong>Slik kommer du i gang:</strong> Regn ut 360 / 6. Test to sider og fortsett til seks. Skriv bevegelsene selv, uten løkke.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>forward(40)
 left(60)
@@ -644,6 +696,7 @@ left(60)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Et rektangel har to par like lange sider. Skrå streker kan brukes til tak.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn kvadratet først. Bruk koordinatvisningen for å finne øvre venstre hjørne. Taket trenger to like skrå streker på omtrent 56,57 steg (skriv 56.57 i kode).</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>forward(80)
 left(90)
@@ -682,6 +735,11 @@ forward(56.57)</code></pre></details>
 
 <p>Pennen bestemmer hvordan sporet ser ut.</p>
 <p><strong>Lær først:</strong> pencolor(&quot;blue&quot;) velger blå strek.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv fargen i eksempelet først. Bytt fargen i anførselstegn og lengden i forward.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>pencolor("red")
+forward(60)</code></pre>
+<p><strong>Dette skjer:</strong> En rød strek.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>pencolor(&quot;blue&quot;)</code>. pencolor(&quot;blue&quot;) velger blå strek.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv red.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>pencolor(&quot;blue&quot;)
@@ -700,6 +758,12 @@ forward(120)</code></pre></details>
 
 <p>Pennen bestemmer hvordan sporet ser ut.</p>
 <p><strong>Lær først:</strong> pensize(5) velger strektykkelse.</p>
+<p><strong>Slik kommer du i gang:</strong> Velg fargen først, deretter tykkelsen, og tegn til slutt. En tykkelse på 6 betyr ikke at streken blir lengre.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>pencolor("blue")
+pensize(3)
+forward(60)</code></pre>
+<p><strong>Dette skjer:</strong> En blå strek med tykkelse 3.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>pencolor(&quot;green&quot;)</code>. pensize(5) velger strektykkelse.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Lag en tynn strek etterpå.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>pencolor(&quot;green&quot;)
@@ -719,6 +783,14 @@ forward(100)</code></pre></details>
 
 <p>Pennen bestemmer hvordan sporet ser ut.</p>
 <p><strong>Lær først:</strong> penup() stopper tegning. pendown() starter igjen.</p>
+<p><strong>Slik kommer du i gang:</strong> Kjør én strek. Løft pennen, flytt, sett den ned og tegn neste strek. Kontroller at mellomrommet er tomt.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>forward(30)
+penup()
+forward(20)
+pendown()
+forward(30)</code></pre>
+<p><strong>Dette skjer:</strong> To korte streker med et tomt mellomrom.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>forward(50)</code>. penup() stopper tegning. pendown() starter igjen.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Lag tre streker.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>forward(50)
@@ -740,6 +812,12 @@ forward(50)</code></pre></details>
 
 <p>Pennen bestemmer hvordan sporet ser ut.</p>
 <p><strong>Lær først:</strong> bgcolor(&quot;lightblue&quot;) endrer bakgrunnsfargen.</p>
+<p><strong>Slik kommer du i gang:</strong> Sett bakgrunn og penn før du tegner. Legg til en sving og en ny strek etter første strek.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>bgcolor("lightyellow")
+pencolor("red")
+forward(50)</code></pre>
+<p><strong>Dette skjer:</strong> En rød strek på lys gul bakgrunn.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>bgcolor(&quot;lightblue&quot;)</code>. bgcolor(&quot;lightblue&quot;) endrer bakgrunnsfargen.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Velg egne farger.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>bgcolor(&quot;lightblue&quot;)
@@ -760,6 +838,7 @@ forward(80)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> pencolor() endrer fargen på kommende streker, ikke streker som allerede er tegnet.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn grønn del først. Sving før du bytter farge og tegner den lilla delen.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>pencolor(&quot;red&quot;)
 forward(40)
@@ -786,6 +865,7 @@ forward(60)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Med penup() flytter du uten å tegne. pendown() slår på tegningen igjen.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag først to korte streker med et tomt mellomrom. Gjenta samme penneløft og bevegelse til du har fire streker.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>forward(20)
 penup()
@@ -822,6 +902,11 @@ forward(30)</code></pre></details>
 
 <p>En løkke gjentar kode med innrykk.</p>
 <p><strong>Lær først:</strong> for i in range(3): gjentar neste innrykkede linje tre ganger.</p>
+<p><strong>Slik kommer du i gang:</strong> Start med én forward uten løkke. Flytt den deretter under for-linjen med fire mellomrom. Tallet i range bestemmer antall runder.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>for i in range(3):
+    forward(20)</code></pre>
+<p><strong>Dette skjer:</strong> Tre bevegelser på 20, totalt 60 steg.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>for i in range(4):</code>. for i in range(3): gjentar neste innrykkede linje tre ganger.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv fem gjentakelser.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>for i in range(4):
@@ -840,6 +925,12 @@ forward(30)</code></pre></details>
 
 <p>En løkke gjentar kode med innrykk.</p>
 <p><strong>Lær først:</strong> Begge kommandoene i løkken skal ha fire mellomrom foran.</p>
+<p><strong>Slik kommer du i gang:</strong> Test én side og sving inne i løkken. Bruk samme innrykk på begge linjer slik at begge gjentas.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>for i in range(3):
+    forward(50)
+    right(120)</code></pre>
+<p><strong>Dette skjer:</strong> En trekant: begge linjene gjentas.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>for i in range(4):</code>. Begge kommandoene i løkken skal ha fire mellomrom foran.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Gjør den større.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>for i in range(4):
@@ -859,6 +950,12 @@ forward(30)</code></pre></details>
 
 <p>En løkke gjentar kode med innrykk.</p>
 <p><strong>Lær først:</strong> 360 delt på 5 er 72.</p>
+<p><strong>Slik kommer du i gang:</strong> Beregn 360 delt på fem. Endre antall runder, lengden og vinkelen i eksempelet.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>for i in range(6):
+    forward(40)
+    right(60)</code></pre>
+<p><strong>Dette skjer:</strong> En sekskant.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>for i in range(5):</code>. 360 delt på 5 er 72.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv sekskant med 60 grader.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>for i in range(5):
@@ -878,6 +975,14 @@ forward(30)</code></pre></details>
 
 <p>En løkke gjentar kode med innrykk.</p>
 <p><strong>Lær først:</strong> En løkke kan ligge inne i en annen løkke.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag først én firkant med fire runder. Legg hele firkantløkken under en ny ytre løkke. Snu etter den indre løkken, med fire mellomrom (ikke åtte).</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>for i in range(2):
+    for j in range(4):
+        forward(40)
+        right(90)
+    right(45)</code></pre>
+<p><strong>Dette skjer:</strong> To firkanter dreid 45 grader fra hverandre.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>for i in range(8):</code>. En løkke kan ligge inne i en annen løkke.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv 12 firkanter med 30 grader.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>for i in range(8):
@@ -898,6 +1003,7 @@ forward(30)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Alle linjene med samme innrykk gjentas. En løkke kan også inneholde penneløft.</p>
+<p><strong>Slik kommer du i gang:</strong> Test én strek og ett mellomrom. Legg alle fire kommandoene inne i løkken. Løft pennen før mellomrommet.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>for i in range(3):
     forward(20)
@@ -925,6 +1031,7 @@ forward(30)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Mange små steg med små svinger kan ligne en sirkel. 36 svinger på 10 grader gir 360 grader.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv først 12 runder. Bytt deretter antall runder og svingvinkel sammen: produktet skal være 360.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>for i in range(12):
     forward(15)
@@ -949,6 +1056,11 @@ forward(30)</code></pre></details>
 
 <p>En variabel lagrer en verdi med et navn.</p>
 <p><strong>Lær først:</strong> lengde = 60 lagrer tallet 60. forward(lengde) bruker verdien.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv først forward(60). Bytt tallet ut med navnet lengde og lag variabelen på linjen over.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>lengde = 60
+forward(lengde)</code></pre>
+<p><strong>Dette skjer:</strong> En strek på 60.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>lengde = 100</code>. lengde = 60 lagrer tallet 60. forward(lengde) bruker verdien.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Endre bare variabelen.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>lengde = 100
@@ -967,6 +1079,13 @@ forward(lengde)</code></pre></details>
 
 <p>En variabel lagrer en verdi med et navn.</p>
 <p><strong>Lær først:</strong> En variabel kan brukes flere ganger i en løkke.</p>
+<p><strong>Slik kommer du i gang:</strong> Bruk side i forward på samme måte som lengde i forrige oppgave. Endre verdien øverst og kjør igjen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>side = 40
+for i in range(3):
+    forward(side)
+    left(120)</code></pre>
+<p><strong>Dette skjer:</strong> En trekant med sidelengde 40.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>side = 70</code>. En variabel kan brukes flere ganger i en løkke.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Dobbel størrelse.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>side = 70
@@ -987,6 +1106,13 @@ for i in range(4):
 
 <p>En variabel lagrer en verdi med et navn.</p>
 <p><strong>Lær først:</strong> lengde * 2 betyr dobbelt så langt.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv først én kort og én lang side. Stjernen * betyr gange. Gjenta sideparet to ganger for et rektangel.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>lengde = 30
+forward(lengde * 2)
+right(90)
+forward(lengde)</code></pre>
+<p><strong>Dette skjer:</strong> To sider: 60 og 30.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>lengde = 50</code>. lengde * 2 betyr dobbelt så langt.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv tre ganger så lang side.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>lengde = 50
@@ -1009,6 +1135,14 @@ for i in range(2):
 
 <p>En variabel lagrer en verdi med et navn.</p>
 <p><strong>Lær først:</strong> lengde += 10 øker variabelen med 10.</p>
+<p><strong>Slik kommer du i gang:</strong> Test først tre runder. lengde += 10 betyr det samme som lengde = lengde + 10. Øk etter tegningen, ikke før.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>lengde = 10
+for i in range(3):
+    forward(lengde)
+    right(90)
+    lengde += 5</code></pre>
+<p><strong>Dette skjer:</strong> Tre streker med lengde 10, 15 og 20.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>lengde = 20</code>. lengde += 10 øker variabelen med 10.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Prøv en annen vinkel.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>lengde = 20
@@ -1029,6 +1163,7 @@ for i in range(8):
 </section>
 
 <p><strong>Lær først:</strong> To variabler kan lagre forskjellige mål. Endre verdiene øverst for å endre hele figuren.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag begge variablene før løkken. Bruk bredde på vannrette sider og hoyde på loddrette sider.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>bredde = 60
 hoyde = 30
@@ -1058,6 +1193,7 @@ for i in range(2):
 </section>
 
 <p><strong>Lær først:</strong> Når du skriver lengde = lengde + 10, erstattes den gamle verdien med en ny.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv første lengde før løkken. Inne i løkken tegner du med den nåværende verdien og øker den etterpå.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>lengde = 20
 for i in range(3):
@@ -1087,6 +1223,7 @@ for i in range(5):
 <p>Slå på koordinatsystemet i tegnefeltet. x går mot høyre, y oppover.</p>
 <p><strong>Lær først:</strong> goto(100, 50) går til et bestemt punkt.</p>
 <p>Midten er (0, 0). Første tall er x: positivt mot høyre, negativt mot venstre. Andre tall er y: positivt opp, negativt ned. Punktet (100, 50) ligger 100 steg til høyre og 50 opp fra midten.</p>
+<p><strong>Slik kommer du i gang:</strong> Slå på koordinatsystemet. Les x først, deretter y. Skriv penup før goto slik at du bare ser posisjonen, ikke et spor.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(100, 50)
@@ -1110,6 +1247,11 @@ goto(-100, 80)</code></pre></details>
 
 <p>Slå på koordinatsystemet i tegnefeltet. x går mot høyre, y oppover.</p>
 <p><strong>Lær først:</strong> goto() tegner mellom punkter når pennen er nede.</p>
+<p><strong>Slik kommer du i gang:</strong> Start med første goto og kjør. Legg til neste punkt, og til slutt (0, 0). Når pennen er nede, blir det en strek mellom punktene.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>goto(40, 60)
+goto(80, 0)</code></pre>
+<p><strong>Dette skjer:</strong> To skrå streker.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>goto(80, 100)</code>. goto() tegner mellom punkter når pennen er nede.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Tegn et tak.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>goto(80, 100)
@@ -1129,6 +1271,16 @@ goto(0, 0)</code></pre></details>
 
 <p>Slå på koordinatsystemet i tegnefeltet. x går mot høyre, y oppover.</p>
 <p><strong>Lær først:</strong> Bruk penup() før du bytter startpunkt.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn den første firkanten ferdig. Løft pennen før du bruker goto til neste startpunkt. Sett den ned før neste løkke.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>for i in range(4):
+    forward(40)
+    right(90)
+penup()
+goto(80, 0)
+pendown()
+forward(40)</code></pre>
+<p><strong>Dette skjer:</strong> En firkant og en separat strek.</p>
 <details><summary>💡 Vis hint</summary><p>Begynn med <code>penup()</code>. Bruk penup() før du bytter startpunkt.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til en tredje figur.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>penup()
@@ -1144,8 +1296,56 @@ for i in range(4):
     forward(60)
     right(90)</code></pre></details>
 </article>
-<article class="turtle-task" data-group="tema6" data-index="3" data-title="4. Les posisjonen">
-<h3>4. Les posisjonen</h3>
+<article class="turtle-task" data-group="tema6" data-index="3" data-title="4. Øving · Les av x-koordinaten">
+<h3>4. Øving · Les av x-koordinaten</h3>
+<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
+<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
+<li>Slå på koordinatsystemet. Flytt uten å tegne til (-120, 60).</li>
+<li>Bruk print() og xcor() til å vise x-verdien under tegnefeltet. Gjett svaret før du kjører.</li>
+</ol>
+<p style="margin:0;"><strong>Dette skal du få til:</strong> Statusfeltet viser -120.</p>
+</section>
+
+<p><strong>Lær først:</strong> xcor() betyr x-coordinate og gir den nåværende x-verdien. Den flytter ikke skilpadden. Positiv x er til høyre for midten, negativ x til venstre. print() viser verdien i statusfeltet.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv eksempelet, og finn x-verdien i koordinatsystemet før du bruker print. Endre bare koordinatene.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>penup()
+goto(70, -30)
+print(xcor())</code></pre>
+<p><strong>Dette skjer:</strong> Statusfeltet viser 70. y-verdien påvirker ikke xcor().</p>
+<details><summary>💡 Vis hint</summary><p>Bruk goto() med ønsket punkt og deretter print(xcor()).</p></details>
+<details><summary>🌟 Ekstra utfordring</summary><p>Prøv punktet (0, -80). Hva vises?</p></details>
+<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>penup()
+goto(-120, 60)
+print(xcor())</code></pre></details>
+</article>
+<article class="turtle-task" data-group="tema6" data-index="4" data-title="5. Øving · Les av y-koordinaten">
+<h3>5. Øving · Les av y-koordinaten</h3>
+<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
+<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
+<li>Flytt uten å tegne til (90, -70).</li>
+<li>Bruk print() og ycor() til å vise y-verdien. Forklar hvorfor den er negativ.</li>
+</ol>
+<p style="margin:0;"><strong>Dette skal du få til:</strong> Statusfeltet viser -70. Figuren er under x-aksen.</p>
+</section>
+
+<p><strong>Lær først:</strong> ycor() gir høyden i koordinatsystemet. Positiv y er opp, negativ y er ned. goto(x, y) har alltid x først og y etterpå.</p>
+<p><strong>Slik kommer du i gang:</strong> Gjør som i x-oppgaven, men bruk ycor. En negativ y ligger under den vannrette aksen.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>penup()
+goto(-50, 80)
+print(ycor())</code></pre>
+<p><strong>Dette skjer:</strong> Statusfeltet viser 80, selv om x er negativ.</p>
+<details><summary>💡 Vis hint</summary><p>Skriv print(ycor()) etter flyttingen.</p></details>
+<details><summary>🌟 Ekstra utfordring</summary><p>Bytt til (90, 70). Hva endres?</p></details>
+<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>penup()
+goto(90, -70)
+print(ycor())</code></pre></details>
+</article>
+<article class="turtle-task" data-group="tema6" data-index="5" data-title="6. Les posisjonen">
+<h3>6. Les posisjonen</h3>
 <section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
 <h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
 <ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
@@ -1159,6 +1359,7 @@ for i in range(4):
 <p><strong>Lær først:</strong> xcor() gir x-posisjon, ycor() gir y-posisjon.</p>
 <p><code>xcor()</code> og <code>ycor()</code> leser av hvor skilpadden står akkurat nå. De flytter den ikke. Parentesene betyr at vi kaller en funksjon. Vi bruker ikke tall inni disse parentesene.</p>
 <p><code>goto(100, 50)</code> flytter til et fast punkt. <code>goto(xcor() + 40, ycor())</code> flytter 40 til høyre fra der skilpadden står, fordi vi legger 40 til x og beholder y.</p>
+<p><strong>Slik kommer du i gang:</strong> Les posisjonen med print(xcor(), ycor()) etter første goto. Først når du har kontrollert verdiene, legger du 40 til x. Behold y uendret.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-60, 30)
@@ -1170,52 +1371,6 @@ print(xcor(), ycor())</code></pre>
 <details><summary>🌟 Ekstra utfordring</summary><p>Flytt oppover med ycor().</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>goto(80, 40)
 goto(xcor() + 40, ycor())</code></pre></details>
-</article>
-<article class="turtle-task" data-group="tema6" data-index="4" data-title="5. Øving · Les av x-koordinaten">
-<h3>5. Øving · Les av x-koordinaten</h3>
-<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
-<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
-<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
-<li>Slå på koordinatsystemet. Flytt uten å tegne til (-120, 60).</li>
-<li>Bruk print() og xcor() til å vise x-verdien under tegnefeltet. Gjett svaret før du kjører.</li>
-</ol>
-<p style="margin:0;"><strong>Dette skal du få til:</strong> Statusfeltet viser -120.</p>
-</section>
-
-<p><strong>Lær først:</strong> xcor() betyr x-coordinate og gir den nåværende x-verdien. Den flytter ikke skilpadden. Positiv x er til høyre for midten, negativ x til venstre. print() viser verdien i statusfeltet.</p>
-<p><strong>Eksempel du kan teste:</strong></p>
-<pre class="task-solution" data-learning-example="true"><code>penup()
-goto(70, -30)
-print(xcor())</code></pre>
-<p><strong>Dette skjer:</strong> Statusfeltet viser 70. y-verdien påvirker ikke xcor().</p>
-<details><summary>💡 Vis hint</summary><p>Bruk goto() med ønsket punkt og deretter print(xcor()).</p></details>
-<details><summary>🌟 Ekstra utfordring</summary><p>Prøv punktet (0, -80). Hva vises?</p></details>
-<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>penup()
-goto(-120, 60)
-print(xcor())</code></pre></details>
-</article>
-<article class="turtle-task" data-group="tema6" data-index="5" data-title="6. Øving · Les av y-koordinaten">
-<h3>6. Øving · Les av y-koordinaten</h3>
-<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
-<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
-<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
-<li>Flytt uten å tegne til (90, -70).</li>
-<li>Bruk print() og ycor() til å vise y-verdien. Forklar hvorfor den er negativ.</li>
-</ol>
-<p style="margin:0;"><strong>Dette skal du få til:</strong> Statusfeltet viser -70. Figuren er under x-aksen.</p>
-</section>
-
-<p><strong>Lær først:</strong> ycor() gir høyden i koordinatsystemet. Positiv y er opp, negativ y er ned. goto(x, y) har alltid x først og y etterpå.</p>
-<p><strong>Eksempel du kan teste:</strong></p>
-<pre class="task-solution" data-learning-example="true"><code>penup()
-goto(-50, 80)
-print(ycor())</code></pre>
-<p><strong>Dette skjer:</strong> Statusfeltet viser 80, selv om x er negativ.</p>
-<details><summary>💡 Vis hint</summary><p>Skriv print(ycor()) etter flyttingen.</p></details>
-<details><summary>🌟 Ekstra utfordring</summary><p>Bytt til (90, 70). Hva endres?</p></details>
-<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>penup()
-goto(90, -70)
-print(ycor())</code></pre></details>
 </article>
 <article class="turtle-task" data-group="tema6" data-index="6" data-title="7. Øving · Flytt sidelengs fra der du står">
 <h3>7. Øving · Flytt sidelengs fra der du står</h3>
@@ -1229,6 +1384,7 @@ print(ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> goto(100, 0) angir et bestemt punkt. goto(xcor() + 100, ycor()) betyr 100 steg til høyre fra nåværende posisjon, med samme y. Dette er uavhengig av hvilken vei skilpadden peker.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv først startpunktet. Regn ut neste x på papir: -100 + 70. Legg deretter til en ny goto som trekker 30 fra den nye x-verdien.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-80, 50)
@@ -1257,6 +1413,7 @@ print(xcor(), ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Når du bare endrer y, blir streken loddrett. ycor() + 40 flytter opp 40, mens ycor() - 40 flytter ned 40. xcor() bevarer x-posisjonen.</p>
+<p><strong>Slik kommer du i gang:</strong> Regn først ut -50 + 100, og deretter resultatet minus 30. Bruk xcor uten å endre det i begge goto-kallene.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(60, -60)
@@ -1285,6 +1442,7 @@ print(xcor(), ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Du kan tegne et rektangel med koordinater i stedet for å snu skilpadden. Endre bare én koordinat om gangen: høyre +x, opp +y, venstre −x, ned −y.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn én side om gangen. Høyre: øk x, opp: øk y, venstre: trekk fra x, ned: trekk fra y. La den andre koordinaten stå uendret.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-60, -30)
@@ -1314,6 +1472,7 @@ goto(xcor(), ycor() - 100)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> x = xcor() lagrer x-verdien akkurat nå. Variabelen endres ikke automatisk når skilpadden flytter seg. Det samme gjelder y = ycor().</p>
+<p><strong>Slik kommer du i gang:</strong> Lagre x og y rett etter første goto. Test at verdiene er de samme etter at du flytter et annet sted. Bruk dem som argumenter i siste goto.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-50, 30)
@@ -1346,6 +1505,7 @@ print(xcor(), ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Begge koordinatene kan endres samtidig. Du kan også bruke minus foran xcor() for å få motsatt x-verdi.</p>
+<p><strong>Slik kommer du i gang:</strong> Begynn med å speile bare x. Når det virker, sett også minus foran ycor. Et negativt tall blir positivt når fortegnet snus.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(40, 30)
@@ -1373,6 +1533,7 @@ print(xcor(), ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> En for-løkke kan flytte skilpadden fra den posisjonen den har i hver runde. xcor() og ycor() leses på nytt hver gang.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn ett trinn med to goto-kall før du lager løkken. Legg de to kallene i løkken med fire mellomrom; startpunktet står utenfor.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-100, -60)
@@ -1406,6 +1567,7 @@ print(xcor(), ycor())</code></pre></details>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> def strek(): lager en funksjon. strek() kaller den.</p>
 <p>Tenk på en funksjon som en oppskrift. <code>def</code> gir oppskriften et navn. Kolonet markerer starten, og linjene med fire mellomrom tilhører funksjonen. Ingenting tegnes før du kaller funksjonen med navnet og parenteser.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv def-linjen og den innrykkede kommandoen. Kjør uten kall først, så med strek() på en ny linje helt til venstre.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def tegn():
     forward(40)
@@ -1432,6 +1594,7 @@ strek()</code></pre></details>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> Legg en løkke inne i funksjonen med riktig innrykk.</p>
 <p>En funksjon kan inneholde en løkke. Linjen med <code>for</code> har fire mellomrom, og kommandoene i løkken har åtte. Funksjonskallet står helt til venstre, utenfor både funksjonen og løkken.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag firkanten med en vanlig for-løkke først. Flytt løkken inn under def. For-linjen får fire mellomrom; forward og right får åtte.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def trekant():
     for i in range(3):
@@ -1462,6 +1625,7 @@ firkant()</code></pre></details>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> def strek(lengde): lar deg velge lengden ved kall.</p>
 <p>En parameter er en variabel som får en verdi når du kaller funksjonen. I <code>def sving(vinkel):</code> heter parameteren vinkel. Når du skriver <code>sving(90)</code>, blir vinkel 90 inne i funksjonen.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv funksjonen i eksempelet med to forskjellige tall. Lag deretter strek(lengde); lengde er navnet på plassen som fylles av tallet i kallet.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def sving(vinkel):
     left(vinkel)
@@ -1492,6 +1656,7 @@ strek(40)</code></pre></details>
 <p>En funksjon samler kommandoer som kan brukes flere ganger.</p>
 <p><strong>Lær først:</strong> En parameter kan brukes i en løkke inne i funksjonen.</p>
 <p>Gjenbruk betyr at du skriver tegnekoden én gang og kaller den med ulike verdier. Du kan flytte skilpadden mellom kallene uten å endre funksjonen.</p>
+<p><strong>Slik kommer du i gang:</strong> I trekant(30) får side verdien 30, i trekant(60) får side verdien 60. For en firkant endrer du antall runder og vinkelen. Test én figur før du legger til den andre.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def trekant(side):
     for i in range(3):
@@ -1516,25 +1681,98 @@ goto(100, 0)
 pendown()
 firkant(90)</code></pre></details>
 </article>
-<article class="turtle-task" data-group="tema7" data-index="4" data-title="5. Øving · Funksjon med to parametere">
-<h3>5. Øving · Funksjon med to parametere</h3>
+<article class="turtle-task" data-group="tema7" data-index="4" data-title="5. Øving · Hva betyr dx og dy?">
+<h3>5. Øving · Hva betyr dx og dy?</h3>
+<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
+<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;"><li>Kopier eksempelet og slå på koordinatsystemet.</li><li>Endre bare dx og dy slik at skilpadden går 100 steg til venstre og 50 steg opp.</li><li>Kjør og les av sluttpunktet.</li></ol>
+<p style="margin:0;"><strong>Dette skal du få til:</strong> En diagonal fra (0, 0) til (-100, 50). Statusfeltet viser -100 50.</p>
+</section>
+<p><strong>Lær først:</strong> dx og dy er vanlige variabelnavn, ikke Python-kommandoer. dx betyr endring i x (vannrett), dy betyr endring i y (loddrett). Positiv dx er høyre, negativ dx er venstre. Positiv dy er opp, negativ dy er ned. 0 betyr ingen endring langs den aksen. goto går rett til det nye punktet, ikke først vannrett og så loddrett.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>dx = 50
+dy = 30
+goto(xcor() + dx, ycor() + dy)
+print(xcor(), ycor())</code></pre>
+<p><strong>Dette skjer:</strong> Fra (0, 0) til (50, 30). Den nye x-verdien er 0 + 50 og den nye y-verdien er 0 + 30.</p>
+<details><summary>💡 Vis hint</summary><p>Bruk et negativt tall for dx og et positivt tall for dy.</p></details>
+<details><summary>🌟 Ekstra utfordring</summary><p>Start på (20, -30) og forutsi sluttpunktet før du kjører.</p></details>
+<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>dx = -100
+dy = 50
+goto(xcor() + dx, ycor() + dy)
+print(xcor(), ycor())</code></pre></details>
+</article>
+<article class="turtle-task" data-group="tema7" data-index="5" data-title="6. Øving · To parametere med kjente kommandoer">
+<h3>6. Øving · To parametere med kjente kommandoer</h3>
+<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
+<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;"><li>Kopier funksjonen i eksempelet.</li><li>Endre bare funksjonskallet slik at skilpadden går 80 steg frem og svinger 90 grader mot venstre.</li><li>Legg til forward(30) på neste linje.</li></ol>
+<p style="margin:0;"><strong>Dette skal du få til:</strong> To streker: 80 steg mot høyre og 30 steg opp.</p>
+</section>
+<p><strong>Lær først:</strong> En funksjon kan ha flere parametere, adskilt med komma. I def gaa_og_snu(lengde, vinkel) er lengde første parameter og vinkel den andre. Når du kaller gaa_og_snu(50, 45), får lengde verdien 50 og vinkel verdien 45. Rekkefølgen betyr noe.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def gaa_og_snu(lengde, vinkel):
+    forward(lengde)
+    left(vinkel)
+
+gaa_og_snu(50, 45)
+forward(20)</code></pre>
+<p><strong>Dette skjer:</strong> Først går skilpadden 50 steg, så svinger den 45 grader og går 20 steg til.</p>
+<details><summary>💡 Vis hint</summary><p>Behold def og de to innrykkede linjene. Bytt de to tallene i funksjonskallet.</p></details>
+<details><summary>🌟 Ekstra utfordring</summary><p>Prøv å bytte om på tallene i kallet. Hva skjer?</p></details>
+<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>def gaa_og_snu(lengde, vinkel):
+    forward(lengde)
+    left(vinkel)
+
+gaa_og_snu(80, 90)
+forward(30)</code></pre></details>
+</article>
+<article class="turtle-task" data-group="tema7" data-index="6" data-title="7. Øving · Bruk flytt med dx og dy">
+<h3>7. Øving · Bruk flytt med dx og dy</h3>
+<section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
+<ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;"><li>Kopier funksjonen i eksempelet og behold den uendret.</li><li>Bytt funksjonskallene slik at skilpadden først går 100 steg til høyre, så 50 steg opp, så 100 steg til venstre.</li><li>Vis sluttpunktet med print(xcor(), ycor()).</li></ol>
+<p style="margin:0;"><strong>Dette skal du få til:</strong> Tre sider av et rektangel. Sluttpunktet er (0, 50).</p>
+</section>
+<p><strong>Lær først:</strong> Nå bruker vi dx og dy som parametere. flytt(30, 0) betyr dx = 30 og dy = 0; x øker med 30 og y er uendret. flytt(0, 20) betyr at bare y øker. Et nytt kall bruker skilpaddens nye posisjon som utgangspunkt.</p>
+<p><strong>Eksempel du kan teste:</strong></p>
+<pre class="task-solution" data-learning-example="true"><code>def flytt(dx, dy):
+    goto(xcor() + dx, ycor() + dy)
+
+flytt(30, 0)
+flytt(0, 20)
+print(xcor(), ycor())</code></pre>
+<p><strong>Dette skjer:</strong> Først (30, 0), så (30, 20).</p>
+<details><summary>💡 Vis hint</summary><p>Bruk 0 på aksen som ikke skal endres. Bruk negativ dx for venstre.</p></details>
+<details><summary>🌟 Ekstra utfordring</summary><p>Legg til ett kall som lukker rektangelet.</p></details>
+<details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>def flytt(dx, dy):
+    goto(xcor() + dx, ycor() + dy)
+
+flytt(100, 0)
+flytt(0, 50)
+flytt(-100, 0)
+print(xcor(), ycor())</code></pre></details>
+</article>
+<article class="turtle-task" data-group="tema7" data-index="7" data-title="8. Øving · Funksjon med to parametere">
+<h3>8. Øving · Funksjon med to parametere</h3>
 <section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
 <h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
 <ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
-<li>Definer flytt(dx, dy) slik at parameterne angir endring i x og y.</li>
-<li>Kall funksjonen tre ganger for å tegne fra (0, 0) til (80, 0), videre til (80, 50) og tilbake.</li>
+<li>Bruk funksjonen flytt(dx, dy) fra forrige oppgave. Behold definisjonen først.</li>
+<li>Kall funksjonen tre ganger: fra (0, 0) til (80, 0), deretter til (80, 50) og til slutt diagonalt tilbake til (0, 0).</li>
 </ol>
 <p style="margin:0;"><strong>Dette skal du få til:</strong> En lukket trekant; siste punkt er (0, 0).</p>
 </section>
 
-<p><strong>Lær først:</strong> En funksjon kan ha to parametere. I def flytt(dx, dy) får dx første tall og dy andre tall når funksjonen kalles.</p>
+<p><strong>Lær først:</strong> dx og dy er endringer fra nåværende posisjon. I flytt(30, 20) blir dx 30 og dy 20. Begge koordinatene endres samtidig, så bevegelsen er diagonal. I neste kall regner skilpadden fra den nye posisjonen, ikke fra midten.</p>
+<p><strong>Slik kommer du i gang:</strong> Bruk funksjonen fra forrige øving. Skriv først flytt(80, 0), deretter et kall som bare endrer y. Fra (80, 50) må du trekke fra både 80 og 50 for å komme tilbake.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt(dx, dy):
     goto(xcor() + dx, ycor() + dy)
 
 flytt(30, 20)
 flytt(40, -10)</code></pre>
-<p><strong>Dette skjer:</strong> Først til (30, 20), deretter til (70, 10).</p>
+<p><strong>Dette skjer:</strong> Først til (30, 20). Neste kall legger 40 til x og trekker 10 fra y: (30 + 40, 20 - 10) = (70, 10).</p>
 <details><summary>💡 Vis hint</summary><p>Bruk negative tall for å flytte tilbake.</p></details>
 <details><summary>🌟 Ekstra utfordring</summary><p>Legg til en bevegelse som tegner en ny figur.</p></details>
 <details><summary>👀 Se løsningsforslag</summary><p>Prøv selv først. Kopier koden til kodefeltet for å teste.</p><pre class="task-solution"><code>def flytt(dx, dy):
@@ -1544,8 +1782,8 @@ flytt(80, 0)
 flytt(0, 50)
 flytt(-80, -50)</code></pre></details>
 </article>
-<article class="turtle-task" data-group="tema7" data-index="5" data-title="6. Øving · Tegn med størrelse og farge">
-<h3>6. Øving · Tegn med størrelse og farge</h3>
+<article class="turtle-task" data-group="tema7" data-index="8" data-title="9. Øving · Tegn med størrelse og farge">
+<h3>9. Øving · Tegn med størrelse og farge</h3>
 <section class="pv-oppgave-mal" aria-label="Oppgaven" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #27834a;border-radius:8px;padding:12px;margin:12px 0 16px;">
 <h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">🎯 Oppgaven – dette skal du gjøre</h4>
 <ol style="padding-left:21px;margin:0 0 10px;line-height:1.5;">
@@ -1556,6 +1794,7 @@ flytt(-80, -50)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Parametere kan være tall eller tekst. Første argument kan styre lengde, andre farge.</p>
+<p><strong>Slik kommer du i gang:</strong> Test først en funksjon som tegner én strek med lengde og farge. Utvid deretter til en løkke med fire sider. Flytt med løftet penn mellom de to kallene.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def strek(lengde, farge):
     pencolor(farge)
@@ -1592,6 +1831,7 @@ firkant(80, &quot;purple&quot;)</code></pre></details>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> if lengde &gt; 50: kjører koden bare hvis lengden er større enn 50.</p>
 <p>Et vilkår er et spørsmål som kan besvares med sant eller usant. <code>if</code> betyr «hvis». Sammenligningen <code>&gt;</code> betyr større enn. Bare linjene med innrykk kjøres når vilkåret stemmer.</p>
+<p><strong>Slik kommer du i gang:</strong> Bytt bare verdien av lengde og kjør to ganger. Linjen med forward har innrykk og kjøres bare når sammenligningen er sann.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>liv = 3
 if liv &gt; 0:
@@ -1617,6 +1857,7 @@ if lengde &gt; 50:
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> else: kjøres når if-vilkåret er usant.</p>
 <p>Med <code>if</code> og <code>else</code> får du to muligheter. Hvis vilkåret er sant, kjøres den første blokken; ellers kjøres den andre. Koden etter blokkene kjøres uansett.</p>
+<p><strong>Slik kommer du i gang:</strong> Test én if med grønn farge, legg deretter til else med rød farge. forward står uten innrykk, slik at streken tegnes i begge tilfeller.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>liv = 2
 if liv &gt; 0:
@@ -1648,6 +1889,7 @@ forward(100)</code></pre></details>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> elif sjekker et nytt vilkår hvis det første ikke stemmer.</p>
 <p><code>elif</code> betyr «ellers hvis». Python sjekker vilkårene ovenfra og velger den første som stemmer. <code>&gt;=</code> betyr større enn eller lik. Sett den høyeste grensen først når du sammenligner nivåer.</p>
+<p><strong>Slik kommer du i gang:</strong> Sjekk den høyeste grensen først. &gt;= betyr større enn eller lik. elif sjekkes bare hvis if var usann. Test 12, 7 og 3.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>fart = 25
 if fart &gt;= 40:
@@ -1683,6 +1925,7 @@ forward(100)</code></pre></details>
 <p>Et vilkår bestemmer hvilken kode som kjøres.</p>
 <p><strong>Lær først:</strong> i % 2 er resten etter deling på 2. == sammenligner verdier.</p>
 <p><code>%</code> gir resten etter en deling. Partall gir rest 0 ved deling på 2, oddetall gir rest 1. <code>==</code> spør om to verdier er like, mens <code>=</code> lagrer en verdi. I en løkke starter i på 0.</p>
+<p><strong>Slik kommer du i gang:</strong> range(6) gir i verdiene 0 til 5. i % 2 gir resten etter deling på 2; den er 0 for partall. == sammenligner to verdier (i motsetning til = som lagrer). Prøv fargevalget først, så løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>for i in range(4):
     if i % 2 == 0:
@@ -1712,6 +1955,7 @@ forward(100)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> xcor() kan brukes i et vilkår. xcor() &lt; 0 betyr at skilpadden er til venstre for y-aksen.</p>
+<p><strong>Slik kommer du i gang:</strong> Start med å skrive ut xcor(). Legg til if for positiv verdi, elif for negativ verdi og else for null. Test ett punkt på hver side av aksen.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-40, 60)
@@ -1743,6 +1987,7 @@ else:
 </section>
 
 <p><strong>Lær først:</strong> ycor() &gt; 0 betyr at figuren står over x-aksen. Vilkåret sjekkes akkurat når linjen kjøres.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv ut ycor() før vilkåret. Velg farge i if/else, men tegn streken etter vilkåret uten innrykk. Test også med negativ y.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>goto(20, -40)
 if ycor() &lt; 0:
@@ -1776,6 +2021,7 @@ forward(60)</code></pre></details>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> random.randint(20, 100) velger et heltall mellom 20 og 100.</p>
 <p><code>import random</code> gjør tilfeldige valg tilgjengelige. <code>random.randint(a, b)</code> velger et heltall fra a til b, inkludert begge grensene. Du kan lagre tallet i en variabel og bruke det i en kommando.</p>
+<p><strong>Slik kommer du i gang:</strong> import random gjør tilfeldighetsverktøyet tilgjengelig. randint(a, b) velger et heltall fra og med a til og med b. Kjør flere ganger med samme kode.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 vinkel = random.randint(30, 90)
@@ -1802,6 +2048,7 @@ forward(lengde)</code></pre></details>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> random.choice([&quot;red&quot;, &quot;blue&quot;]) velger fra en liste.</p>
 <p>En liste samler flere verdier mellom hakeparenteser, med komma mellom. <code>random.choice()</code> velger én verdi fra listen. Tekstverdier som farger trenger anførselstegn.</p>
+<p><strong>Slik kommer du i gang:</strong> En liste skrives med hakeparenteser og komma mellom elementene. random.choice velger ett element. Fargene er tekst i anførselstegn.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 farger = [&quot;purple&quot;, &quot;orange&quot;]
@@ -1830,6 +2077,7 @@ forward(100)</code></pre></details>
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> Et tilfeldig tall inne i løkken velges på nytt hver runde.</p>
 <p>Når et tilfeldig valg står inne i løkken, trekkes et nytt tall for hver runde. Står valget før løkken, brukes det samme tallet om igjen.</p>
+<p><strong>Slik kommer du i gang:</strong> Test først én tilfeldig lengde. Legg deretter valg av lengde, bevegelse og sving inn i løkken slik at du får et nytt tall hver runde.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 for i in range(4):
@@ -1858,6 +2106,7 @@ for i in range(6):
 <p>import random gir tilgang til tilfeldige valg.</p>
 <p><strong>Lær først:</strong> Velg tilfeldige x- og y-verdier.</p>
 <p><code>goto(x, y)</code> kan bruke variabler i stedet for faste tall. Velg x og y hver for seg. Løft pennen før flytting slik at du unngår streker mellom tilfeldige steder.</p>
+<p><strong>Slik kommer du i gang:</strong> Lagre først en tilfeldig x og en tilfeldig y hver for seg og test ett goto. Sett deretter penneløft, flytting og tegning i løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 x = random.randint(-100, 100)
@@ -1888,6 +2137,7 @@ for i in range(5):
 </section>
 
 <p><strong>Lær først:</strong> random.randint(a, b) velger et heltall fra a til b, begge inkludert. Du kan bruke det som x-verdi og beholde y.</p>
+<p><strong>Slik kommer du i gang:</strong> Test randint ved å lagre verdien i x. Bruk goto(x, -80). Den andre koordinaten skal være fast selv om x varierer.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 penup()
@@ -1913,6 +2163,7 @@ print(xcor(), ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Et tilfeldig tall kan legges til en nåværende koordinat. Positive og negative steg gir bevegelse begge veier.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv én bevegelse med fast endring i x og tilfeldig endring i y. Et negativt tilfeldig tall flytter ned. Legg bevegelsen i løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 for i in range(3):
@@ -1938,6 +2189,7 @@ for i in range(5):
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> Start med teller = 0 og øk med teller += 1.</p>
 <p>En <code>for</code>-løkke passer når du vet hvor mange ganger du skal gjenta. <code>while</code> betyr «så lenge» og sjekker vilkåret før hver runde. En teller må endres inne i løkken, ellers kan den fortsette uten å bli ferdig.</p>
+<p><strong>Slik kommer du i gang:</strong> while sjekker vilkåret før hver runde. Test med teller &lt; 2 først. Øk telleren inne i løkken, ellers stopper ikke vilkåret av seg selv.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>teller = 0
 while teller &lt; 3:
@@ -1965,6 +2217,7 @@ while teller &lt; 5:
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> xcor() kan brukes i et vilkår.</p>
 <p>Du trenger ikke alltid en egen teller. <code>xcor()</code> gir den nåværende x-posisjonen. Etter hvert steg sjekkes posisjonen på nytt. Når vilkåret ikke lenger stemmer, er løkken ferdig.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv ut xcor() først. Så lenge x er mindre enn målet, går skilpadden videre. Bruk positiv steglengde slik at x øker.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>while xcor() &lt; 60:
     forward(15)</code></pre>
@@ -1988,6 +2241,7 @@ while teller &lt; 5:
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> En teller kan også reduseres med -=.</p>
 <p>Med <code>-= 1</code> trekker du én fra variabelen. Begynn på et positivt tall og bruk et vilkår som sjekker om telleren fremdeles er større enn null.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv teller = 2. teller -= 1 betyr teller = teller - 1. Kontroller at den reduseres inne i løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>teller = 3
 while teller &gt; 0:
@@ -2017,6 +2271,7 @@ while teller &gt; 0:
 <p>while gjentar så lenge et vilkår er sant. Sørg for at vilkåret endres.</p>
 <p><strong>Lær først:</strong> Kombiner while med tilfeldige positive steg.</p>
 <p>I et løp vet vi ikke på forhånd hvor mange runder som trengs. Derfor kan vi bruke while til skilpadden når en bestemt x-posisjon. Velg positive tilfeldige steg slik at den stadig nærmer seg målet.</p>
+<p><strong>Slik kommer du i gang:</strong> Bruk den faste steglengden fra forrige øvelse først. Bytt den så med randint. Velg bare positive tall så løkken kan nå målet.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 while xcor() &lt; 80:
@@ -2041,6 +2296,7 @@ while xcor() &lt; 150:
 </section>
 
 <p><strong>Lær først:</strong> while ycor() &lt; 60 gjentar så lenge høyden er under 60. Oppdater y i løkken slik at den stopper.</p>
+<p><strong>Slik kommer du i gang:</strong> Start på negativ y. Tegn én bevegelse opp. Bruk ycor() &lt; 70 som vilkår; behold x i hver runde.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>while ycor() &lt; 60:
     goto(xcor(), ycor() + 20)
@@ -2067,6 +2323,7 @@ print(ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> En while-løkke kan stoppe ved en negativ x-verdi. Dersom du flytter mot venstre, må x bli mindre i hver runde.</p>
+<p><strong>Slik kommer du i gang:</strong> Start på x = 100. En bevegelse mot venstre gjør x mindre. Bruk &gt; i stoppvilkåret fordi skilpadden skal nærme seg -80 fra høyre.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>while xcor() &gt; -60:
     goto(xcor() - 20, ycor())
@@ -2095,6 +2352,7 @@ print(xcor())</code></pre></details>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> spiller = turtle.Turtle() lager en figur. spiller.forward(80) flytter den.</p>
 <p>Tidligere styrte du standardskilpadden med <code>forward()</code>. Nå lager du en egen figur med <code>turtle.Turtle()</code> og lagrer den i en variabel. Punktumet i <code>figur.forward()</code> betyr at kommandoen gjelder akkurat denne figuren.</p>
+<p><strong>Slik kommer du i gang:</strong> import turtle gir tilgang til Turtle-verktøyet. turtle.Turtle() lager en ny figur; spiller er navnet du gir den. Punktum i spiller.forward betyr at akkurat denne figuren flyttes.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 figur = turtle.Turtle()
@@ -2122,6 +2380,7 @@ spiller.forward(100)</code></pre></details>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> Hver figur har sin egen posisjon og retning.</p>
 <p>Hvert kall til <code>turtle.Turtle()</code> lager et nytt objekt. Objektene kan ha ulike navn, posisjoner og retninger. En kommando på den ene flytter ikke den andre.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag a først og flytt den. Lag deretter b og flytt den. Begge har egen penn og egen posisjon. Skriv alltid riktig navn foran kommandoen.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 a = turtle.Turtle()
@@ -2155,6 +2414,7 @@ b.goto(80, 0)</code></pre></details>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> shape(&quot;circle&quot;) og color(&quot;red&quot;) endrer figuren.</p>
 <p><code>shape()</code> velger utseende på figuren, for eksempel "circle", "square" eller "turtle". <code>color()</code> velger fargen. Bruk navnet på objektet foran punktumet for å endre riktig figur.</p>
+<p><strong>Slik kommer du i gang:</strong> Bruk shape for formen på markøren og color for figurens farge. Test først én figur med shape og color, deretter den andre.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 figur = turtle.Turtle()
@@ -2191,6 +2451,7 @@ b.goto(80, 0)</code></pre></details>
 <p>import turtle og turtle.Turtle() lager egne figurer.</p>
 <p><strong>Lær først:</strong> Flytt to figurer vekselvis med tilfeldige steg.</p>
 <p>Et løp trenger flere deltakere. Start dem på samme x-posisjon, men med forskjellig y-posisjon. I hver runde får begge flytte seg. Med tilfeldige steg kan hvem som leder, endre seg.</p>
+<p><strong>Slik kommer du i gang:</strong> Plasser begge på startlinjen med forskjellig y. Test én runde med a.forward og b.forward før du legger begge kallene i løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 import random
@@ -2228,6 +2489,7 @@ for i in range(5):
 </section>
 
 <p><strong>Lær først:</strong> a.xcor() leser x til figur a, ikke standardskilpadden. a.ycor() leser y til a.</p>
+<p><strong>Slik kommer du i gang:</strong> Skriv ut a.ycor() og b.xcor() for å lese av de to ulike figurene. Kombiner dem deretter som x og y i b.goto.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 a = turtle.Turtle()
@@ -2259,6 +2521,7 @@ print(b.xcor(), b.ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> En figur kan bruke en annen figurs posisjon som utgangspunkt. Dette ligner en figur som følger etter en spiller.</p>
+<p><strong>Slik kommer du i gang:</strong> Plasser følgeren under spilleren først. Flytt spilleren én gang, og oppdater følgerens posisjon etterpå. Gjenta begge handlingene i løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 a = turtle.Turtle()
@@ -2297,6 +2560,7 @@ for i in range(3):
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> onkey(funksjon, &quot;Right&quot;) kobler en tast til en funksjon. Ikke bruk parentes etter funksjonsnavnet her.</p>
 <p>Et tastetrykk er en hendelse. Først lager du funksjonen som skal kjøres, deretter kobler du den til en tast med <code>onkey()</code>. <code>listen()</code> gjør tastaturstyringen klar. Skriv funksjonsnavnet uten parenteser i onkey, slik at funksjonen ikke kjøres med én gang.</p>
+<p><strong>Slik kommer du i gang:</strong> Test funksjonen ved å kalle den vanlig én gang. Fjern det kallet, og bruk onkey(hoyre, "Right") uten parenteser etter hoyre. listen gjør tastaturet klart. Klikk i tegnefeltet etter kjøring.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt():
     forward(30)
@@ -2325,6 +2589,7 @@ onkey(hoyre, &quot;Right&quot;)</code></pre></details>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> Lag en funksjon for hver retning.</p>
 <p>Du kan koble flere taster til ulike funksjoner. Lag én funksjon per handling, og registrer hver tast for seg. "Right" og "Left" er navnene på høyre og venstre piltast.</p>
+<p><strong>Slik kommer du i gang:</strong> Få høyretasten til å virke først. Lag deretter en egen funksjon for venstre og koble den til Left. Ikke skriv funksjonskallet med parenteser i onkey.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def fram():
     forward(15)
@@ -2360,6 +2625,7 @@ onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> goto(xcor(), ycor() + 20) flytter opp.</p>
 <p>For å flytte rett opp eller ned kan vi endre y-koordinaten og la x være uendret. <code>ycor() + 20</code> er 20 steg høyere enn nå. Minus flytter nedover. "Up" og "Down" er de to tastene.</p>
+<p><strong>Slik kommer du i gang:</strong> Test goto(xcor(), ycor() + 20) alene. Legg det inn i opp-funksjonen. Lag ned-funksjonen ved å trekke fra 20. Koble én tast om gangen.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 def opp():
@@ -2393,6 +2659,7 @@ onkey(ned, &quot;Down&quot;)</code></pre></details>
 <p>Klikk utenfor kodefeltet etter kjøring. Bruk Stopp for å avslutte tastaturstyringen.</p>
 <p><strong>Lær først:</strong> En funksjon kan flytte et bestemt Turtle-objekt.</p>
 <p>Når spillet har flere figurer, må bevegelsesfunksjonen styre riktig objekt. Bruk for eksempel <code>spiller.forward()</code> i stedet for <code>forward()</code>. Tastene kan kobles til med <code>turtle.onkey()</code>.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag og plasser spiller først. Test spiller.forward før du lager funksjonen. Koble deretter én tast om gangen med turtle.onkey.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 figur = turtle.Turtle()
@@ -2430,6 +2697,7 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Med relative koordinater kan piltastene flytte figuren uavhengig av hvilken retning den peker. Funksjonen kobles til tasten uten parenteser.</p>
+<p><strong>Slik kommer du i gang:</strong> Få én tast til å virke, så den motsatte. Bruk samme mønster for de to andre. Alle fire onkey-linjene står utenfor funksjonene.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 def opp():
@@ -2466,6 +2734,7 @@ onkey(venstre, &quot;Left&quot;)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Et vilkår kan hindre at et tastetrykk flytter figuren utenfor en grense. Sjekk neste posisjon før du flytter.</p>
+<p><strong>Slik kommer du i gang:</strong> Test opp-funksjonen uten grense først. Legg inn if ycor() + 20 &lt;= 100 før goto. &lt;= betyr mindre enn eller lik; da testes den neste posisjonen, ikke bare den nåværende.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 def hoyre():
@@ -2497,6 +2766,7 @@ onkey(opp, &quot;Up&quot;)</code></pre></details>
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> distance(100, 0) måler avstanden til punktet (100,0).</p>
 <p>Et spill trenger å oppdage når spilleren er nær et mål. <code>distance(x, y)</code> gir avstanden fra skilpaddens nåværende posisjon til punktet. Sammenlign avstanden med en grense i et if-vilkår.</p>
+<p><strong>Slik kommer du i gang:</strong> Les avstanden med print(distance(100, 0)) før du lager if. Ved x = 80 er det 20 steg igjen. Test deretter om avstanden er mindre enn 30.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>goto(40, 0)
 avstand = distance(50, 0)
@@ -2523,6 +2793,7 @@ if distance(100, 0) &lt; 30:
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> spiller.distance(maal) måler avstand mellom to figurer.</p>
 <p>Du kan også måle avstanden mellom to Turtle-objekter. <code>a.distance(b)</code> måler mellom midtpunktene til a og b. En treffgrense, for eksempel 20, bestemmer hvor nær de må være for å telle som kollisjon.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag figurene først og bruk print(spiller.distance(maal)). Når du ser avstanden, legg inn if og endre fargen bare hvis vilkåret stemmer.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 a = turtle.Turtle()
@@ -2555,6 +2826,7 @@ if spiller.distance(maal) &lt; 20:
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> poeng += 1 øker en teller når et vilkår er sant.</p>
 <p>En poengvariabel starter vanligvis på 0. Hver gang spillregelen er oppfylt, øker vi den med <code>poeng += 1</code>. <code>print(poeng)</code> viser den siste verdien under tegnefeltet.</p>
+<p><strong>Slik kommer du i gang:</strong> Test én bevegelse og én avstandsmåling. Legg deretter inn telleren og løkken. Her telles hver runde innenfor grensen; et mål kan derfor gi flere poeng, noe neste oppgave forbedrer.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>poeng = 0
 for i in range(3):
@@ -2586,6 +2858,7 @@ for i in range(5):
 <p>distance() måler avstanden til et punkt eller en annen figur.</p>
 <p><strong>Lær først:</strong> Et mål kan flyttes etter et treff, slik at samme treff ikke telles igjen.</p>
 <p>Hvis spilleren blir stående nær målet, kan ett treff bli telt flere ganger. En enkel løsning er å flytte målet til et nytt sted med en gang det treffes. Bruk målets egen x-posisjon for å finne neste plass.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag figurer og poeng først. Test én bevegelse og et treffvilkår. Inne i if øker du poeng og flytter målet. Legg til slutt bevegelsen og if i løkken.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 maal = turtle.Turtle()
@@ -2623,6 +2896,7 @@ for i in range(6):
 </section>
 
 <p><strong>Lær først:</strong> Du kan bruke xcor() til å avgjøre om en figur har passert mållinjen. Tell bare én gang ved å sjekke poeng utenfor løkken, etter at løpet er ferdig.</p>
+<p><strong>Slik kommer du i gang:</strong> Flytt spilleren i løkken først. Plasser if helt til venstre etter løkken, slik at poeng bare gis én gang.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>poeng = 0
 forward(70)
@@ -2651,6 +2925,7 @@ print(poeng)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> abs() gir absoluttverdien, altså et tall uten negativt fortegn. abs(xcor() - 100) gir vannrett avstand til x = 100. Dette er ikke full avstand mellom to punkter hvis y også er ulik.</p>
+<p><strong>Slik kommer du i gang:</strong> Prøv print(abs(-30)) og print(abs(30)); begge gir 30. Finn forskjellen mellom x og -100, og bruk abs for å få en positiv avstand før if.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>goto(130, 0)
 avstand = abs(xcor() - 100)
@@ -2680,6 +2955,7 @@ else:
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> En firkant kan være kanten på spillområdet.</p>
 <p>En spillbane kan tegnes som et rektangel. Start i nederste venstre hjørne med pennen oppe, sett den ned og tegn to lange og to korte sider. En løkke med to runder tegner begge sideparene.</p>
+<p><strong>Slik kommer du i gang:</strong> Finn nederste venstre hjørne med koordinatsystemet. Tegn én lang og én kort side først. Gjenta sideparet for å lukke banen.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 goto(-60, -40)
@@ -2715,6 +2991,7 @@ for i in range(2):
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Bruk et eget Turtle-objekt, løft pennen og velg farge.</p>
 <p>Skill mellom spilleren som styres og målet som skal treffes. Begge er egne Turtle-objekter. Bruk <code>penup()</code> før plassering, så de ikke tegner spor på banen.</p>
+<p><strong>Slik kommer du i gang:</strong> Lag først spiller med navn, farge og plassering. Lag så maal på samme måte, men med en annen form. Begge penup-kallene må komme før flyttingen.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 figur = turtle.Turtle()
@@ -2750,6 +3027,7 @@ maal.goto(100, 0)</code></pre></details>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Koble bevegelsesfunksjoner til piltastene.</p>
 <p>Bygg videre på de to figurene fra forrige oppgave. Legg funksjonene for bevegelse etter at spilleren er laget. Koble dem deretter til piltastene. Målet skal ikke flyttes av tastene.</p>
+<p><strong>Slik kommer du i gang:</strong> Behold oppsettet fra forrige oppgave. Test bevegelse av spilleren med én funksjon, og koble høyrepilen. Legg deretter til venstre. Ikke flytt målet i funksjonene.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 spiller = turtle.Turtle()
@@ -2792,6 +3070,7 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Sjekk avstanden etter en bevegelse. Bytt farge og vis en melding ved treff.</p>
 <p>Et spill trenger en regel for å vinne. Sjekk avstanden rett etter at spilleren har flyttet seg. Hvis den er under treffgrensen, endrer du målets farge og viser en melding med <code>print()</code>. Innrykket avgjør hva som bare skjer ved treff.</p>
+<p><strong>Slik kommer du i gang:</strong> Behold fungerende tastaturstyring. I høyre-funksjonen legger du avstandstesten etter forward. Legg farge og print med ekstra innrykk under if. Test med flere tastetrykk.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt():
     forward(20)
@@ -2838,6 +3117,7 @@ turtle.onkey(venstre, &quot;Left&quot;)</code></pre></details>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Kombiner retning, avstand og løkker for å følge en rute.</p>
 <p>En rute kan deles opp i små gjentakelser. For ett trappetrinn må du gå bortover, snu opp, gå oppover og snu tilbake. Når retningen blir den samme som før, er du klar for neste trinn.</p>
+<p><strong>Slik kommer du i gang:</strong> Gå tilbake til de fire kommandoene for ett trappetrinn. Test ett trinn, så fire med løkke.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>forward(20)
 left(90)
@@ -2866,6 +3146,7 @@ right(90)</code></pre>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Bruk while, tilfeldig fart og en målposisjon.</p>
 <p>I Skilpaddeløpet kombinerer du tilfeldig fart og en stoppregel. <code>while</code> sjekker om løperen fortsatt er før mål, mens <code>random.randint()</code> bestemmer lengden på neste steg.</p>
+<p><strong>Slik kommer du i gang:</strong> Start med while og en fast positiv steglengde. Når det virker, erstatt lengden med random.randint og test flere løp.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import random
 while xcor() &lt; 60:
@@ -2891,6 +3172,7 @@ while xcor() &lt; 180:
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> En funksjon med parameter kan velge hvilke streker som vises.</p>
 <p>I Hangman kan antall feil lagres i en variabel og sendes som parameter til en tegnefunksjon. Et if-vilkår avgjør hvilke deler som skal tegnes. Flere feil kan dermed gi flere streker.</p>
+<p><strong>Slik kommer du i gang:</strong> state er et valgfritt parameternavn for antall feil. draw_hangman(1) gir state verdien 1; draw_hangman(2) gir 2. Tegn første strek alltid, og legg den ekstra streken under if.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def tegn(feil):
     forward(40)
@@ -2923,6 +3205,7 @@ draw_hangman(2)</code></pre></details>
 <p>Bygg et lite målspill trinn for trinn. De fire siste oppgavene knytter kurset til spillverkstedene.</p>
 <p><strong>Lær først:</strong> Et mål kan ligge på et tilfeldig sted. Kombiner bevegelse og treff.</p>
 <p>I Fiskespillet trenger du en styrbar figur og mat på en posisjon. Tilfeldighet plasserer maten, en tast flytter fisken, og en avstandstest oppdager treff. Øv først på å plassere maten tilfeldig.</p>
+<p><strong>Slik kommer du i gang:</strong> Bygg først fisk og mat, test tilfeldig plassering. Legg så til høyre-funksjonen og test bevegelse. Legg inn avstandstesten til slutt og flytt maten bare ved treff.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>import turtle
 import random
@@ -2965,6 +3248,7 @@ turtle.onkey(hoyre, &quot;Right&quot;)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> En mållinje kan være et bestemt x-tall. Tegn den med en egen figur, og la spilleren flytte seg når du trykker en tast.</p>
+<p><strong>Slik kommer du i gang:</strong> Tegn linjen med en egen figur først. Lag spiller og test bevegelsen. Legg til en stoppgrense før flytting og en vinnersjekk etter flytting.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>penup()
 def hoyre():
@@ -3007,6 +3291,7 @@ turtle.onkey(hoyre, &quot;Right&quot;)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Et målspill kan kombinere relative koordinater og distance(). En egen funksjon kan flytte spilleren og sjekke om den er nær målet.</p>
+<p><strong>Slik kommer du i gang:</strong> Bygg figurer først, og test flytt(dx, dy) ved å kalle den med to tall. Lag én funksjon per tast som kaller flytt med riktige endringer. Legg avstandstesten i flytt når styringen virker.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt(dx, dy):
     goto(xcor() + dx, ycor() + dy)
