@@ -1689,6 +1689,11 @@ firkant(90)</code></pre></details>
 <p style="margin:0;"><strong>Dette skal du få til:</strong> En diagonal fra (0, 0) til (-100, 50). Statusfeltet viser -100 50.</p>
 </section>
 <p><strong>Lær først:</strong> dx og dy er vanlige variabelnavn, ikke Python-kommandoer. dx betyr endring i x (vannrett), dy betyr endring i y (loddrett). Positiv dx er høyre, negativ dx er venstre. Positiv dy er opp, negativ dy er ned. 0 betyr ingen endring langs den aksen. goto går rett til det nye punktet, ikke først vannrett og så loddrett.</p>
+<section aria-label="Huskeregel" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #3657a5;border-radius:8px;padding:12px;margin:12px 0;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">💡 Huskeregel</h4>
+<p style="margin:0 0 6px;"><strong><code>xcor()</code> og <code>ycor()</code> – Hvor er jeg?</strong><br/>De leser av skilpaddens nåværende posisjon.</p>
+<p style="margin:0;"><strong><code>dx</code> og <code>dy</code> – Hvor mye skal jeg flytte meg?</strong><br/>Dette er variabler vi lager selv for endring i x- og y-retning.</p>
+</section>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>dx = 50
 dy = 30
@@ -1735,6 +1740,11 @@ forward(30)</code></pre></details>
 <p style="margin:0;"><strong>Dette skal du få til:</strong> Tre sider av et rektangel. Sluttpunktet er (0, 50).</p>
 </section>
 <p><strong>Lær først:</strong> Nå bruker vi dx og dy som parametere. flytt(30, 0) betyr dx = 30 og dy = 0; x øker med 30 og y er uendret. flytt(0, 20) betyr at bare y øker. Et nytt kall bruker skilpaddens nye posisjon som utgangspunkt.</p>
+<section aria-label="Huskeregel" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #3657a5;border-radius:8px;padding:12px;margin:12px 0;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">💡 Huskeregel</h4>
+<p style="margin:0 0 6px;"><strong><code>xcor()</code> og <code>ycor()</code> – Hvor er jeg?</strong><br/>De leser av skilpaddens nåværende posisjon.</p>
+<p style="margin:0;"><strong><code>dx</code> og <code>dy</code> – Hvor mye skal jeg flytte meg?</strong><br/>Dette er variabler vi lager selv for endring i x- og y-retning.</p>
+</section>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt(dx, dy):
     goto(xcor() + dx, ycor() + dy)
@@ -1765,6 +1775,11 @@ print(xcor(), ycor())</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> dx og dy er endringer fra nåværende posisjon. I flytt(30, 20) blir dx 30 og dy 20. Begge koordinatene endres samtidig, så bevegelsen er diagonal. I neste kall regner skilpadden fra den nye posisjonen, ikke fra midten.</p>
+<section aria-label="Huskeregel" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #3657a5;border-radius:8px;padding:12px;margin:12px 0;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">💡 Huskeregel</h4>
+<p style="margin:0 0 6px;"><strong><code>xcor()</code> og <code>ycor()</code> – Hvor er jeg?</strong><br/>De leser av skilpaddens nåværende posisjon.</p>
+<p style="margin:0;"><strong><code>dx</code> og <code>dy</code> – Hvor mye skal jeg flytte meg?</strong><br/>Dette er variabler vi lager selv for endring i x- og y-retning.</p>
+</section>
 <p><strong>Slik kommer du i gang:</strong> Bruk funksjonen fra forrige øving. Skriv først flytt(80, 0), deretter et kall som bare endrer y. Fra (80, 50) må du trekke fra både 80 og 50 for å komme tilbake.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt(dx, dy):
@@ -3291,6 +3306,11 @@ turtle.onkey(hoyre, &quot;Right&quot;)</code></pre></details>
 </section>
 
 <p><strong>Lær først:</strong> Et målspill kan kombinere relative koordinater og distance(). En egen funksjon kan flytte spilleren og sjekke om den er nær målet.</p>
+<section aria-label="Huskeregel" style="background:#fff;border:1px solid #c7d8ed;border-left:4px solid #3657a5;border-radius:8px;padding:12px;margin:12px 0;">
+<h4 style="margin:0 0 8px;color:#254a93;font-size:1rem;">💡 Huskeregel</h4>
+<p style="margin:0 0 6px;"><strong><code>xcor()</code> og <code>ycor()</code> – Hvor er jeg?</strong><br/>De leser av skilpaddens nåværende posisjon.</p>
+<p style="margin:0;"><strong><code>dx</code> og <code>dy</code> – Hvor mye skal jeg flytte meg?</strong><br/>Dette er variabler vi lager selv for endring i x- og y-retning.</p>
+</section>
 <p><strong>Slik kommer du i gang:</strong> Bygg figurer først, og test flytt(dx, dy) ved å kalle den med to tall. Lag én funksjon per tast som kaller flytt med riktige endringer. Legg avstandstesten i flytt når styringen virker.</p>
 <p><strong>Eksempel du kan teste:</strong></p>
 <pre class="task-solution" data-learning-example="true"><code>def flytt(dx, dy):
